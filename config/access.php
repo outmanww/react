@@ -18,6 +18,11 @@ return [
     'roles_table' => 'roles',
 
     /*
+     * assigned_roles table used by Access to save assigned roles to the database.
+     */
+    'role_user_table' => 'role_user',
+
+    /*
      * Permission model used by Access to create correct relations.
      * Update the permission if it is in a different namespace.
      */
@@ -27,17 +32,6 @@ return [
      * Permissions table used by Access to save permissions to the database.
      */
     'permissions_table' => 'permissions',
-
-    /*
-     * PermissionGroup model used by Access to create permissions groups.
-     * Update the group if it is in a different namespace.
-     */
-    'group' => App\Models\Access\Permission\PermissionGroup::class,
-
-    /*
-     * Permissions table used by Access to save permissions to the database.
-     */
-    'permission_group_table' => 'permission_groups',
 
     /*
      * permission_role table used by Access to save relationship between permissions and roles to the database.
@@ -51,21 +45,21 @@ return [
     'permission_user_table' => 'permission_user',
 
     /*
-     * Table that specifies if one permission is dependent on another.
-     * For example in order for a user to have the edit-user permission they also need the view-backend permission.
+     * Operation model used by Access to create correct relations.
+     * Update the operation if it is in a different namespace.
      */
-    'permission_dependencies_table' => 'permission_dependencies',
+    'operation' => App\Models\Access\Permission\Operation::class,
 
     /*
-     * PermissionDependency model used by Access to create permissions dependencies.
-     * Update the dependency if it is in a different namespace.
+     * Operations table used by Access to save operations to the database.
      */
-    'dependency' => App\Models\Access\Permission\PermissionDependency::class,
+    'operations_table' => 'operations',
 
     /*
-     * assigned_roles table used by Access to save assigned roles to the database.
+     * permission_user table used by Access to save relationship between permissions and users to the database.
+     * This table is only for permissions that belong directly to a specific user and not a role
      */
-    'role_user_table' => 'assigned_roles',
+    'operation_permission_table' => 'operation_permission',
 
     /*
      * Configurations for the user
