@@ -26,7 +26,7 @@ class SetupAccessTables extends Migration
             $table->unique('name');
         });
 
-        Schema::create(config('access.assigned_roles_table'), function (Blueprint $table) {
+        Schema::create(config('access.role_user_table'), function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('role_id')->unsigned();

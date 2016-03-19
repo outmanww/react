@@ -65,7 +65,7 @@ return [
     /*
      * assigned_roles table used by Access to save assigned roles to the database.
      */
-    'assigned_roles_table' => 'assigned_roles',
+    'role_user_table' => 'assigned_roles',
 
     /*
      * Configurations for the user
