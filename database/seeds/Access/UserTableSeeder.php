@@ -24,21 +24,27 @@ class UserTableSeeder extends Seeder
             DB::statement('TRUNCATE TABLE ' . config('access.users_table') . ' CASCADE');
         }
 
-        //Add the master administrator, user id of 1
         $users = [
             [
-                'name'              => 'Admin Istrator',
-                'email'             => 'admin@admin.com',
-                'password'          => bcrypt('1234'),
+                'name'              => 'Super Administrator',
+                'email'             => 'super@super.com',
+                'password'          => bcrypt('123456'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
-            ],
-            [
+            ],[
+                'name'              => 'Admin Istrator',
+                'email'             => 'admin@admin.com',
+                'password'          => bcrypt('123456'),
+                'confirmation_code' => md5(uniqid(mt_rand(), true)),
+                'confirmed'         => true,
+                'created_at'        => Carbon::now(),
+                'updated_at'        => Carbon::now(),
+            ],[
                 'name'              => 'Default User',
                 'email'             => 'user@user.com',
-                'password'          => bcrypt('1234'),
+                'password'          => bcrypt('123456'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
                 'created_at'        => Carbon::now(),

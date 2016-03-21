@@ -15,6 +15,7 @@ class SetupAccessTables extends Migration
         Schema::create(config('access.roles_table'), function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->string('name');
+            $table->string('display_name');
             $table->boolean('all')->default(false);
             $table->smallInteger('sort')->default(0)->unsigned();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

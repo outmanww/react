@@ -48,7 +48,7 @@ return [
      * Operation model used by Access to create correct relations.
      * Update the operation if it is in a different namespace.
      */
-    'operation' => App\Models\Access\Permission\Operation::class,
+    'operation' => App\Models\Access\Operation\Operation::class,
 
     /*
      * Operations table used by Access to save operations to the database.
@@ -60,6 +60,8 @@ return [
      * This table is only for permissions that belong directly to a specific user and not a role
      */
     'operation_permission_table' => 'operation_permission',
+
+    'department_table' => 'departments',
 
     /*
      * Configurations for the user
