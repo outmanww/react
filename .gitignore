@@ -3,6 +3,7 @@
 Homestead.yaml
 Homestead.json
 .env
+xdebug.log
 
 /public/css/frontend.css
 /public/css/frontend.css.map
