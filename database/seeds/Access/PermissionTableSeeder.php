@@ -175,45 +175,6 @@ class PermissionTableSeeder extends Seeder
         $deleteRoles->save();
 
         /**
-         * Permission Group
-         */
-        $permission_model                     = config('access.permission');
-        $createPermissionGroups               = new $permission_model;
-        $createPermissionGroups->name         = 'create-permission-groups';
-        $createPermissionGroups->system       = true;
-        $createPermissionGroups->sort         = 1;
-        $createPermissionGroups->created_at   = Carbon::now();
-        $createPermissionGroups->updated_at   = Carbon::now();
-        $createPermissionGroups->save();
-
-        $permission_model                   = config('access.permission');
-        $editPermissionGroups               = new $permission_model;
-        $editPermissionGroups->name         = 'edit-permission-groups';
-        $editPermissionGroups->system       = true;
-        $editPermissionGroups->sort         = 2;
-        $editPermissionGroups->created_at   = Carbon::now();
-        $editPermissionGroups->updated_at   = Carbon::now();
-        $editPermissionGroups->save();
-
-        $permission_model                     = config('access.permission');
-        $deletePermissionGroups               = new $permission_model;
-        $deletePermissionGroups->name         = 'delete-permission-groups';
-        $deletePermissionGroups->system       = true;
-        $deletePermissionGroups->sort         = 3;
-        $deletePermissionGroups->created_at   = Carbon::now();
-        $deletePermissionGroups->updated_at   = Carbon::now();
-        $deletePermissionGroups->save();
-
-        $permission_model                   = config('access.permission');
-        $sortPermissionGroups               = new $permission_model;
-        $sortPermissionGroups->name         = 'sort-permission-groups';
-        $sortPermissionGroups->system       = true;
-        $sortPermissionGroups->sort         = 4;
-        $sortPermissionGroups->created_at   = Carbon::now();
-        $sortPermissionGroups->updated_at   = Carbon::now();
-        $sortPermissionGroups->save();
-
-        /**
          * Permission
          */
         $permission_model                = config('access.permission');
