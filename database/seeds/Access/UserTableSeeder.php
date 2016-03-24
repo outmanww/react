@@ -24,32 +24,63 @@ class UserTableSeeder extends Seeder
             DB::statement('TRUNCATE TABLE ' . config('access.users_table') . ' CASCADE');
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
         $users = [
             [
-                'name'              => 'Super Administrator',
-                'email'             => 'super@super.com',
-                'password'          => bcrypt('123456'),
-                'confirmation_code' => md5(uniqid(mt_rand(), true)),
-                'confirmed'         => true,
-                'created_at'        => Carbon::now(),
-                'updated_at'        => Carbon::now(),
-            ],[
-                'name'              => 'Admin Istrator',
+                'family_name'       => 'Admin',
+                'given_name'        => 'Istrator',
+                'family_name_yomi'  => 'アドミン',
+                'given_name_yomi'   => 'イステイター',
+                'phone'             => '08012345678',
+                'sex'               => 0,
+                'birthday'          => '1991/01/01',
+                'personal_id'       => 12345678,
+                'postal_code'       => 3334444,
+                'state'             => '愛知県',
+                'city'              => '名古屋市千種区',
+                'street'            => '不老町',
+                'building'          => '',
+                'introduction'      => '自己紹介です',
                 'email'             => 'admin@admin.com',
                 'password'          => bcrypt('123456'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
-            ],[
-                'name'              => 'Default User',
+            ],            [
+                'family_name'       => 'Teacher',
+                'given_name'        => 'User',
+                'family_name_yomi'  => 'ティーチャー',
+                'given_name_yomi'   => 'ユーザー',
+                'phone'             => '08012345678',
+                'sex'               => 0,
+                'birthday'          => '1991/01/01',
+                'personal_id'       => 12345678,
+                'postal_code'       => 3334444,
+                'state'             => '愛知県',
+                'city'              => '名古屋市千種区',
+                'street'            => '不老町',
+                'building'          => '',
+                'introduction'      => '自己紹介です',
                 'email'             => 'user@user.com',
                 'password'          => bcrypt('123456'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
-            ],
+            ]
         ];
 
         DB::table(config('access.users_table'))->insert($users);

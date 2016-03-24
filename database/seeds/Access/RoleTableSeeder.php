@@ -26,18 +26,14 @@ class RoleTableSeeder extends Seeder
 
         $roles= [
             [
-                'name' => 'SuperAdministrator',
-                'all' => true,
-                'sort' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ],[
                 'name' => 'Administrator',
+                'all' => false,
                 'sort' => 2,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],[
                 'name' => 'Teacher',
+                'all' => false,
                 'sort' => 3,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

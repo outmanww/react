@@ -23,10 +23,6 @@ class UserRoleSeeder extends Seeder
             DB::statement('TRUNCATE TABLE ' . config('access.role_user_table') . ' CASCADE');
         }
 
-        $role_super = DB::table(config('access.roles_table'))
-            ->where('name', 'SuperAdministrator')
-            ->first();
-
         $role_admin = DB::table(config('access.roles_table'))
             ->where('name', 'Administrator')
             ->first();
@@ -35,20 +31,15 @@ class UserRoleSeeder extends Seeder
             ->where('name', 'Teacher')
             ->first();
 
-        //Attach admin role to admin user
-        $user_model = config('auth.providers.users.model');
-        $user_model = new $user_model;
-        $user_model::where('name', 'Super Administrator')->attachRole($role_super->id);
-
         //Attach user role to general user
         $user_model = config('auth.providers.users.model');
         $user_model = new $user_model;
-        $user_model::where('name', 'Admin Istrator')->attachRole($role_super->id);
+        $user_model::where('email', 'admin@admin.com')->first()->roles()->attach($role_admin->id);
 
         //Attach user role to general user
-        $user_model = config('auth.providers.users.model');
-        $user_model = new $user_model;
-        $user_model::where('name', 'Admin Istrator')->attachRole($role_super->id);
+        // $user_model = config('auth.providers.users.model');
+        // $user_model = new $user_model;
+        // $user_model::where('name', 'Admin Istrator')->roles()->first()->attach($role_teacher->id);
 
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
