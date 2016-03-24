@@ -20,9 +20,11 @@
           <li><a href="#screens">Screenshots</a></li>
           <li><a href="#download">Download</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li><a href="/schools">学校関係者の方</a></li>
         </ul>
       </nav>
-      <a href="#" class="nav-toggle">Menu<span></span></a> </div>
+      <a href="#" class="nav-toggle">Menu<span></span></a>
+    </div>
     <!-- navigation section  --> 
   </header>
   <!-- banner text section-->

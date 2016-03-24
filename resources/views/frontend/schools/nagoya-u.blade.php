@@ -2,30 +2,28 @@
 
 @section('after-styles-end')
 <link rel="stylesheet" href="/css/schools/form.css">
-<link rel="stylesheet" href="/css/schools/main.css">
-<link rel="stylesheet" href="/css/schools/nagoya-u.css">
+<link rel="stylesheet" href="/css/schools/nagoya-univ.css">
 @endsection
 
 @section('content')
-<!-- header section -->
-<header id="header" class="fixed">
-  <div class="header-content clearfix">
-    <a class="logo" href="#"><img src="/images/logo.png" alt=""></a> 
-    <!-- navigation section  -->
-    <nav class="navigation" role="navigation">
-      <ul class="primary-nav">
-        <li><a href="#">名古屋大学にログイン中</a></li>
-      </ul>
-    </nav>
-    <a href="#" class="nav-toggle">Menu<span></span></a>
-  </div>
-  <!-- navigation section  --> 
+<header id="header">
+@include('frontend.includes.nav')
+<div class="header-content clearfix"> <a class="logo" href="#"><img src="images/logo.png" alt=""></a> 
+  <!-- navigation section  -->
+  <nav class="navigation" role="navigation">
+    <ul class="primary-nav">
+      <li><a href="#">名古屋大学にログイン中</a></li>
+    </ul>
+  </nav>
+  <a href="#" class="nav-toggle">Menu<span></span></a>
+</div>
+<!-- navigation section  --> 
 </header>
-<!-- header section --> 
 
 <div class="container">
     <div class="card card-container">
-        <img id="profile-img" class="profile-img-card" src="/images/schools/nagoya-u-logo.png" />
+        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
         <p id="profile-name" class="profile-name-card"></p>
         <form class="form-signin">
             <span id="reauth-email" class="reauth-email"></span>
