@@ -14,7 +14,6 @@ class CreateUsersTable extends Migration
     {
         Schema::create(config('access.users_table'), function (Blueprint $table) {
             $table->increments('id');
-            $table->string('department_id');
             $table->string('email')->unique();
             $table->string('password', 60)->nullable();
             $table->tinyInteger('status')->default(1)->unsigned();
@@ -41,13 +40,15 @@ class CreateUsersTable extends Migration
             $table->timestamp('updated_at');
             $table->softDeletes();
 
-            /**
-             * Add Foreign/Unique/Index
-             */
-            $table->foreign('department_id')
-                ->references('id')
-                ->on(config('lecture.department_table'))
-                ->onDelete('set null');
+            // $table->string('department_id');
+
+            // /**
+            //  * Add Foreign/Unique/Index
+            //  */
+            // $table->foreign('department_id')
+            //     ->references('id')
+            //     ->on(config('lecture.department_table'))
+            //     ->onDelete('set null');
         });
     }
 
