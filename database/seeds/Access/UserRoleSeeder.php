@@ -15,23 +15,31 @@ class UserRoleSeeder extends Seeder
         }
 
         if (env('DB_CONNECTION') == 'mysql') {
-            DB::table(config('access.assigned_roles_table'))->truncate();
+            DB::table(config('access.role_user_table'))->truncate();
         } elseif (env('DB_CONNECTION') == 'sqlite') {
-            DB::statement('DELETE FROM ' . config('access.assigned_roles_table'));
+            DB::statement('DELETE FROM ' . config('access.role_user_table'));
         } else {
             //For PostgreSQL or anything else
-            DB::statement('TRUNCATE TABLE ' . config('access.assigned_roles_table') . ' CASCADE');
+            DB::statement('TRUNCATE TABLE ' . config('access.role_user_table') . ' CASCADE');
         }
 
-        //Attach admin role to admin user
-        $user_model = config('auth.providers.users.model');
-        $user_model = new $user_model;
-        $user_model::first()->attachRole(1);
+        $role_admin = DB::table(config('access.roles_table'))
+            ->where('name', 'Administrator')
+            ->first();
+
+        $role_teacher = DB::table(config('access.roles_table'))
+            ->where('name', 'Teacher')
+            ->first();
 
         //Attach user role to general user
         $user_model = config('auth.providers.users.model');
         $user_model = new $user_model;
-        $user_model::find(2)->attachRole(2);
+        $user_model::where('email', 'admin@admin.com')->first()->roles()->attach($role_admin->id);
+
+        //Attach user role to general user
+        // $user_model = config('auth.providers.users.model');
+        // $user_model = new $user_model;
+        // $user_model::where('name', 'Admin Istrator')->roles()->first()->attach($role_teacher->id);
 
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');

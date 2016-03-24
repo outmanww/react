@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Class PermissionTableSeeder
  */
-class PermissionTableSeeder extends Seeder
+class OperationTableSeeder extends Seeder
 {
     public function run()
     {
@@ -16,18 +16,15 @@ class PermissionTableSeeder extends Seeder
         }
 
         if (env('DB_CONNECTION') == 'mysql') {
-            DB::table(config('access.permissions_table'))->truncate();
-            DB::table(config('access.permission_role_table'))->truncate();
-            DB::table(config('access.permission_user_table'))->truncate();
+            DB::table(config('access.operations_table'))->truncate();
+            DB::table(config('access.operation_permission_table'))->truncate();
         } elseif (env('DB_CONNECTION') == 'sqlite') {
-            DB::statement('DELETE FROM ' . config('access.permissions_table'));
-            DB::statement('DELETE FROM ' . config('access.permission_role_table'));
-            DB::statement('DELETE FROM ' . config('access.permission_user_table'));
+            DB::statement('DELETE FROM ' . config('access.operations_table'));
+            DB::statement('DELETE FROM ' . config('access.operation_permission_table'));
         } else {
             //For PostgreSQL or anything else
-            DB::statement('TRUNCATE TABLE ' . config('access.permissions_table') . ' CASCADE');
-            DB::statement('TRUNCATE TABLE ' . config('access.permission_role_table') . ' CASCADE');
-            DB::statement('TRUNCATE TABLE ' . config('access.permission_user_table') . ' CASCADE');
+            DB::statement('TRUNCATE TABLE ' . config('access.operations_table') . ' CASCADE');
+            DB::statement('TRUNCATE TABLE ' . config('access.operation_permission_table') . ' CASCADE');
         }
 
         /**
@@ -38,8 +35,8 @@ class PermissionTableSeeder extends Seeder
         /**
          * Misc Access Permissions
          */
-        $permission_model          = config('access.permission');
-        $viewBackend               = new $permission_model;
+        $operation_model          = config('access.operation');
+        $viewBackend               = new $operation_model;
         $viewBackend->name         = 'view-backend';
         $viewBackend->system       = true;
         $viewBackend->sort         = 1;
@@ -47,8 +44,8 @@ class PermissionTableSeeder extends Seeder
         $viewBackend->updated_at   = Carbon::now();
         $viewBackend->save();
 
-        $permission_model                   = config('access.permission');
-        $viewAccessManagement               = new $permission_model;
+        $operation_model                   = config('access.operation');
+        $viewAccessManagement               = new $operation_model;
         $viewAccessManagement->name         = 'view-access-management';
         $viewAccessManagement->system       = true;
         $viewAccessManagement->sort         = 2;
@@ -63,8 +60,8 @@ class PermissionTableSeeder extends Seeder
         /**
          * User
          */
-        $permission_model          = config('access.permission');
-        $createUsers               = new $permission_model;
+        $operation_model          = config('access.operation');
+        $createUsers               = new $operation_model;
         $createUsers->name         = 'create-users';
         $createUsers->system       = true;
         $createUsers->sort         = 5;
@@ -72,8 +69,8 @@ class PermissionTableSeeder extends Seeder
         $createUsers->updated_at   = Carbon::now();
         $createUsers->save();
 
-        $permission_model        = config('access.permission');
-        $editUsers               = new $permission_model;
+        $operation_model        = config('access.operation');
+        $editUsers               = new $operation_model;
         $editUsers->name         = 'edit-users';
         $editUsers->system       = true;
         $editUsers->sort         = 6;
@@ -81,8 +78,8 @@ class PermissionTableSeeder extends Seeder
         $editUsers->updated_at   = Carbon::now();
         $editUsers->save();
 
-        $permission_model          = config('access.permission');
-        $deleteUsers               = new $permission_model;
+        $operation_model          = config('access.operation');
+        $deleteUsers               = new $operation_model;
         $deleteUsers->name         = 'delete-users';
         $deleteUsers->system       = true;
         $deleteUsers->sort         = 7;
@@ -90,8 +87,8 @@ class PermissionTableSeeder extends Seeder
         $deleteUsers->updated_at   = Carbon::now();
         $deleteUsers->save();
 
-        $permission_model                 = config('access.permission');
-        $changeUserPassword               = new $permission_model;
+        $operation_model                 = config('access.operation');
+        $changeUserPassword               = new $operation_model;
         $changeUserPassword->name         = 'change-user-password';
         $changeUserPassword->system       = true;
         $changeUserPassword->sort         = 8;
@@ -99,8 +96,8 @@ class PermissionTableSeeder extends Seeder
         $changeUserPassword->updated_at   = Carbon::now();
         $changeUserPassword->save();
 
-        $permission_model             = config('access.permission');
-        $deactivateUser               = new $permission_model;
+        $operation_model             = config('access.operation');
+        $deactivateUser               = new $operation_model;
         $deactivateUser->name         = 'deactivate-users';
         $deactivateUser->system       = true;
         $deactivateUser->sort         = 9;
@@ -108,8 +105,8 @@ class PermissionTableSeeder extends Seeder
         $deactivateUser->updated_at   = Carbon::now();
         $deactivateUser->save();
 
-        $permission_model             = config('access.permission');
-        $reactivateUser               = new $permission_model;
+        $operation_model             = config('access.operation');
+        $reactivateUser               = new $operation_model;
         $reactivateUser->name         = 'reactivate-users';
         $reactivateUser->system       = true;
         $reactivateUser->sort         = 11;
@@ -117,8 +114,8 @@ class PermissionTableSeeder extends Seeder
         $reactivateUser->updated_at   = Carbon::now();
         $reactivateUser->save();
 
-        $permission_model           = config('access.permission');
-        $undeleteUser               = new $permission_model;
+        $operation_model           = config('access.operation');
+        $undeleteUser               = new $operation_model;
         $undeleteUser->name         = 'undelete-users';
         $undeleteUser->system       = true;
         $undeleteUser->sort         = 13;
@@ -126,8 +123,8 @@ class PermissionTableSeeder extends Seeder
         $undeleteUser->updated_at   = Carbon::now();
         $undeleteUser->save();
 
-        $permission_model                    = config('access.permission');
-        $permanentlyDeleteUser               = new $permission_model;
+        $operation_model                    = config('access.operation');
+        $permanentlyDeleteUser               = new $operation_model;
         $permanentlyDeleteUser->name         = 'permanently-delete-users';
         $permanentlyDeleteUser->system       = true;
         $permanentlyDeleteUser->sort         = 14;
@@ -135,8 +132,8 @@ class PermissionTableSeeder extends Seeder
         $permanentlyDeleteUser->updated_at   = Carbon::now();
         $permanentlyDeleteUser->save();
 
-        $permission_model                      = config('access.permission');
-        $resendConfirmationEmail               = new $permission_model;
+        $operation_model                      = config('access.operation');
+        $resendConfirmationEmail               = new $operation_model;
         $resendConfirmationEmail->name         = 'resend-user-confirmation-email';
         $resendConfirmationEmail->system       = true;
         $resendConfirmationEmail->sort         = 15;
@@ -147,8 +144,8 @@ class PermissionTableSeeder extends Seeder
         /**
          * Role
          */
-        $permission_model          = config('access.permission');
-        $createRoles               = new $permission_model;
+        $operation_model          = config('access.operation');
+        $createRoles               = new $operation_model;
         $createRoles->name         = 'create-roles';
         $createRoles->system       = true;
         $createRoles->sort         = 2;
@@ -156,8 +153,8 @@ class PermissionTableSeeder extends Seeder
         $createRoles->updated_at   = Carbon::now();
         $createRoles->save();
 
-        $permission_model        = config('access.permission');
-        $editRoles               = new $permission_model;
+        $operation_model        = config('access.operation');
+        $editRoles               = new $operation_model;
         $editRoles->name         = 'edit-roles';
         $editRoles->system       = true;
         $editRoles->sort         = 3;
@@ -165,8 +162,8 @@ class PermissionTableSeeder extends Seeder
         $editRoles->updated_at   = Carbon::now();
         $editRoles->save();
 
-        $permission_model          = config('access.permission');
-        $deleteRoles               = new $permission_model;
+        $operation_model          = config('access.operation');
+        $deleteRoles               = new $operation_model;
         $deleteRoles->name         = 'delete-roles';
         $deleteRoles->system       = true;
         $deleteRoles->sort         = 4;
@@ -177,8 +174,8 @@ class PermissionTableSeeder extends Seeder
         /**
          * Permission Group
          */
-        $permission_model                     = config('access.permission');
-        $createPermissionGroups               = new $permission_model;
+        $operation_model                     = config('access.operation');
+        $createPermissionGroups               = new $operation_model;
         $createPermissionGroups->name         = 'create-permission-groups';
         $createPermissionGroups->system       = true;
         $createPermissionGroups->sort         = 1;
@@ -186,8 +183,8 @@ class PermissionTableSeeder extends Seeder
         $createPermissionGroups->updated_at   = Carbon::now();
         $createPermissionGroups->save();
 
-        $permission_model                   = config('access.permission');
-        $editPermissionGroups               = new $permission_model;
+        $operation_model                   = config('access.operation');
+        $editPermissionGroups               = new $operation_model;
         $editPermissionGroups->name         = 'edit-permission-groups';
         $editPermissionGroups->system       = true;
         $editPermissionGroups->sort         = 2;
@@ -195,8 +192,8 @@ class PermissionTableSeeder extends Seeder
         $editPermissionGroups->updated_at   = Carbon::now();
         $editPermissionGroups->save();
 
-        $permission_model                     = config('access.permission');
-        $deletePermissionGroups               = new $permission_model;
+        $operation_model                     = config('access.operation');
+        $deletePermissionGroups               = new $operation_model;
         $deletePermissionGroups->name         = 'delete-permission-groups';
         $deletePermissionGroups->system       = true;
         $deletePermissionGroups->sort         = 3;
@@ -204,8 +201,8 @@ class PermissionTableSeeder extends Seeder
         $deletePermissionGroups->updated_at   = Carbon::now();
         $deletePermissionGroups->save();
 
-        $permission_model                   = config('access.permission');
-        $sortPermissionGroups               = new $permission_model;
+        $operation_model                   = config('access.operation');
+        $sortPermissionGroups               = new $operation_model;
         $sortPermissionGroups->name         = 'sort-permission-groups';
         $sortPermissionGroups->system       = true;
         $sortPermissionGroups->sort         = 4;
@@ -216,8 +213,8 @@ class PermissionTableSeeder extends Seeder
         /**
          * Permission
          */
-        $permission_model                = config('access.permission');
-        $createPermissions               = new $permission_model;
+        $operation_model                = config('access.operation');
+        $createPermissions               = new $operation_model;
         $createPermissions->name         = 'create-permissions';
         $createPermissions->system       = true;
         $createPermissions->sort         = 5;
@@ -225,8 +222,8 @@ class PermissionTableSeeder extends Seeder
         $createPermissions->updated_at   = Carbon::now();
         $createPermissions->save();
 
-        $permission_model              = config('access.permission');
-        $editPermissions               = new $permission_model;
+        $operation_model              = config('access.operation');
+        $editPermissions               = new $operation_model;
         $editPermissions->name         = 'edit-permissions';
         $editPermissions->system       = true;
         $editPermissions->sort         = 6;
@@ -234,8 +231,8 @@ class PermissionTableSeeder extends Seeder
         $editPermissions->updated_at   = Carbon::now();
         $editPermissions->save();
 
-        $permission_model                = config('access.permission');
-        $deletePermissions               = new $permission_model;
+        $operation_model                = config('access.operation');
+        $deletePermissions               = new $operation_model;
         $deletePermissions->name         = 'delete-permissions';
         $deletePermissions->system       = true;
         $deletePermissions->sort         = 7;
