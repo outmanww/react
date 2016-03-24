@@ -24,19 +24,6 @@ class UserTableSeeder extends Seeder
             DB::statement('TRUNCATE TABLE ' . config('access.users_table') . ' CASCADE');
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         $users = [
             [
                 'family_name'       => 'Admin',
@@ -74,7 +61,7 @@ class UserTableSeeder extends Seeder
                 'street'            => '不老町',
                 'building'          => '',
                 'introduction'      => '自己紹介です',
-                'email'             => 'user@user.com',
+                'email'             => 'teacher@teacher.com',
                 'password'          => bcrypt('123456'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,

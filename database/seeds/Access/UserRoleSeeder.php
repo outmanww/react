@@ -37,9 +37,9 @@ class UserRoleSeeder extends Seeder
         $user_model::where('email', 'admin@admin.com')->first()->roles()->attach($role_admin->id);
 
         //Attach user role to general user
-        // $user_model = config('auth.providers.users.model');
-        // $user_model = new $user_model;
-        // $user_model::where('name', 'Admin Istrator')->roles()->first()->attach($role_teacher->id);
+        $user_model = config('auth.providers.users.model');
+        $user_model = new $user_model;
+        $user_model::where('email', 'teacher@teacher.com')->first()->roles()->attach($role_teacher->id);
 
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
