@@ -56,107 +56,72 @@
 <!-- Intro Section --> 
 <!-- work section -->
 <section id="works" class="works section no-padding">
-  <div class="container-fluid">
-    <div class="row no-gutter">
-      <div class="col-lg-2 col-md-4 col-sm-4 work">
-        <a href="/nagoya-u/signin" class="work-box">
-          <img src="/images/schools/nagoya-u-logo.png" alt="">
-          <div class="overlay">
-            <div class="overlay-caption">
-              <p>名古屋大学</p>
+  <div class="container">
+    <div class="container-fluid">
+      <div class="row no-gutter">
+        <div class="col-lg-2 col-md-4 col-sm-4 work">
+          <a href="/nagoya-u/signin" class="work-box">
+            <img src="/images/schools/nagoya-u-logo.png" alt="">
+            <div class="overlay overlay-nagoya-u">
+              <div class="overlay-caption"><p>名古屋大学</p></div>
             </div>
-          </div>
-        <!-- overlay --> 
-        </a>
+          <!-- overlay --> 
+          </a>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-4 work">
+          <a href="/chukyo-u/signin" class="work-box">
+            <img src="/images/schools/chukyo-u-logo.png" alt="">
+            <div class="overlay overlay-chukyo-u">
+              <div class="overlay-caption"><p>中京大学</p></div>
+            </div>
+            <!-- overlay --> 
+          </a>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-4 work">
+          <a href="/aichtoho-u/signin" class="work-box">
+            <img src="/images/schools/aichtoho-u-logo.png" alt="">
+            <div class="overlay overlay-aichtoho-u">
+              <div class="overlay-caption">
+                <p>愛知東邦大学</p>
+              </div>
+            </div>
+          <!-- overlay --> 
+          </a>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-4 work">
+          <a href="/aichtoho-u/signin" class="work-box">
+            <img src="/images/schools/aichtoho-u-logo.png" alt="">
+            <div class="overlay overlay-aichtoho-u">
+              <div class="overlay-caption">
+                <p>愛知東邦大学</p>
+              </div>
+            </div>
+          <!-- overlay --> 
+          </a>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-4 work">
+          <a href="/aichtoho-u/signin" class="work-box">
+            <img src="/images/schools/aichtoho-u-logo.png" alt="">
+            <div class="overlay overlay-aichtoho-u">
+              <div class="overlay-caption">
+                <p>愛知東邦大学</p>
+              </div>
+            </div>
+          <!-- overlay --> 
+          </a>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-4 work">
+          <a href="/aichtoho-u/signin" class="work-box">
+            <img src="/images/schools/aichtoho-u-logo.png" alt="">
+            <div class="overlay overlay-aichtoho-u">
+              <div class="overlay-caption">
+                <p>愛知東邦大学</p>
+              </div>
+            </div>
+          <!-- overlay --> 
+          </a>
+        </div>
       </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 work"> <a href="/images/schools/work-2.jpg" class="work-box"> <img src="/images/schools/work-2.jpg" alt="">
-        <div class="overlay">
-          <div class="overlay-caption">
-            <p><i class="fa fa-search-plus fa-2x"></i></p>
-          </div>
-        </div>
-        <!-- overlay --> 
-        </a> </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 work"> <a href="/images/schools/work-3.jpg" class="work-box"> <img src="/images/schools/work-3.jpg" alt="">
-        <div class="overlay">
-          <div class="overlay-caption">
-            <p><i class="fa fa-search-plus fa-2x"></i></p>
-          </div>
-        </div>
-        <!-- overlay --> 
-        </a> </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 work"> <a href="/images/schools/work-4.jpg" class="work-box"> <img src="/images/schools/work-4.jpg" alt="">
-        <div class="overlay">
-          <div class="overlay-caption">
-            <p><i class="fa fa-search-plus fa-2x"></i></p>
-          </div>
-        </div>
-        <!-- overlay --> 
-        </a> </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 work"> <a href="/images/schools/work-5.jpg" class="work-box"> <img src="/images/schools/work-5.jpg" alt="">
-        <div class="overlay">
-          <div class="overlay-caption">
-            <p><i class="fa fa-search-plus fa-2x"></i></p>
-          </div>
-        </div>
-        <!-- overlay --> 
-        </a> </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 work"> <a href="/images/schools/work-6.jpg" class="work-box"> <img src="/images/schools/work-6.jpg" alt="">
-        <div class="overlay">
-          <div class="overlay-caption">
-            <p><i class="fa fa-search-plus fa-2x"></i></p>
-          </div>
-        </div>
-        <!-- overlay --> 
-        </a> </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 work"> <a href="/images/schools/work-7.jpg" class="work-box"> <img src="/images/schools/work-7.jpg" alt="">
-        <div class="overlay">
-          <div class="overlay-caption">
-            <p><i class="fa fa-search-plus fa-2x"></i></p>
-          </div>
-        </div>
-        <!-- overlay --> 
-        </a> </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 work"> <a href="/images/schools/work-8.jpg" class="work-box"> <img src="/images/schools/work-8.jpg" alt="">
-        <div class="overlay">
-          <div class="overlay-caption">
-            <p><i class="fa fa-search-plus fa-2x"></i></p>
-          </div>
-        </div>
-        <!-- overlay --> 
-        </a> </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 work"> <a href="/images/schools/work-9.jpg" class="work-box"> <img src="/images/schools/work-9.jpg" alt="">
-        <div class="overlay">
-          <div class="overlay-caption">
-            <p><i class="fa fa-search-plus fa-2x"></i></p>
-          </div>
-        </div>
-        <!-- overlay --> 
-        </a> </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 work"> <a href="/images/schools/work-10.jpg" class="work-box"> <img src="/images/schools/work-10.jpg" alt="">
-        <div class="overlay">
-          <div class="overlay-caption">
-            <p><i class="fa fa-search-plus fa-2x"></i></p>
-          </div>
-        </div>
-        <!-- overlay --> 
-        </a> </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 work"> <a href="/images/schools/work-11.jpg" class="work-box"> <img src="/images/schools/work-11.jpg" alt="">
-        <div class="overlay">
-          <div class="overlay-caption">
-            <p><i class="fa fa-search-plus fa-2x"></i></p>
-          </div>
-        </div>
-        <!-- overlay --> 
-        </a> </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 work"> <a href="/images/schools/work-12.jpg" class="work-box"> <img src="/images/schools/work-12.jpg" alt="">
-        <div class="overlay">
-          <div class="overlay-caption">
-            <p><i class="fa fa-search-plus fa-2x"></i></p>
-          </div>
-        </div>
-        <!-- overlay --> 
-        </a> </div>
     </div>
   </div>
 </section>

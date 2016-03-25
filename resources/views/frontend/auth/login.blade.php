@@ -14,7 +14,7 @@
     <!-- navigation section  -->
     <nav class="navigation" role="navigation">
       <ul class="primary-nav">
-        <li><a href="#">名古屋大学にログイン中</a></li>
+        <li><a href="#">名古屋大学</a></li>
       </ul>
     </nav>
     <a href="#" class="nav-toggle">Menu<span></span></a>
@@ -27,13 +27,13 @@
     <div class="card card-container">
         <img id="profile-img" class="profile-img-card" src="/images/schools/nagoya-u-logo.png" />
         <p id="profile-name" class="profile-name-card"></p>
-        <form class="form-signin">
-            <span id="reauth-email" class="reauth-email"></span>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <form class="form-signin" method="POST" action="/nagoya-u/signin">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
             <div id="remember" class="checkbox">
                 <label>
-                    <input type="checkbox" value="remember-me"> Remember me
+                    <input type="checkbox" name="remember" value="remember-me"> Remember me
                 </label>
             </div>
             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
