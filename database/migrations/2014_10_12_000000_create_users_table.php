@@ -16,7 +16,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('email')->unique();
             $table->string('password', 60)->nullable();
-            $table->tinyInteger('status')->default(1)->unsigned();
+
+            $table->tinyInteger('status')->default(0)->unsigned();
             $table->string('confirmation_code');
             $table->boolean('confirmed')->default(config('access.users.confirm_email') ? false : true);
             $table->rememberToken();
@@ -35,6 +36,7 @@ class CreateUsersTable extends Migration
             $table->string('street')->nullable();
             $table->string('building')->nullable();
             $table->string('introduction')->nullable();
+            $table->string('url')->nullable();
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');

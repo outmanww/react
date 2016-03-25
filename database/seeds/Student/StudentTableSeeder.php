@@ -5,9 +5,9 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class UserTableSeeder
+ * Class StudentTableSeeder
  */
-class UserTableSeeder extends Seeder
+class StudentTableSeeder extends Seeder
 {
     public function run()
     {
@@ -16,59 +16,53 @@ class UserTableSeeder extends Seeder
         }
 
         if (env('DB_CONNECTION') == 'mysql') {
-            DB::table(config('access.users_table'))->truncate();
+            DB::table('students')->truncate();
         } elseif (env('DB_CONNECTION') == 'sqlite') {
-            DB::statement('DELETE FROM ' . config('access.users_table'));
+            DB::statement('DELETE FROM students');
         } else {
             //For PostgreSQL or anything else
-            DB::statement('TRUNCATE TABLE ' . config('access.users_table') . ' CASCADE');
+            DB::statement('TRUNCATE TABLE students CASCADE');
         }
         
-        $department = DB::table('department')
-            ->where('name', '生涯教育開発')
-            ->first();
-        
-        $users = [
+        $students = [
             [
-                'family_name'       => 'Admin',
-                'given_name'        => 'Istrator',
-                'family_name_yomi'  => 'アドミン',
-                'given_name_yomi'   => 'イステイター',
-                'phone'             => '08012345678',
-                'department_id'     => $department->id,
+                'family_name'       => '山田',
+                'given_name'        => '太郎',
+                'family_name_yomi'  => 'ヤマダ',
+                'given_name_yomi'   => 'タロウ',
+                'phone'             => '09044444444',
                 'sex'               => 0,
                 'birthday'          => '1991/01/01',
-                'personal_id'       => 12345678,
+                'student_id'        => '12345678',
                 'postal_code'       => 3334444,
                 'state'             => '愛知県',
                 'city'              => '名古屋市千種区',
                 'street'            => '不老町',
                 'building'          => '',
                 'introduction'      => '自己紹介です',
-                'url'               => 'http://www.co.cm.is.nagoya-u.ac.jp/~goi/',
-                'email'             => 'admin@admin.com',
+                'url'               => 'http://www.yahoo.co.jp',
+                'email'             => 'yamada@gmail.com',
                 'password'          => bcrypt('123456'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],            [
-                'family_name'       => 'Teacher',
-                'given_name'        => 'User',
-                'family_name_yomi'  => 'ティーチャー',
-                'given_name_yomi'   => 'ユーザー',
-                'phone'             => '08012345678',
-                'department_id'     => $department->id,
+                'family_name'       => '鈴木',
+                'given_name'        => '花子',
+                'family_name_yomi'  => 'スズキ',
+                'given_name_yomi'   => 'ハナコ',
+                'phone'             => '09022222222',
                 'sex'               => 0,
-                'birthday'          => '1991/01/01',
-                'personal_id'       => 12345678,
+                'birthday'          => '1992/01/01',
+                'student_id'        => '92345679',
                 'postal_code'       => 3334444,
                 'state'             => '愛知県',
                 'city'              => '名古屋市千種区',
                 'street'            => '不老町',
                 'building'          => '',
                 'introduction'      => '自己紹介です',
-                'url'               => 'http://www.co.cm.is.nagoya-u.ac.jp/~yagiura/',
+                'url'               => 'http://www.google.com',
                 'email'             => 'teacher@teacher.com',
                 'password'          => bcrypt('123456'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
@@ -78,7 +72,7 @@ class UserTableSeeder extends Seeder
             ]
         ];
 
-        DB::table(config('access.users_table'))->insert($users);
+        DB::table('students')->insert($students);
 
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
