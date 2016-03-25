@@ -36,6 +36,7 @@ class CreateUsersTable extends Migration
             $table->string('street')->nullable();
             $table->string('building')->nullable();
             $table->string('introduction')->nullable();
+            $table->string('url')->nullable();
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');
