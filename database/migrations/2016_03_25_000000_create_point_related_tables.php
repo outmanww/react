@@ -32,7 +32,7 @@ class CreatePointRelatedTables extends Migration
             $table->string('points');
             $table->string('shop_id');
 
-            $table->tinyInteger('Category')->nullable();
+//          $table->tinyInteger('category')->nullable();
             $table->string('image_path')->nullable();
             $table->string('url')->nullable();
             $table->text('description')->nullable();
@@ -55,11 +55,11 @@ class CreatePointRelatedTables extends Migration
             $table->increments('id')->unsigned();
             $table->integer('student_id')->unsigned();
             // +points
-            $table->integer('affiliation_id')->unsigned()->nullable();
-            $table->integer('room_id')->unsigned()->nullable();
+            $table->integer('affiliation_id')->unsigned()->nullable()->default(DB::raw('null'));;
+            $table->integer('room_id')->unsigned()->nullable()->default(DB::raw('null'));;
             // -points
-            $table->integer('item_id')->unsigned()->nullable();
-            $table->integer('amount')->unsigned()->nullable();
+            $table->integer('item_id')->unsigned()->nullable()->default(DB::raw('null'));;
+            $table->integer('amount')->unsigned()->nullable()->default(DB::raw('null'));;
 
             $table->integer('point_diff');
             

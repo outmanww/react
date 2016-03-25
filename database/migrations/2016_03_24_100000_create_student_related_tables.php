@@ -43,7 +43,7 @@ class CreateStudentRelatedTables extends Migration
             $table->string('phone')->nullable();
             $table->tinyInteger('sex')->nullable();
             $table->date('birthday')->nullable();
-            $table->string('personal_id')->nullable();
+            $table->string('student_id')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('state')->nullable();
             $table->string('city')->nullable();
@@ -65,6 +65,7 @@ class CreateStudentRelatedTables extends Migration
             $table->increments('id')->unsigned();
             $table->integer('student_id')->unsigned();
             $table->integer('affiliation_id')->unsigned();
+            $table->integer('room_id')->unsigned();
             $table->integer('type_id')->unsigned();
             
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

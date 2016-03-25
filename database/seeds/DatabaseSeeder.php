@@ -20,8 +20,12 @@ class DatabaseSeeder extends Seeder
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
-        $this->call(AffiliationTableSeeder::class);
+        $this->call(AffiliationRelatedTableSeeder::class);
         $this->call(AccessTableSeeder::class);
+        $this->call(UserTableSeeder::class);
+        $this->call(LectureRelatedTableSeeder::class);
+        $this->call(StudentRelatedTableSeeder::class);
+        $this->call(PointRelatedTableSeeder::class);
 
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');

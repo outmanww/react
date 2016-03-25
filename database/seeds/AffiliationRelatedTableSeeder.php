@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AffiliationTableSeeder extends Seeder
+class AffiliationRelatedTableSeeder extends Seeder
 {
     public function run()
     {
