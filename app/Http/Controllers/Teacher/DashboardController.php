@@ -17,6 +17,6 @@ class DashboardController extends Controller
     {
         $domain = env('APP_URL');
         $env = env('APP_ENV');
-        return view('backend.single', compact('domain', 'env'));
+        return view('teacher.index', compact('domain', 'env'));
     }
 }
