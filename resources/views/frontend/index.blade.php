@@ -10,7 +10,7 @@
 <!-- header section -->
 <section class="banner" role="banner">
   <header id="header">
-    <div class="header-content clearfix"> <a class="logo" href="#"><img src="images/logo.png" alt=""></a> 
+    <div class="header-content clearfix"> <a class="logo" href="/"><img src="images/logo.png" alt=""></a> 
       <!-- navigation section  -->
       <nav class="navigation" role="navigation">
         <ul class="primary-nav">
