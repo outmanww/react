@@ -42,6 +42,12 @@ class Kernel extends HttpKernel
             'access.routeNeedsPermission:view-backend',
         ],
 
+        'teacher' => [
+            'web',
+            'auth',
+            'access.routeNeedsPermission:view-teacher',
+        ],
+
         'api' => [
             'throttle:60,1',
         ],
