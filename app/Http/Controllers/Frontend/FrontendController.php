@@ -15,18 +15,14 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        javascript()->put([
-            'test' => 'it works!',
-        ]);
-
         return view('frontend.index');
     }
 
     /**
      * @return \Illuminate\View\View
      */
-    public function macros()
+    public function schools()
     {
-        return view('frontend.macros');
+        return view('frontend.schools.index');
     }
 }
