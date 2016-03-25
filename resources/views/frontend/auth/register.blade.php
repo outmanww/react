@@ -27,13 +27,14 @@
     <div class="card card-container">
         <img id="profile-img" class="profile-img-card" src="/images/schools/nagoya-u-logo.png" />
         <p id="profile-name" class="profile-name-card"></p>
-        <form class="form-signin" method="POST" action="/nagoya-u/signin">
+        <form class="form-signin" method="POST" action="/nagoya-u/signup">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="email" name="family_name" id="inputEmail" class="form-control" placeholder="Family Name" required autofocus>
-            <input type="email" name="given_name" id="inputEmail" class="form-control" placeholder="Given Name" required autofocus>
-            <input type="email" name="personal_id" id="inputEmail" class="form-control" placeholder="Personal ID" required autofocus>
+            <input type="text" name="family_name" id="inputEmail" class="form-control" placeholder="Family Name" required autofocus>
+            <input type="text" name="given_name" id="inputEmail" class="form-control" placeholder="Given Name" required autofocus>
+            <input type="text" name="personal_id" id="inputEmail" class="form-control" placeholder="Personal ID" required autofocus>
             <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
             <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <input type="password" name="password_confirmation" id="inputPassword" class="form-control" placeholder="Password Confirmation" required>
             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
                 {{trans('labels.frontend.auth.register_button')}}
             </button>

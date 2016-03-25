@@ -79,7 +79,7 @@ return [
         /*
          * Whether or not the user has to confirm their email when signing up
          */
-        'confirm_email' => true,
+        'confirm_email' => ture,
 
         /*
          * Whether or not the users email can be changed on the edit profile screen
