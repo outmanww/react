@@ -26,6 +26,13 @@ body, html {
     cursor: default;
 }
 
+.toSignup {
+    display: block;
+    margin: auto;
+    text-align: center;
+    padding-top: 20px;
+    color: rgb(104, 145, 162);
+}
 /*
  * Card component
  */

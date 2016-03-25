@@ -21,7 +21,7 @@ class PasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/schools';
 
     /**
      * @param UserContract $user

@@ -38,7 +38,10 @@
             </div>
             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
         </form><!-- /form -->
-        <a href="/nagoya-u/password/reset" class="forgot-password">Forgot the password?</a>
+        <a href="/nagoya-u/password/reset" class="forgot-password">パスワードを忘れた</a>
+        <div class="center-block">
+            <a href="/nagoya-u/signup" class="toSignup">新規登録</a>            
+        </div>  
     </div><!-- /card-container -->
 </div><!-- /container -->
 @endsection
