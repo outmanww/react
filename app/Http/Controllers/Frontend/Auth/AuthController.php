@@ -23,7 +23,14 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/nagoya-u/teacher/dashboard';
+
+    /**
+     * Where to redirect Admin after login.
+     *
+     * @var string
+     */
+    protected $adminRedirectTo = '/nagoya-u/admin/dashboard';
 
     /**
      * Where to redirect users after they logout
@@ -31,6 +38,22 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectAfterLogout = '/schools';
+
+    /*
+     * ユーザーロールによってログイン後のリダイレクト先を変更
+     * vendor/laravel/framework/src/Illuminate/Foundation/Auth/RedirectsUsers.php
+     */
+    public function redirectPath()
+    {
+        $user = \Auth::user();
+        if ($user->hasRole('Teacher'))
+        {
+           return property_exists($this, 'redirectTo') ? $this->adminRedirectTo : '/schools';
+        } else
+        {
+           return property_exists($this, 'adminRedirectTo') ? $this->redirectTo : '/schools';       
+        }
+    }
 
     /**
      * @param UserContract $user
