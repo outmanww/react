@@ -1,0 +1,10 @@
+{
+  "bootstrapVersion": 3,
+  "useFlexbox": true,
+
+  "styleLoaders": ["style", "css", "sass"],
+  "bootstrapCustomizations": "./src-admin/assets/scss/main.scss",
+
+  "styles": true,
+  "scripts": false,
+}

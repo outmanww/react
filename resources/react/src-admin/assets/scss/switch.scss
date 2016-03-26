@@ -1,0 +1,107 @@
+@media (min-width: 1px) {
+    .switch-wrap {
+        margin: 20px 20px 10px 20px;
+        .either {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            border: 1px solid #dce0e0;
+            border-radius: 5px;
+
+            input[type=radio] {
+                display: none;
+                margin: 0;
+
+                & + label {
+                    position: static;
+                    float: left;
+                    display: block;
+                    width: 50%;
+                    margin: 0;
+                    text-align: center;
+                    height: 40px;
+                    line-height: 40px;
+
+                    &::before {
+                        box-sizing: border-box;
+                        content: attr(data-label);
+
+                        position: absolute;
+                        z-index: 1;
+                         
+                        display: block;
+                        width: 50%;
+
+                        color: transparent;
+                        background: transparent;
+                        height: 50px;
+                    }
+                }
+
+                &:checked + label {
+                    &::after　{
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                          
+                        box-sizing: border-box;
+                        display: block;
+                        left: 5px;
+                          
+                        background: #37BC9B;
+                    }
+
+                    &::before {
+                        color: #424242;
+                    }     
+                }
+            }
+
+            input[type=radio] + label + input[type=radio] + label::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                z-index: 0;
+
+                display: block;
+                margin: auto;
+                border: 2px solid #fff;
+
+                transition: all 300ms;
+            }
+
+            input[type=radio]:checked + label + input[type=radio] + label::after {
+                left: 0;
+                right: 50%;
+                background: #37BC9B;
+                border-radius: 5px;
+            }
+            input[type=radio] + label + input[type=radio]:checked + label::after {
+                left: 50%;
+                right: 0;
+                background: #dce0e0;
+                border-radius: 5px;
+            }
+
+            input[type=radio] + label.switch-opened {
+                color: #BDBDBD;
+            }
+
+            input[type=radio]:checked + label.switch-opened {
+                color: #FFF;
+
+                &::before{
+                    color: #FFF;
+                }
+            }
+            input[type=radio] + label.switch-closed {
+                color: #BDBDBD;
+            }
+
+            input[type=radio]:checked + label.switch-closed {
+                color: #BDBDBD;
+            }
+        }
+    }     
+}
