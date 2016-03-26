@@ -33,7 +33,7 @@ Route::group(['namespace' => 'Auth'], function () {
 
         // Confirm Account Routes
         Route::get('/{school}/account/confirm/{token}', 'AuthController@confirmAccount')->name('account.confirm');
-        Route::get('/{school}/account/confirm/resend/{token}', 'AuthController@resendConfirmationEmail')->name('account.confirm.resend');
+        Route::get('/account/confirm/resend/{token}', 'AuthController@resendConfirmationEmail')->name('account.confirm.resend');
 
         // Password Reset Routes
         Route::get('/{school}/password/reset/{token?}', 'PasswordController@showResetForm')->name('auth.password.reset');
