@@ -25,6 +25,7 @@
 
 <div class="container">
     <div class="card card-container">
+        @include('includes.partials.messages')
         <img id="profile-img" class="profile-img-card" src="/images/schools/nagoya-u-logo.png" />
         <p id="profile-name" class="profile-name-card"></p>
         <form class="form-signin" method="POST" action="/nagoya-u/signin">
