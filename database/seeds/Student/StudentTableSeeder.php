@@ -31,7 +31,7 @@ class StudentTableSeeder extends Seeder
                 'family_name_yomi'  => 'ヤマダ',
                 'given_name_yomi'   => 'タロウ',
                 'phone'             => '09044444444',
-                'sex'               => 0,
+                'sex'               => 1,
                 'birthday'          => '1991/01/01',
                 'student_id'        => '12345678',
                 'postal_code'       => 3334444,
