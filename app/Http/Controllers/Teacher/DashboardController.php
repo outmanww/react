@@ -13,10 +13,10 @@ class DashboardController extends Controller
     /**
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index($school)
     {
         $domain = env('APP_URL');
         $env = env('APP_ENV');
-        return view('teacher.index', compact('domain', 'env'));
+        return view('teacher.index', compact('domain', 'env', 'school'));
     }
 }
