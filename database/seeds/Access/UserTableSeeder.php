@@ -24,7 +24,7 @@ class UserTableSeeder extends Seeder
             DB::statement('TRUNCATE TABLE ' . config('access.users_table') . ' CASCADE');
         }
         
-        $department = DB::table('department')
+        $department = DB::table('departments')
             ->where('name', '生涯教育開発')
             ->first();
         
@@ -36,6 +36,7 @@ class UserTableSeeder extends Seeder
                 'given_name_yomi'   => 'イステイター',
                 'phone'             => '08012345678',
                 'department_id'     => $department->id,
+                'status'            => 1,
                 'sex'               => 0,
                 'birthday'          => '1991/01/01',
                 'personal_id'       => 12345678,
@@ -59,6 +60,7 @@ class UserTableSeeder extends Seeder
                 'given_name_yomi'   => 'ユーザー',
                 'phone'             => '08012345678',
                 'department_id'     => $department->id,
+                'status'            => 1,
                 'sex'               => 0,
                 'birthday'          => '1991/01/01',
                 'personal_id'       => 12345678,

@@ -24,6 +24,12 @@ class CreateStudentRelatedTables extends Migration
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');
             $table->softDeletes();
+
+            /**
+             * Add Foreign/Unique/Index
+             */
+            $table->unique('name');
+            $table->unique('db_name');
         });
 
         Schema::create('students', function (Blueprint $table) {
@@ -59,6 +65,12 @@ class CreateStudentRelatedTables extends Migration
         Schema::create('reaction_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at');
+            $table->softDeletes();
+
+            $table->unique('name');
         });
 
         Schema::create('reactions', function (Blueprint $table) {
@@ -78,7 +90,7 @@ class CreateStudentRelatedTables extends Migration
                 ->references('id')
                 ->on('students')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
 
             /**
              * Add Foreign affiliation_id
@@ -87,16 +99,16 @@ class CreateStudentRelatedTables extends Migration
                 ->references('id')
                 ->on('affiliations')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
 
             /**
-             * Add Foreign affiliation_id
+             * Add Foreign type_id
              */
             $table->foreign('type_id')
                 ->references('id')
-                ->on('types')
+                ->on('reaction_types')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
         });
     }
 
@@ -110,10 +122,17 @@ class CreateStudentRelatedTables extends Migration
         /**
          * Remove Foreign/Unique/Index
          */
+        Schema::table('affiliations', function (Blueprint $table) {
+            $table->dropUnique('affiliations_name_unique');
+            $table->dropUnique('affiliations_db_name_unique');
+        });
         Schema::table('reactions', function (Blueprint $table) {
             $table->dropForeign('reactions_student_id_foreign');
             $table->dropForeign('reactions_affiliation_id_foreign');
             $table->dropForeign('reactions_type_id_foreign');
+        });
+        Schema::table('reaction_types', function (Blueprint $table) {
+            $table->dropUnique('reaction_types_name_unique');
         });
         
         Schema::drop('affiliations');

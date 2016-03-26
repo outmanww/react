@@ -31,9 +31,9 @@ class AffiliationTableSeeder extends Seeder
                 'logo_path'        => '/../image/school/logo/nagoya-u.png',
                 'image_path'       => '/../image/school/image/nagoya-u.png',
                 'url'              => 'http://www.nagoya-u.ac.jp/',
-                'description'      => '東海一流の国立大学です．'
+                'description'      => '東海一流の国立大学です．',
                 'created_at'       => Carbon::now(),
-                'updated_at'       => Carbon::now()
+                'updated_at'       => Carbon::now(),
             ],
             [
                 'db_name'          => 'TOHO-U',
@@ -41,9 +41,9 @@ class AffiliationTableSeeder extends Seeder
                 'logo_path'        => '/../image/school/logo/toho-u.png',
                 'image_path'       => '/../image/school/image/toho-u.png',
                 'url'              => 'http://www.toho-u.ac.jp/',
-                'description'      => '東海の私立大学です．'
+                'description'      => '東海の私立大学です．',
                 'created_at'       => Carbon::now(),
-                'updated_at'       => Carbon::now()
+                'updated_at'       => Carbon::now(),
             ],
         ];
 

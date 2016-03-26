@@ -11,6 +11,7 @@ class PointRelatedTableSeeder extends Seeder
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
+        $this->call(ShopTypeTableSeeder::class);
         $this->call(ShopTableSeeder::class);
         $this->call(ItemTableSeeder::class);
         $this->call(PointTableSeeder::class);

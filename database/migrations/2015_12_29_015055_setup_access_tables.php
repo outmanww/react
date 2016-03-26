@@ -137,7 +137,6 @@ class SetupAccessTables extends Migration
         Schema::table(config('access.users_table'), function (Blueprint $table) {
             $table->dropColumn('status');
         });
-
         /**
          * Remove Foreign/Unique/Index
          */
@@ -145,9 +144,9 @@ class SetupAccessTables extends Migration
             $table->dropUnique(config('access.roles_table') . '_name_unique');
         });
 
-        Schema::table(config('access.assigned_roles_table'), function (Blueprint $table) {
-            $table->dropForeign(config('access.assigned_roles_table') . '_user_id_foreign');
-            $table->dropForeign(config('access.assigned_roles_table') . '_role_id_foreign');
+        Schema::table(config('access.role_user_table'), function (Blueprint $table) {
+            $table->dropForeign(config('access.role_user_table') . '_user_id_foreign');
+            $table->dropForeign(config('access.role_user_table') . '_role_id_foreign');
         });
 
         Schema::table(config('access.permissions_table'), function (Blueprint $table) {
@@ -164,20 +163,20 @@ class SetupAccessTables extends Migration
             $table->dropForeign(config('access.permission_user_table') . '_user_id_foreign');
         });
 
-        Schema::table(config('access.permission_dependencies_table'), function (Blueprint $table) {
-            $table->dropForeign('permission_dependencies_permission_id_foreign');
-            $table->dropForeign('permission_dependencies_dependency_id_foreign');
+        Schema::table(config('access.operation_permission_table'), function (Blueprint $table) {
+            $table->dropForeign(config('access.operation_permission_table') . '_permission_id_foreign');
+            $table->dropForeign(config('access.operation_permission_table') . '_operation_id_foreign');
         });
 
         /**
          * Drop tables
          */
-        Schema::drop(config('access.assigned_roles_table'));
+        Schema::drop(config('access.role_user_table'));
         Schema::drop(config('access.permission_role_table'));
         Schema::drop(config('access.permission_user_table'));
-        Schema::drop(config('access.permission_group_table'));
         Schema::drop(config('access.roles_table'));
         Schema::drop(config('access.permissions_table'));
-        Schema::drop(config('access.permission_dependencies_table'));
+        Schema::drop(config('access.operation_permission_table'));
+        Schema::drop(config('access.operations_table'));
     }
 }

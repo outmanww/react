@@ -39,26 +39,38 @@ class ReactionTableSeeder extends Seeder
             [
                 'student_id'       => $student_1->id,
                 'affiliation_id'   => $affiliation->id,
-                'room_id'          => 1
-                'type_id'          => 0,
-                'created_at'       => Carbon::now(),
-            ],[
-                'student_id'       => $student_1->id,
-                'affiliation_id'   => $affiliation->id,
-                'room_id'          => 1
-                'type_id'          => 2,
-                'created_at'       => Carbon::now(),
-            ],[
-                'student_id'       => $student_1->id,
-                'affiliation_id'   => $affiliation->id,
-                'room_id'          => 1
+                'room_id'          => 1,
                 'type_id'          => 1,
+                'created_at'       => Carbon::now(),
+            ],[
+                'student_id'       => $student_1->id,
+                'affiliation_id'   => $affiliation->id,
+                'room_id'          => 1,
+                'type_id'          => 5,
+                'created_at'       => Carbon::now(),
+            ],[
+                'student_id'       => $student_1->id,
+                'affiliation_id'   => $affiliation->id,
+                'room_id'          => 1,
+                'type_id'          => 3,
+                'created_at'       => Carbon::now(),
+            ],[
+                'student_id'       => $student_1->id,
+                'affiliation_id'   => $affiliation->id,
+                'room_id'          => 1,
+                'type_id'          => 4,
+                'created_at'       => Carbon::now(),
+            ],[
+                'student_id'       => $student_1->id,
+                'affiliation_id'   => $affiliation->id,
+                'room_id'          => 1,
+                'type_id'          => 2,
                 'created_at'       => Carbon::now(),
             ],[
                 'student_id'       => $student_2->id,
                 'affiliation_id'   => $affiliation->id,
-                'room_id'          => 1
-                'type_id'          => 0,
+                'room_id'          => 1,
+                'type_id'          => 1,
                 'created_at'       => Carbon::now(),
             ]
         ];

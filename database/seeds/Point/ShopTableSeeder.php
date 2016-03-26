@@ -24,24 +24,29 @@ class ShopTableSeeder extends Seeder
             DB::statement('TRUNCATE TABLE shops CASCADE');
         }
 
+        // seed shops table
+        $shop_type = DB::table('shop_types')
+            ->where('name', '飲食')
+            ->first();
+
         $shops = [
             [
                 'name'             => 'Starbucks',
-                'type'             => 1,
+                'type_id'          => $shop_type->id,
                 'logo_path'        => '/../image/shop/logo/starbucks.png',
                 'image_path'       => '/../image/shop/image/starbucks.png',
                 'url'              => 'http://www.starbucks.co.jp/',
-                'description'      => 'おいしいコーヒー．'
+                'description'      => 'おいしいコーヒー．',
                 'created_at'       => Carbon::now(),
                 'updated_at'       => Carbon::now(),
             ],
             [
                 'name'             => 'McDonalds',
-                'type'             => 2,
+                'type_id'          => $shop_type->id,
                 'logo_path'        => '/../image/shop/logo/mcdonalds.png',
                 'image_path'       => '/../image/shop/image/mcdonalds.png',
                 'url'              => 'http://www.mcdonalds.co.jp/',
-                'description'      => 'おいしいコーヒー．'
+                'description'      => 'ハンバーガー．',
                 'created_at'       => Carbon::now(),
                 'updated_at'       => Carbon::now(),
             ],

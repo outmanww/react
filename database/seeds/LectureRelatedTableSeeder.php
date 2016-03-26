@@ -13,7 +13,7 @@ class LectureRelatedTableSeeder extends Seeder
 
         $this->call(LectureTableSeeder::class);
         $this->call(RoomTableSeeder::class);
-        $this->call(LectureTeacherTableSeeder::class);
+        $this->call(LectureTeacherSeeder::class);
 
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');

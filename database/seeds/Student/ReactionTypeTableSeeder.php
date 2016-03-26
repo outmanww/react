@@ -27,14 +27,26 @@ class ReactionTypeTableSeeder extends Seeder
         // seed reaction_types table
         $reaction_types = [
             [
-                'id'         => '0',
+                'id'         => 1,
                 'name'       => '入室',
             ],[
-                'id'         => '1',
+                'id'         => 2,
                 'name'       => '退室',
             ],[
-                'id'         => '2',
+                'id'         => 3,
+                'name'       => '休憩開始',
+            ],[
+                'id'         => 4,
+                'name'       => '休憩終了',
+            ],[
+                'id'         => 5,
                 'name'       => 'わからない',
+            ],[
+                'id'         => 6,
+                'name'       => '面白い',
+            ],[
+                'id'         => 7,
+                'name'       => 'つまらない',
             ]
         ];
 

@@ -18,6 +18,11 @@ class CreateAffiliationsTable extends Migration
             $table->integer('sort')->default(0)->unsigned();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');
+
+            /**
+             * Add Foreign/Unique/Index
+             */
+            $table->unique('name');
         });
 
         Schema::create('departments', function (Blueprint $table) {
@@ -31,6 +36,7 @@ class CreateAffiliationsTable extends Migration
             /**
              * Add Foreign/Unique/Index
              */
+
             $table->foreign('faculty_id')
                 ->references('id')
                 ->on('faculties')
@@ -62,6 +68,10 @@ class CreateAffiliationsTable extends Migration
         /**
          * Remove Foreign/Unique/Index
          */
+        Schema::table('faculties', function (Blueprint $table) {
+            $table->dropUnique('faculties_name_unique');
+        });
+
         Schema::table('departments', function (Blueprint $table) {
             $table->dropForeign('departments_faculty_id_foreign');
         });

@@ -17,7 +17,7 @@ class CreateLectureRelatedTables extends Migration
             $table->integer('sort')->default(0)->unsigned();
 
             $table->string('title');
-            $table->integer('department_id')->unsigned();;
+            $table->integer('department_id')->unsigned()->nullable();
             // lecture code decided by faculty
             $table->string('code')->nullable();
 
@@ -58,7 +58,7 @@ class CreateLectureRelatedTables extends Migration
             $table->smallInteger('length')->unsigned();
             
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('closed_at')->nullable()->default('null');
+            $table->timestamp('closed_at')->nullable();
             $table->softDeletes();
 
             /**
@@ -68,7 +68,7 @@ class CreateLectureRelatedTables extends Migration
                 ->references('id')
                 ->on('lectures')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
 
             /**
              * Add Foreign teacher_id
@@ -77,7 +77,7 @@ class CreateLectureRelatedTables extends Migration
                 ->references('id')
                 ->on('users')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
         });
 
         Schema::create('lecture_teacher', function (Blueprint $table) {

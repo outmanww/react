@@ -26,13 +26,13 @@ class RoomTableSeeder extends Seeder
         
         // seed rooms table
         $lecture_1 = DB::table('lectures')
-            ->where('name', '線形代数')
+            ->where('title', '線形代数')
             ->first();
         $lecture_2 = DB::table('lectures')
-            ->where('name', '犯罪心理学')
+            ->where('title', '犯罪心理学')
             ->first();
         $teacher = DB::table('users')
-            ->where('name', 'ティーチャー')
+            ->where('family_name', 'Teacher')
             ->first();
         $rooms = [
             [
