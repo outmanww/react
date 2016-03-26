@@ -1,0 +1,30 @@
+.alert-wrap{
+  position: fixed;
+  top: 75px;
+  right: 10px;
+  z-index: 1000;
+
+  .custom-alert{
+    width: 400px;
+    position: relative;
+
+    .btn-close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      height: 16px;
+      width: 16px;
+      line-height: 16px;
+      text-align: center;
+    }
+  }
+}
+
+
+
+
+
+
+

@@ -28,7 +28,6 @@
     </head>
     <body id="app-layout">
 
-        @include('includes.partials.messages')
         @yield('content')
 
         <!-- JavaScripts -->

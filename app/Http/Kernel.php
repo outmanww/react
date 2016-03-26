@@ -44,8 +44,7 @@ class Kernel extends HttpKernel
 
         'teacher' => [
             'web',
-            'auth',
-            'access.routeNeedsPermission:view-teacher',
+            'auth'
         ],
 
         'api' => [

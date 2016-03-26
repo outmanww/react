@@ -1,7 +1,7 @@
 # Laravel 5 Rewrites
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
-        Options -MultiViews
+        #Options -MultiViews
     </IfModule>
 
     RewriteEngine On
@@ -120,7 +120,7 @@ ErrorDocument 404 /404.html
 #
 # https://httpd.apache.org/docs/current/content-negotiation.html#multiviews
 
-Options -MultiViews
+#Options -MultiViews
 
 
 # ######################################################################
@@ -366,7 +366,7 @@ AddDefaultCharset utf-8
     # (2)
 # For security reasons, Option followsymlinks cannot be overridden.
 #    Options +FollowSymlinks
-    Options +SymLinksIfOwnerMatch
+    #Options +SymLinksIfOwnerMatch
 
     # (3)
     # Options +SymLinksIfOwnerMatch

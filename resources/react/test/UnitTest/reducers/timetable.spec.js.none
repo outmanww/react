@@ -1,0 +1,232 @@
+import expect from 'expect';
+import todos from '../../../src-front/js/reducers/timetables';
+import * as types from '../../../src-front/js/constants/ActionTypes';
+
+describe('timetable reducer', () => {
+  it('should handle initial state', () => {
+    expect(
+      todos(undefined, {})
+    ).toEqual({});
+  });
+
+  it('should handle REQUEST_TIMETABLE', () => {
+    expect(
+      todos([], {
+        type: types.REQUEST_TIMETABLE,
+        key: '1_1_0'
+      })
+    ).toEqual({
+      '1_1_0': {
+        isFetching: true,
+        didInvalidate: false,
+        isOld: false,
+        lastUpdated: '',
+        data: {}
+      }
+    });
+
+    expect(
+      todos({
+        '1_1_0': {
+          isFetching: true,
+          didInvalidate: false,
+          isOld: false,
+          lastUpdated: '',
+          data: {}
+        }
+      }, {
+        type: types.REQUEST_TIMETABLE,
+        key: '1_1_1'
+      })
+    ).toEqual({
+      '1_1_0': {
+        isFetching: true,
+        didInvalidate: false,
+        isOld: false,
+        lastUpdated: '',
+        data: {}
+      },
+      '1_1_1': {
+        isFetching: true,
+        didInvalidate: false,
+        isOld: false,
+        lastUpdated: '',
+        data: {}
+      }
+    });
+
+    expect(
+      todos({
+        '1_1_0': {
+          isFetching: true,
+          didInvalidate: false,
+          isOld: false,
+          lastUpdated: '',
+          data: {}
+        },
+        '1_1_1': {
+          isFetching: true,
+          didInvalidate: false,
+          isOld: false,
+          lastUpdated: '',
+          data: {}
+        }
+      }, {
+        type: types.REQUEST_TIMETABLE,
+        key: '1_1_2'
+      })
+    ).toEqual({
+      '1_1_0': {
+        isFetching: true,
+        didInvalidate: false,
+        isOld: false,
+        lastUpdated: '',
+        data: {}
+      },
+      '1_1_1': {
+        isFetching: true,
+        didInvalidate: false,
+        isOld: false,
+        lastUpdated: '',
+        data: {}
+      },
+      '1_1_2': {
+        isFetching: true,
+        didInvalidate: false,
+        isOld: false,
+        lastUpdated: '',
+        data: {}
+      }
+    });
+  });
+
+  it('should handle REQUEST_TIMETABLE_SUCCESS', () => {
+    expect(
+      todos({
+        '1_1_0': {
+          isFetching: true,
+          didInvalidate: false,
+          isOld: false,
+          lastUpdated: '',
+          data: {}
+        },
+        '1_1_1': {
+          isFetching: true,
+          didInvalidate: false,
+          isOld: false,
+          lastUpdated: '',
+          data: {}
+        }
+      }, {
+        type: types.REQUEST_TIMETABLE_SUCCESS,
+        key: '1_1_0',
+        data: {obj: 'object'},
+        receivedAt: '12345678'
+      })
+    ).toEqual({
+      '1_1_0': {
+        isFetching: false,
+        didInvalidate: false,
+        isOld: false,
+        lastUpdated: '12345678',
+        data: {obj: 'object'}
+      },
+      '1_1_1': {
+        isFetching: true,
+        didInvalidate: false,
+        isOld: false,
+        lastUpdated: '',
+        data: {}
+      }
+    });
+  });
+
+  it('should handle REQUEST_TIMETABLE_FAIL', () => {
+    expect(
+      todos({
+        '1_1_0': {
+          isFetching: true,
+          didInvalidate: false,
+          isOld: false,
+          lastUpdated: '',
+          data: {}
+        },
+        '1_1_1': {
+          isFetching: true,
+          didInvalidate: false,
+          isOld: false,
+          lastUpdated: '',
+          data: {}
+        }
+      }, {
+        type: types.REQUEST_TIMETABLE_FAIL,
+        key: '1_1_0'
+      })
+    ).toEqual({
+      '1_1_0': {
+        isFetching: false,
+        didInvalidate: true,
+        isOld: false,
+        lastUpdated: '',
+        data: {}
+      },
+      '1_1_1': {
+        isFetching: true,
+        didInvalidate: false,
+        isOld: false,
+        lastUpdated: '',
+        data: {}
+      }
+    });
+  });
+
+  it('should handle TIMETABLE_IS_OLD', () => {
+    expect(
+      todos({
+        '1_1_0': {
+          isFetching: false,
+          didInvalidate: false,
+          isOld: false,
+          lastUpdated: '',
+          data: {}
+        },
+        '1_1_1': {
+          isFetching: false,
+          didInvalidate: false,
+          isOld: false,
+          lastUpdated: '',
+          data: {}
+        }
+      }, {
+        type: types.TIMETABLE_IS_OLD,
+        key: '1_1_0'
+      })
+    ).toEqual({
+      '1_1_0': {
+        isFetching: false,
+        didInvalidate: false,
+        isOld: true,
+        lastUpdated: '',
+        data: {}
+      },
+      '1_1_1': {
+        isFetching: false,
+        didInvalidate: false,
+        isOld: false,
+        lastUpdated: '',
+        data: {}
+      }
+    });
+  });
+
+  it('should handle SET_PLANS', () => {
+    expect(
+      todos({}, {
+        type: types.SET_PLANS,
+        plans: {1: [1, 2, 3, 4]}
+      })
+    ).toEqual({
+      plans: {1: [1, 2, 3, 4]}
+    });
+  });
+});
