@@ -1,43 +1,43 @@
 @extends('frontend.layouts.master')
 
-@section('content')
-    <div class="row">
-
-        <div class="col-md-8 col-md-offset-2">
-
-            <div class="panel panel-default">
-
-                <div class="panel-heading">{{ trans('labels.frontend.passwords.reset_password_box_title') }}</div>
-
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {!! Form::open(['url' => 'password/email', 'class' => 'form-horizontal']) !!}
-
-                        <div class="form-group">
-                            {!! Form::label('email', trans('validation.attributes.frontend.email'), ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                {!! Form::input('email', 'email', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.email')]) !!}
-                            </div><!--col-md-6-->
-                        </div><!--form-group-->
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit(trans('labels.frontend.passwords.send_password_reset_link_button'), ['class' => 'btn btn-primary']) !!}
-                            </div><!--col-md-6-->
-                        </div><!--form-group-->
-
-                    {!! Form::close() !!}
-
-                </div><!-- panel body -->
-
-            </div><!-- panel -->
-
-        </div><!-- col-md-8 -->
-
-    </div><!-- row -->
+@section('after-styles-end')
+<link rel="stylesheet" href="/css/schools/form.css">
+<link rel="stylesheet" href="/css/schools/main.css">
+<link rel="stylesheet" href="/css/schools/nagoya-u.css">
 @endsection
+
+@section('content')
+<!-- header section -->
+<header id="header" class="fixed">
+  <div class="header-content clearfix">
+    <a class="logo" href="/"><img src="/images/logo.png" alt=""></a> 
+    <!-- navigation section  -->
+    <nav class="navigation" role="navigation">
+      <ul class="primary-nav">
+        <li><a href="#">名古屋大学</a></li>
+      </ul>
+    </nav>
+    <a href="#" class="nav-toggle">Menu<span></span></a>
+  </div>
+  <!-- navigation section  --> 
+</header>
+<!-- header section --> 
+
+<div class="container">
+    <div class="card card-container">
+        <img id="profile-img" class="profile-img-card" src="/images/schools/nagoya-u-logo.png" />
+        <p id="profile-name" class="profile-name-card"></p>
+        <form class="form-signin" method="POST" action="/nagoya-u/password/email">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
+                {{trans('labels.frontend.passwords.send_password_reset_link_button')}}
+            </button>
+        </form><!-- /form -->
+    </div><!-- /card-container -->
+</div><!-- /container -->
+@endsection
+
+@section('after-scripts-end')
+
+@stop

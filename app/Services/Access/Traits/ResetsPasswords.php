@@ -47,7 +47,7 @@ trait ResetsPasswords
      * @param null $token
      * @return $this
      */
-    public function showResetForm($token = null)
+    public function showResetForm($school, $token = null)
     {
         if (is_null($token)) {
             return $this->showLinkRequestForm();

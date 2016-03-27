@@ -1,61 +1,51 @@
 @extends('frontend.layouts.master')
 
-@section('content')
-
-    <div class="row">
-
-        <div class="col-md-8 col-md-offset-2">
-
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ trans('labels.frontend.auth.login_box_title') }}</div>
-
-                <div class="panel-body">
-
-                    {!! Form::open(['url' => 'login', 'class' => 'form-horizontal']) !!}
-
-                        <div class="form-group">
-                            {!! Form::label('email', trans('validation.attributes.frontend.email'), ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                {!! Form::input('email', 'email', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.email')]) !!}
-                            </div><!--col-md-6-->
-                        </div><!--form-group-->
-
-                        <div class="form-group">
-                            {!! Form::label('password', trans('validation.attributes.frontend.password'), ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                {!! Form::input('password', 'password', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.password')]) !!}
-                            </div><!--col-md-6-->
-                        </div><!--form-group-->
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        {!! Form::checkbox('remember') !!} {{ trans('labels.frontend.auth.remember_me') }}
-                                    </label>
-                                </div>
-                            </div><!--col-md-6-->
-                        </div><!--form-group-->
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit(trans('labels.frontend.auth.login_button'), ['class' => 'btn btn-primary', 'style' => 'margin-right:15px']) !!}
-
-                                {!! link_to('password/reset', trans('labels.frontend.passwords.forgot_password')) !!}
-                            </div><!--col-md-6-->
-                        </div><!--form-group-->
-
-                    {!! Form::close() !!}
-
-                    <div class="row text-center">
-                        {!! $socialite_links !!}
-                    </div>
-                </div><!-- panel body -->
-
-            </div><!-- panel -->
-
-        </div><!-- col-md-8 -->
-
-    </div><!-- row -->
-
+@section('after-styles-end')
+<link rel="stylesheet" href="/css/schools/form.css">
+<link rel="stylesheet" href="/css/schools/main.css">
+<link rel="stylesheet" href="/css/schools/nagoya-u.css">
 @endsection
+
+@section('content')
+<!-- header section -->
+<header id="header" class="fixed">
+  <div class="header-content clearfix">
+    <a class="logo" href="/"><img src="/images/logo.png" alt=""></a> 
+    <!-- navigation section  -->
+    <nav class="navigation" role="navigation">
+      <ul class="primary-nav">
+        <li><a href="#">名古屋大学</a></li>
+      </ul>
+    </nav>
+    <a href="#" class="nav-toggle">Menu<span></span></a>
+  </div>
+  <!-- navigation section  --> 
+</header>
+<!-- header section --> 
+
+<div class="container">
+    <div class="card card-container">
+        <img id="profile-img" class="profile-img-card" src="/images/schools/nagoya-u-logo.png" />
+        <p id="profile-name" class="profile-name-card"></p>
+        <form class="form-signin" method="POST" action="/nagoya-u/signin">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <div id="remember" class="checkbox">
+                <label>
+                    <input type="checkbox" name="remember" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+        </form><!-- /form -->
+        <a href="/nagoya-u/password/reset" class="forgot-password">パスワードを忘れた</a>
+        <div class="center-block">
+            <a href="/nagoya-u/signup" class="toSignup">新規登録</a>            
+        </div>  
+    </div><!-- /card-container -->
+</div><!-- /container -->
+@endsection
+
+@section('after-scripts-end')
+
+@stop

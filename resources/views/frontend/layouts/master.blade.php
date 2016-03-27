@@ -15,7 +15,12 @@
 
         <!-- Styles -->
         @yield('before-styles-end')
-        {!! Html::style(elixir('css/frontend.css')) !!}
+        <link rel="stylesheet" href="/css/vendor/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/vendor/jquery.fancybox.css">
+        <link rel="stylesheet" href="/css/vendor/owl.carousel.css">
+        <link rel="stylesheet" href="/css/vendor/owl.transitions.css">
+        <link rel="stylesheet" href="/css/vendor/animate.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         @yield('after-styles-end')
 
         <!-- Fonts -->
@@ -23,20 +28,17 @@
     </head>
     <body id="app-layout">
 
-        @include('frontend.includes.nav')
-
-        <div class="container">
-            @include('includes.partials.messages')
-            @yield('content')
-        </div><!-- container -->
+        @include('includes.partials.messages')
+        @yield('content')
 
         <!-- JavaScripts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="{{asset('js/vendor/jquery/jquery-2.1.4.min.js')}}"><\/script>')</script>
-        {!! Html::script('js/vendor/bootstrap/bootstrap.min.js') !!}
-
+        <script src="/js/vendor/jquery/jquery-2.1.4.min.js"></script>
+        <script src="/js/vendor/bootstrap.min.js"></script> 
+        <script src="/js/vendor/jquery.fancybox.pack.js"></script> 
+        <script src="/js/vendor/retina.min.js"></script> 
+        <script src="/js/vendor/modernizr.js"></script> 
+        <script src="/js/vendor/owl.carousel.min.js"></script>
         @yield('before-scripts-end')
-        {!! Html::script(elixir('js/frontend.js')) !!}
         @yield('after-scripts-end')
 
         @include('includes.partials.ga')

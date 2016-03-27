@@ -35,3 +35,12 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'ad
     require (__DIR__ . '/Routes/Backend/Access.php');
     require (__DIR__ . '/Routes/Backend/LogViewer.php');
 });
+
+/**
+ * Teacher Routes
+ */
+Route::group(['namespace' => 'Teacher', 'prefix' => '/{school}/teacher', 'middleware' => 'teacher'], function () {
+
+    require (__DIR__ . '/Routes/Teacher/Dashboard.php');
+    require (__DIR__ . '/Routes/Teacher/Lecture.php');
+});

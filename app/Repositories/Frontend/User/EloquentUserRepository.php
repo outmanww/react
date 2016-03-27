@@ -83,7 +83,9 @@ class EloquentUserRepository implements UserContract
             ]);
         } else {
             $user = User::create([
-                'name' => $data['name'],
+                'family_name' => $data['family_name'],
+                'given_name' => $data['given_name'],
+                'personal_id' => $data['personal_id'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
@@ -198,9 +200,9 @@ class EloquentUserRepository implements UserContract
             $user = $this->find($user);
         }
 
-        return Mail::send('frontend.auth.emails.confirm', ['token' => $user->confirmation_code], function ($message) use ($user) {
-            $message->to($user->email, $user->name)->subject(app_name() . ': ' . trans('exceptions.frontend.auth.confirmation.confirm'));
-        });
+        // return Mail::send('frontend.auth.emails.confirm', ['token' => $user->confirmation_code], function ($message) use ($user) {
+        //     $message->to($user->email, $user->name)->subject(app_name() . ': ' . trans('exceptions.frontend.auth.confirmation.confirm'));
+        // });
     }
 
     /**

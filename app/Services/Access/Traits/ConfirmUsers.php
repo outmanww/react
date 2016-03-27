@@ -15,7 +15,7 @@ trait ConfirmUsers
      * @param $token
      * @return mixed
      */
-    public function confirmAccount($token)
+    public function confirmAccount($school, $token)
     {
         $this->user->confirmAccount($token);
         return redirect()->route('auth.login')->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.success'));
@@ -25,7 +25,7 @@ trait ConfirmUsers
      * @param $token
      * @return mixed
      */
-    public function resendConfirmationEmail($token)
+    public function resendConfirmationEmail($school, $token)
     {
         $this->user->resendConfirmationEmail($token);
         return redirect()->route('auth.login')->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.resent'));

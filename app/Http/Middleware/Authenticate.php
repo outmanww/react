@@ -25,7 +25,13 @@ class Authenticate
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('login');
+
+                /*
+                 * 未ログインであればルートパラメーターからschool_nameを取得して
+                 * schoolごとの signin page へリダイレクト
+                 */
+                $school_name = $request->route('school');
+                return redirect()->guest($school_name . '/signin');
             }
         }
 
