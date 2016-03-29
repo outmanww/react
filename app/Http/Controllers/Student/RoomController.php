@@ -17,7 +17,7 @@ class RoomController extends Controller
     public function room($room_id)
     {
     	if ($room_id < 6) {
-    		return '2&線形代数１&山田太郎&火曜' . $room_id . '限';
+    		return '線形代数１&山田太郎&火曜' . $room_id . '限';
     	}
         return \Response::json('not found', 400);
     }
@@ -40,7 +40,7 @@ class RoomController extends Controller
     {
     	if ($room_id < 6) {
 	    	$rand = rand(0 , 20);
-	    	return '3&' . $rand;
+	    	return $rand;
        	}
 
         return \Response::json('not found', 400);
