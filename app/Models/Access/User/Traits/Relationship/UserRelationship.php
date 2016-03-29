@@ -39,4 +39,12 @@ trait UserRelationship
     {
         return $this->hasMany(SocialLogin::class);
     }
+
+    /**
+     * @return mixed
+     */
+    public function lectures()
+    {
+        return $this->belongsToMany('App\Models\Lecture\Lecture', 'lecture_teacher', 'teacher_id', 'lecture_id');
+    }
 }
