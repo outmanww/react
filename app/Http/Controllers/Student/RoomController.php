@@ -12,21 +12,21 @@ use App\Http\Controllers\Controller;
 class RoomController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Response
      */
     public function room($room_id)
     {
     	if ($room_id < 6) {
     		return '2&線形代数１&山田太郎&火曜' . $room_id . '限';
     	}
-        return \Response::json('not found', 200);
+        return \Response::json('not found', 400);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Response
      */
     public function action()
     {
-
+    	return 'aaa';
     }
 }
