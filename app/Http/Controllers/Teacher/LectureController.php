@@ -13,16 +13,10 @@ class LectureController extends Controller
     /**
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index($school)
     {
-        return view('frontend.index');
-    }
-
-    /**
-     * @return \Illuminate\View\View
-     */
-    public function schools()
-    {
-        return view('frontend.schools.index');
+        $domain = env('APP_URL');
+        $env = env('APP_ENV');
+        return view('teacher.index', compact('domain', 'env', 'school'));
     }
 }
