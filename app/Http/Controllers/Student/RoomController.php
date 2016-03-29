@@ -15,6 +15,9 @@ use App\Models\Lecture\Room;
  */
 class RoomController extends Controller
 {
+
+    protected $weeks = ['月','火','水','木','金','土','日'];
+
     /**
      * @return Response
      */
@@ -31,13 +34,7 @@ class RoomController extends Controller
         $room = Room::where('key', $key)
             ->with([
                 'lecture' => function ($query) {
-                    $query->select('id', 'title', 'department_id');
-                },
-                'lecture.department' => function ($query) {
-                    $query->select('id', 'name', 'faculty_id');
-                },
-                'lecture.department.faculty' => function ($query) {
-                    $query->select('id', 'name');
+                    $query->select('id', 'title', 'time_slot');
                 },
                 'teacher' => function ($query) {
                     $query->select('id', 'family_name', 'given_name');
@@ -54,9 +51,16 @@ class RoomController extends Controller
             return \Response::json('room has been already closed', 400);
         }
 
+        $time_slot = $room['lecture']['time_slot'] - 1;
+        $slot = $time_slot % 5;
+        $weekday = $this->weeks[floor($time_slot / 5)];
+        $slot = $slot + 1;
+    
         $results = array(
-            'lecture_name' => $room['lecture']['title'],
-            'teacher_name' => $room['teacher']['family_name']);
+            'lecture' => $room['lecture']['title'],
+            'teacher' => $room['teacher']['family_name'].$room['teacher']['given_name'],
+            'timeslot' => $weekday.$slot
+            );
 
         return \Response::json($results, 200);    
     }
