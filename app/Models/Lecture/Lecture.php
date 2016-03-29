@@ -4,7 +4,7 @@ namespace App\Models\Lecture;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class Lecture extends Model
 {
     /**
      * 複数代入の許可
@@ -19,6 +19,11 @@ class Department extends Model
 	public function user()
 	{
 		return $this->belongsToMany('App\Models\Access\User\User');
+	}
+
+	public function department()
+	{
+		return $this->belongsTo('App\Models\Lecture\Department');
 	}
 
 	public function rooms()

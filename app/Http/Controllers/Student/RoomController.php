@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+//Models
+use App\Models\Lecture\Room;
 
 /**
  * Class RoomController
@@ -14,19 +16,18 @@ class RoomController extends Controller
     /**
      * @return Response
      */
-    public function room($room_id)
+    public function room($key)
     {
-    	if ($room_id < 6) {
-    		// return '線形代数１&山田太郎&火曜' . $room_id . '限';
-            $res = [
-                'name' => '線形代数１',
-                'teacher' => '山田太郎',
-                'lectured_at' => '火曜' . $room_id . '限',
-            ];
+        if (!intval($key)) {
+            return \Response::json('room_key must be integer', 400);
+        }
 
-            return \Response::json($res, 400);
+    	if (strlen($key) !== 6) {
+            return \Response::json('room_key must be 6 characters', 400);
     	}
-        return \Response::json('not found', 400);
+
+        $room = Room::where('key', $key)->with(['lecture.department'])->first();
+        return \Response::json($room, 200);    
     }
 
     /**
