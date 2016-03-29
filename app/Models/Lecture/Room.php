@@ -4,7 +4,7 @@ namespace App\Models\Lecture;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class Room extends Model
 {
     /**
      * 複数代入の許可
@@ -16,9 +16,14 @@ class Department extends Model
      */
     protected $dates = ['created_at', 'closed_at', 'deleted_at'];
 
-	public function user()
+	public function teacher()
 	{
-		return $this->belongsToMany('App\Models\Access\User\User');
+		return $this->belongsTo('App\Models\Access\User\User', 'teacher_id', 'id');
+	}
+
+	public function lecture()
+	{
+		return $this->belongsTo('App\Models\Lecture\Lecture');
 	}
 
 	public function reactions()

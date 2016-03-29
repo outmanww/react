@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+//Models
+use App\Models\Lecture\Room;
 
 /**
  * Class RoomController
@@ -14,12 +16,39 @@ class RoomController extends Controller
     /**
      * @return Response
      */
-    public function room($room_id)
+    public function room($key)
     {
-    	if ($room_id < 6) {
-    		return '線形代数１&山田太郎&火曜' . $room_id . '限';
-    	}
-        return \Response::json('not found', 400);
+        if (!intval($key)) {
+            return \Response::json('room_key must be integer', 400);
+        }
+
+        if (strlen($key) !== 6) {
+            return \Response::json('room_key must be 6 characters', 400);
+        }
+
+        if (strlen($key) !== 6) {
+            return \Response::json('room_key must be 6 characters', 400);
+        }
+
+        $room = Room::where('key', $key)
+            ->with([
+                'lecture' => function ($query) {
+                    $query->select('id', 'title', 'department_id');
+                },
+                'lecture.department' => function ($query) {
+                    $query->select('id', 'name', 'faculty_id');
+                },
+                'lecture.department.faculty' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'teacher' => function ($query) {
+                    $query->select('id', 'family_name', 'given_name');
+                }
+            ])
+            ->select('lecture_id', 'teacher_id', 'length')
+            ->first();
+
+        return \Response::json($room, 200);    
     }
 
     /**
