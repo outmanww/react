@@ -18,6 +18,7 @@ class CreateAffiliationsTable extends Migration
             $table->integer('sort')->default(0)->unsigned();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');
+            $table->softDeletes();
 
             /**
              * Add Foreign/Unique/Index
@@ -32,6 +33,7 @@ class CreateAffiliationsTable extends Migration
             $table->smallInteger('sort')->default(0)->unsigned();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');
+            $table->softDeletes();
 
             /**
              * Add Foreign/Unique/Index

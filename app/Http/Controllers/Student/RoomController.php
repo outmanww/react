@@ -50,8 +50,15 @@ class RoomController extends Controller
             return \Response::json('room not found', 400);
         }
 
-        if
-        return \Response::json($room, 200);    
+        if(!is_null($room['closed_at'])){
+            return \Response::json('room has been already closed', 400);
+        }
+
+        $results = array(
+            'lecture_name' => $room['lecture']['title'],
+            'teacher_name' => $room['teacher']['family_name']);
+
+        return \Response::json($results, 200);    
     }
 
     /**
