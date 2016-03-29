@@ -22,9 +22,13 @@ class RoomController extends Controller
             return \Response::json('room_key must be integer', 400);
         }
 
-    	if (strlen($key) !== 6) {
+        if (strlen($key) !== 6) {
             return \Response::json('room_key must be 6 characters', 400);
-    	}
+        }
+
+        if (strlen($key) !== 6) {
+            return \Response::json('room_key must be 6 characters', 400);
+        }
 
         $room = Room::where('key', $key)
             ->with([
