@@ -25,8 +25,24 @@ class RoomController extends Controller
     /**
      * @return Response
      */
-    public function action()
+    public function action($room_id)
     {
-    	return 'aaa';
+    	if ($room_id < 6) {
+    		return \Response::json('success', 200);
+    	}
+        return \Response::json('not found', 400);
+    }
+
+    /**
+     * @return Response
+     */
+    public function status($room_id)
+    {
+    	if ($room_id < 6) {
+	    	$rand = rand(0 , 20);
+	    	return '3&' . $rand;
+       	}
+
+        return \Response::json('not found', 400);
     }
 }
