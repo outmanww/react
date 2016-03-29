@@ -23,6 +23,8 @@ class CreateLectureRelatedTables extends Migration
 
             // student grade
             $table->tinyInteger('grade')->nullable();
+            // lecture place
+            $table->string('place')->nullable();
             $table->tinyInteger('time_slot')->nullable();
             $table->smallInteger('length')->nullable()->unsigned();
             $table->tinyInteger("year")->nullable();

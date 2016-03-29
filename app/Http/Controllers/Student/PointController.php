@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-// Models
-use App\Models\Lecture\Room;
+//Models
+use App\Models\Lecture\Point;
 // Exceptions
-// use App\Exceptions\ApiException;
+use App\Exceptions\ApiException;
 
 /**
  * Class RoomController
  * @package App\Http\Controllers\Student
  */
-class RoomController extends Controller
+class PointController extends Controller
 {
     /**
      * @return Response
@@ -43,14 +43,9 @@ class RoomController extends Controller
                     $query->select('id', 'family_name', 'given_name');
                 }
             ])
-            ->select('lecture_id', 'teacher_id', 'length', 'closed_at')
+            ->select('lecture_id', 'teacher_id', 'length')
             ->first();
 
-        if(empty($room)){
-            return \Response::json('room not found', 400);
-        }
-
-        if
         return \Response::json($room, 200);    
     }
 

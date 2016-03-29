@@ -61,7 +61,7 @@ class StudentTableSeeder extends Seeder
                 'street'            => '不老町',
                 'building'          => '',
                 'introduction'      => '自己紹介です',
-                'email'             => 'teacher@teacher.com',
+                'email'             => 'suzuki@react-opt.com',
                 'password'          => bcrypt('123456'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
