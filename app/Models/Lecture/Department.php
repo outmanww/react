@@ -13,6 +13,6 @@ class Department extends Model
 
 	public function faculty()
 	{
-		return $this->belongsTo('App\Models\Lecture\Faculty', 'id', 'faculty_id');
+		return $this->belongsTo('App\Models\Lecture\Faculty');
 	}
 }

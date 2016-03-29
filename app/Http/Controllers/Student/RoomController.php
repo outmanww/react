@@ -26,7 +26,24 @@ class RoomController extends Controller
             return \Response::json('room_key must be 6 characters', 400);
     	}
 
-        $room = Room::where('key', $key)->with(['lecture.department'])->first();
+        $room = Room::where('key', $key)
+            ->with([
+                'lecture' => function ($query) {
+                    $query->select('id', 'title', 'department_id');
+                },
+                'lecture.department' => function ($query) {
+                    $query->select('id', 'name', 'faculty_id');
+                },
+                'lecture.department.faculty' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'teacher' => function ($query) {
+                    $query->select('id', 'family_name', 'given_name');
+                }
+            ])
+            ->select('lecture_id', 'teacher_id', 'length')
+            ->first();
+
         return \Response::json($room, 200);    
     }
 

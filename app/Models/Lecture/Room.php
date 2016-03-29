@@ -16,9 +16,9 @@ class Room extends Model
      */
     protected $dates = ['created_at', 'closed_at', 'deleted_at'];
 
-	public function user()
+	public function teacher()
 	{
-		return $this->belongsToMany('App\Models\Access\User\User');
+		return $this->belongsTo('App\Models\Access\User\User', 'teacher_id', 'id');
 	}
 
 	public function lecture()
