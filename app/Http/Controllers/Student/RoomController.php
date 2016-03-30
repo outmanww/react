@@ -83,16 +83,10 @@ class RoomController extends Controller
      */
     public function action(StudentActionRequest $request, $key)
     {
-        //return \Response::json('Request OK!', 200);
-
+        
         $user = User::find(1);
-        //$action = $request->input('action');
-        //$action = $request->action;
-
-        //$action = json_decode($request->getContent(), true)['action'];
-
-        return $request->getContent()."&".$request->action."&".$request->input('action')." ".$request->header('Content-Type');
-
+        $action = $request->action;
+        
         if (!intval($key)) {
             return \Response::json('room_key must be integer', 400);
         }
