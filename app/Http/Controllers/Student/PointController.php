@@ -4,20 +4,17 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-// Models
-use App\Models\Lecture\Room;
+//Models
+use App\Models\Lecture\Point;
 // Exceptions
-// use App\Exceptions\ApiException;
+use App\Exceptions\ApiException;
 
 /**
  * Class RoomController
  * @package App\Http\Controllers\Student
  */
-class RoomController extends Controller
+class PointController extends Controller
 {
-
-    protected $weeks = ['月','火','水','木','金','土','日'];
-
     /**
      * @return Response
      */
@@ -27,46 +24,29 @@ class RoomController extends Controller
             return \Response::json('room_key must be integer', 400);
         }
 
-        if (strlen($key) !== 6) {
+    	if (strlen($key) !== 6) {
             return \Response::json('room_key must be 6 characters', 400);
-        }
-
-        if (strlen($key) !== 6) {
-            return \Response::json('room_key must be 6 characters', 400);
-        }
+    	}
 
         $room = Room::where('key', $key)
             ->with([
                 'lecture' => function ($query) {
-                    $query->select('id', 'title', 'time_slot');
+                    $query->select('id', 'title', 'department_id');
+                },
+                'lecture.department' => function ($query) {
+                    $query->select('id', 'name', 'faculty_id');
+                },
+                'lecture.department.faculty' => function ($query) {
+                    $query->select('id', 'name');
                 },
                 'teacher' => function ($query) {
                     $query->select('id', 'family_name', 'given_name');
                 }
             ])
-            ->select('lecture_id', 'teacher_id', 'length', 'closed_at')
+            ->select('lecture_id', 'teacher_id', 'length')
             ->first();
 
-        if(empty($room)){
-            return \Response::json('room not found', 400);
-        }
-
-        if(!is_null($room['closed_at'])){
-            return \Response::json('room has been already closed', 400);
-        }
-
-        $time_slot = $room['lecture']['time_slot'] - 1;
-        $slot = $time_slot % 5;
-        $weekday = $this->weeks[floor($time_slot / 5)];
-        $slot = $slot + 1;
-    
-        $results = array(
-            'lecture' => $room['lecture']['title'],
-            'teacher' => $room['teacher']['family_name'].$room['teacher']['given_name'],
-            'timeslot' => $weekday.$slot
-            );
-
-        return \Response::json($results, 200);    
+        return \Response::json($room, 200);    
     }
 
     /**

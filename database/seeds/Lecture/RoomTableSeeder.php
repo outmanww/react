@@ -40,16 +40,19 @@ class RoomTableSeeder extends Seeder
                 'teacher_id'       => $teacher->id,
                 'key'              => '147258',
                 'created_at'       => Carbon::now(),
+                'closed_at'       => null,
             ],[
                 'lecture_id'       => $lecture_1->id,
                 'teacher_id'       => $teacher->id,
                 'key'              => '163852',
                 'created_at'       => Carbon::now(),
+                'closed_at'       => Carbon::now(),
             ],[
                 'lecture_id'       => $lecture_2->id,
                 'teacher_id'       => $teacher->id,
                 'key'              => '854612',
                 'created_at'       => Carbon::now(),
+                'closed_at'       => null,
             ]
         ];
 
