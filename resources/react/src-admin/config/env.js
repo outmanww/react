@@ -6,4 +6,4 @@ export const DOMAIN_NAME = document.querySelector('meta[name="domain"]').content
 export const SCHOOL_NAME = document.querySelector('meta[name="school"]').content;
 
 //alert message の表示時間
-export const _DELETE_ALERT_INTERBAL = 3000;
+export const DELETE_ALERT_INTERBAL = 3000;

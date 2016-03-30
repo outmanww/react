@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+// Config
+import { SCHOOL_NAME } from '../../config/env';
+
 // Actions
 import * as ApplicationActions from '../actions/application';
 import * as MyProfileActions from '../actions/myProfile';
@@ -13,7 +16,7 @@ import MyTheme from '../theme/theme';
 // Components
 import { AppBar, Paper, IconButton, IconMenu, MenuItem, ThemeWrapper } from 'material-ui';
 import Alert from '../components/Common/Alert';
-import MainSidebar from '../components/MainSidebar/MainSidebar';
+import MainSidebar from '../components/Common/MainSidebar';
 // Icons
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
 import SocialPublic from 'material-ui/lib/svg-icons/social/public';
@@ -24,7 +27,6 @@ var Breadcrumbs = require('react-breadcrumbs');
 class App extends Component {
   constructor(props, context) {
     super(props, context);
-    props.actions.fetchMyProfile();
     this.state = { open: true };
   }
 
@@ -65,19 +67,14 @@ class App extends Component {
                 <MenuItem
                   id="link-to-top"
                   primaryText="Top"
-                  onTouchTap={() => window.location.href = '/droview'}
+                  onTouchTap={() => window.location.href = '/schools'}
                   className="link-top"
-                />
-                <MenuItem
-                  id="link-to-mypage"
-                  primaryText="My Page"
-                  onTouchTap={() => window.location.href = '/droview/reserve'}
                 />
                 <MenuItem
                   id="sign-out"
                   className="sign-out"
                   primaryText="Sign out"
-                  onClick={() => window.location.href = '/logout'}
+                  onClick={() => window.location.href =  `/${SCHOOL_NAME}/signout`}
                 />
               </IconMenu>
               <IconMenu
@@ -118,7 +115,6 @@ class App extends Component {
 App.propTypes = {
   children: PropTypes.element.isRequired,
   locale: PropTypes.string.isRequired,
-  myProfile: PropTypes.object.isRequired,
   alerts: PropTypes.array,
   routing: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
@@ -127,7 +123,6 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     locale: state.application.locale,
-    myProfile: state.myProfile,
     alerts: state.alert.side,
     routing: state.routing
   };

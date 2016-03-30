@@ -50,6 +50,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof ApiException) {
+            return \Response::json($e->getMessage(), 400);
+        }
+
         /**
          * Redirect if token mismatch error
          * Usually because user stayed on the same screen too long and their session expired

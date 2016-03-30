@@ -1,16 +1,9 @@
 /*eslint-disable max-len,quotes*/
 export default {
-
-
   "unexpected": `予期せぬエラーが発生しました。もう一度実行してください。`,
-  "nav.dashboard": `ダッシュボード`,
 
-  "nav.access": `アクセス管理`,
-  "nav.flight": `フライト管理`,
-  "nav.flight.plan": `プラン`,
-  "nav.flight.type": `タイプ`,
-  "nav.flight.place": `場所`,
-  "nav.pin": `PINコード管理`,
+  "nav.dashboard": `ダッシュボード`,
+  "nav.lecture": `授業の管理`,
 
   "user.update.success": `ユーザー情報を更新しました`,
   "user.store.success": `ユーザー情報を作成しました`,
