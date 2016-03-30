@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
-var config = require('./webpack-admin/dev.config');
+var config = require('./webpack-teacher/dev.config');
 
 var app = new (require('express'))();
 var port = 3001;
@@ -16,7 +16,7 @@ app.use(webpackDevMiddleware(compiler, {
 app.use(webpackHotMiddleware(compiler));
 
 app.get("/*", function(req, res) {
-  res.sendFile(__dirname + '/public/index.admin.html')
+  res.sendFile(__dirname + '/public/index.teacher.html')
 });
 
 app.listen(port, function(error) {

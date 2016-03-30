@@ -8,12 +8,12 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: [
     'bootstrap-loader/extractStyles',
-    './src-admin/index',
+    './src-teacher/index',
   ],
   output: {
-    path: path.join(__dirname, '../../public/dist/admin'),
+    path: path.join(__dirname, '../../public/dist/teacher'),
     filename: 'bundle.js',
-    publicPath: '/dist/admin/'
+    publicPath: '/dist/teacher/'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),

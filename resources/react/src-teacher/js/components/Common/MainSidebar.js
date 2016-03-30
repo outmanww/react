@@ -77,8 +77,13 @@ class MainSidebar extends Component {
       <SelectableList pathname={pathname} push={push}>
         <ListItem
           disabled
+          leftAvatar={<Avatar src=""/>}
           primaryText={!user.isFetching && user.user !== null ? user.user.name : ''}
-          leftAvatar={<Avatar src="" />}/>
+          secondaryText={
+            <p>登録授業数：{!user.isFetching && user.user !== null ? user.user.lectures : ''}</p>
+          }
+          secondaryTextLines={1}
+        />
         <Divider />
         <ListItem
           value={path.dashboard}

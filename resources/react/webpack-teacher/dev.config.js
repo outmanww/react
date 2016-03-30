@@ -9,7 +9,7 @@ module.exports = {
   entry: [
     'webpack-hot-middleware/client?path=http://localhost:3001/__webpack_hmr',
     'bootstrap-loader',
-    './src-admin/index',
+    './src-teacher/index',
   ],
   output: {
     path: path.join(__dirname, 'dist'),
