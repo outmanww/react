@@ -3,7 +3,7 @@
   "useFlexbox": true,
 
   "styleLoaders": ["style", "css", "sass"],
-  "bootstrapCustomizations": "./src-admin/assets/scss/main.scss",
+  "bootstrapCustomizations": "./src-front/theme/main.scss",
 
   "styles": true,
   "scripts": false,

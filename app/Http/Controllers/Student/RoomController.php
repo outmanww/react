@@ -27,12 +27,22 @@ class RoomController extends Controller
         if (!intval($key)) {
             return \Response::json('room_key must be integer', 400);
         }
+
         $key = sprintf("%06d", $key);
 /*
     	if (strlen($key) !== 6) {
             return \Response::json('room_key must be 6 characters', 400);
     	}
 */
+
+        if (strlen($key) !== 6) {
+            return \Response::json('room_key must be 6 characters', 400);
+        }
+
+        if (strlen($key) !== 6) {
+            return \Response::json('room_key must be 6 characters', 400);
+        }
+
         $room = Room::where('key', $key)
             ->with([
                 'lecture' => function ($query) {
@@ -98,12 +108,19 @@ class RoomController extends Controller
         }
 
         $affiliation_id = substr($key, 0,2);
-
+/*
         Room::table('reactions')->insert([
-            'student_id' => 1,
+            'student_id' => $user->id,
             'affiliation_id' => $affiliation_id,
             'type_id' => $action,
             'room_id' => $room['id']
+            ]);
+            */
+        Room::table('reactions')->insert([
+            'student_id' => 1,
+            'affiliation_id' => 1,
+            'type_id' => 1,
+            'room_id' => 1
             ]);
 
         return \Response::json('entered room successfully!', 200);
