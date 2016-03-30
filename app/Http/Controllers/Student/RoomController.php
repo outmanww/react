@@ -91,7 +91,7 @@ class RoomController extends Controller
 
         //$action = json_decode($request->getContent(), true)['action'];
 
-        return $request->getContent()." ".$request->action." ".$request->input('action');
+        return $request->getContent()."&".$request->action."&".$request->input('action');
 
         if (!intval($key)) {
             return \Response::json('room_key must be integer', 400);
