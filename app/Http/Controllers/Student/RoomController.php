@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 // Models
 use App\Models\Lecture\Room;
+use App\Models\Student\Reaction;
 // Exceptions
 // use App\Exceptions\ApiException;
 use App\Http\Requests\Student\StudentActionRequest;
@@ -107,23 +108,16 @@ class RoomController extends Controller
             return \Response::json('room has been already closed', 400);
         }
 
-        $affiliation_id = substr($key, 0,2);
-/*
-        Room::table('reactions')->insert([
+        $affiliation_id = substr($key, 0,3);
+
+        Reaction::insert([
             'student_id' => $user->id,
             'affiliation_id' => $affiliation_id,
             'type_id' => $action,
             'room_id' => $room['id']
             ]);
-            */
-        Room::table('reactions')->insert([
-            'student_id' => 1,
-            'affiliation_id' => 1,
-            'room_id' => 1,
-            'type_id' => 1
-            ]);
 
-        return \Response::json('entered room successfully!', 200);
+        return \Response::json('Request OK!', 200);
     }
 
     /**
