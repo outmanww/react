@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Lecture\Room;
 // Exceptions
 // use App\Exceptions\ApiException;
-
+use App\Http\Requests\Student\StudentActionRequest;
+use App\Models\Access\User\User;
 /**
  * Class RoomController
  * @package App\Http\Controllers\Student
@@ -26,11 +27,12 @@ class RoomController extends Controller
         if (!intval($key)) {
             return \Response::json('room_key must be integer', 400);
         }
-
+        $key = sprintf("%06d", $key);
+/*
     	if (strlen($key) !== 6) {
             return \Response::json('room_key must be 6 characters', 400);
     	}
-
+*/
         $room = Room::where('key', $key)
             ->with([
                 'lecture' => function ($query) {
@@ -62,18 +64,49 @@ class RoomController extends Controller
             'timeslot' => $weekday.$slot
             );
 
-        return \Response::json($results, 200);    
+        return \Response::json($results, 200); 
     }
 
     /**
      * @return Response
      */
-    public function action($room_id)
+    public function action(StudentActionRequest $request, $key)
     {
-    	if ($room_id < 6) {
-    		return \Response::json('success', 200);
-    	}
-        return \Response::json('not found', 400);
+        
+        $user = User::find(1);
+        $action = $request->input('action');
+        
+        if (!intval($key)) {
+            return \Response::json('room_key must be integer', 400);
+        }
+        $key = sprintf("%06d", $key);
+/*
+        if (strlen($key) !== 6) {
+            return \Response::json('room_key must be 6 characters', 400);
+        }
+*/
+        $room = Room::where('key', $key)
+            ->select('id', 'closed_at')
+            ->first();
+
+        if(empty($room)){
+            return \Response::json('room not found', 400);
+        }
+
+        if(!is_null($room['closed_at'])){
+            return \Response::json('room has been already closed', 400);
+        }
+
+        $affiliation_id = substr($key, 0,2);
+
+        Room::table('reactions')->insert([
+            'student_id' => 1,
+            'affiliation_id' => $affiliation_id,
+            'type_id' => $action,
+            'room_id' => $room['id']
+            ]);
+
+        return \Response::json('entered room successfully!', 200);
     }
 
     /**
