@@ -11,7 +11,6 @@ import Colors from 'material-ui/lib/styles/colors';
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
-    console.log('context', context)
   }
 
   render() {

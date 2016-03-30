@@ -3,8 +3,8 @@ import { reducer as formReducer } from 'redux-form';
 import { routeReducer } from 'react-router-redux';
 //my reducers
 import application from './application';
-// import myProfile from './myProfile';
 import alert from './alert';
+import user from './user';
 // import disposable from './disposable';
 // import users from './users';
 // import roles from './roles';
@@ -19,7 +19,7 @@ import alert from './alert';
 
 //reducers/index.jsから全てのreducerを取得しformReducer,routeReducerとcombine
 const rootReducer = combineReducers(Object.assign({
-  application, alert
+  application, alert, user
 }, {
   form: formReducer,
   routing: routeReducer

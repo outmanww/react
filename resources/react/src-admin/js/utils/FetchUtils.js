@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { CSRF_TOKEN, DOMAIN_NAME } from '../../config/env';
+import { CSRF_TOKEN, DOMAIN_NAME, SCHOOL_NAME } from '../../config/env';
 import { keyToSnake } from './ChangeCaseUtils';
 import { camelizeKeys } from 'humps';
 
@@ -21,7 +21,14 @@ export function callApi(endpoint, method, body) {
     }
   }
 
-  return fetch(DOMAIN_NAME + endpoint, request)
+  let url;
+  if (/^\//.test(endpoint)) {
+    url = DOMAIN_NAME + endpoint;
+  } else {
+    url = `${DOMAIN_NAME}/${SCHOOL_NAME}/teacher/fetch/${endpoint}`
+  }
+
+  return fetch(url, request)
     .then(response =>
       response.json().then(json => ({ json, response }))
     )

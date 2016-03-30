@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 import { SCHOOL_NAME } from '../../config/env';
 
 // Actions
-import * as ApplicationActions from '../actions/application';
-import * as MyProfileActions from '../actions/myProfile';
-import * as InitializeActions from '../actions/initialize';
+import * as UserActions from '../actions/user';
 import { routeActions } from 'react-router-redux';
 // Theme
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
@@ -27,11 +25,12 @@ var Breadcrumbs = require('react-breadcrumbs');
 class App extends Component {
   constructor(props, context) {
     super(props, context);
+    props.actions.fetchInfo();
     this.state = { open: true };
   }
 
   render() {
-    const { locale, myProfile, alerts, children, routing, actions: {
+    const { locale, user, alerts, children, routing, actions: {
       changeLocale, deleteSideAlerts, push
     }} = this.props;
     const { open } = this.state;
@@ -98,7 +97,7 @@ class App extends Component {
           style={Object.assign({}, styles.leftNav, {left: open ? 0 : -230})}
         >
           <MainSidebar
-            myProfile={myProfile}
+            user={user}
             pathname={routing.location.pathname}
             push={push}/>
         </Paper>
@@ -114,6 +113,7 @@ class App extends Component {
 
 App.propTypes = {
   children: PropTypes.element.isRequired,
+  user: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
   alerts: PropTypes.array,
   routing: PropTypes.object.isRequired,
@@ -122,6 +122,7 @@ App.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    user: state.user,
     locale: state.application.locale,
     alerts: state.alert.side,
     routing: state.routing
@@ -130,9 +131,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const actions = Object.assign(
-    ApplicationActions,
-    MyProfileActions,
-    InitializeActions,
+    UserActions,
     routeActions
   );
   return {
