@@ -93,6 +93,60 @@ class DepartmentTableSeeder extends Seeder
         ];
 
         DB::table('departments')->insert($departments);
+        /**
+         * 情報文化学部のコース
+         */
+        $faculties = DB::table('faculties')
+            ->where('name', '情報文化学部')
+            ->first();
+
+        $departments = [
+            [
+                'name'       => '複雑システム系',
+                'sort'       => '1',
+                'faculty_id' => $faculties->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],[
+                'name'       => '数理情報系',
+                'sort'       => '2',
+                'faculty_id' => $faculties->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],[
+                'name'       => '環境システム系',
+                'sort'       => '3',
+                'faculty_id' => $faculties->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],[
+                'name'       => '環境法経システム系',
+                'sort'       => '4',
+                'faculty_id' => $faculties->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],[
+                'name'       => '社会地域環境系',
+                'sort'       => '5',
+                'faculty_id' => $faculties->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],[
+                'name'       => 'メディア社会系',
+                'sort'       => '6',
+                'faculty_id' => $faculties->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],[
+                'name'       => '共通',
+                'sort'       => '7',
+                'faculty_id' => $faculties->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]
+        ];
+
+        DB::table('departments')->insert($departments);
 
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');

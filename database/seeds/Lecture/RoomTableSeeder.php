@@ -26,31 +26,31 @@ class RoomTableSeeder extends Seeder
         
         // seed rooms table
         $lecture_1 = DB::table('lectures')
-            ->where('title', '線形代数')
+            ->where('sort', 1)
             ->first();
         $lecture_2 = DB::table('lectures')
-            ->where('title', '犯罪心理学')
+            ->where('sort', 11)
             ->first();
         $teacher = DB::table('users')
-            ->where('family_name', 'Teacher')
+            ->where('family_name', '柳浦')
             ->first();
         $rooms = [
             [
                 'lecture_id'       => $lecture_1->id,
                 'teacher_id'       => $teacher->id,
-                'key'              => '147258',
+                'key'              => '001258',
                 'created_at'       => Carbon::now(),
                 'closed_at'       => null,
             ],[
                 'lecture_id'       => $lecture_1->id,
                 'teacher_id'       => $teacher->id,
-                'key'              => '163852',
+                'key'              => '001852',
                 'created_at'       => Carbon::now(),
                 'closed_at'       => Carbon::now(),
             ],[
                 'lecture_id'       => $lecture_2->id,
                 'teacher_id'       => $teacher->id,
-                'key'              => '854612',
+                'key'              => '001612',
                 'created_at'       => Carbon::now(),
                 'closed_at'       => null,
             ]

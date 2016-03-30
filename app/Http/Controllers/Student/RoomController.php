@@ -119,8 +119,8 @@ class RoomController extends Controller
         Room::table('reactions')->insert([
             'student_id' => 1,
             'affiliation_id' => 1,
-            'type_id' => 1,
-            'room_id' => 1
+            'room_id' => 1,
+            'type_id' => 1
             ]);
 
         return \Response::json('entered room successfully!', 200);

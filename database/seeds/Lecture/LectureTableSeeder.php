@@ -26,7 +26,7 @@ class LectureTableSeeder extends Seeder
         
         // seed lectures table
         $department_1 = DB::table('departments')
-            ->where('name', '共通')
+            ->where('name', '数理情報系')
             ->first();
         $department_2 = DB::table('departments')
             ->where('name', '心理社会行動')
@@ -49,8 +49,143 @@ class LectureTableSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'title'         => '犯罪心理学',
+                'title'         => '微積分',
                 'sort'          => '2',
+                'department_id' => $department_1->id,
+                'code'          => '131212',
+                'grade'         => '2',
+                'place'         => 'IB館４０4',
+                'time_slot'     => '8',
+                'length'        => '90',
+                'year'          => '2016',
+                'semester'      => '1',
+                'description'   => '理系基本授業です',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title'         => '離散数学',
+                'sort'          => '3',
+                'department_id' => $department_1->id,
+                'code'          => '141212',
+                'grade'         => '1',
+                'place'         => 'IB館４０4',
+                'time_slot'     => '14',
+                'length'        => '90',
+                'year'          => '2016',
+                'semester'      => '1',
+                'description'   => '理系基本授業です',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title'         => '統計学',
+                'sort'          => '4',
+                'department_id' => $department_1->id,
+                'code'          => '151212',
+                'grade'         => '2',
+                'place'         => 'IB館４０5',
+                'time_slot'     => '2',
+                'length'        => '90',
+                'year'          => '2016',
+                'semester'      => '1',
+                'description'   => '理系基本授業です',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title'         => 'Leading',
+                'sort'          => '5',
+                'department_id' => $department_1->id,
+                'code'          => '261212',
+                'grade'         => '2',
+                'place'         => 'IB館４１5',
+                'time_slot'     => '2',
+                'length'        => '90',
+                'year'          => '2016',
+                'semester'      => '1',
+                'description'   => '理系基本授業です',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title'         => '図論',
+                'sort'          => '6',
+                'department_id' => $department_1->id,
+                'code'          => '351212',
+                'grade'         => '2',
+                'place'         => 'IB館４25',
+                'time_slot'     => '2',
+                'length'        => '90',
+                'year'          => '2016',
+                'semester'      => '1',
+                'description'   => '理系基本授業です',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title'         => '経営学',
+                'sort'          => '7',
+                'department_id' => $department_1->id,
+                'code'          => '171212',
+                'grade'         => '2',
+                'place'         => 'IB館４65',
+                'time_slot'     => '2',
+                'length'        => '90',
+                'year'          => '2016',
+                'semester'      => '1',
+                'description'   => '理系基本授業です',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title'         => '集合論',
+                'sort'          => '8',
+                'department_id' => $department_1->id,
+                'code'          => '001212',
+                'grade'         => '2',
+                'place'         => 'IB館1０5',
+                'time_slot'     => '2',
+                'length'        => '90',
+                'year'          => '2016',
+                'semester'      => '1',
+                'description'   => '理系基本授業です',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title'         => 'プログラミング',
+                'sort'          => '9',
+                'department_id' => $department_1->id,
+                'code'          => '151312',
+                'grade'         => '2',
+                'place'         => 'IB館９０5',
+                'time_slot'     => '2',
+                'length'        => '90',
+                'year'          => '2016',
+                'semester'      => '1',
+                'description'   => '理系基本授業です',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title'         => 'データ構造',
+                'sort'          => '10',
+                'department_id' => $department_1->id,
+                'code'          => '151212',
+                'grade'         => '2',
+                'place'         => 'IB館４６5',
+                'time_slot'     => '2',
+                'length'        => '90',
+                'year'          => '2016',
+                'semester'      => '1',
+                'description'   => '理系基本授業です',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'title'         => '犯罪心理学',
+                'sort'          => '11',
                 'department_id' => $department_2->id,
                 'code'          => '321212',
                 'grade'         => '3',
