@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 //Config
-import { _ADMIN_DOMAIN_NAME } from '../../../config/env';
+import { SCHOOL_NAME } from '../../../config/env';
 //Components
 import { Avatar, Divider, List, ListItem } from 'material-ui';
 import Flag from 'material-ui/lib/svg-icons/content/flag';
@@ -9,6 +9,8 @@ import Dashboard from 'material-ui/lib/svg-icons/action/dashboard';
 import AccountBox from 'material-ui/lib/svg-icons/action/account-box';
 import DateRange from 'material-ui/lib/svg-icons/action/date-range';
 import MapPlace from 'material-ui/lib/svg-icons/maps/place';
+
+import { Link } from 'react-router';
 
 
 import { SelectableContainerEnhance } from 'material-ui/lib/hoc/selectable-enhance';
@@ -24,7 +26,11 @@ function wrapState(ComposedComponent) {
     }
 
     handleUpdateSelectedIndex(e, index) {
-      this.props.push(index);
+      console.log(index);
+      //window.location.href = `/${SCHOOL_NAME}/teacher/${index}`;
+      this.props.push({
+        pathname: index
+      });
       this.setState({
         selectedIndex: index,
       });
@@ -68,16 +74,12 @@ class MainSidebar extends Component {
       },
     };
     const path = {
-      dashboard: `${_ADMIN_DOMAIN_NAME}dashboard`,
-      access: `${_ADMIN_DOMAIN_NAME}access/users`,
-      plans: `${_ADMIN_DOMAIN_NAME}flight/plans`,
-      types: `${_ADMIN_DOMAIN_NAME}flight/types`,
-      places: `${_ADMIN_DOMAIN_NAME}flight/places`,
-      pinList: `${_ADMIN_DOMAIN_NAME}pins/list`,
-      pinGenerate: `${_ADMIN_DOMAIN_NAME}pins/generate`,
+      dashboard: `/${SCHOOL_NAME}/teacher/dashboard`,
+      lecture: `/${SCHOOL_NAME}/teacher/lectures`,
     };
     return (
       <SelectableList pathname={pathname} push={push}>
+        <Link to="/dashboard" activeClassName="active" >フライト予約</Link>
         <ListItem
           disabled
           primaryText="shiichi saito"
@@ -92,55 +94,12 @@ class MainSidebar extends Component {
           leftIcon={<Dashboard style={styles.icon}/>}/>
 
         <ListItem
-          value={path.access}
+          value={path.lecture}
           primaryText={
-            <FormattedMessage id="nav.access">text</FormattedMessage>
+            <FormattedMessage id="nav.lecture">text</FormattedMessage>
           }
           innerDivStyle={styles.innerDiv}
           leftIcon={<AccountBox style={styles.icon}/>}/>
-
-        <ListItem
-          autoGenerateNestedIndicator={false}
-          nestedListStyle={{ margin: 0 }}
-          primaryText={
-            <FormattedMessage id="nav.flight">text</FormattedMessage>
-          }
-          innerDivStyle={styles.innerDiv}
-          leftIcon={<DateRange style={styles.icon}/>}
-          initiallyOpen={false}
-          primaryTogglesNestedList
-          nestedItems={[
-            <ListItem
-              value={path.plans}
-              primaryText={
-                <FormattedMessage id="nav.flight.plan">text</FormattedMessage>
-              }
-              innerDivStyle={styles.innerDiv}
-              leftIcon={<DateRange style={styles.icon}/>}/>,
-            <ListItem
-              value={path.types}
-              primaryText={
-                <FormattedMessage id="nav.flight.type">text</FormattedMessage>
-              }
-              innerDivStyle={styles.innerDiv}
-              leftIcon={<Flag style={styles.icon}/>}/>,
-            <ListItem
-              value={path.places}
-              primaryText={
-                <FormattedMessage id="nav.flight.place">text</FormattedMessage>
-              }
-              innerDivStyle={styles.innerDiv}
-              leftIcon={<MapPlace style={styles.icon}/>}/>
-          ]}
-        />
-        <ListItem
-          id="pin"
-          value={path.pinList}
-          primaryText={
-            <FormattedMessage id="nav.pin">text</FormattedMessage>
-          }
-          innerDivStyle={styles.innerDiv}
-          leftIcon={<MapPlace style={styles.icon}/>}/>
       </SelectableList>
     )
   }

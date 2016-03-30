@@ -51,13 +51,6 @@ const initialState = {
 export default function disposable(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    // case REQUEST_PLAN:
-    // case REQUEST_PLAN_SUCCESS:
-    // case REQUEST_PLAN_FAIL:
-    //   return Object.assign({}, state, {
-    //     plan: change(state.plan, 'plan', type.replace( /_PLAN/g , "" ), payload)
-    //   });
-
     case REQUEST_CLOSED_PLACES:
     case REQUEST_CLOSED_PLACES_SUCCESS:
     case REQUEST_CLOSED_PLACES_FAIL:

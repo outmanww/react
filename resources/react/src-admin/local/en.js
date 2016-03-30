@@ -1,12 +1,7 @@
 /*eslint-disable max-len,quotes*/
 export default {
   "nav.dashboard": `Dashboard`,
-  "nav.access": `Access Management`,
-  "nav.flight": `Flight Management`,
-  "nav.flight.plan": `Plan`,
-  "nav.flight.type": `Type`,
-  "nav.flight.place": `Place`,
-  "nav.pin": `Pin Code Management`,
+  "nav.lecture": `Lecture Management`,
 
   "plan.notFound": `The plan not found.`,
   "plan.alreadyExist": `The plan already exist.`,
