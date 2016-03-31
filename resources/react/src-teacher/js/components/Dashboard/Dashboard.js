@@ -16,9 +16,11 @@ class Dashboard extends Component {
   render() {
     return (
       <div style={{ minHeight: '600px', background: Colors.blueGrey50}}>
-        <section className="content-header">
-          <h1>Dashboard</h1>
-        </section>
+        <div className="container">
+          <section className="content-header">
+            <h3>Dashboard</h3>
+          </section>
+        </div>
       </div>
     );
   }

@@ -1,8 +1,6 @@
 import * as types from '../constants/UserActionTypes';
 import { CALL_API } from '../middleware/fetchMiddleware';
 import { push } from 'react-router-redux';
-// Config
-import { SCHOOL_NAME } from '../../config/env';
 
 export function fetchInfo() {
   return {

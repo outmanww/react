@@ -12,8 +12,52 @@ class ViewLecture extends Component {
 
   render() {
     return (
-      <div >
-        <h1>Lectures</h1>
+      <div className="row">
+        <div className="col-md-6">
+          <div className="space-top-2 row-space-2 clearfix">
+            <div className="row">
+              <div className="col-md-4">
+                <label className="label-large" htmlFor="input-name">授業名</label>
+              </div>
+              <div className="col-md-8">
+                <div className="row-space-top-1 label-large text-right">
+                  <div>残り<span>11</span>文字</div>
+                </div>
+              </div>
+            </div>
+            <input className="overview-title input-large" type="text" name="name" defaultValue="楽しく暮らせる部屋" placeholder="ポイントがはっきりわかるタイトルに。" maxLength={35} data-ignore-handle-blur="true" id="input-name"/>
+          </div>
+
+          <div className="space-top-2 row-space-2 clearfix">
+            <div className="row">
+              <div className="col-md-4">
+                <label className="label-large" htmlFor="input-name">授業名</label>
+              </div>
+              <div className="col-md-8">
+                <div className="row-space-top-1 label-large text-right">
+                  <div>残り<span>11</span>文字</div>
+                </div>
+              </div>
+            </div>
+            <input className="overview-title input-large" type="text" name="name" defaultValue="楽しく暮らせる部屋" placeholder="ポイントがはっきりわかるタイトルに。" maxLength={35} data-ignore-handle-blur="true" id="input-name"/>
+          </div>
+
+          <div className="space-top-2 row-space-2 clearfix">
+            <div className="row">
+              <div className="col-md-4">
+                <label className="label-large" htmlFor="input-name">授業名</label>
+              </div>
+              <div className="col-md-8">
+                <div className="row-space-top-1 label-large text-right">
+                  <div>残り<span>11</span>文字</div>
+                </div>
+              </div>
+            </div>
+            <input className="overview-title input-large" type="text" name="name" defaultValue="楽しく暮らせる部屋" placeholder="ポイントがはっきりわかるタイトルに。" maxLength={35} data-ignore-handle-blur="true" id="input-name"/>
+          </div>
+        </div>
+        <div className="col-md-6">
+        </div>
       </div>
     );
   }

@@ -16,7 +16,7 @@ class UserController extends Controller
     public function info($school)
     {
         $user = \Auth::user();
-        $name = $user->family_name . $user->given_name;
+        $name = $user->family_name . " " . $user->given_name;
         $lectures = $user->lectures()->count();
 
         return \Response::json([

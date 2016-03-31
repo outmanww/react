@@ -25,7 +25,7 @@ export default class Root extends Component {
               <Route path="dashboard" component={Dashboard}/>
               <Route name="Lectures" path="lectures" component={Lecture}>
                 <IndexRoute name="All" component={Lectures}/>
-                <Route name="Lecture" path="types" component={ViewLecture}/>
+                <Route name="Lecture" path=":id" component={ViewLecture}/>
               </Route>
             </Route>
           </Router>

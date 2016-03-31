@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // Config
 import { SCHOOL_NAME } from '../../config/env';
-
 // Actions
 import * as UserActions from '../actions/user';
 import { routeActions } from 'react-router-redux';
@@ -54,7 +53,7 @@ class App extends Component {
         <Alert alerts={alerts} deleteSideAlerts={deleteSideAlerts} />
         <AppBar
           style={styles.appBar}
-          title="H works App"
+          title="Re:act"
           onLeftIconButtonTouchTap={() => this.setState({open: !open})}
           iconElementRight={
             <div>

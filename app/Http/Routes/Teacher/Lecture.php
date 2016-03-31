@@ -1,5 +1,4 @@
 <?php
-
 Route::group(['prefix' => 'lectures'], function() {
 	Route::get('/', 'LectureController@index');
 	Route::get('/list', 'LectureController@index');

@@ -13,15 +13,15 @@ class Lecture extends Component {
   render() {
     const { routes, actions } = this.props;
     return (
-      <div style={{ minHeight: '600px', background: Colors.blueGrey50 }}>
-        <section className="content-header">
-          <h1>
-            Lecture
-          </h1>
-        </section>
-        <section className="content">
-          {this.props.children}
-        </section>
+      <div style={{ minHeight: window.innerHeight - 64, background: Colors.blueGrey50, marginTop:0}}>
+        <div className="container">
+          <section className="content-header">
+            <h3>講師の管理</h3>
+          </section>
+          <section className="content">
+            {this.props.children}
+          </section>
+        </div>
       </div>
     );
   }
