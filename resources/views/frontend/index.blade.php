@@ -165,17 +165,17 @@ src="http://www.youtube.com/embed/k32xyP3KuWE?autoplay=0" frameborder="0" allowf
   </div>
   <!-- owl-carousel starts -->
   <div id="owl-demo" class="owl-carousel">
-    <div class="item"><img src="images/app-screen/screen1.jpg"></div>
-    <div class="item"><img src="images/app-screen/screen2.jpg"></div>
-    <div class="item"><img src="images/app-screen/screen3.jpg"></div>
-    <div class="item"><img src="images/app-screen/screen4.jpg"></div>
-    <div class="item"><img src="images/app-screen/screen5.jpg"></div>
-    <div class="item"><img src="images/app-screen/screen6.jpg"></div>
-    <div class="item"><img src="images/app-screen/screen7.jpg"></div>
-    <div class="item"><img src="images/app-screen/screen2.jpg"></div>
-    <div class="item"><img src="images/app-screen/screen5.jpg"></div>
-    <div class="item"><img src="images/app-screen/screen1.jpg"></div>
-    <div class="item"><img src="images/app-screen/screen6.jpg"></div>
+    <div class="item"><img src="images/app-screen/app1.png"></div>
+    <div class="item"><img src="images/app-screen/app2.png"></div>
+    <div class="item"><img src="images/app-screen/app3.png"></div>
+    <div class="item"><img src="images/app-screen/app4.png"></div>
+    <div class="item"><img src="images/app-screen/app1.png"></div>
+    <div class="item"><img src="images/app-screen/app2.png"></div>
+    <div class="item"><img src="images/app-screen/app3.png"></div>
+    <div class="item"><img src="images/app-screen/app4.png"></div>
+    <div class="item"><img src="images/app-screen/app1.png"></div>
+    <div class="item"><img src="images/app-screen/app2.png"></div>
+    <div class="item"><img src="images/app-screen/app3.png"></div>
   </div>
   <!-- owl-carousel starts --> 
 </section>
