@@ -29,11 +29,6 @@ class Room extends Model
 	{
 		return $this->belongsTo('App\Models\Lecture\Lecture');
 	}
-
-	public function reactions()
-	{
-		return $this->hasMany('App\Models\Lecture\Room');
-	}
 /*
     public function checkRoomKey($key)
     {
