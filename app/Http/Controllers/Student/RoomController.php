@@ -154,6 +154,6 @@ class RoomController extends Controller
             'foreground' => $time_foreground
             );
 
-        return \Response::json($results, 200);
+        return \Response::json(Carbon::now(), 200);
     }
 }
