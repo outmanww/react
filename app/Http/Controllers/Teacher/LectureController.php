@@ -95,7 +95,7 @@ class LectureController extends Controller
         ])
         ->find($id);
 
-        return \Response::json($lecture, 200);
+        return \Response::json(['lecture' => $lecture], 200);
     }
 
     /**

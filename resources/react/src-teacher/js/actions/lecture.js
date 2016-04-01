@@ -16,3 +16,18 @@ export function fetchLectures() {
     }
   };
 }
+
+export function fetchLecture(id) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.REQUEST_LECTURE,
+        types.REQUEST_LECTURE_SUCCESS,
+        types.REQUEST_LECTURE_FAIL
+      ],
+      endpoint: `lectures/${id}`,
+      method: 'GET',
+      body: null
+    }
+  };
+}

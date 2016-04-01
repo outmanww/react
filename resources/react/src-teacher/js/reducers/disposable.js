@@ -1,17 +1,12 @@
 import {
-  ADD_EDITING_USER,
-  ADD_EDITING_ROLE,
-  ADD_ADDRESS,
-  ADD_VALIDATION,
   CLEAR_DISPOSABLE
 } from '../constants/ActionTypes';
 
 import {
-  REQUEST_CLOSED_PLACES,
-  REQUEST_CLOSED_PLACES_SUCCESS,
-  REQUEST_CLOSED_PLACES_FAIL,
-} from '../constants/PlanActionTypes';
-
+  REQUEST_LECTURE,
+  REQUEST_LECTURE_SUCCESS,
+  REQUEST_LECTURE_FAIL,
+} from '../constants/LectureActionTypes';
 
 function change(state = {}, key, type, payload) {
   switch (type) {
@@ -40,49 +35,17 @@ function change(state = {}, key, type, payload) {
 }
 
 const initialState = {
-  editingUser: null,
-  editingRole: null,
-  plan: {},
-  closedPlaces: {},
-  address: null,
-  validation: null
+  lecture: {},
 };
 
 export default function disposable(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case REQUEST_CLOSED_PLACES:
-    case REQUEST_CLOSED_PLACES_SUCCESS:
-    case REQUEST_CLOSED_PLACES_FAIL:
+    case REQUEST_LECTURE:
+    case REQUEST_LECTURE_SUCCESS:
+    case REQUEST_LECTURE_FAIL:
       return Object.assign({}, state, {
-        closedPlaces: change(state.plan, 'closedPlaces', type.replace(/_CLOSED_PLACES/g, ''), payload)
-      });
-
-    case ADD_EDITING_USER:
-      return Object.assign({}, state, {
-        editingUser: Object.assign(action.user,
-        { assigneesRoles: action.user.roles.map(role => role.id) }
-      )
-      });
-
-    case ADD_EDITING_ROLE:
-      return Object.assign({}, state, {
-        editingRole: Object.assign(action.role,
-        { permissions: action.role.permissions.map(p => p.id) }
-      )
-      });
-
-    case ADD_ADDRESS:
-      {
-        const { stateName, city, street } = action.address;
-        return Object.assign({}, state, {
-          address: { state: stateName, city, street }
-        });
-      }
-
-    case ADD_VALIDATION:
-      return Object.assign({}, state, {
-        validation: action.validation
+        lecture: change(state.lecture, 'lecture', type.replace(/_LECTURE/g, ''), payload)
       });
 
     case CLEAR_DISPOSABLE:

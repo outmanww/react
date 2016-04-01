@@ -1,11 +1,3 @@
-.space-top-2 {
-    margin-top: 12.5px;
-}
-
-.row-space-2 {
-    margin-bottom: 12.5px;
-}
-
 .label-large {
     padding-bottom: 5px;
     padding-top: 11px;
@@ -13,14 +5,37 @@
 }
 
 .input-large {
-    box-sizing: border-box;
-    font-size: 16px;
-    padding: 10px;
-    height: 44px;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 10px;
+  height: 44px;
 }
 
 .input-large:focus {
-    padding: 9px;
+  padding: 9px;
+}
+
+.overview-summary {
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 10px;
+  height: 135px;
+}
+
+.overview-summary:focus {
+  padding: 9px;
+}
+
+.select-block {
+  display: block;
+  width: 100%;
+}
+
+.select select {
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 10px;
+  height: 44px;
 }
 
 [type="text"], [type="password"], [type="search"], [type="email"], [type="url"], [type="number"], [type="tel"], textarea, select, .input-prefix, .input-suffix {
@@ -48,20 +63,14 @@
 }
 
 [type="text"], [type="password"], [type="search"], [type="email"], [type="url"], [type="number"], [type="tel"], textarea, select, input[type="radio"], input[type="checkbox"] {
-    -webkit-transition: border-color 0.2s;
-    -moz-transition: border-color 0.2s;
-    -o-transition: border-color 0.2s;
     transition: border-color 0.2s;
 }
 
-[type="text"], [type="password"], [type="search"], [type="email"], [type="url"], [type="number"], [type="tel"], textarea, select, input[type="radio"], input[type="checkbox"], .input-prefix, .input-suffix {
-    border: 1px solid #c4c4c4;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: #fff;
-    color: #565a5c;
+.content-wrap-white {
+  background-color: white;
 }
+
+
 
 
 

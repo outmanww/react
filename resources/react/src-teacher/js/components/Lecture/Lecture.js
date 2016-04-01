@@ -16,7 +16,9 @@ class Lecture extends Component {
       <div style={{ minHeight: window.innerHeight - 64, background: Colors.blueGrey50, marginTop:0}}>
         <div className="container">
           <section className="content-header">
-            <h3>講師の管理</h3>
+            <div className="row">
+              <h3>授業の管理</h3>
+            </div>
           </section>
           <section className="content">
             {this.props.children}
