@@ -5,7 +5,7 @@ namespace App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ReactionType extends Model
+class Affiliation extends Model
 {
 	use SoftDeletes;
     /**

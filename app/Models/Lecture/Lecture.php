@@ -12,12 +12,12 @@ class Lecture extends Model
     /**
      * 複数代入の許可
      */
-    protected $fillable = ['lecture_id', 'teacher_id', 'key', 'voice_record', 'length'];
+    protected $guarded = ['id'];
 
     /**
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
 	public function users()
 	{

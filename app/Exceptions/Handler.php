@@ -76,6 +76,12 @@ class Handler extends ExceptionHandler
             return redirect()->route('admin.access.users.edit', $e->userID())->withInput()->withFlashDanger($e->validationErrors());
         }
 
+        /**
+         * Data not found in database
+         */
+        if ($e instanceof ModelNotFoundException) {
+            return \Response::json('Not Found', 404);
+        }
         return parent::render($request, $e);
     }
 }

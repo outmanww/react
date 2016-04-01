@@ -78,7 +78,9 @@ class CreateStudentRelatedTables extends Migration
             $table->integer('student_id')->unsigned();
             $table->integer('affiliation_id')->unsigned();
             $table->integer('room_id')->unsigned();
+            $table->integer('action_id')->unsigned();
             $table->integer('type_id')->unsigned();
+            $table->string('message')->nullable();
             
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->softDeletes();
@@ -102,9 +104,9 @@ class CreateStudentRelatedTables extends Migration
                 ->onDelete('cascade');
 
             /**
-             * Add Foreign type_id
+             * Add Foreign action_id
              */
-            $table->foreign('type_id')
+            $table->foreign('action_id')
                 ->references('id')
                 ->on('reaction_types')
                 ->onUpdate('cascade')
@@ -129,7 +131,7 @@ class CreateStudentRelatedTables extends Migration
         Schema::table('reactions', function (Blueprint $table) {
             $table->dropForeign('reactions_student_id_foreign');
             $table->dropForeign('reactions_affiliation_id_foreign');
-            $table->dropForeign('reactions_type_id_foreign');
+            $table->dropForeign('reactions_action_id_foreign');
         });
         Schema::table('reaction_types', function (Blueprint $table) {
             $table->dropUnique('reaction_types_name_unique');
