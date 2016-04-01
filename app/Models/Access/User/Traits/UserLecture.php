@@ -21,4 +21,18 @@ trait UserLecture
 
         return false;
     }
+
+    /**
+     * Checks if the user has a Role by its name or id.
+     */
+    public function hasRoom($id)
+    {
+        foreach ($this->rooms as $room) {
+            if ($room->id == $id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

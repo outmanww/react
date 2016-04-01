@@ -20,6 +20,7 @@ class UserController extends Controller
         $lectures = $user->lectures()->count();
 
         return \Response::json([
+            'id' => $user->id,
             'name' => $name,
             'lectures' => $lectures
         ], 200);

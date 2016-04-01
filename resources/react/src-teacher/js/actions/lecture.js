@@ -31,3 +31,18 @@ export function fetchLecture(id) {
     }
   };
 }
+
+export function fetchRoom(id) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.REQUEST_ROOM,
+        types.REQUEST_ROOM_SUCCESS,
+        types.REQUEST_ROOM_FAIL
+      ],
+      endpoint: `room/${id}`,
+      method: 'GET',
+      body: null
+    }
+  };
+}
