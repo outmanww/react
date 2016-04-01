@@ -29,13 +29,7 @@ class Room extends Model
 	{
 		return $this->belongsTo('App\Models\Lecture\Lecture');
 	}
-<<<<<<< HEAD
-=======
 
-	public function reactions()
-	{
-		return $this->hasMany('App\Models\Lecture\Room');
-	}
 /*
     public function checkRoomKey($key)
     {
@@ -73,5 +67,4 @@ class Room extends Model
         return $results;
     }
     */
->>>>>>> 43da70fa8637f5408ed1db48e536b5ee416759dc
 }
