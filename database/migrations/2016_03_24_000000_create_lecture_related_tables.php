@@ -25,6 +25,7 @@ class CreateLectureRelatedTables extends Migration
             $table->tinyInteger('grade')->nullable();
             // lecture place
             $table->string('place')->nullable();
+            $table->tinyInteger('weekday')->nullable();
             $table->tinyInteger('time_slot')->nullable();
             $table->smallInteger('length')->nullable()->unsigned();
             $table->tinyInteger("year")->nullable();
@@ -137,6 +138,7 @@ class CreateLectureRelatedTables extends Migration
         Schema::table('lecture_teacher', function (Blueprint $table) {
             $table->dropForeign('lecture_teacher_lecture_id_foreign');
             $table->dropForeign('lecture_teacher_teacher_id_foreign');
+            $table->dropUnique('lecture_teacher_lecture_id_teacher_id_unique');
         });
         Schema::drop('lectures');
         Schema::drop('rooms');

@@ -14,8 +14,18 @@ class Faculty extends Model
      */
     protected $fillable = ['name', 'sort'];
 
-	public function faculty()
+    /**
+     * @var array
+     */
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+	public function departments()
 	{
 		return $this->hasMany('App\Models\Lecture\Department');
+	}
+
+	public function campuses()
+	{
+		return $this->belongsToMany('App\Models\Lecture\Campus');
 	}
 }

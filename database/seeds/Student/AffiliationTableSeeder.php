@@ -26,7 +26,7 @@ class AffiliationTableSeeder extends Seeder
 
         $affiliations = [
             [
-                'db_name'          => 'NAGOYA-U',
+                'db_name'          => 'nagoya-u',
                 'name'             => '名古屋大学',
                 'logo_path'        => '/../image/school/logo/nagoya-u.png',
                 'image_path'       => '/../image/school/image/nagoya-u.png',
@@ -36,7 +36,7 @@ class AffiliationTableSeeder extends Seeder
                 'updated_at'       => Carbon::now(),
             ],
             [
-                'db_name'          => 'TOHO-U',
+                'db_name'          => 'toho-u',
                 'name'             => '東邦大学',
                 'logo_path'        => '/../image/school/logo/toho-u.png',
                 'image_path'       => '/../image/school/image/toho-u.png',

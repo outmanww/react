@@ -4,6 +4,7 @@ namespace App\Models\Lecture;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Room extends Model
 {
@@ -28,4 +29,49 @@ class Room extends Model
 	{
 		return $this->belongsTo('App\Models\Lecture\Lecture');
 	}
+<<<<<<< HEAD
+=======
+
+	public function reactions()
+	{
+		return $this->hasMany('App\Models\Lecture\Room');
+	}
+/*
+    public function checkRoomKey($key)
+    {
+        $results = array(
+            'status' => true,
+            'message' => 'OK',
+            'id' => null
+            );
+
+        if (!intval($key)) {
+            $results->status = false;
+            $results->msg = 'room key must be integer';
+            return $results;
+        }
+
+        $key = sprintf("%06d", $key);
+
+        $room = $this->where('key', $key)
+            ->select('id', 'closed_at')
+            ->first();
+
+        if(empty($room)){
+            $results->status = false;
+            $results->msg = 'room not found';
+            return $results;
+        }
+
+        if(!is_null($room['closed_at'])){
+            $results->status = false;
+            $results->msg = 'room closed';
+            return $results;
+        }
+
+        $results->id = $rooms->id;
+        return $results;
+    }
+    */
+>>>>>>> 43da70fa8637f5408ed1db48e536b5ee416759dc
 }

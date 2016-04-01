@@ -1,5 +1,9 @@
 <?php
 
 Route::group(['prefix' => 'points'], function() {
-	// Route::get('/', 'DashboardController@index')->name('teacher.index');
+
+    Route::group(['middleware' => 'guest'], function () {
+    	Route::get('/', 'RoomController@point');
+    });
+
 });

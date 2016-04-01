@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Models\Lecture;
+namespace App\Models\Point;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Department extends Model
+class ShopType extends Model
 {
 	use SoftDeletes;
-
     /**
-     * 複数代入の許可
+     * The attributes that are not mass assignable.
      */
-    protected $fillable = ['name', 'sort', 'faculty_id'];
+    protected $fillable = ['name'];
 
     /**
      * @var array
      */
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
-	public function faculty()
+    public function shop()
 	{
-		return $this->belongsTo('App\Models\Lecture\Faculty');
+		return $this->hasMany('App\Models\Point\Shop');
 	}
 }
