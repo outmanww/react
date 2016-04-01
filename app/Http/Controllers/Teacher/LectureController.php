@@ -87,7 +87,7 @@ class LectureController extends Controller
                 $query->select('id', 'name');
             },
             'rooms' => function ($query) {
-                $query->select('id', 'lecture_id', 'teacher_id');
+                $query->select('id', 'lecture_id', 'teacher_id', 'created_at');
             },
             'rooms.teacher' => function ($query) {
                 $query->select('id', 'family_name', 'given_name');

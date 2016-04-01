@@ -51,5 +51,6 @@ Route::group(['namespace' => 'Teacher', 'prefix' => '/{school}/teacher', 'middle
 
     require (__DIR__ . '/Routes/Teacher/Dashboard.php');
     require (__DIR__ . '/Routes/Teacher/Lecture.php');
+    require (__DIR__ . '/Routes/Teacher/Room.php');
     require (__DIR__ . '/Routes/Teacher/User.php');
 });
