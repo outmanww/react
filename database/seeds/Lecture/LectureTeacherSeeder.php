@@ -128,6 +128,11 @@ class LectureTeacherSeeder extends Seeder
                 'teacher_id'       => $MZ->id,
                 'created_at'       => Carbon::now(),
                 'updated_at'       => Carbon::now(),
+            ],[
+                'lecture_id'       => $lecture_11->id,
+                'teacher_id'       => $teacher->id,
+                'created_at'       => Carbon::now(),
+                'updated_at'       => Carbon::now(),
             ]
         ];
 

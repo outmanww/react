@@ -47,4 +47,12 @@ trait UserRelationship
     {
         return $this->belongsToMany('App\Models\Lecture\Lecture', 'lecture_teacher', 'teacher_id', 'lecture_id');
     }
+
+    /**
+     * @return mixed
+     */
+    public function rooms()
+    {
+        return $this->hasMany('App\Models\Lecture\Room', 'teacher_id');
+    }
 }

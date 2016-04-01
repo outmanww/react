@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 //use App\Repositories\Teacher\Lecture\LectureContract;
 //Models
 use App\Models\Lecture\Room;
+use App\Models\Student\Reaction;
 //Exceptions
 use App\Exceptions\ApiException;
 //Requests
@@ -43,10 +44,12 @@ class RoomController extends Controller
 
         $user = \Auth::user();
 
-        if (!$user->hasLecture($id)) {
-            throw new ApiException('lecture.notYours');
+        if (!$user->hasRoom($id)) {
+            throw new ApiException('room.notYours');
         }
 
-        return \Response::json($lectures, 200);
+        $reaction = Reaction::where('room_id', $id)->get();
+
+        return \Response::json(['room' => $reaction], 200);
     }
 }

@@ -18,67 +18,48 @@ var PieChart = require("react-chartjs").Pie;
 class ViewLecture extends Component {
   constructor(props, context) {
     super(props, context);
+    const { actions, routeParams } = props;
     this.state = {
-      id: {value: 0}
+      id: 0
     };
-    props.actions.fetchLecture(1);
+    actions.fetchLecture(routeParams.id);
   }
 
   render() {
-    const { lecture } = this.props;
-    const { id, name, en, description } = this.state;
+    const { userId, lecture, room, actions } = this.props;
+    const { id } = this.state;
 
     const beChanged = key => {
       const target = types.find(type => type.id === id.value);
       return target[key] !== this.state[key].value;
     };
 
-var chartData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-        {
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 86, 27, 90]
-        }
-    ]
-};
+    var lineData = {
+        labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90'],
+        datasets: [
+            {
+                label: "My First dataset",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: [65, 59, 80, 81, 56, 55, 40, 30, 10, 8]
+            },
+            {
+                label: "My Second dataset",
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [28, 48, 40, 19, 86, 27, 90, 8, 10, 80]
+            }
+        ]
+    };
 
-var pieData = [
-    {
-        value: 300,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    {
-        value: 50,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: 100,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-    }
-]
     return (
       <div>
         <div className="row content-wrap-white">
@@ -241,19 +222,31 @@ var pieData = [
           </div>
           {lecture.lecture !== 'undefind' && !lecture.isFetching &&
           <div className="space-top-2">
-            <div className="col-md-5">
-              <div className="list-group">
+            <div className="col-md-4">
+              <div className="list-group room-list">
                 {lecture.lecture.rooms.map(r =>
-                  <a className="list-group-item"><span className="badge">14 人</span>{r.createdAt}</a>
+                  <a
+                    key={r.id}
+                    className={`list-group-item${r.teacher.id === userId ? r.id === id ? ' active' : '' : ' disabled'}`}
+                    onClick={() => {
+                      if (room.room !== 'undefined' && !room.isFetching) {
+                        actions.fetchRoom(r.id);
+                        this.setState({id: r.id});
+                      }
+                    }}
+                  >
+                    <span className="badge">14 人</span>
+                    <span className="">{r.createdAt}</span>
+                    <span className="space-left-3">{r.teacher.familyName} {r.teacher.givenName}</span>
+                  </a>
                 )}
               </div>
             </div>
 
-            <div className="col-md-7">
+            <div className="col-md-8">
               <div className="right-panel">
                 {/*<p className="select">編集するタイプを選択してください</p>*/}
-                <LineChart data={chartData} width="600" height="250"/>
-                <PieChart data={pieData} width="600" height="250"/>
+                <LineChart data={lineData} width="600" height="250"/>
               </div>
             </div>
           </div>
@@ -271,9 +264,12 @@ ViewLecture.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
+  console.log(ownProps);
   return {
+    userId: state.user.user ? state.user.user.id : 0,
     lecture: state.disposable.lecture,
-    routes: ownProps.routes,
+    room: state.disposable.room,
+    routeParams: ownProps.routeParams,
   };
 }
 

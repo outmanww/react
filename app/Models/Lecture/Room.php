@@ -29,6 +29,7 @@ class Room extends Model
 	{
 		return $this->belongsTo('App\Models\Lecture\Lecture');
 	}
+
 /*
     public function checkRoomKey($key)
     {

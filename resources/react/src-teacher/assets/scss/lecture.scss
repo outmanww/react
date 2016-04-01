@@ -130,9 +130,6 @@ used to vertically center elements, may need modification if you're not using de
   line-height: 34px;
 }
 
-
-
-
 .right-panel {
   height: 457px;
   border: solid #9E9E9E 1px;
@@ -142,4 +139,31 @@ used to vertically center elements, may need modification if you're not using de
     margin-top: 200px;
     text-align: center;
   }         
+}
+
+.room-list {
+  
+
+  a.list-group-item {
+    box-sizing: border-box;
+    height: 43px;
+    border-radius: 0;
+
+    &.active {
+      cursor: auto;
+      pointer-events : none;
+    }
+
+    &.disabled {
+      cursor: auto;
+      pointer-events : none;
+      background-color: white;
+      opacity: 0.5;
+    }
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid #c4c4c4;
+    }
+  }
 }

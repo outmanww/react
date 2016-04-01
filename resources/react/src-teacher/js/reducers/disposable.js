@@ -6,6 +6,9 @@ import {
   REQUEST_LECTURE,
   REQUEST_LECTURE_SUCCESS,
   REQUEST_LECTURE_FAIL,
+  REQUEST_ROOM,
+  REQUEST_ROOM_SUCCESS,
+  REQUEST_ROOM_FAIL,
 } from '../constants/LectureActionTypes';
 
 function change(state = {}, key, type, payload) {
@@ -36,6 +39,7 @@ function change(state = {}, key, type, payload) {
 
 const initialState = {
   lecture: {},
+  room: {},
 };
 
 export default function disposable(state = initialState, action) {
@@ -46,6 +50,13 @@ export default function disposable(state = initialState, action) {
     case REQUEST_LECTURE_FAIL:
       return Object.assign({}, state, {
         lecture: change(state.lecture, 'lecture', type.replace(/_LECTURE/g, ''), payload)
+      });
+
+    case REQUEST_ROOM:
+    case REQUEST_ROOM_SUCCESS:
+    case REQUEST_ROOM_FAIL:
+      return Object.assign({}, state, {
+        room: change(state.lecture, 'room', type.replace(/_ROOM/g, ''), payload)
       });
 
     case CLEAR_DISPOSABLE:

@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'room'], function() {
+Route::group(['prefix' => 'fetch/room'], function() {
 	Route::get('/{id}', 'RoomController@room');
 });
 
