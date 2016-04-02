@@ -24,7 +24,8 @@ class StudentActionRequest extends Request
     public function rules()
     {
         return [
-            'action'=>'required'
+            'action'=>'required',
+            'type'=>'required'
         ];
     }
 }

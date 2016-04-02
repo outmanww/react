@@ -4,6 +4,8 @@ namespace App\Models\Student;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+// Carbon
+use Carbon\Carbon;
 
 class Reaction extends Model
 {
@@ -34,4 +36,28 @@ class Reaction extends Model
 	{
 		return $this->belongsTo('App\Models\Student\ReactionType');
 	}
+    public function scopeInTenMinutes($query, $room_id, $type)
+    {
+        return $query
+            ->where('room_id', $room_id)
+            ->where('action_id', 2)
+            ->where('type_id', $type)
+            ->where('created_at', '>', Carbon::now()->subMinutes(10));
+    }
+    public function scopeFromRoomIn($query, $student_id, $room_id)
+    {
+        return $query
+            ->where('student_id', $student_id)
+            ->where('room_id', $room_id)
+            ->where('type_id', 1)
+            ->orderBy('created_at','desc');
+    }
+    public function scopeFromForeground($query, $student_id, $room_id)
+    {
+        return $query
+            ->where('student_id', $student_id)
+            ->where('room_id', $room_id)
+            ->where('type_id', 4)
+            ->orderBy('created_at','desc');
+    }
 }
