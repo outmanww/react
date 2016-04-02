@@ -32,7 +32,11 @@ class Lectures extends Component {
                   <h3 className="panel-title">登録授業一覧</h3>
                 </div>
                 <div className="col col-xs-6 text-right">
-                  <RaisedButton label="新規登録" secondary={true}/>
+                  <RaisedButton
+                    label="新規登録"
+                    secondary={true}
+                    onClick={() => this.props.actions.push(`/${SCHOOL_NAME}/teacher/lectures/create`)}
+                  />
                 </div>
               </div>
             </div>

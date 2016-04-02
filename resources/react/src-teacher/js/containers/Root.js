@@ -13,6 +13,7 @@ import Dashboard from '../components/Dashboard/Dashboard';
 import Lecture from '../components/Lecture/Lecture';
 import Lectures from '../components/Lecture/Lectures/Lectures';
 import ViewLecture from '../components/Lecture/ViewLecture/ViewLecture';
+import CreateLecture from '../components/Lecture/CreateLecture/CreateLecture';
 
 export default class Root extends Component {
   render() {
@@ -25,7 +26,8 @@ export default class Root extends Component {
               <Route path="dashboard" component={Dashboard}/>
               <Route name="Lectures" path="lectures" component={Lecture}>
                 <IndexRoute name="All" component={Lectures}/>
-                <Route name="Lecture" path=":id" component={ViewLecture}/>
+                <Route name="Create Lecture" path="create" component={CreateLecture}/>
+                <Route name="View Lecture" path=":id" component={ViewLecture}/>
               </Route>
             </Route>
           </Router>
