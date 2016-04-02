@@ -66,17 +66,23 @@ class RoomController extends Controller
 
         $key = sprintf("%06d", $key);
 
-        $affiliation_id = substr($key, 0,3);
+        $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
         
+        $new_msg = null;
+        if($request->action == config('controller.action.message'))
+        {
+            $new_msg = $request->message;
+        }
         $reaction_new = Reaction::create([
             'student_id' => $student->id,
-            'affiliation_id' => $affiliation_id,
+            'affiliation_id' => 1,
             'action_id' => $request->action,
             'type_id' => $request->type,
-            'room_id' => $check_key_rst['id']
+            'room_id' => $check_key_rst['id'],
+            'message' => $new_msg,
             ]);
 
-        if($request->action == 1 && $request->type == 2)
+        if($request->action == config('controller.action.basic') && $request->type == config('controller.b_type.room_out'))
         {
             $last_room_in = Reaction::fromRoomIn($student->id, $check_key_rst['id'])
                 ->select('created_at')
@@ -115,11 +121,11 @@ class RoomController extends Controller
 
         $key = sprintf("%06d", $key);
 
-        $affiliation_id = substr($key, 0,3);
+        $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
 
-        $num_type1 = Reaction::inTenMinutes($check_key_rst['id'], 1)->count();
-        $num_type2 = Reaction::inTenMinutes($check_key_rst['id'], 2)->count();
-        $num_type3 = Reaction::inTenMinutes($check_key_rst['id'], 3)->count();
+        $num_confused = Reaction::inTenMinutes($check_key_rst['id'], config('controller.b_type.confused'))->count();
+        $num_interesting = Reaction::inTenMinutes($check_key_rst['id'], config('controller.b_type.interesting'))->count();
+        $num_boring = Reaction::inTenMinutes($check_key_rst['id'], config('controller.b_type.boring'))->count();
 
         $time_room_in = Reaction::fromRoomIn($student->id, $check_key_rst['id'])
             ->select('created_at')
@@ -145,11 +151,11 @@ class RoomController extends Controller
         $time_foreground = Carbon::now()->diffInMinutes($time_foreground);
 
         $results = array(
-            'type_1' => $num_type1,
-            'type_2' => $num_type2,
-            'type_3' => $num_type3,
-            'room_in' => $time_room_in,
-            'foreground' => $time_foreground
+            'num_confused' => $num_confused,
+            'num_interesting' => $num_interesting,
+            'num_boring' => $num_boring,
+            'timediff_room_in' => $time_room_in,
+            'timediff_foreground' => $time_foreground
             );
 
         return \Response::json($results, 200);

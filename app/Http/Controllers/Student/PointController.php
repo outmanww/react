@@ -28,6 +28,6 @@ class PointController extends Controller
 
     public static function calPoints($min)
     {
-    	return floor($min/config('point.min_point_rate'));
+    	return floor($min/config('controller.min_point_rate'));
     }
 }
