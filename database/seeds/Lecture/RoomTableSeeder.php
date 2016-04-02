@@ -144,7 +144,7 @@ class RoomTableSeeder extends Seeder
             ],[
                 'lecture_id'       => $lecture_2->id,
                 'teacher_id'       => $teacher_2->id,
-                'key'              => '001625',
+                'key'              => '001700',
                 'created_at'       => Carbon::now(),
                 'closed_at'        => null,
             ]
