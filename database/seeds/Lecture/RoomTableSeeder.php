@@ -141,6 +141,12 @@ class RoomTableSeeder extends Seeder
                 'key'              => '001625',
                 'created_at'       => '2015-12-12 13:00:00',
                 'closed_at'        => '2015-12-12 14:30:00',
+            ],[
+                'lecture_id'       => $lecture_2->id,
+                'teacher_id'       => $teacher_2->id,
+                'key'              => '001625',
+                'created_at'       => Carbon::now(),
+                'closed_at'        => null,
             ]
         ];
 
