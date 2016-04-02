@@ -22,4 +22,21 @@ class Point extends Model
     {
         return $this->belongsTo('App\Models\Student\Student');
     }
+    public function Item()
+    {
+        return $this->belongsTo('App\Models\Point\Item');
+    }
+    public function Affiliation()
+    {
+        return $this->belongsTo('App\Models\Student\Affiliation');
+    }
+
+    public function scopeLastRoom($query, $student_id, $affiliation_id, $room_id)
+    {
+        return $query
+            ->where('student_id', $student_id)
+            ->where('affiliation_id', $affiliation_id)
+            ->where('room_id', $room_id)
+            ->orderBy('created_at','desc');
+    }
 }

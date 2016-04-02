@@ -75,7 +75,7 @@ class RoomController extends Controller
         }
         $reaction_new = Reaction::create([
             'student_id' => $student->id,
-            'affiliation_id' => 1,
+            'affiliation_id' => $affiliation_id,
             'action_id' => $request->action,
             'type_id' => $request->type,
             'room_id' => $check_key_rst['id'],
@@ -84,7 +84,7 @@ class RoomController extends Controller
 
         if($request->action == config('controller.action.basic') && $request->type == config('controller.b_type.room_out'))
         {
-            $last_room_in = Reaction::fromRoomIn($student->id, $check_key_rst['id'])
+            $last_room_in = Reaction::fromRoomIn($student->id, $affiliation_id, $check_key_rst['id'])
                 ->select('created_at')
                 ->firstOrFail();
 
@@ -123,39 +123,39 @@ class RoomController extends Controller
 
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
 
-        $num_confused = Reaction::inTenMinutes($check_key_rst['id'], config('controller.b_type.confused'))->count();
-        $num_interesting = Reaction::inTenMinutes($check_key_rst['id'], config('controller.b_type.interesting'))->count();
-        $num_boring = Reaction::inTenMinutes($check_key_rst['id'], config('controller.b_type.boring'))->count();
+        $num_confused = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.b_type.confused'))->count();
+        $num_interesting = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.b_type.interesting'))->count();
+        $num_boring = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.b_type.boring'))->count();
 
-        $time_room_in = Reaction::fromRoomIn($student->id, $check_key_rst['id'])
+        $time_room_in = Reaction::fromRoomIn($student->id, $affiliation_id, $check_key_rst['id'])
             ->select('created_at')
             ->firstOrFail();
         $time_room_in = Carbon::createFromFormat('Y-m-d H:i:s', $time_room_in->created_at);
 
-        $time_foreground = Reaction::fromForeground($student->id, $check_key_rst['id'])
+        $time_fore_in = Reaction::fromForeIn($student->id, $affiliation_id, $check_key_rst['id'])
             ->select('created_at')
             ->first();
 
-        if(empty($time_foreground)){
-            $time_foreground = $time_room_in;
+        if(empty($time_fore_in)){
+            $time_fore_in = $time_room_in;
         }
         else{
-            $time_foreground = Carbon::createFromFormat('Y-m-d H:i:s', $time_foreground->created_at);
+            $time_fore_in = Carbon::createFromFormat('Y-m-d H:i:s', $time_fore_in->created_at);
         }
 
-        if($time_foreground->ne($time_room_in)){
-            $time_foreground = $time_room_in;
+        if($time_fore_in->ne($time_room_in)){
+            $time_fore_in = $time_room_in;
         }
 
         $time_room_in = Carbon::now()->diffInMinutes($time_room_in);
-        $time_foreground = Carbon::now()->diffInMinutes($time_foreground);
+        $time_fore_in = Carbon::now()->diffInMinutes($time_fore_in);
 
         $results = array(
             'num_confused' => $num_confused,
             'num_interesting' => $num_interesting,
             'num_boring' => $num_boring,
             'timediff_room_in' => $time_room_in,
-            'timediff_foreground' => $time_foreground
+            'timediff_fore_in' => $time_fore_in
             );
 
         return \Response::json($results, 200);
@@ -163,7 +163,7 @@ class RoomController extends Controller
 
 
 
-    protected function checkRoomKey($key)
+    public static function checkRoomKey($key)
     {
         $results = array(
             'status' => true,

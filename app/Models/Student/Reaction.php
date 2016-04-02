@@ -36,28 +36,31 @@ class Reaction extends Model
 	{
 		return $this->belongsTo('App\Models\Student\ReactionType');
 	}
-    public function scopeInTenMinutes($query, $room_id, $type)
+    public function scopeInTenMinutes($query, $affiliation_id, $room_id, $type)
     {
         return $query
+            ->where('affiliation_id', $affiliation_id)
             ->where('room_id', $room_id)
-            ->where('action_id', 2)
+            ->where('action_id', config('controller.acttion.basic'))
             ->where('type_id', $type)
             ->where('created_at', '>', Carbon::now()->subMinutes(10));
     }
-    public function scopeFromRoomIn($query, $student_id, $room_id)
+    public function scopeFromRoomIn($query, $student_id, $affiliation_id, $room_id)
     {
         return $query
+            ->where('affiliation_id', $affiliation_id)
             ->where('student_id', $student_id)
             ->where('room_id', $room_id)
-            ->where('type_id', 1)
+            ->where('type_id', config('controller.b_type.room_out'))
             ->orderBy('created_at','desc');
     }
-    public function scopeFromForeground($query, $student_id, $room_id)
+    public function scopeFromForeIn($query, $student_id, $affiliation_id, $room_id)
     {
         return $query
+            ->where('affiliation_id', $affiliation_id)
             ->where('student_id', $student_id)
             ->where('room_id', $room_id)
-            ->where('type_id', 4)
+            ->where('type_id', config('controller.b_type.fore_in'))
             ->orderBy('created_at','desc');
     }
     public function calDiffMin(Carbon $room_in)
