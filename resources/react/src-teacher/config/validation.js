@@ -1,0 +1,3 @@
+export const LECTURE_NAME_LENGTH = 15;
+export const LECTURE_NAME_PLACE = 20;
+export const LECTURE_NAME_DESCRIPTION = 100;
