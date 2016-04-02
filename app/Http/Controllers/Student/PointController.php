@@ -25,4 +25,9 @@ class PointController extends Controller
     {
         return \Response::json(Student::find(1)->points->sum('point_diff'), 200);
     }
+
+    public static function calPoints($min)
+    {
+    	return floor($min/config('point.min_point_rate'));
+    }
 }

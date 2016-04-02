@@ -13,7 +13,7 @@ class Reaction extends Model
     /**
      * The attributes that are not mass assignable.
      */
-    protected $guarded = ['id', 'student_id', 'affiliation_id', 'room_id', 'type_id', 'created_at'];
+    protected $guarded = ['id', 'created_at'];
     /**
      * The attributes that are not mass assignable.
      */
@@ -59,5 +59,10 @@ class Reaction extends Model
             ->where('room_id', $room_id)
             ->where('type_id', 4)
             ->orderBy('created_at','desc');
+    }
+    public function calDiffMin(Carbon $room_in)
+    {
+        $datetime = $this->created_at;
+        return $datetime->diffInMinutes($room_in);
     }
 }
