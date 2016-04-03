@@ -24,12 +24,11 @@ class PointController extends Controller
      * @return Response
      */
     public function point()
-    {/*
+    {
         $results = array(
             'points' => Student::find(1)->points->sum('point_diff')
             );
-            */
-        return \Response::json(Student::find(1)->points->sum('point_diff'), 200); 
+        return \Response::json($results, 200); 
     }
 
     public function roomPoints($key)
