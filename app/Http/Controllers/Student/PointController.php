@@ -6,10 +6,12 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 //Models
 use App\Models\Point\Point;
+use App\Models\Point\Item;
 use App\Models\Student\Student;
 // Exceptions
 use App\Exceptions\ApiException;
-
+// Request
+use App\Http\Requests\Student\UsePointRequest;
 use Carbon\Carbon;
 
 /**
@@ -23,7 +25,10 @@ class PointController extends Controller
      */
     public function point()
     {
-        return \Response::json(Student::find(1)->points->sum('point_diff'), 200);
+        $results = array(
+            'points' => Student::find(1)->points->sum('point_diff')
+            );
+        return \Response::json($results, 200); 
     }
 
     public function roomPoints($key)
@@ -39,7 +44,7 @@ class PointController extends Controller
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
 
         $student = Student::find(1);
-        
+
         $points = Point::lastRoom($student->id, $affiliation_id, $check_key_rst['id'])
             ->select('point_diff')
             ->first();
@@ -55,9 +60,17 @@ class PointController extends Controller
         return \Response::json($points, 200);
     }
 
-    public function use()
+    public function use(UsePointRequest $request)
     {
-        return \Response::json(Student::find(1)->points->sum('point_diff'), 200);
+        $student = Student::find(1);
+        $item_points = $request->amount*Item::findOrFail($request->item_id)->point;
+        Point::insert([
+            'student_id' => $student->id,
+            'item_id' => $request->item_id,
+            'amount' => $request->amount,
+            'point_diff' => (0-$item_points),
+            ]);
+        return \Response::json("OK", 200);
     }
 
     public static function calPoints($min)

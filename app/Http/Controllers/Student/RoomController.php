@@ -82,6 +82,7 @@ class RoomController extends Controller
             'message' => $new_msg,
             ]);
 
+        // point calculation on room_out event
         if($request->action == config('controller.action.basic') && $request->type == config('controller.b_type.room_out'))
         {
             $last_room_in = Reaction::fromRoomIn($student->id, $affiliation_id, $check_key_rst['id'])

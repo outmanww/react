@@ -35,7 +35,7 @@ class ItemTableSeeder extends Seeder
         $items = [
             [
                 'name'             => 'ドリップ　コーヒー',
-                'points'           => 20,
+                'point'           => 20,
                 'shop_id'          => $shop_sb->id,
                 'is_recommend'     => true,
                 'image_path'       => '/../image/item/image/dripcoffee.png',
@@ -45,7 +45,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at'       => Carbon::now(),
             ],[
                 'name'             => 'ハンバーガー',
-                'points'           => 15,
+                'point'           => 15,
                 'shop_id'          => $shop_md->id,
                 'is_recommend'     => false,
                 'image_path'       => '/../image/item/image/hamburger.png',

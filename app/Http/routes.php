@@ -23,6 +23,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::group(['namespace' => 'Student', 'prefix' => 'student'], function () {
         require (__DIR__ . '/Routes/Student/Room.php');
         require (__DIR__ . '/Routes/Student/Point.php');
+        require (__DIR__ . '/Routes/Student/Shopping.php');
     });
 });
 
