@@ -21,7 +21,7 @@ class Shop extends Model
 
 	public function shopType()
 	{
-		return $this->belongsTo('App\Models\Point\ShopType');
+		return $this->belongsTo('App\Models\Point\ShopType', 'type_id', 'id');
 	}
 
 	public function items()
