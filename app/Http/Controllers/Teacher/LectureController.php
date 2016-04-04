@@ -45,7 +45,7 @@ class LectureController extends Controller
      */
     public function lectures()
     {
-        $user = \Auth::user();
+        $user = \Auth::guard('users')->user();
 
         $lectures = $user
             ->lectures()
@@ -73,7 +73,7 @@ class LectureController extends Controller
             throw new ApiException('lecture.notFound');
         }
 
-        $user = \Auth::user();
+        $user = \Auth::guard('users')->user();
 
         if (!$user->hasLecture($id)) {
             throw new ApiException('lecture.notYours');

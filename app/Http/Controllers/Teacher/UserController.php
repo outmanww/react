@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function info($school)
     {
-        $user = \Auth::user();
+        $user = \Auth::guard('users')->user();
         $name = $user->family_name . " " . $user->given_name;
         $lectures = $user->lectures()->count();
 
@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function profile($school)
     {
-        $user = \Auth::user();
+        $user = \Auth::guard('users')->user();
         return \Response::json($user, 200);
     }
 }

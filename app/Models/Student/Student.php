@@ -2,10 +2,11 @@
 
 namespace App\Models\Student;
 
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Student extends Model
+class Student extends Authenticatable
 {
     use SoftDeletes;
     /**

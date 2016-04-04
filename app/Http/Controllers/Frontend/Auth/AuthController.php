@@ -45,7 +45,7 @@ class AuthController extends Controller
      */
     public function redirectPath()
     {
-        $user = \Auth::user();
+        $user = \Auth::guard('users')->user();
         if ($user->hasRole('Teacher'))
         {
            return property_exists($this, 'redirectTo') ? $this->adminRedirectTo : '/schools';

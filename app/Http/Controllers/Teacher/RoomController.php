@@ -42,7 +42,7 @@ class RoomController extends Controller
             throw new ApiException('room.notFound');
         }
 
-        $user = \Auth::user();
+        $user = \Auth::guard('users')->user();
 
         if (!$user->hasRoom($id)) {
             throw new ApiException('room.notYours');

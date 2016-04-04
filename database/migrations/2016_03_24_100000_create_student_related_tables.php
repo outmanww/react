@@ -38,6 +38,7 @@ class CreateStudentRelatedTables extends Migration
             $table->string('password', 60)->nullable();
 
             $table->tinyInteger('status')->default(1)->unsigned();
+            $table->string('api_token', 60)->unique();
             $table->string('confirmation_code');
             $table->boolean('confirmed')->default(config('access.users.confirm_email') ? false : true);
             $table->rememberToken();
