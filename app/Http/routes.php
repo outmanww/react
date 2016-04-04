@@ -15,6 +15,7 @@ Route::group(['middleware' => 'web'], function() {
         require (__DIR__ . '/Routes/Student/Access.php');
         require (__DIR__ . '/Routes/Student/Room.php');
         require (__DIR__ . '/Routes/Student/Point.php');
+        require (__DIR__ . '/Routes/Student/Shopping.php');
     });
 
     /*
@@ -24,15 +25,6 @@ Route::group(['middleware' => 'web'], function() {
     Route::group(['namespace' => 'Frontend'], function () {
         require (__DIR__ . '/Routes/Frontend/Frontend.php');
         require (__DIR__ . '/Routes/Frontend/Access.php');
-    });
-
-    /*
-     * Student Routes
-     */
-    Route::group(['namespace' => 'Student', 'prefix' => 'student'], function () {
-        require (__DIR__ . '/Routes/Student/Room.php');
-        require (__DIR__ . '/Routes/Student/Point.php');
-        require (__DIR__ . '/Routes/Student/Shopping.php');
     });
 });
 
