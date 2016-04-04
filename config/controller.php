@@ -9,9 +9,10 @@ return [
 
     // action
     'action' => [
-        'basic'		=> 1,
-        'reaction'	=> 2,
-        'message'	=> 3,
+        'basic'                 => 1,
+        'reaction_anonymous'    => 2,
+        'reaction_realname'     => 3,
+        'message'               => 4,
     ],
 
 	// type
@@ -27,5 +28,12 @@ return [
         'room_out'	=> 2,
         'fore_in'	=> 3,
         'fore_out'	=> 4,
+    ],
+
+    // type
+    'm_type' => [
+        'question'  => 1,
+        'feeling'   => 2,
+        'others'    => 3,
     ],
 ];

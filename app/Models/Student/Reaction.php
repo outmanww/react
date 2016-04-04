@@ -41,8 +41,8 @@ class Reaction extends Model
         return $query
             ->where('affiliation_id', $affiliation_id)
             ->where('room_id', $room_id)
-            ->where('action_id', config('controller.acttion.basic'))
             ->where('type_id', $type)
+            ->whereIn('action_id', [config('controller.action.reaction_anonymous'),config('controller.action.reaction_realname')])
             ->where('created_at', '>', Carbon::now()->subMinutes(10));
     }
     public function scopeFromRoomIn($query, $student_id, $affiliation_id, $room_id)
@@ -51,6 +51,7 @@ class Reaction extends Model
             ->where('affiliation_id', $affiliation_id)
             ->where('student_id', $student_id)
             ->where('room_id', $room_id)
+            ->where('action_id', config('controller.action.basic'))
             ->where('type_id', config('controller.b_type.room_out'))
             ->orderBy('created_at','desc');
     }
@@ -60,6 +61,7 @@ class Reaction extends Model
             ->where('affiliation_id', $affiliation_id)
             ->where('student_id', $student_id)
             ->where('room_id', $room_id)
+            ->where('action_id', config('controller.action.basic'))
             ->where('type_id', config('controller.b_type.fore_in'))
             ->orderBy('created_at','desc');
     }

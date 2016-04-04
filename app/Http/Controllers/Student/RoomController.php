@@ -115,7 +115,7 @@ class RoomController extends Controller
         $student = Student::find(1);
 
         $check_key_rst = $this->checkRoomKey($key);
-        
+
         if (!$check_key_rst['status']) {
             return \Response::json($check_key_rst['err_msg'], 400);
         }
@@ -123,10 +123,10 @@ class RoomController extends Controller
         $key = sprintf("%06d", $key);
 
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
-
-        $num_confused = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.b_type.confused'))->count();
-        $num_interesting = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.b_type.interesting'))->count();
-        $num_boring = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.b_type.boring'))->count();
+        
+        $num_confused = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.confused'))->count();
+        $num_interesting = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.interesting'))->count();
+        $num_boring = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.boring'))->count();
 
         $time_room_in = Reaction::fromRoomIn($student->id, $affiliation_id, $check_key_rst['id'])
             ->select('created_at')
@@ -161,8 +161,6 @@ class RoomController extends Controller
 
         return \Response::json($results, 200);
     }
-
-
 
     public static function checkRoomKey($key)
     {
