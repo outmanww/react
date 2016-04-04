@@ -50,7 +50,7 @@ class CreatePointRelatedTables extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('points');
+            $table->integer('point')->unsigned();
             $table->integer('shop_id')->unsigned();
             $table->boolean('is_recommend')->default(false);
             

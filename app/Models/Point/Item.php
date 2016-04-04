@@ -23,5 +23,9 @@ class Item extends Model
 	{
 		return $this->belongsTo('App\Models\Point\Shop');
 	}
+    public function points()
+    {
+        return $this->hasMany('App\Models\Point\Point');
+    }
 }
 

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Student\PointController;
 // Models
 use App\Models\Lecture\Room;
+use App\Models\Lecture\Point;
 use App\Models\Student\Reaction;
 use App\Models\Student\Student;
 // Request
@@ -27,27 +29,16 @@ class RoomController extends Controller
      */
     public function room($key)
     {
-        if (!intval($key)) {
-            return \Response::json('room key must be integer', 400);
+        $check_key_rst = $this->checkRoomKey($key);
+        
+        if (!$check_key_rst['status']) {
+            return \Response::json($check_key_rst['err_msg'], 400);
         }
 
         $key = sprintf("%06d", $key);
 
-        $room = Room::with([
-                'lecture' => function ($query) {
-                    $query->select('id', 'title', 'time_slot', 'weekday');
-                },
-                'teacher' => function ($query) {
-                    $query->select('id', 'family_name', 'given_name');
-                }
-            ])
-            ->where('key', $key)
-            ->select('lecture_id', 'teacher_id', 'length', 'closed_at')
-            ->firstOrFail();
-
-        if(!is_null($room['closed_at'])){
-            return \Response::json('room has been already closed', 400);
-        }
+        $room = Room::where('key', $key)
+            ->select('lecture_id', 'teacher_id', 'closed_at')->firstOrFail();
 
         $weekday = $this->weeks[$room->lecture->weekday];
     
@@ -66,34 +57,53 @@ class RoomController extends Controller
     public function action(StudentActionRequest $request, $key)
     {
         $student = Student::find(1);
+
+        $check_key_rst = $this->checkRoomKey($key);
         
-        if (!intval($key)) {
-            return \Response::json('room_key must be integer', 400);
+        if (!$check_key_rst['status']) {
+            return \Response::json($check_key_rst['err_msg'], 400);
         }
+
         $key = sprintf("%06d", $key);
-/*
-        if (strlen($key) !== 6) {
-            return \Response::json('room_key must be 6 characters', 400);
-        }
-*/
-        $room = Room::where('key', $key)
-            ->select('id', 'closed_at')
-            ->firstOrFail();
 
-        if(!is_null($room['closed_at'])){
-            return \Response::json('room has been already closed', 400);
-        }
-
-        $affiliation_id = substr($key, 0,3);
+        $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
         
-        Reaction::insert([
+        $new_msg = null;
+        if($request->action == config('controller.action.message'))
+        {
+            $new_msg = $request->message;
+        }
+        $reaction_new = Reaction::create([
             'student_id' => $student->id,
             'affiliation_id' => $affiliation_id,
             'action_id' => $request->action,
             'type_id' => $request->type,
-            'room_id' => $room['id']
+            'room_id' => $check_key_rst['id'],
+            'message' => $new_msg,
             ]);
-        
+
+        // point calculation on room_out event
+        if($request->action == config('controller.action.basic') && $request->type == config('controller.b_type.room_out'))
+        {
+            $last_room_in = Reaction::fromRoomIn($student->id, $affiliation_id, $check_key_rst['id'])
+                ->select('created_at')
+                ->firstOrFail();
+
+            $min_diff = $reaction_new->calDiffMin($last_room_in->created_at);
+                    
+            $new_points = PointController::calPoints($min_diff);
+
+            if($new_points>0)
+            {
+                Point::insert([
+                    'student_id' => $student->id,
+                    'affiliation_id' => $affiliation_id,
+                    'room_id' => $check_key_rst['id'],
+                    'point_diff' => $new_points
+                    ]);
+            }
+        }
+
         return \Response::json('Request OK!', 200);
     }
 
@@ -103,57 +113,101 @@ class RoomController extends Controller
     public function status($key)
     {
         $student = Student::find(1);
-        
-        if (!intval($key)) {
-            return \Response::json('room key must be integer', 400);
+
+        $check_key_rst = $this->checkRoomKey($key);
+
+        if (!$check_key_rst['status']) {
+            return \Response::json($check_key_rst['err_msg'], 400);
         }
+
         $key = sprintf("%06d", $key);
 
-        $room = Room::where('key', $key)
-            ->select('id', 'closed_at')
-            ->firstOrFail();
+        $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
+        
+        $num_confused = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.confused'))->count();
+        $num_interesting = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.interesting'))->count();
+        $num_boring = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.boring'))->count();
 
-        if(!is_null($room['closed_at'])){
-            return \Response::json('room has been already closed', 400);
-        }
-
-        $affiliation_id = substr($key, 0,3);
-
-        $num_type1 = Reaction::inTenMinutes($room->id, 1)->count();
-        $num_type2 = Reaction::inTenMinutes($room->id, 2)->count();
-        $num_type3 = Reaction::inTenMinutes($room->id, 3)->count();
-
-        $time_room_in = Reaction::fromRoomIn($student->id, $room->id)
+        $time_room_in = Reaction::fromRoomIn($student->id, $affiliation_id, $check_key_rst['id'])
             ->select('created_at')
             ->firstOrFail();
         $time_room_in = Carbon::createFromFormat('Y-m-d H:i:s', $time_room_in->created_at);
 
-        $time_foreground = Reaction::fromForeground($student->id, $room->id)
+        $time_fore_in = Reaction::fromForeIn($student->id, $affiliation_id, $check_key_rst['id'])
             ->select('created_at')
             ->first();
 
-        if(empty($time_foreground)){
-            $time_foreground = $time_room_in;
+        if(empty($time_fore_in)){
+            $time_fore_in = $time_room_in;
         }
         else{
-            $time_foreground = Carbon::createFromFormat('Y-m-d H:i:s', $time_foreground->created_at);
+            $time_fore_in = Carbon::createFromFormat('Y-m-d H:i:s', $time_fore_in->created_at);
         }
 
-        if($time_foreground->ne($time_room_in)){
-            $time_foreground = $time_room_in;
+        if($time_fore_in->ne($time_room_in)){
+            $time_fore_in = $time_room_in;
         }
 
         $time_room_in = Carbon::now()->diffInMinutes($time_room_in);
-        $time_foreground = Carbon::now()->diffInMinutes($time_foreground);
+        $time_fore_in = Carbon::now()->diffInMinutes($time_fore_in);
 
         $results = array(
-            'type_1' => $num_type1,
-            'type_2' => $num_type2,
-            'type_3' => $num_type3,
-            'room_in' => $time_room_in,
-            'foreground' => $time_foreground
+            'num_confused' => $num_confused,
+            'num_interesting' => $num_interesting,
+            'num_boring' => $num_boring,
+            'timediff_room_in' => $time_room_in,
+            'timediff_fore_in' => $time_fore_in
             );
 
-        return \Response::json(Carbon::now(), 200);
+        return \Response::json($results, 200);
+    }
+
+    public static function checkRoomKey($key)
+    {
+        $results = array(
+            'status' => true,
+            'err_msg' => 'OK',
+            'id' => null
+            );
+
+        if (!intval($key)) {
+            $results['status']= false;
+            $results['err_msg'] = 'room key must be integer';
+            return $results;
+        }
+
+        $room = Room::where('key', $key)
+            ->select('id', 'closed_at')
+            ->first();
+
+        if(empty($room)){
+            $results['status']= false;
+            $results['err_msg'] = 'room not found';
+            return $results;
+        }
+
+        if($room['closed_at']){
+            $results['status']= false;
+            $results['err_msg'] = 'room closed';
+            return $results;
+        }
+
+        $results['id'] = $room['id'];
+        
+        return $results;
     }
 }
+
+/*
+        $room = Room::with([
+                'lecture' => function ($query) {
+                    $query->select('id', 'title', 'time_slot', 'weekday');
+                },
+                'teacher' => function ($query) {
+                    $query->select('id', 'family_name', 'given_name');
+                }
+            ])
+            ->where('key', $key)
+            ->select('lecture_id', 'teacher_id', 'length', 'closed_at')
+            ->firstOrFail();
+*/

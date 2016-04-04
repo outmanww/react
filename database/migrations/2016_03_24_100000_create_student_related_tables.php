@@ -84,6 +84,7 @@ class CreateStudentRelatedTables extends Migration
             $table->string('message')->nullable();
             
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at');
             $table->softDeletes();
 
             /**

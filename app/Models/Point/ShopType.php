@@ -18,8 +18,8 @@ class ShopType extends Model
      */
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
-    public function shop()
+    public function shops()
 	{
-		return $this->hasMany('App\Models\Point\Shop');
+		return $this->hasMany('App\Models\Point\Shop','type_id','id');
 	}
 }

@@ -60,14 +60,14 @@ class PointTableSeeder extends Seeder
                 'student_id'       => $student_1->id,
                 'item_id'          => $item_1->id,
                 'amount'           => 1,
-                'point_diff'       => (0-$item_1->points),
+                'point_diff'       => (0-$item_1->point),
                 'created_at'       => Carbon::now(),
                 'updated_at'       => Carbon::now(),
             ],[
                 'student_id'       => $student_2->id,
                 'item_id'          => $item_2->id,
                 'amount'           => 2,
-                'point_diff'       => (0-2*$item_2->points),
+                'point_diff'       => (0-2*$item_2->point),
                 'created_at'       => Carbon::now(),
                 'updated_at'       => Carbon::now(),
             ]
