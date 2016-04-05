@@ -63,6 +63,10 @@ class CreateLectureRelatedTables extends Migration
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('closed_at')->nullable();
             $table->softDeletes();
+            $table->text('history_attendance')->nullable;
+            $table->text('history_confused')->nullable;
+            $table->text('history_interesting')->nullable;
+            $table->text('history_boring')->nullable;
 
             /**
              * Add Foreign lecture_id
