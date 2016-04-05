@@ -47,6 +47,11 @@ return [
         ],
 
         'students' => [
+            'driver' => 'session',
+            'provider' => 'students_provider',
+        ],
+
+        'students_api' => [
             'driver' => 'token',
             'provider' => 'students_provider',
         ],

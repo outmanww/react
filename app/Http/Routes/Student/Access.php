@@ -30,19 +30,14 @@ Route::group(['namespace' => 'Auth'], function () {
     /**
      * These routes require the user NOT be logged in
      */
-    Route::group(['middleware' => 'guest:students'], function () {
-        // Authentication Routes
-        Route::get('signin', 'AuthController@showLoginForm');
-        Route::post('signin', 'AuthController@login');
+    Route::group(['middleware' => 'guest:students_api'], function () {
+        // Route::get('signin', 'AuthController@showSigninForm');
+        // Route::get('signin/{provider}', 'AuthController@loginThirdParty');
+        Route::post('signin', 'AuthController@signin');
 
-        // Socialite Routes
-        Route::get('signin/{provider}', 'AuthController@loginThirdParty');
-
-        // Registration Routes
-        Route::get('signup', 'AuthController@showRegistrationForm');
+        // Route::get('signup', 'AuthController@showRegistrationForm');
         Route::post('signup', 'AuthController@signup');
 
-        // Confirm Account Routes
         Route::get('account/confirm/{token}', 'AuthController@confirmAccount');
         Route::get('/account/confirm/resend/{token}', 'AuthController@resendConfirmationEmail');
 
