@@ -79,7 +79,7 @@ class Room extends Model
 		$num_student_array = array();
 		for($i=0; $i<$num_slot; $i++)
 			array_push($num_student_array, 0);
-//		return $num_student_array;
+		return $num_student_array;
 
 		$room_events = Reaction::allRoomEvent($affiliation_id, $this->id)
 								->select('created_at','type_id')
@@ -89,7 +89,7 @@ class Room extends Model
         {
         	if($room_event['type_id'] == config('controller.b_type.room_in'))
         	{
-        		$room_events['created_at']
+        		$room_events['created_at'];
         	}
 	        else
 	        {
@@ -98,7 +98,7 @@ class Room extends Model
         }
 
 
-		/*
+		
 		$results['total'] = Reaction::where('affiliation_id', $affiliation_id)
 			->where('room_id', $this->id)
 			->where('action_id', config('controller.action.basic'))
@@ -116,7 +116,7 @@ class Room extends Model
 			->havingRaw('COUNT(CASE type_id WHEN '.config('controller.b_type.room_in').' THEN 1 ELSE NULL END) > COUNT(CASE type_id WHEN '.config('controller.b_type.room_out').' THEN 1 ELSE NULL END)')
 			->get()
 			->count();
-*/
-		return 'OK';
+
+		return $results;
 	}
 }
