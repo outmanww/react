@@ -5,6 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateUsersTable extends Migration
 {
+    protected $connection_list = ['mysql-nagoya-u', 'mysql-toho-u'];
+
     /**
      * Run the migrations.
      *
@@ -12,46 +14,38 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('access.users_table'), function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('email')->unique();
-            $table->string('password', 60)->nullable();
+        foreach ($this->connection_list as $connection_name) {
+            Schema::connection($connection_name)->create(config('access.users_table'), function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('email')->unique();
+                $table->string('password', 60)->nullable();
 
-            $table->tinyInteger('status')->default(0)->unsigned();
-            $table->string('confirmation_code');
-            $table->boolean('confirmed')->default(config('access.users.confirm_email') ? false : true);
-            $table->rememberToken();
+                $table->tinyInteger('status')->default(0)->unsigned();
+                $table->string('confirmation_code');
+                $table->boolean('confirmed')->default(config('access.users.confirm_email') ? false : true);
+                $table->rememberToken();
 
-            $table->string('family_name');
-            $table->string('given_name');
-            $table->string('family_name_yomi')->nullable();
-            $table->string('given_name_yomi')->nullable();
-            $table->string('phone')->nullable();
-            $table->tinyInteger('sex')->nullable();
-            $table->date('birthday')->nullable();
-            $table->string('personal_id')->nullable();
-            $table->string('postal_code')->nullable();
-            $table->string('state')->nullable();
-            $table->string('city')->nullable();
-            $table->string('street')->nullable();
-            $table->string('building')->nullable();
-            $table->string('introduction')->nullable();
-            $table->string('url')->nullable();
+                $table->string('family_name');
+                $table->string('given_name');
+                $table->string('family_name_yomi')->nullable();
+                $table->string('given_name_yomi')->nullable();
+                $table->string('phone')->nullable();
+                $table->tinyInteger('sex')->nullable();
+                $table->date('birthday')->nullable();
+                $table->string('personal_id')->nullable();
+                $table->string('postal_code')->nullable();
+                $table->string('state')->nullable();
+                $table->string('city')->nullable();
+                $table->string('street')->nullable();
+                $table->string('building')->nullable();
+                $table->string('introduction')->nullable();
+                $table->string('url')->nullable();
 
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at');
-            $table->softDeletes();
-
-            // $table->string('department_id');
-
-            // /**
-            //  * Add Foreign/Unique/Index
-            //  */
-            // $table->foreign('department_id')
-            //     ->references('id')
-            //     ->on(config('lecture.department_table'))
-            //     ->onDelete('set null');
-        });
+                $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+                $table->timestamp('updated_at');
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
@@ -61,6 +55,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        foreach ($this->connection_list as $connection_name) {
+            Schema::connection($connection_name)->drop('users');
+        }
     }
 }

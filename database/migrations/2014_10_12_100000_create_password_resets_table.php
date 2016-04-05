@@ -5,6 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePasswordResetsTable extends Migration
 {
+    protected $connection_list = ['mysql-nagoya-u', 'mysql-toho-u'];
+
     /**
      * Run the migrations.
      *
@@ -12,11 +14,13 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token')->index();
-            $table->timestamp('created_at');
-        });
+        foreach ($this->connection_list as $connection_name) {
+            Schema::connection($connection_name)->create('password_resets', function (Blueprint $table) {
+                $table->string('email')->index();
+                $table->string('token')->index();
+                $table->timestamp('created_at');
+            });
+        }
     }
 
     /**
@@ -26,6 +30,8 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('password_resets');
+        foreach ($this->connection_list as $connection_name) {
+            Schema::connection($connection_name)->drop('password_resets');
+        }
     }
 }
