@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth:students'], function () {
+Route::group(['middleware' => 'auth:students_api'], function () {
     Route::post('user', function(){
         return \Auth::guard('students')->user();
     });
@@ -14,7 +14,7 @@ Route::group(['namespace' => 'Auth'], function () {
     /**
      * These routes require the user to be logged in
      */
-    Route::group(['middleware' => 'auth:students'], function () {
+    Route::group(['middleware' => 'auth:students_api'], function () {
 
         Route::post('user/{student}', function(App\Models\Student\Student $student){
             return $student;
