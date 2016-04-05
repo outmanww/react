@@ -18,7 +18,7 @@ return [
     'after'                => ':attributeは:date以降の日付にしてください。',
     'alpha'                => ':attributeは英字のみにしてください。',
     'alpha_dash'           => ':attributeは英数字とハイフンのみにしてください。',
-    'alpha_num'            => ':attributeは英数字のみにしてください。',
+    'alpha_num'            => ':attributeはアルファベットと数字のみにしてください。',
     'array'                => ':attributeは配列にしてください。',
     'before'               => ':attributeは:date以前の日付にしてください。',
     'between'              => [
@@ -34,7 +34,8 @@ return [
     'different'            => ':attributeは:otherと違うものにしてください。',
     'digits'               => ':attributeは:digits桁にしてください',
     'digits_between'       => ':attributeは:min〜:max桁にしてください。',
-    'email'                => ':attributeを正しいメールアドレスにしてください。',
+    // 'email'                => ':attributeを正しいメールアドレスにしてください。',
+    'email'                => 'メールアドレスが正しく入力されていません。',
     'exists'               => '選択された:attributeは正しくありません。',
     'filled'               => ':attributeは必須です。',
     'image'                => ':attributeは画像にしてください。',

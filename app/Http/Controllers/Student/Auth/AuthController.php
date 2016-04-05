@@ -69,7 +69,7 @@ class AuthController extends Controller
             'status'      => 1,
         ]);
 
-        return \Response::json($token, 200);
+        return \Response::json(['api_token' => $token], 200);
     }
 
     /**
@@ -83,7 +83,7 @@ class AuthController extends Controller
 
         $token = \Auth::guard('students')->user()->api_token;
 
-        return \Response::json($token, 200);
+        return \Response::json(['api_token' => $token], 200);
     }
 
     public function findByEmail($email) {
