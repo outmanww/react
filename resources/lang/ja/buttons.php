@@ -16,27 +16,27 @@ return [
     'backend' => [
         'access' => [
             'users' => [
-                'activate' => 'Aktivera',
-                'change_password' => 'Byt lösenord',
-                'deactivate' => 'Inaktivera',
-                'resend_email' => 'Skicka bekräftelsemail igen.',
-                'delete_permanently' => 'Radera permanent',
-                'restore_user' => 'Återställ',
+                'activate' => 'Activate',
+                'change_password' => 'Change Password',
+                'deactivate' => 'Deactivate',
+                'delete_permanently' => 'Delete Permanently',
+                'resend_email' => 'Resend Confirmation E-mail',
+                'restore_user' => 'Restore User',
             ],
         ],
     ],
 
     'general' => [
-        'cancel' => 'Avbryt',
+        'cancel' => 'Cancel',
 
         'crud' => [
-            'create' => 'Skapa',
-            'delete' => 'Radera',
-            'edit' => 'Redigera',
-            'update' => 'Uppdatera',
+            'create' => 'Create',
+            'delete' => 'Delete',
+            'edit' => 'Edit',
+            'update' => 'Update',
         ],
 
-        'save' => 'Spara',
-        'view' => 'Granska',
+        'save' => 'Save',
+        'view' => 'View',
     ],
 ];

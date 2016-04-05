@@ -12,13 +12,13 @@ return [
     */
 
     '404' => [
-        'title' => 'Sidan kunde inte visas.',
-        'description' => 'Sorry, men sidan du försökte nå kunde inte visas.',
+        'title' => 'ページが見つかりません',
+        'description' => 'Sorry, but the page you were trying to view does not exist.',
     ],
 
     '503' => [
-        'title' => 'Strax tillbaka!',
-        'description' => 'Strax tillbaka!',
+        'title' => 'Be right back.',
+        'description' => 'Be right back.',
     ],
 
 ];

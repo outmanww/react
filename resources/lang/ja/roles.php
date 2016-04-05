@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'administrator' => 'Administratör',
-    'user' => 'Användare',
-    'web_developer' => 'Webbutvecklare',
+    'administrator' => 'Administrator',
+    'user' => 'User',
+    'web_developer' => 'Web Developer',
 ];

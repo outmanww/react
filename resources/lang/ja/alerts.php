@@ -15,32 +15,32 @@ return [
 
     'backend' => [
         'permissions' => [
-            'created' => 'Tillståndet har nu skapats.',
-            'deleted' => 'Tillståndet har nu raderats.',
+            'created' => 'Permission successfully created.',
+            'deleted' => 'Permission successfully deleted.',
 
             'groups'  => [
-                'created' => 'Tillståndsgruppen har nu skapats.',
-                'deleted' => 'Tillståndsgruppen har nu raderats.',
-                'updated' => 'Tillståndsgruppen har nu uppdaterats.',
+                'created' => 'Permission group successfully created.',
+                'deleted' => 'Permission group successfully deleted.',
+                'updated' => 'Permission group successfully updated.',
             ],
 
-            'updated' => 'Tillståndet har uppdaterats.',
+            'updated' => 'Permission successfully updated.',
         ],
 
         'roles' => [
-            'created' => 'Rollen har nu skapats.',
-            'deleted' => 'Rollen har nu raderats.',
-            'updated' => 'Rollen har nu uppdaterats.',
+            'created' => 'The role was successfully created.',
+            'deleted' => 'The role was successfully deleted.',
+            'updated' => 'The role was successfully updated.',
         ],
 
         'users' => [
-            'confirmation_email' => 'Ett nytt bekräftelsemail har nu skickats till den angivna e-postadressen.',
-            'created' => 'Användaren har nu skapats.',
-            'deleted' => 'Användaren har nu raderats.',
-            'deleted_permanently' => 'Användaren har nu raderats permanent.',
-            'restored' => 'Användaren har nu återställts.',
-            'updated' => 'Användaren har nu uppdaterats.',
-            'updated_password' => "Användarens lösenord har nu uppdaterats.",
+            'confirmation_email' => 'A new confirmation e-mail has been sent to the address on file.',
+            'created' => 'The user was successfully created.',
+            'deleted' => 'The user was successfully deleted.',
+            'deleted_permanently' => 'The user was deleted permanently.',
+            'restored' => 'The user was successfully restored.',
+            'updated' => 'The user was successfully updated.',
+            'updated_password' => "The user's password was successfully updated.",
         ]
     ],
 ];

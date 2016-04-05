@@ -15,55 +15,55 @@ return [
 
     'backend' => [
         'access' => [
-            'title' => 'Användare och rättigheter',
+            'title' => 'Access Management',
 
             'permissions' => [
-                'all' => 'Alla tillstånd',
-                'create' => 'Skapa tillstånd',
-                'edit' => 'Redigera tillstånd',
+                'all' => 'All Permissions',
+                'create' => 'Create Permission',
+                'edit' => 'Edit Permission',
                 'groups' => [
-                    'all' => 'Alla tillståndsgrupper',
-                    'create' => 'Skapa tillståndsgrupp',
-                    'edit' => 'Redigera tillståndsgrupp',
-                    'main' => 'Tillståndsgrupper',
+                    'all' => 'All Groups',
+                    'create' => 'Create Group',
+                    'edit' => 'Edit Group',
+                    'main' => 'Groups',
                 ],
-                'main' => 'Tillstånd',
-                'management' => 'Hantera tillstånd',
+                'main' => 'Permissions',
+                'management' => 'Permission Management',
             ],
 
             'roles' => [
-                'all' => 'Alla roller',
-                'create' => 'Skapa roll',
-                'edit' => 'Redigera roll',
-                'management' => 'Hantera roller',
-                'main' => 'Roller',
+                'all' => 'All Roles',
+                'create' => 'Create Role',
+                'edit' => 'Edit Role',
+                'management' => 'Role Management',
+                'main' => 'Roles',
             ],
 
             'users' => [
-                'all' => 'Alla användare',
-                'change-password' => 'Byt lösenord',
-                'create' => 'Skapa användare',
-                'deactivated' => 'Inaktiverade användare',
-                'deleted' => 'Raderade användare',
-                'edit' => 'Redigera användare',
-                'main' => 'Användare',
+                'all' => 'All Users',
+                'change-password' => 'Change Password',
+                'create' => 'Create User',
+                'deactivated' => 'Deactivated Users',
+                'deleted' => 'Deleted Users',
+                'edit' => 'Edit User',
+                'main' => 'Users',
             ],
         ],
 
         'log-viewer' => [
-            'main' => 'Loggöversikt',
-            'dashboard' => 'Huvudpanelen',
-            'logs' => 'Loggar',
+            'main' => 'Log Viewer',
+            'dashboard' => 'Dashboard',
+            'logs' => 'Logs',
         ],
 
         'sidebar' => [
-            'dashboard' => 'Kontrollpanelen',
-            'general' => 'Adminpanelen',
+            'dashboard' => 'Dashboard',
+            'general' => 'General',
         ],
     ],
 
     'language-picker' => [
-        'language' => 'Språk',
+        'language' => 'Language',
         /**
          * Add the new language to this array.
          * The key should have the same language code as the folder name.
@@ -71,14 +71,14 @@ return [
          * Be sure to add the new language in alphabetical order.
          */
         'langs' => [
-            'da' => 'Danska (Danish)',
-            'de' => 'Tyska (German)',
-            'pt-BR' => 'Brasiliansk portugisiska (Brazilian Portuguese)',
-            'en' => 'Engelska (English)',
-            'fr' => 'Franska (French)',
-            'it' => 'Italienska (Italian)',
-            'es' => 'Spanska (Spanish)',
-            'sv' => 'Svenska (Swedish)',
+            'da' => 'Danish',
+            'de' => 'German',
+            'en' => 'English',
+            'es' => 'Spanish',
+            'fr' => 'French',
+            'it' => 'Italian',
+            'pt-BR' => 'Brazilian Portuguese',
+            'sv' => 'Swedish',
         ],
     ],
 ];

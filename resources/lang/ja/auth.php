@@ -13,11 +13,11 @@ return [
     |
     */
 
-    'failed' => 'Dessa uppgifter stämmer inte överens med vårt register.',
-    'general_error' => 'Du har inte tillstånd att göra det där.',
+    'failed' => 'ユーザー情報が一致しません',
+    'general_error' => 'アクセス権限がありません',
     'socialite' => [
-        'unacceptable' => ':provider kan inte att användas vid inloggning.',
+        'unacceptable' => ':provider is not an acceptable login type.',
     ],
-    'throttle' => 'För många misslyckade försök att logga in i rad. Du kan försöka igen om :seconds sekunder.',
-    'unknown' => 'Hm.. Något gick snett, ett okänt fel.',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'unknown' => '予期せぬエラーが発生しました',
 ];
