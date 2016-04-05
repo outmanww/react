@@ -123,10 +123,10 @@ class RoomController extends Controller
         $key = sprintf("%06d", $key);
 
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
-        
-        $num_confused = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.confused'))->count();
-        $num_interesting = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.interesting'))->count();
-        $num_boring = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.boring'))->count();
+
+        $num_confused = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.confused'))->get()->count();
+        $num_interesting = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.interesting'))->get()->count();
+        $num_boring = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.boring'))->get()->count();
 
         $time_room_in = Reaction::fromRoomIn($student->id, $affiliation_id, $check_key_rst['id'])
             ->select('created_at')

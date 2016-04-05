@@ -43,7 +43,8 @@ class Reaction extends Model
             ->where('room_id', $room_id)
             ->where('type_id', $type)
             ->whereIn('action_id', [config('controller.action.reaction_anonymous'),config('controller.action.reaction_realname')])
-            ->where('created_at', '>', Carbon::now()->subMinutes(10));
+            ->where('created_at', '>', Carbon::now()->subMinutes(10))
+            ->groupBy('student_id');
     }
     public function scopeFromRoomIn($query, $student_id, $affiliation_id, $room_id)
     {
