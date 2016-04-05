@@ -1,5 +1,11 @@
 <?php
 
+Route::group(['middleware' => 'auth:students'], function () {
+    Route::post('user', function(){
+        return \Auth::guard('students')->user();
+    });
+});
+
 /**
  * Frontend Access Controllers
  */
@@ -9,6 +15,11 @@ Route::group(['namespace' => 'Auth'], function () {
      * These routes require the user to be logged in
      */
     Route::group(['middleware' => 'auth:students'], function () {
+
+        Route::post('user/{student}', function(App\Models\Student\Student $student){
+            return $student;
+        });
+
         Route::get('signout', 'AuthController@logout')->name('auth.logout');
 
         // Change Password Routes
@@ -29,7 +40,7 @@ Route::group(['namespace' => 'Auth'], function () {
 
         // Registration Routes
         Route::get('signup', 'AuthController@showRegistrationForm');
-        Route::post('signup', 'AuthController@register');
+        Route::post('signup', 'AuthController@signup');
 
         // Confirm Account Routes
         Route::get('account/confirm/{token}', 'AuthController@confirmAccount');

@@ -1,21 +1,22 @@
 <?php
 
+Route::group(['namespace' => 'Student', 'prefix' => 'student'], function() {
+    /*
+     * Student Routes
+     */
+    require (__DIR__ . '/Routes/Student/Access.php');
+    require (__DIR__ . '/Routes/Student/Room.php');
+    require (__DIR__ . '/Routes/Student/Point.php');
+    require (__DIR__ . '/Routes/Student/Shopping.php');
+});
+
+
 Route::group(['middleware' => 'web'], function() {
     /*
      * Switch between the included languages
      */
     Route::group(['namespace' => 'Language'], function () {
         require (__DIR__ . '/Routes/Language/Language.php');
-    });
-
-    /*
-     * Student Routes
-     */
-    Route::group(['namespace' => 'Student', 'prefix' => 'student'], function () {
-        require (__DIR__ . '/Routes/Student/Access.php');
-        require (__DIR__ . '/Routes/Student/Room.php');
-        require (__DIR__ . '/Routes/Student/Point.php');
-        require (__DIR__ . '/Routes/Student/Shopping.php');
     });
 
     /*

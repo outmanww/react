@@ -7,6 +7,9 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+//Requests
+use Illuminate\Http\Request;
+use App\Http\Requests\Student\Auth\SignupRequest;
 
 class AuthController extends Controller
 {
@@ -52,16 +55,30 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    protected function signup(SignupRequest $request)
     {
-        return User::create([
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+        return \App\Models\Student\Student::create([
+            'family_name' => $request->family_name,
+            'given_name'  => $request->given_name,
+            'email'       => $request->email,
+            'password'    => null,
+            'api_token'   => md5(uniqid(mt_rand(), true)),
+            'confirmation_code' => md5(uniqid(mt_rand(), true)),
+            'confirmed'   => config('access.users.confirm_email') ? 0 : 1,
+            'status'      => 1,
         ]);
     }
 
-    // public function login()
+    public function showLoginForm()
+    {
+        return view('student.signin');
+    }
+
+    /**
+     * 
+     */
+    // public function login(Request $request)
     // {
-    //     return 'aaa';
+
     // }
 }

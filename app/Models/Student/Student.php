@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Student extends Authenticatable
 {
     use SoftDeletes;
+
     /**
      * The attributes that are not mass assignable.
      */
@@ -23,6 +24,7 @@ class Student extends Authenticatable
 	{
 		return $this->hasMany('App\Models\Student\Reaction');
 	}
+
     public function points()
     {
         return $this->hasMany('App\Models\Point\Point');
