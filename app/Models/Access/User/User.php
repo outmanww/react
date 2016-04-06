@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Access\User\Traits\Attribute\UserAttribute;
 use App\Models\Access\User\Traits\Relationship\UserRelationship;
+use App\Models\CustomRelations;
 
 /**
  * Class User
@@ -15,8 +16,9 @@ use App\Models\Access\User\Traits\Relationship\UserRelationship;
  */
 class User extends Authenticatable
 {
+    use SoftDeletes, UserAccess, UserLecture, UserAttribute, UserRelationship, CustomRelations;
 
-    use SoftDeletes, UserAccess, UserLecture, UserAttribute, UserRelationship;
+    protected $connection = 'connection-name';
 
     /**
      * The attributes that are not mass assignable.

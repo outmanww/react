@@ -66,6 +66,14 @@ class Reaction extends Model
             ->where('type_id', config('controller.b_type.fore_in'))
             ->orderBy('created_at','desc');
     }
+    public function scopeAllRoomEvent($query, $affiliation_id, $room_id)
+    {
+        return $query
+//            ->where('affiliation_id', $affiliation_id)
+//            ->where('room_id', $room_id)
+//            ->where('action_id', config('controller.action.basic'));
+            ->whereIn('type_id', [config('controller.b_type.room_in'),config('controller.b_type.room_out')]);
+    }
     public function calDiffMin(Carbon $room_in)
     {
         $datetime = $this->created_at;

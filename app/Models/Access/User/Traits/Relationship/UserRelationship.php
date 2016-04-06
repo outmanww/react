@@ -11,6 +11,10 @@ use App\Models\Access\User\SocialLogin;
 trait UserRelationship
 {
 
+// CustomHasMany
+// CustomBelongsTo
+// CustomBelongsToMany
+
     /**
      * Many-to-Many relations with Role.
      *
@@ -18,7 +22,15 @@ trait UserRelationship
      */
     public function roles()
     {
-        return $this->belongsToMany(config('access.role'), config('access.role_user_table'), 'user_id', 'role_id');
+        $role_model = new \App\Models\Access\Role\Role;
+        $role_model->setConnection($this->connection);
+
+        return $this->CustomBelongsToMany(
+            $role_model,
+            config('access.role_user_table'),
+            'user_id',
+            'role_id'
+        );
     }
 
     /**
@@ -29,7 +41,15 @@ trait UserRelationship
      */
     public function permissions()
     {
-        return $this->belongsToMany(config('access.permission'), config('access.permission_user_table'), 'user_id', 'permission_id');
+        $permission_model = new \App\Models\Access\Permission\Permission;
+        $permission_model->setConnection($this->connection);
+
+        return $this->CustomBelongsToMany(
+            $permission_model,
+            config('access.permission_user_table'),
+            'user_id',
+            'permission_id'
+        );
     }
 
     /**
@@ -37,7 +57,7 @@ trait UserRelationship
      */
     public function providers()
     {
-        return $this->hasMany(SocialLogin::class);
+        return $this->CustomHasMany(SocialLogin::class);
     }
 
     /**
@@ -45,7 +65,15 @@ trait UserRelationship
      */
     public function lectures()
     {
-        return $this->belongsToMany('App\Models\Lecture\Lecture', 'lecture_teacher', 'teacher_id', 'lecture_id');
+        $lecture_model = new \App\Models\Lecture\Lecture;
+        $lecture_model->setConnection($this->connection);
+
+        return $this->CustomBelongsToMany(
+            $lecture_model,
+            'lecture_teacher',
+            'teacher_id',
+            'lecture_id'
+        );
     }
 
     /**
@@ -53,6 +81,9 @@ trait UserRelationship
      */
     public function rooms()
     {
-        return $this->hasMany('App\Models\Lecture\Room', 'teacher_id');
+        $room_model = new \App\Models\Lecture\Room;
+        $room_model->setConnection($this->connection);
+
+        return $this->CustomHasMany($room_model, 'teacher_id');
     }
 }

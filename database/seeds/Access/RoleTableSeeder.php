@@ -9,41 +9,46 @@ use Illuminate\Support\Facades\DB;
  */
 class RoleTableSeeder extends Seeder
 {
+    protected $connection_list = ['mysql-nagoya-u', 'mysql-toho-u'];
+
     public function run()
     {
-        if (env('DB_CONNECTION') == 'mysql') {
-            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        }
+        foreach ($this->connection_list as $connection_name) {
 
-        if (env('DB_CONNECTION') == 'mysql') {
-            DB::table(config('access.roles_table'))->truncate();
-        } elseif (env('DB_CONNECTION') == 'sqlite') {
-            DB::statement('DELETE FROM ' . config('access.roles_table'));
-        } else {
-            //For PostgreSQL or anything else
-            DB::statement('TRUNCATE TABLE ' . config('access.roles_table') . ' CASCADE');
-        }
+            if(strpos($connection_name, 'mysql') !== false){
+                DB::connection($connection_name)->statement('SET FOREIGN_KEY_CHECKS=0;');
+            }
 
-        $roles= [
-            [
-                'name' => 'Administrator',
-                'all' => true,
-                'sort' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ],[
-                'name' => 'Teacher',
-                'all' => false,
-                'sort' => 2,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]
-        ];
+            if(strpos($connection_name, 'mysql') !== false){
+                DB::connection($connection_name)->table(config('access.roles_table'))->truncate();
+            } elseif (env('DB_CONNECTION') == 'sqlite') {
+                DB::connection($connection_name)->statement('DELETE FROM ' . config('access.roles_table'));
+            } else {
+                //For PostgreSQL or anything else
+                DB::connection($connection_name)->statement('TRUNCATE TABLE ' . config('access.roles_table') . ' CASCADE');
+            }
 
-        DB::table(config('access.roles_table'))->insert($roles);
+            $roles= [
+                [
+                    'name' => 'Administrator',
+                    'all' => true,
+                    'sort' => 1,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ],[
+                    'name' => 'Teacher',
+                    'all' => false,
+                    'sort' => 2,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]
+            ];
 
-        if (env('DB_CONNECTION') == 'mysql') {
-            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            DB::connection($connection_name)->table(config('access.roles_table'))->insert($roles);
+
+            if(strpos($connection_name, 'mysql') !== false){
+                DB::connection($connection_name)->statement('SET FOREIGN_KEY_CHECKS=1;');
+            }
         }
     }
 }

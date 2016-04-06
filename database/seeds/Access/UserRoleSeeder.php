@@ -8,41 +8,53 @@ use Illuminate\Support\Facades\DB;
  */
 class UserRoleSeeder extends Seeder
 {
+    protected $connection_list = ['mysql-nagoya-u', 'mysql-toho-u'];
+
     public function run()
     {
-        if (env('DB_CONNECTION') == 'mysql') {
-            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        }
+        foreach ($this->connection_list as $connection_name) {
 
-        if (env('DB_CONNECTION') == 'mysql') {
-            DB::table(config('access.role_user_table'))->truncate();
-        } elseif (env('DB_CONNECTION') == 'sqlite') {
-            DB::statement('DELETE FROM ' . config('access.role_user_table'));
-        } else {
-            //For PostgreSQL or anything else
-            DB::statement('TRUNCATE TABLE ' . config('access.role_user_table') . ' CASCADE');
-        }
+            if(strpos($connection_name, 'mysql') !== false){
+                DB::connection($connection_name)->statement('SET FOREIGN_KEY_CHECKS=0;');
+            }
 
-        $role_admin = DB::table(config('access.roles_table'))
-            ->where('name', 'Administrator')
-            ->first();
+            if(strpos($connection_name, 'mysql') !== false){
+                DB::connection($connection_name)->table(config('access.role_user_table'))->truncate();
+            } elseif (env('DB_CONNECTION') == 'sqlite') {
+                DB::connection($connection_name)->statement('DELETE FROM ' . config('access.role_user_table'));
+            } else {
+                //For PostgreSQL or anything else
+                DB::connection($connection_name)->statement('TRUNCATE TABLE ' . config('access.role_user_table') . ' CASCADE');
+            }
 
-        $role_teacher = DB::table(config('access.roles_table'))
-            ->where('name', 'Teacher')
-            ->first();
+            $role_admin = DB::connection($connection_name)->table(config('access.roles_table'))
+                ->where('name', 'Administrator')
+                ->first();
 
-        //Attach user role to general user
-        $user_model = config('auth.providers.users.model');
-        $user_model = new $user_model;
-        $user_model::where('email', 'admin@admin.com')->first()->roles()->attach($role_admin->id);
+            $role_teacher = DB::connection($connection_name)->table(config('access.roles_table'))
+                ->where('name', 'Teacher')
+                ->first();
 
-        //Attach user role to general user
-        $user_model = config('auth.providers.users.model');
-        $user_model = new $user_model;
-        $user_model::where('email', 'teacher@teacher.com')->first()->roles()->attach($role_teacher->id);
+            $user = new \App\Models\Access\User\User;
+            $user->setConnection($connection_name);
 
-        if (env('DB_CONNECTION') == 'mysql') {
-            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            $user->where('email', 'admin@admin.com')
+                ->first()
+                ->roles()
+                ->attach($role_admin->id);
+
+            $user_model = config('auth.providers.users.model');
+            $user_model = new $user_model;
+            $user->setConnection($connection_name);
+
+            $user->where('email', 'teacher@teacher.com')
+                ->first()
+                ->roles()
+                ->attach($role_teacher->id);
+
+            if(strpos($connection_name, 'mysql') !== false){
+                DB::connection($connection_name)->statement('SET FOREIGN_KEY_CHECKS=1;');
+            }
         }
     }
 }

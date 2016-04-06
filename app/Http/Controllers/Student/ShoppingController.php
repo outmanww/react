@@ -9,7 +9,6 @@ use App\Models\Point\ShopType;
 use App\Models\Point\Shop;
 use App\Models\Point\Point;
 use App\Models\Point\Item;
-use App\Models\Student\Student;
 // Exceptions
 use App\Exceptions\ApiException;
 // Request
@@ -61,7 +60,6 @@ class ShoppingController extends Controller
     }
     public function itemDetail($item_id)
     {
-
         return \Response::json(Item::findOrFail($item_id), 200);
     }
     public function itemsByShopID($shop_id)

@@ -12,7 +12,7 @@ class OperationPermissionTableSeeder extends Seeder
 
     public function run()
     {
-        foreach ($connection_list as $connection_name) {
+        foreach ($this->connection_list as $connection_name) {
             if(strpos($connection_name, 'mysql') !== false){
                 DB::connection($connection_name)->statement('SET FOREIGN_KEY_CHECKS=0;');
             }

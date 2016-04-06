@@ -9,7 +9,6 @@ use App\Http\Controllers\Student\PointController;
 use App\Models\Lecture\Room;
 use App\Models\Lecture\Point;
 use App\Models\Student\Reaction;
-use App\Models\Student\Student;
 // Request
 use App\Http\Requests\Student\StudentActionRequest;
 // Carbon
@@ -56,7 +55,7 @@ class RoomController extends Controller
      */
     public function action(StudentActionRequest $request, $key)
     {
-        $student = Student::find(1);
+        $student = \Auth::guard('students_api')->user();
 
         $check_key_rst = $this->checkRoomKey($key);
         
@@ -112,7 +111,7 @@ class RoomController extends Controller
      */
     public function status($key)
     {
-        $student = Student::find(1);
+        $student = \Auth::guard('students_api')->user();
 
         $check_key_rst = $this->checkRoomKey($key);
 
