@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(AffiliationRelatedTableSeeder::class);
         $this->call(AccessTableSeeder::class);
-        $this->call(UserTableSeeder::class);
         $this->call(LectureRelatedTableSeeder::class);
         $this->call(StudentRelatedTableSeeder::class);
         $this->call(PointRelatedTableSeeder::class);
