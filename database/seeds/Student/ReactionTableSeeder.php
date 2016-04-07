@@ -11,11 +11,11 @@ class ReactionTableSeeder extends Seeder
 {
     public function run()
     {
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::table('reactions')->truncate();
         } elseif (env('DB_CONNECTION') == 'sqlite') {
             DB::statement('DELETE FROM reactions');
@@ -105,7 +105,7 @@ class ReactionTableSeeder extends Seeder
 
         DB::table('reactions')->insert($reactions);
 
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }

@@ -11,11 +11,11 @@ class AffiliationTableSeeder extends Seeder
 {
     public function run()
     {
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::table('affiliations')->truncate();
         } elseif (env('DB_CONNECTION') == 'sqlite') {
             DB::statement('DELETE FROM affiliations');
@@ -49,7 +49,7 @@ class AffiliationTableSeeder extends Seeder
 
         DB::table('affiliations')->insert($affiliations);
 
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }

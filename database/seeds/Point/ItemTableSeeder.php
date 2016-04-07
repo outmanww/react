@@ -11,11 +11,11 @@ class ItemTableSeeder extends Seeder
 {
     public function run()
     {
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::table('items')->truncate();
         } elseif (env('DB_CONNECTION') == 'sqlite') {
             DB::statement('DELETE FROM items');
@@ -58,7 +58,7 @@ class ItemTableSeeder extends Seeder
 
         DB::table('items')->insert($items);
 
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }

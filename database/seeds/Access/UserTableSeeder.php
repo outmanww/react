@@ -9,16 +9,15 @@ use Illuminate\Support\Facades\DB;
  */
 class UserTableSeeder extends Seeder
 {
-    protected $connection_list = ['mysql-nagoya-u', 'mysql-toho-u'];
-
     public function run()
     {
-        foreach ($this->connection_list as $connection_name) {
-            if(strpos($connection_name, 'mysql') !== false){
+        foreach (config('database.schools') as $connection_name) {
+
+            if(config('database.connections')[$connection_name]['driver'] == 'mysql'){
                 DB::connection($connection_name)->statement('SET FOREIGN_KEY_CHECKS=0;');
             }
 
-            if(strpos($connection_name, 'mysql') !== false){
+            if(config('database.connections')[$connection_name]['driver'] == 'mysql'){
                 DB::connection($connection_name)->table(config('access.operation_permission_table'))->truncate();
             } elseif (env('DB_CONNECTION') == 'sqlite') {
                 DB::connection($connection_name)->statement('DELETE FROM ' . config('access.operation_permission_table'));
@@ -216,7 +215,7 @@ class UserTableSeeder extends Seeder
 
             DB::connection($connection_name)->table(config('access.users_table'))->insert($users);
 
-            if(strpos($connection_name, 'mysql') !== false){
+            if(config('database.connections')[$connection_name]['driver'] == 'mysql'){
                 DB::connection($connection_name)->statement('SET FOREIGN_KEY_CHECKS=1;');
             }
         }

@@ -11,11 +11,11 @@ class ShopTypeTableSeeder extends Seeder
 {
     public function run()
     {
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::table('shop_types')->truncate();
         } elseif (env('DB_CONNECTION') == 'sqlite') {
             DB::statement('DELETE FROM shop_types');
@@ -43,7 +43,7 @@ class ShopTypeTableSeeder extends Seeder
 
         DB::table('shop_types')->insert($shop_types);
 
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }

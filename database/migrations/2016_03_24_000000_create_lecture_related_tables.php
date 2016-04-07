@@ -5,8 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateLectureRelatedTables extends Migration
 {
-    protected $connection_list = ['mysql-nagoya-u', 'mysql-toho-u'];
-
     /**
      * Run the migrations.
      *
@@ -14,7 +12,7 @@ class CreateLectureRelatedTables extends Migration
      */
     public function up()
     {
-        foreach ($this->connection_list as $connection_name) {
+        foreach (config('database.schools') as $connection_name) {
             Schema::connection($connection_name)->create('lectures', function (Blueprint $table) {
                 $table->increments('id')->unsigned();
                 $table->integer('sort')->default(0)->unsigned();
@@ -131,7 +129,7 @@ class CreateLectureRelatedTables extends Migration
      */
     public function down()
     {
-        foreach ($this->connection_list as $connection_name) {
+        foreach (config('database.schools') as $connection_name) {
             /**
              * Remove Foreign/Unique/Index
              */

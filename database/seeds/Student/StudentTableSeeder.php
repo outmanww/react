@@ -11,11 +11,11 @@ class StudentTableSeeder extends Seeder
 {
     public function run()
     {
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::table('students')->truncate();
         } elseif (env('DB_CONNECTION') == 'sqlite') {
             DB::statement('DELETE FROM students');
@@ -74,7 +74,7 @@ class StudentTableSeeder extends Seeder
 
         DB::table('students')->insert($students);
 
-        if (env('DB_CONNECTION') == 'mysql') {
+        if(config('database.connections')[config('database.default')]['driver'] == 'mysql'){
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         }
     }

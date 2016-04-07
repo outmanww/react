@@ -9,17 +9,15 @@ use Illuminate\Support\Facades\DB;
  */
 class PermissionTableSeeder extends Seeder
 {
-    protected $connection_list = ['mysql-nagoya-u', 'mysql-toho-u'];
-
     public function run()
     {
-        foreach ($this->connection_list as $connection_name) {
+        foreach (config('database.schools') as $connection_name) {
 
-            if(strpos($connection_name, 'mysql') !== false){
+            if(config('database.connections')[$connection_name]['driver'] == 'mysql'){
                 DB::connection($connection_name)->statement('SET FOREIGN_KEY_CHECKS=0;');
             }
 
-            if(strpos($connection_name, 'mysql') !== false){
+            if(config('database.connections')[$connection_name]['driver'] == 'mysql'){
                 DB::connection($connection_name)->table(config('access.permissions_table'))->truncate();
                 DB::connection($connection_name)->table(config('access.permission_role_table'))->truncate();
                 DB::connection($connection_name)->table(config('access.permission_user_table'))->truncate();
@@ -144,7 +142,7 @@ class PermissionTableSeeder extends Seeder
                 ->table(config('access.permissions_table'))
                 ->insert($permissions);
 
-            if(strpos($connection_name, 'mysql') !== false){
+            if(config('database.connections')[$connection_name]['driver'] == 'mysql'){
                 DB::connection($connection_name)->statement('SET FOREIGN_KEY_CHECKS=1;');
             }
         }

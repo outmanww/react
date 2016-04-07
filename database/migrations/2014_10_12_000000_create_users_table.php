@@ -5,8 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateUsersTable extends Migration
 {
-    protected $connection_list = ['mysql-nagoya-u', 'mysql-toho-u'];
-
     /**
      * Run the migrations.
      *
@@ -14,7 +12,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        foreach ($this->connection_list as $connection_name) {
+        foreach (config('database.schools') as $connection_name) {
             Schema::connection($connection_name)->create(config('access.users_table'), function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('email')->unique();
@@ -55,7 +53,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        foreach ($this->connection_list as $connection_name) {
+        foreach (config('database.schools') as $connection_name) {
             Schema::connection($connection_name)->drop('users');
         }
     }

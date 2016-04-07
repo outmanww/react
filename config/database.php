@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'global'),
 
     /*
     |--------------------------------------------------------------------------
@@ -44,15 +44,17 @@ return [
     |
     */
 
+    'schools' => ['nagoya-u', 'toho-u'],
+
     'connections' => [
 
-        'sqlite' => [
-            'driver'   => 'sqlite',
-            'database' => database_path('database.sqlite'),
-            'prefix'   => '',
-        ],
+        // 'sqlite' => [
+        //     'driver'   => 'sqlite',
+        //     'database' => database_path('database.sqlite'),
+        //     'prefix'   => '',
+        // ],
 
-        'mysql' => [
+        'global' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
             'database'  => env('DB_DATABASE', 'forge'),
@@ -64,7 +66,7 @@ return [
             'strict'    => false,
         ],
 
-        'mysql-nagoya-u' => [
+        'nagoya-u' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
             'database'  => env('DB_DATABASE_NAGOYA_U', 'forge'),
@@ -76,7 +78,7 @@ return [
             'strict'    => false,
         ],
 
-        'mysql-toho-u' => [
+        'toho-u' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
             'database'  => env('DB_DATABASE_TOHO_U', 'forge'),
@@ -88,26 +90,26 @@ return [
             'strict'    => false,
         ],
 
-        'pgsql' => [
-            'driver'   => 'pgsql',
-            'host'     => env('DB_HOST', 'localhost'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
-        ],
+        // 'pgsql' => [
+        //     'driver'   => 'pgsql',
+        //     'host'     => env('DB_HOST', 'localhost'),
+        //     'database' => env('DB_DATABASE', 'forge'),
+        //     'username' => env('DB_USERNAME', 'forge'),
+        //     'password' => env('DB_PASSWORD', ''),
+        //     'charset'  => 'utf8',
+        //     'prefix'   => '',
+        //     'schema'   => 'public',
+        // ],
 
-        'sqlsrv' => [
-            'driver'   => 'sqlsrv',
-            'host'     => env('DB_HOST', 'localhost'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset'  => 'utf8',
-            'prefix'   => '',
-        ],
+        // 'sqlsrv' => [
+        //     'driver'   => 'sqlsrv',
+        //     'host'     => env('DB_HOST', 'localhost'),
+        //     'database' => env('DB_DATABASE', 'forge'),
+        //     'username' => env('DB_USERNAME', 'forge'),
+        //     'password' => env('DB_PASSWORD', ''),
+        //     'charset'  => 'utf8',
+        //     'prefix'   => '',
+        // ],
 
     ],
 
