@@ -48,22 +48,22 @@
             </div>
           </a>
         </div>
+        <div class="col-lg-2 col-md-4 col-sm-4 work">
+          <a href="/aichitoho-u/signin" class="work-box">
+            <img src="/images/schools/aichitoho-u-logo.png" alt="">
+            <div class="overlay overlay-aichtoho-u">
+              <div class="overlay-caption">
+                <p>愛知東邦大学</p>
+              </div>
+            </div>
+          </a>
+        </div>
         <!--
         <div class="col-lg-2 col-md-4 col-sm-4 work">
           <a href="/chukyo-u/signin" class="work-box">
             <img src="/images/schools/chukyo-u-logo.png" alt="">
             <div class="overlay overlay-chukyo-u">
               <div class="overlay-caption"><p>中京大学</p></div>
-            </div>
-          </a>
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-4 work">
-          <a href="/aichtoho-u/signin" class="work-box">
-            <img src="/images/schools/aichtoho-u-logo.png" alt="">
-            <div class="overlay overlay-aichtoho-u">
-              <div class="overlay-caption">
-                <p>愛知東邦大学</p>
-              </div>
             </div>
           </a>
         </div>

@@ -6,8 +6,11 @@
  */
 body, html {
     height: 100%;
+}
+
+.school-bg {
+    height: 100%;
     background-repeat: no-repeat;
-    background-image: url(../../images/schools/nagoya-u-bg.jpg);
     background-size:cover;
 }
 

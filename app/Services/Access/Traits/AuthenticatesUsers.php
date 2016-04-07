@@ -8,6 +8,8 @@ use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Events\Frontend\Auth\UserLoggedOut;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use App\Http\Requests\Frontend\Auth\LoginRequest;
+// Models
+use App\Models\Student\Affiliation;
 
 /**
  * Class AuthenticatesUsers
@@ -20,9 +22,15 @@ trait AuthenticatesUsers
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showLoginForm()
+    public function showLoginForm($connection)
     {
-        return view('frontend.auth.login')
+        $school = Affiliation::where('db_name', $connection)->first();
+
+        $name = $school->name;
+        $logo_path = $school->logo_path;
+        $image_path = $school->image_path;
+
+        return view('frontend.auth.login', compact('name', 'logo_path', 'image_path', 'connection'))
             ->withSocialiteLinks($this->getSocialLinks());
     }
 
