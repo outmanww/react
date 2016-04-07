@@ -7,6 +7,12 @@ return [
 	// the rate for changing minutes to points
     'min_point_rate' => 10,
 
+    // interval (in minuts) when check the latest status
+    'interval_status_student' => 5,
+
+    // interval (in minutes) between two reactions
+    'interval_reaction' => 10,
+
     // action
     'action' => [
         'basic'                 => 1,

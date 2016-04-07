@@ -4,10 +4,16 @@ namespace App\Models\Lecture;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\CustomRelations;
+use App\Models\Access\User\User;
+use App\Models\Lecture\Department;
+use App\Models\Lecture\Room;
 
 class Lecture extends Model
 {
-	use SoftDeletes;
+	use SoftDeletes, CustomRelations;
+
+    protected $connection = 'connection-name';
 
     /**
      * 複数代入の許可
@@ -21,16 +27,22 @@ class Lecture extends Model
 
 	public function users()
 	{
-		return $this->belongsToMany('App\Models\Access\User\User', 'lecture_teacher', 'lecture_id', 'teacher_id');
+		$user = new User;
+        $user = $user->setConnection($this->connection);
+		return $this->CustomBelongsToMany($user, 'lecture_teacher', 'lecture_id', 'teacher_id');
 	}
 
 	public function department()
 	{
-		return $this->belongsTo('App\Models\Lecture\Department');
+		$department = new Department;
+        $department = $department->setConnection($this->connection);
+		return $this->CustomBelongsTo($department);
 	}
 
 	public function rooms()
 	{
-		return $this->hasMany('App\Models\Lecture\Room');
+		$room = new Room;
+        $room = $room->setConnection($this->connection);
+		return $this->CustomHasMany($room);
 	}
 }

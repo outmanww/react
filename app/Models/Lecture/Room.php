@@ -1,57 +1,64 @@
 <?php
-​
+
 namespace App\Models\Lecture;
-​
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 // Models
 use App\Models\Student\Reaction;
+use App\Models\Student\Affiliation;
+use App\Models\CustomRelations;
+use App\Models\Access\User\User;
+use App\Models\Lecture\Lecture;
 // Carbon
 use Carbon\Carbon;
-​
+
 class Room extends Model
 {
-	use SoftDeletes;
-​
+	use SoftDeletes, CustomRelations;
+
 	protected $connection = 'connection-name';
-​
+
     /**
      * 複数代入の許可
      */
     protected $fillable = ['lecture_id', 'teacher_id', 'key', 'voice_record', 'length'];
-​
+
     /**
      * @var array
      */
     protected $dates = ['created_at', 'closed_at', 'deleted_at'];
-​
+
 	public function teacher()
 	{
-		return $this->belongsTo('App\Models\Access\User\User', 'teacher_id', 'id');
+		$teacher = new User;
+        $teacher = $teacher->setConnection($this->connection);
+		return $this->CustomBelongsTo($teacher, 'teacher_id', 'id');
 	}
-​
+
 	public function lecture()
 	{
-		return $this->belongsTo('App\Models\Lecture\Lecture');
+		$lecture = new Lecture;
+        $lecture = $lecture->setConnection($this->connection);
+		return $this->CustomBelongsTo($lecture);
 	}
-​
+
 	public function statusPie($interval, $type_id)
 	{
-​
-		$affiliation_id = 1;
-​
-​
+		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+
 		$results = array(
             'total' => 0,
             'reaction' => 0,
             );
 		
 		$room_events = Reaction::allRoomEvent($affiliation_id, $this->id)
-									->select('student_id, type_id, created_at')
+									->select('student_id', 'type_id', 'created_at')
 									->groupBy('student_id')
-									->havingRaw(('created_at = MAX(created_at)');
+									->havingRaw('created_at = MAX(created_at)')
 									->get();
+
 		$attendance_array = array();
 		foreach($room_events as $room_event)
         {
@@ -59,7 +66,7 @@ class Room extends Model
         		array_push($attendance_array, $room_event['student_id']);
         }
         $results['total'] = count($attendance_array);
-​
+
         $reaction_events = Reaction::inMinutes($affiliation_id, $this->id, $type_id, $interval)
         								->select('student_id')
         								->groupBy('student_id')
@@ -77,7 +84,7 @@ class Room extends Model
 			->havingRaw('COUNT(CASE type_id WHEN '.config('controller.b_type.room_in').' THEN 1 ELSE NULL END) > COUNT(CASE type_id WHEN '.config('controller.b_type.room_out').' THEN 1 ELSE NULL END)')
 			->get()
 			->count();
-​
+
 		$results['reaction'] = Reaction::where('affiliation_id', $affiliation_id)
 			->where('room_id', $this->id)
 	        ->whereIn('action_id', [config('controller.action.reaction_anonymous'),config('controller.action.reaction_realname')])
@@ -90,33 +97,31 @@ class Room extends Model
 */
 		return $results;
 	}
-​
+
 	public function historyAttendance($interval)
 	{
-		$affiliation_id = 1;
-​
-​
-​
+		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+
 		// room create time and close time
 		$room_create_time = $this->created_at;
 		if(!$this->closed_at)
 			$room_close_time = Carbon::now();
 		else
 			$room_close_time = $this->closed_at;
-​
+
 		// room length
 		$room_length = $room_close_time->diffInMinutes($room_create_time);
 		$num_slot = ceil($room_length/$interval);
-​
+
 		// prepare array
 		$num_student_array = array();
 		for($i=0; $i<$num_slot; $i++)
 			array_push($num_student_array, 0);
-​
+
 		$room_events = Reaction::allRoomEvent($affiliation_id, $this->id)
 								->select('created_at','type_id')
 								->get();
-​
+
         foreach($room_events as $room_event)
         {
         	if($room_event['type_id'] == config('controller.b_type.room_in'))
@@ -148,37 +153,36 @@ class Room extends Model
 				}
 	        }
         }
-​
+
 		return $num_student_array;
 	}
-​
+
 	public function historyReaction($interval, $type_id)
 	{
-		$affiliation_id = 1;
-​
-​
+		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+
 		// room create time and close time
 		$room_create_time = $this->created_at;
 		if(!$this->closed_at)
 			$room_close_time = Carbon::now();
 		else
 			$room_close_time = $this->closed_at;
-​
+
 		// room length
 		$room_length = $room_close_time->diffInMinutes($room_create_time);
 		$num_slot = ceil($room_length/$interval);
-​
+
 		// prepare array
 		$num_array = array();
 		for($i=0; $i<$num_slot; $i++)
 			array_push($num_array, 0);
-​
-		$reaction_events = Reaction::allReactionEvent($affiliation_id, $this->id, $type_id)
+
+		$reaction_events = Reaction::allReactionEventByType($affiliation_id, $this->id, $type_id)
 								->select('created_at','student_id')
 								->orderBy('student_id')
 								->orderBy('created_at')
 								->get();
-​
+
 		$lastStudentID = -1;
         foreach($reaction_events as $reaction_event)
         {
@@ -191,7 +195,7 @@ class Room extends Model
     		$event_time = $event_time->diffInMinutes($room_create_time);
     		
     		$slotIndex = ceil($event_time/$interval);
-​
+
     		$weight = ($event_time-$lastTime) / config('controller.interval_reaction');
 			if($weight>=1)
 				$num_array[$slotIndex]++;
@@ -199,26 +203,25 @@ class Room extends Model
 				$num_array[$slotIndex]+=$weight;	
 			$lastTime = $event_time;
         }
-​
+
 		return $num_array;
 	}
-​
+
 	public function historyAllTypeReaction($interval)
 	{
-		$affiliation_id = 1;
-​
-​
+		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+		
 		// room create time and close time
 		$room_create_time = $this->created_at;
 		if(!$this->closed_at)
 			$room_close_time = Carbon::now();
 		else
 			$room_close_time = $this->closed_at;
-​
+
 		// room length
 		$room_length = $room_close_time->diffInMinutes($room_create_time);
 		$num_slot = ceil($room_length/$interval);
-​
+
 		// prepare array
 		$num_confused_array = array();
 		$num_interesting_array = array();
@@ -229,13 +232,13 @@ class Room extends Model
 			array_push($num_interesting_array, 0);
 			array_push($num_boring_array, 0);
 		}
-​
+
 		$reaction_events = Reaction::allReactionEvent($affiliation_id, $this->id)
 								->select('created_at','student_id','type_id')
 								->orderBy('student_id')
 								->orderBy('created_at')
 								->get();
-​
+
 		$lastStudentID = -1;
         foreach($reaction_events as $reaction_event)
         {
@@ -278,7 +281,7 @@ class Room extends Model
 				$lastBorTime = $event_time;
 	        }
         }
-​
+
 		return [config('controller.r_type.confused')=>$num_confused_array,
 				config('controller.r_type.interesting')=>$num_interesting_array,
 				config('controller.r_type.boring')=>$num_boring_array];

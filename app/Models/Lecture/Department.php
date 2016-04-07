@@ -4,10 +4,15 @@ namespace App\Models\Lecture;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\CustomRelations;
+use App\Models\Lecture\Faculty;
+use App\Models\Lecture\Lecture;
 
 class Department extends Model
 {
-	use SoftDeletes;
+	use SoftDeletes, CustomRelations;
+
+    protected $connection = 'connection-name';
 
     /**
      * 複数代入の許可
@@ -21,6 +26,14 @@ class Department extends Model
 
 	public function faculty()
 	{
-		return $this->belongsTo('App\Models\Lecture\Faculty');
+        $facuty = new Faculty;
+        $facuty = $facuty->setConnection($this->connection);
+		return $this->CustomBelongsTo($facuty);
 	}
+    public function lectures()
+    {
+        $lecture = new Lectures;
+        $lecture = $lecture->setConnection($this->connection);
+        return $this->CustomHasMany($lecture);
+    }
 }
