@@ -36,8 +36,8 @@ class AffiliationTableSeeder extends Seeder
                 'updated_at'       => Carbon::now(),
             ],
             [
-                'db_name'          => 'toho-u',
-                'name'             => '東邦大学',
+                'db_name'          => 'aichitoho-u',
+                'name'             => '愛知東邦大学',
                 'logo_path'        => '/../image/school/logo/toho-u.png',
                 'image_path'       => '/../image/school/image/toho-u.png',
                 'url'              => 'http://www.toho-u.ac.jp/',
