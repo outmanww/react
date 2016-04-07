@@ -14,7 +14,7 @@
     <!-- navigation section  -->
     <nav class="navigation" role="navigation">
       <ul class="primary-nav">
-        <li><a href="#">名古屋大学</a></li>
+        <li><a href="#">{{$name}}</a></li>
       </ul>
     </nav>
     <a href="#" class="nav-toggle">Menu<span></span></a>
@@ -22,29 +22,30 @@
   <!-- navigation section  --> 
 </header>
 <!-- header section --> 
-
-<div class="container">
-    <div class="card card-container">
-        @include('includes.partials.messages')
-        <img id="profile-img" class="profile-img-card" src="/images/schools/nagoya-u-logo.png" />
-        <p id="profile-name" class="profile-name-card"></p>
-        <form class="form-signin" method="POST" action="/nagoya-u/signin">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <div id="remember" class="checkbox">
-                <label>
-                    <input type="checkbox" name="remember" value="remember-me"> Remember me
-                </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-        </form><!-- /form -->
-        <a href="/nagoya-u/password/reset" class="forgot-password">パスワードを忘れた</a>
-        <div class="center-block">
-            <a href="/nagoya-u/signup" class="toSignup">新規登録</a>            
-        </div>  
-    </div><!-- /card-container -->
-</div><!-- /container -->
+<div class="school-bg" style="background-image: url({{$image_path}});">
+    <div class="container">
+        <div class="card card-container">
+            @include('includes.partials.messages')
+            <img id="profile-img" class="profile-img-card" src="{{$logo_path}}" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin" method="POST" action="/{{$connection}}/signin">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <div id="remember" class="checkbox">
+                    <label>
+                        <input type="checkbox" name="remember" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+            </form><!-- /form -->
+            <a href="/{{$connection}}/password/reset" class="forgot-password">パスワードを忘れた</a>
+            <div class="center-block">
+                <a href="/{{$connection}}/signup" class="toSignup">新規登録</a>            
+            </div>  
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+</div>
 @endsection
 
 @section('after-scripts-end')

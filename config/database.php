@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'schools' => ['nagoya-u', 'toho-u'],
+    'schools' => ['nagoya-u', 'aichitoho-u'],
 
     'connections' => [
 
@@ -78,7 +78,7 @@ return [
             'strict'    => false,
         ],
 
-        'toho-u' => [
+        'aichitoho-u' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
             'database'  => env('DB_DATABASE_TOHO_U', 'forge'),

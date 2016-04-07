@@ -28,23 +28,22 @@ class AffiliationTableSeeder extends Seeder
             [
                 'db_name'          => 'nagoya-u',
                 'name'             => '名古屋大学',
-                'logo_path'        => '/../image/school/logo/nagoya-u.png',
-                'image_path'       => '/../image/school/image/nagoya-u.png',
+                'logo_path'        => '/images/schools/nagoya-u-logo.png',
+                'image_path'       => '/images/schools/nagoya-u-bg.jpg',
                 'url'              => 'http://www.nagoya-u.ac.jp/',
                 'description'      => '東海一流の国立大学です．',
                 'created_at'       => Carbon::now(),
                 'updated_at'       => Carbon::now(),
-            ],
-            [
-                'db_name'          => 'toho-u',
-                'name'             => '東邦大学',
-                'logo_path'        => '/../image/school/logo/toho-u.png',
-                'image_path'       => '/../image/school/image/toho-u.png',
-                'url'              => 'http://www.toho-u.ac.jp/',
+            ],[
+                'db_name'          => 'aichitoho-u',
+                'name'             => '愛知東邦大学',
+                'logo_path'        => '/images/schools/aichitoho-u-logo.png',
+                'image_path'       => '/images/schools/aichitoho-u-bg.jpg',
+                'url'              => 'http://www.aichitoho-u.ac.jp/',
                 'description'      => '東海の私立大学です．',
                 'created_at'       => Carbon::now(),
                 'updated_at'       => Carbon::now(),
-            ],
+            ]
         ];
 
         DB::table('affiliations')->insert($affiliations);
