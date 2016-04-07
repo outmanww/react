@@ -18,6 +18,8 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers, ConfirmUsers, ThrottlesLogins, UseSocialite;
 
+
+
     /**
      * Where to redirect users after login / registration.
      *
@@ -39,6 +41,16 @@ class AuthController extends Controller
      */
     protected $redirectAfterLogout = '/schools';
 
+    /**
+     * @param UserContract $user
+     */
+    public function __construct(UserContract $user)
+    {
+        $this->redirectTo      = '/'.\Request::route('school').'/teacher/dashboard';
+        $this->adminRedirectTo = '/'.\Request::route('school').'/admin/dashboard';
+        $this->user            = $user;
+    }
+
     /*
      * ユーザーロールによってログイン後のリダイレクト先を変更
      * vendor/laravel/framework/src/Illuminate/Foundation/Auth/RedirectsUsers.php
@@ -53,13 +65,5 @@ class AuthController extends Controller
         {
            return property_exists($this, 'adminRedirectTo') ? $this->redirectTo : '/schools';       
         }
-    }
-
-    /**
-     * @param UserContract $user
-     */
-    public function __construct(UserContract $user)
-    {
-        $this->user = $user;
     }
 }
