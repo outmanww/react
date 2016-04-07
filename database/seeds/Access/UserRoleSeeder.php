@@ -41,11 +41,32 @@ class UserRoleSeeder extends Seeder
                 ->roles()
                 ->attach($role_admin->id);
 
-            $user_model = config('auth.providers.users.model');
-            $user_model = new $user_model;
-            $user->setConnection($connection_name);
+            $user->where('email', 'tubasa.honda@'.$connection_name.'.com')
+                ->first()
+                ->roles()
+                ->attach($role_teacher->id);
 
-            $user->where('email', 'teacher@teacher.com')
+            $user->where('email', 'suzu.hirose@'.$connection_name.'.com')
+                ->first()
+                ->roles()
+                ->attach($role_teacher->id);
+
+            $user->where('email', 'nozomi.sasaki@'.$connection_name.'.com')
+                ->first()
+                ->roles()
+                ->attach($role_teacher->id);
+
+            $user->where('email', 'aoi.miyazaki@'.$connection_name.'.com')
+                ->first()
+                ->roles()
+                ->attach($role_teacher->id);
+
+            $user->where('email', 'ken.matushita@'.$connection_name.'.com')
+                ->first()
+                ->roles()
+                ->attach($role_teacher->id);
+
+            $user->where('email', 'mutunori.yagiura@'.$connection_name.'.com')
                 ->first()
                 ->roles()
                 ->attach($role_teacher->id);
