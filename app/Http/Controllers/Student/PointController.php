@@ -24,8 +24,9 @@ class PointController extends Controller
      */
     public function point()
     {
+        $student = \Auth::guard('students_api')->user();
         $results = array(
-            'points' => Student::find(1)->points->sum('point_diff')
+            'points' => $student->points->sum('point_diff')
             );
         return \Response::json($results, 200); 
     }

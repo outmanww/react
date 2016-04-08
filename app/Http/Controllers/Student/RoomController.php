@@ -8,6 +8,7 @@ use App\Http\Controllers\Student\PointController;
 // Models
 use App\Models\Lecture\Room;
 use App\Models\Lecture\Point;
+use App\Models\Student\Affiliation;
 use App\Models\Student\Reaction;
 // Request
 use App\Http\Requests\Student\StudentActionRequest;
@@ -36,7 +37,12 @@ class RoomController extends Controller
 
         $key = sprintf("%06d", $key);
 
-        $room = Room::where('key', $key)
+        $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
+
+        $dbName = Affiliation::find($affiliation_id)->db_name;
+        $room = new Room;
+        $room = $room->setConnection($dbName);
+        $room = $room->where('key', $key)
             ->select('lecture_id', 'teacher_id', 'closed_at')->firstOrFail();
 
         $weekday = $this->weeks[$room->lecture->weekday];
@@ -123,9 +129,12 @@ class RoomController extends Controller
 
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
 
-        $num_confused = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.confused'))->get()->count();
-        $num_interesting = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.interesting'))->get()->count();
-        $num_boring = Reaction::inTenMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.boring'))->get()->count();
+        $num_confused = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.confused'), config('controller.interval_status_student'))
+           ->get()->count();
+        $num_interesting = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.interesting'), config('controller.interval_status_student'))
+            ->get()->count();
+        $num_boring = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.boring'), config('controller.interval_status_student'))
+           ->get()->count();
 
         $time_room_in = Reaction::fromRoomIn($student->id, $affiliation_id, $check_key_rst['id'])
             ->select('created_at')
@@ -175,7 +184,13 @@ class RoomController extends Controller
             return $results;
         }
 
-        $room = Room::where('key', $key)
+        $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
+
+        $dbName = Affiliation::find($affiliation_id)->db_name;
+        $room = new Room;
+        $room = $room->setConnection($dbName);
+
+        $room = $room->where('key', $key)
             ->select('id', 'closed_at')
             ->first();
 
@@ -191,7 +206,7 @@ class RoomController extends Controller
             return $results;
         }
 
-        $results['id'] = $room['id'];
+        $results['id'] = $room->id;
         
         return $results;
     }

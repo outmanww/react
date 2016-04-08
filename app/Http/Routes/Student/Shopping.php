@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['prefix' => 'shopping'], function() {
-    Route::group(['middleware' => 'guest'], function () {
+    Route::group(['middleware' => 'auth:students_api'], function () {
     	Route::get('/recommend-items', 'ShoppingController@recomendItems');
     	Route::get('/shop-types/{shop_type_id}', 'ShoppingController@shopsByType');
     	Route::get('/shop-types/{shop_type_id}/recommend-items/', 'ShoppingController@recomendItemsByType');
