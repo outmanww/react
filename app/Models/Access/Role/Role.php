@@ -15,7 +15,7 @@ class Role extends Model
 {
     use RoleAccess, RoleAttribute, RoleRelationship;
 
-    protected $connection = 'connection-namessssssss';
+    protected $connection = 'nagoya-u';
 
     /**
      * The database table used by the model.

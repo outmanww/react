@@ -25,7 +25,7 @@ trait UserRelationship
         $role_model = new \App\Models\Access\Role\Role;
         $role_model->setConnection($this->connection);
 
-        return $this->CustomBelongsToMany(
+        return $this->customBelongsToMany(
             $role_model,
             config('access.role_user_table'),
             'user_id',
@@ -44,7 +44,7 @@ trait UserRelationship
         $permission_model = new \App\Models\Access\Permission\Permission;
         $permission_model->setConnection($this->connection);
 
-        return $this->CustomBelongsToMany(
+        return $this->customBelongsToMany(
             $permission_model,
             config('access.permission_user_table'),
             'user_id',
@@ -57,7 +57,7 @@ trait UserRelationship
      */
     public function providers()
     {
-        return $this->CustomHasMany(SocialLogin::class);
+        return $this->customHasMany(SocialLogin::class);
     }
 
     /**
@@ -68,7 +68,7 @@ trait UserRelationship
         $lecture_model = new \App\Models\Lecture\Lecture;
         $lecture_model->setConnection($this->connection);
 
-        return $this->CustomBelongsToMany(
+        return $this->customBelongsToMany(
             $lecture_model,
             'lecture_teacher',
             'teacher_id',
@@ -84,6 +84,6 @@ trait UserRelationship
         $room_model = new \App\Models\Lecture\Room;
         $room_model->setConnection($this->connection);
 
-        return $this->CustomHasMany($room_model, 'teacher_id');
+        return $this->customHasMany($room_model, 'teacher_id');
     }
 }

@@ -20,6 +20,8 @@ class UserController extends Controller
         $lectures = $user->lectures()->count();
 
         return \Response::json([
+            'roles' => $user->roles(),
+            'mail' => $user->email,
             'id' => $user->id,
             'name' => $name,
             'lectures' => $lectures
