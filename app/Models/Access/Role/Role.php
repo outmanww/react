@@ -15,7 +15,7 @@ class Role extends Model
 {
     use RoleAccess, RoleAttribute, RoleRelationship;
 
-    protected $connection = 'nagoya-u';
+    protected $connection;
 
     /**
      * The database table used by the model.
@@ -32,11 +32,16 @@ class Role extends Model
     protected $guarded = ['id'];
 
     /**
-     * @param array $attributes
+     * set connection from url parameters
      */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
         $this->table = config('access.roles_table');
+
+        $school = \Request::route('school');
+        if (isset($school)) {
+            $this->setConnection($school);
+        }
     }
 }

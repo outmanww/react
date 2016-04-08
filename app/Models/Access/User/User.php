@@ -18,13 +18,7 @@ class User extends Authenticatable
 {
     use SoftDeletes, UserAccess, UserLecture, UserAttribute, UserRelationship, CustomRelations;
 
-    public function __construct()
-    {
-        $school = \Request::route('school');
-        if (isset($school)) {
-            $this->setConnection($school);
-        }
-    }
+    protected $connection;
 
     /**
      * The attributes that are not mass assignable.
@@ -44,4 +38,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * set connection from url parameters
+     */
+    public function __construct()
+    {
+        $school = \Request::route('school');
+        if (isset($school)) {
+            $this->setConnection($school);
+        }
+    }
 }

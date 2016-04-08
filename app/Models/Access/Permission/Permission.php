@@ -14,6 +14,8 @@ class Permission extends Model
 {
     use PermissionRelationship, PermissionAttribute;
 
+    protected $connection;
+
     /**
      * The database table used by the model.
      *
@@ -29,11 +31,16 @@ class Permission extends Model
     protected $guarded = ['id'];
 
     /**
-     * @param array $attributes
+     * set connection from url parameters
      */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
         $this->table = config('access.permissions_table');
+
+        $school = \Request::route('school');
+        if (isset($school)) {
+            $this->setConnection($school);
+        }
     }
 }

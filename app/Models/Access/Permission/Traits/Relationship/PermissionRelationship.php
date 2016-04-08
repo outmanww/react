@@ -18,7 +18,7 @@ trait PermissionRelationship
         $user_model = new config('auth.providers.users.model');
         $user_model->setConnection($this->connection);
 
-        return $this->customBelongsToMany(
+        return $this->CustomBelongsToMany(
             $user_model,
             config('access.permission_user_table'),
             'permission_id',
@@ -36,7 +36,7 @@ trait PermissionRelationship
         $role_model = new config('access.role');
         $role_model->setConnection($this->connection);
 
-        return $this->customBelongsToMany(
+        return $this->CustomBelongsToMany(
             $role_model,
             config('access.permission_role_table'),
             'permission_id',
@@ -54,7 +54,7 @@ trait PermissionRelationship
         $operation_model = new config('access.operation');
         $operation_model->setConnection($this->connection);
 
-        return $this->customBelongsToMany(
+        return $this->CustomBelongsToMany(
             $operation_model,
             config('access.operation_permission_table'),
             'permission_id',

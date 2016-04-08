@@ -60,9 +60,11 @@ class AuthController extends Controller
         $user = \Auth::guard('users')->user();
 
         if ($user->hasRole('Teacher')){
-           return property_exists($this, 'redirectTo') ? $this->adminRedirectTo : '/schools';
-        } else{
-           return property_exists($this, 'adminRedirectTo') ? $this->redirectTo : '/schools';       
+           return property_exists($this, 'redirectTo') ? $this->redirectTo : '/schools';
+        } else if ($user->hasRole('Admin')){
+           return property_exists($this, 'adminRedirectTo') ? $this->adminRedirectTo : '/schools';       
+        } else {
+            return '/schools';
         }
     }
 }

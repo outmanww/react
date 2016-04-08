@@ -18,7 +18,7 @@ trait RoleRelationship
         $user_model = new config('auth.providers.users.model');
         $user_model->setConnection($this->connection);
 
-        return $this->customBelongsToMany(
+        return $this->CustomBelongsToMany(
             $user_model,
             config('access.assigned_roles_table'),
             'role_id',
@@ -36,7 +36,7 @@ trait RoleRelationship
         $permission_model = new config('access.permission');
         $permission_model->setConnection($this->connection);
 
-        return $this->customBelongsToMany(
+        return $this->CustomBelongsToMany(
             $permission_model,
             config('access.permission_role_table'),
             'role_id',
