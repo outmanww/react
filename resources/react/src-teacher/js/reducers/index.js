@@ -7,10 +7,10 @@ import alert from './alert';
 import disposable from './disposable';
 import user from './user';
 import lectures from './lectures';
-// import disposable from './disposable';
+import lectureBasic from './lectureBasic';
 
 const rootReducer = combineReducers(Object.assign({
-  application, alert, disposable, user, lectures
+  application, alert, disposable, user, lectures, lectureBasic
 }, {
   form: formReducer,
   routing: routeReducer

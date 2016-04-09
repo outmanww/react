@@ -21,7 +21,7 @@ import { Input, Row, Col } from 'react-bootstrap';
 class CreateLecture extends Component {
   constructor(props, context) {
     super(props, context);
-    props.actions.fetchLectures();
+    props.actions.fetchLectureBasic();
     this.state = {
       ...format([
         'faculty', 'department', 'grade',
@@ -38,26 +38,30 @@ class CreateLecture extends Component {
 
   render() {
     const weeks = ['月','火','水','木','金','土','日'];
+    const { basic } = this.props;
     const { state } = this;
 
-    console.log(state);
+    console.log(basic);
 
     return (
       <div className="row">
         <div className="space-top-2 row-space-2 clearfix">
           <div className="col-md-7">
+          {basic.lectureBasic !== null && basic.isFetching === false &&
+          <div>
             <div className="raw">
               <div className="col-md-4" style={{paddingLeft: 0, paddingRight: 10}}>
                 <label className="label-large" htmlFor="select-faculty">対象学部</label>
                 <div className="select select-block">
                   <select id="select-faculty"
                     name="faculty"
-                    defaultValue={0}
+                    defaultValue={5}
                     value={state.faculty.value}
                     onChange={(e) => this.setState({ faculty: {value: e.target.value} })}
                   >
-                    <option value={0}>文学部</option>
-                    <option value={1}>工学部</option>
+                    {basic.lectureBasic.faculties.data.map(f =>
+                      <option value={f.id}>{f.name}</option>
+                    )}
                   </select>
                 </div>
               </div>
@@ -71,8 +75,13 @@ class CreateLecture extends Component {
                     value={state.department.value}
                     onChange={(e) => this.setState({ department: {value: e.target.value} })}
                   >
-                    <option value={1}>物理工学科</option>
-                    <option value={2}>機械航空学科</option>
+                    {
+                      basic.lectureBasic !== null &&
+                      basic.isFetching === false &&
+                      basic.lectureBasic.faculties.data.map(f =>
+                        <option value={f.id}>{f.name}</option>
+                      )
+                    }
                   </select>
                 </div>
               </div>
@@ -261,7 +270,8 @@ class CreateLecture extends Component {
                 />
               </div>
             </div>
-
+          </div>
+          }
           </div>
           <div className="col-md-5">
             説明
@@ -273,14 +283,14 @@ class CreateLecture extends Component {
 }
 
 CreateLecture.propTypes = {
+  basic: PropTypes.object.isRequired,
   routes: PropTypes.array.isRequired,
-  children: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-    lectures: state.lectures,
+    basic: state.lectureBasic,
     routes: ownProps.routes
   };
 }

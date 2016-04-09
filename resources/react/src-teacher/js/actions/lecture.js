@@ -17,13 +17,13 @@ export function fetchLectures() {
   };
 }
 
-export function fetchLectureBasicInfo(id) {
+export function fetchLectureBasic() {
   return {
     [CALL_API]: {
       types: [
-        types.REQUEST_LECTUREBASICINFO,
-        types.REQUEST_LECTUREBASICINFO_SUCCESS,
-        types.REQUEST_LECTUREBASICINFO_FAIL
+        types.REQUEST_LECTURE_BASIC,
+        types.REQUEST_LECTURE_BASIC_SUCCESS,
+        types.REQUEST_LECTURE_BASIC_FAIL
       ],
       endpoint: `lectures/basic`,
       method: 'GET',

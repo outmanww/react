@@ -12,6 +12,8 @@ use App\Models\Lecture\Faculty;
 use App\Exceptions\ApiException;
 //Requests
 use App\Http\Requests\Teacher\Lecture\UpdateLectureRequest;
+// Carbon
+use Carbon\Carbon;
 
 /**
  * Class FrontendController
@@ -104,11 +106,11 @@ class LectureController extends Controller
      */
     public function basic($school)
     {
-        $user = \Auth::guard('users')->user();
-        $department = $user
+        $user = \Auth::guard('users')
+            ->user()
             ->department()
             ->with(['faculty' => function ($query) { $query->select('id', 'name'); }])
-            ->get(['id', 'name', 'faculty_id']);
+            ->first(['id', 'name', 'faculty_id']);
 
         $faculties = Faculty::with([
                 'departments' => function ($query) {
@@ -118,9 +120,25 @@ class LectureController extends Controller
             ->orderBy('sort', 'asc')
             ->get(['id', 'name']);
 
+        $semesters = ['0' => '前期', '1' => '後期', '2' => 'その他'];
+        $years = [ Carbon::now()->year - 1, Carbon::now()->year ];
+        $year_semester = [];
+
+        foreach ($years as $year) {
+            foreach ($semesters as $key => $semester) {
+                $year_semester += array($year.'/'.$key => $year.' '.$semester);
+            }
+        }
+
         return \Response::json([
-            'faculties' => $faculties,
-            'year_semester' => $
+            'faculties' => [
+                'default' => [
+                    'faculty' => $user['faculty']['id'],
+                    'department' => $user['id']
+                ],
+                'data' => $faculties,
+            ],
+            'year_semester' => $year_semester
         ], 200);
     }
 
