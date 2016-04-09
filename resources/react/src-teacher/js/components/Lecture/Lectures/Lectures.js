@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { SCHOOL_NAME } from '../../../../config/env';
 // Actions
 import * as LectureActions from '../../../actions/lecture';
-import { routeActions } from 'react-router-redux';
+import { push } from 'react-router-redux';
 // Components
 import { RaisedButton } from 'material-ui';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
@@ -20,7 +20,7 @@ class Lectures extends Component {
   }
 
   render() {
-    const { lectures } = this.props;
+    const { lectures, actions } = this.props;
     const weeks = ['月','火','水','木','金','土','日'];
     return (
       <div className="row">
@@ -35,7 +35,7 @@ class Lectures extends Component {
                   <RaisedButton
                     label="新規登録"
                     secondary={true}
-                    onClick={() => this.props.actions.push(`/${SCHOOL_NAME}/teacher/lectures/create`)}
+                    onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/create`)}
                   />
                 </div>
               </div>
@@ -100,7 +100,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = Object.assign(LectureActions, routeActions);
+  const actions = Object.assign(LectureActions, {push});
   return {
     actions: bindActionCreators(actions, dispatch)
   };

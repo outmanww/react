@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { browserHistory } from 'react-router';
-import { syncHistory } from 'react-router-redux';
+import { routerMiddleware } from 'react-router-redux';
 import { devTools, persistState as persistDevToolsState } from 'redux-devtools';
 import createLogger from 'redux-logger';
 import persistState from 'redux-localstorage';
@@ -11,7 +11,7 @@ import rootReducer from '../reducers';
 //import DevTools from '../containers/DevTools';
 
 // Sync dispatched route actions to the history
-const reduxRouterMiddleware = syncHistory(browserHistory);
+const reduxRouterMiddleware = routerMiddleware(browserHistory);
 
 // Sync dispatched route actions to the history
 const logger = createLogger({
@@ -33,7 +33,7 @@ const createStoreWithMiddleware = compose(
 export default function configureStore(initialState) {
   const store = createStoreWithMiddleware(rootReducer, initialState);
   // Required for replaying actions from devtools to work
-  reduxRouterMiddleware.listenForReplays(store);
+  // reduxRouterMiddleware.listenForReplays(store);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

@@ -86,4 +86,15 @@ trait UserRelationship
 
         return $this->CustomHasMany($room_model, 'teacher_id');
     }
+
+    /**
+     * @return mixed
+     */
+    public function department()
+    {
+        $department_model = new \App\Models\Lecture\Department;
+        $department_model->setConnection($this->connection);
+
+        return $this->CustomBelongsTo($department_model);
+    }
 }

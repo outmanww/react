@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { SCHOOL_NAME } from '../../config/env';
 // Actions
 import * as UserActions from '../actions/user';
-import { routeActions } from 'react-router-redux';
+import { push, routeActions } from 'react-router-redux';
 // Theme
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
@@ -29,9 +29,7 @@ class App extends Component {
   }
 
   render() {
-    const { locale, user, alerts, children, routing, actions: {
-      changeLocale, deleteSideAlerts, push
-    }} = this.props;
+    const { locale, user, alerts, children, routing, actions } = this.props;
     const { open } = this.state;
 
     const styles = {
@@ -50,7 +48,7 @@ class App extends Component {
 
     return (
       <div id="dashboard-container">
-        <Alert alerts={alerts} deleteSideAlerts={deleteSideAlerts} />
+        <Alert alerts={alerts} deleteSideAlerts={actions.deleteSideAlerts} />
         <AppBar
           style={styles.appBar}
           title="Re:act"
@@ -98,7 +96,7 @@ class App extends Component {
           <MainSidebar
             user={user}
             pathname={routing.location.pathname}
-            push={push}/>
+            push={actions.push}/>
         </Paper>
         <Paper
           style={{marginLeft: open ? 230 : 0, marginTop: 64}}
@@ -119,20 +117,21 @@ App.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     user: state.user,
     locale: state.application.locale,
     alerts: state.alert.side,
-    routing: state.routing
+    routing: ownProps
   };
 }
 
 function mapDispatchToProps(dispatch) {
   const actions = Object.assign(
     UserActions,
-    routeActions
+    {push: push}
   );
+
   return {
     actions: bindActionCreators(actions, dispatch)
   };

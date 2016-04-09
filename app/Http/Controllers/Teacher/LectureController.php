@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 //use App\Repositories\Teacher\Lecture\LectureContract;
 //Models
 use App\Models\Lecture\Lecture;
+use App\Models\Lecture\Department;
+use App\Models\Lecture\Faculty;
 //Exceptions
 use App\Exceptions\ApiException;
 //Requests
@@ -91,11 +93,35 @@ class LectureController extends Controller
             },
             'rooms.teacher' => function ($query) {
                 $query->select('id', 'family_name', 'given_name');
-            }
-        ])
-        ->find($id);
+            }])
+            ->find($id);
 
         return \Response::json(['lecture' => $lecture], 200);
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function basic($school)
+    {
+        $user = \Auth::guard('users')->user();
+        $department = $user
+            ->department()
+            ->with(['faculty' => function ($query) { $query->select('id', 'name'); }])
+            ->get(['id', 'name', 'faculty_id']);
+
+        $faculties = Faculty::with([
+                'departments' => function ($query) {
+                    $query->select('id', 'name', 'faculty_id');
+                }
+            ])
+            ->orderBy('sort', 'asc')
+            ->get(['id', 'name']);
+
+        return \Response::json([
+            'faculties' => $faculties,
+            'year_semester' => $
+        ], 200);
     }
 
     /**

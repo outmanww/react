@@ -48,36 +48,36 @@ export function validatLectureCode(code) {
     throw new Error(`Invalid argument supplied, expect string`);
   }
 
-  if (name.length === 0) {
-    return { value: name, status: 2, message: 'required' };
+  if (code.length === 0) {
+    return { value: code, status: 2, message: 'required' };
   }
 
-  if (name.length > 8) {
-    return { value: name, status: 2, message: 'max:8'};
+  if (code.match(/[^A-Za-z0-9]+/)) {
+    return { value: code, status: 2, message: 'alphaNum'};
   }
 
-  return { value: name, status: 1, message: '' };
+  if (code.length > 8) {
+    return { value: code, status: 2, message: 'max:8'};
+  }
+
+  return { value: code, status: 1, message: '' };
 }
 
 
-export function validatTypeEn(en) {
-  if (typeof en !== 'string') {
+export function validatLecturePlace(place) {
+  if (typeof place !== 'string') {
     throw new Error(`Invalid argument supplied, expect string`);
   }
 
-  if (en.length === 0) {
-    return { value: en, status: 2, message: 'required' };
+  if (place.length === 0) {
+    return { value: place, status: 2, message: 'required' };
   }
 
-  if (!en.match(/^[a-zA-z¥s]+$/)) {
-    return { value: en, status: 2, message: 'alpha'};
+  if (place.length > 20) {
+    return { value: place, status: 2, message: 'max:16'};
   }
 
-  if (en.length > 16) {
-    return { value: en, status: 2, message: 'max:16'};
-  }
-
-  return { value: en, status: 1, message: '' };
+  return { value: place, status: 1, message: '' };
 }
 
 
