@@ -36,10 +36,13 @@ class SemesterTableSeeder extends Seeder
                     'name'       => '後期',
                 ],[
                     'id'         => 3,
-                    'name'       => 'その他',
+                    'name'       => '通年',
                 ],[
                     'id'         => 4,
-                    'name'       => '集中講座',
+                    'name'       => '集中',
+                ],[
+                    'id'         => 5,
+                    'name'       => 'その他',
                 ]
             ];
 

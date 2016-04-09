@@ -24,7 +24,6 @@ class CreateLectureRelatedTables extends Migration
                 $table->unique('name');
             });
 
-
             Schema::connection($connection_name)->create('lectures', function (Blueprint $table) {
                 $table->increments('id')->unsigned();
                 $table->integer('sort')->default(0)->unsigned();
