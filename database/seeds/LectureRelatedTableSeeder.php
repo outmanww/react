@@ -10,7 +10,7 @@ class LectureRelatedTableSeeder extends Seeder
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
-
+        $this->call(SemesterTableSeeder::class);
         $this->call(LectureTableSeeder::class);
         $this->call(RoomTableSeeder::class);
         $this->call(LectureTeacherSeeder::class);
