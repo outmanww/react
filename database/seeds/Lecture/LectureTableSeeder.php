@@ -45,11 +45,11 @@ class LectureTableSeeder extends Seeder
                     'weekday'       => '1',
                     'time_slot'     => '1',
                     'length'        => '90',
-                    'year'          => '2016',
-                    'semester'      => '1',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
                     'description'   => '理系基本授業です',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],
                 [
                     'title'         => '微積分',
@@ -61,11 +61,11 @@ class LectureTableSeeder extends Seeder
                     'weekday'       => '1',
                     'time_slot'     => '2',
                     'length'        => '90',
-                    'year'          => '2016',
-                    'semester'      => '1',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
                     'description'   => '理系基本授業です',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],
                 [
                     'title'         => '離散数学',
@@ -77,11 +77,11 @@ class LectureTableSeeder extends Seeder
                     'weekday'       => '1',
                     'time_slot'     => '3',
                     'length'        => '90',
-                    'year'          => '2016',
-                    'semester'      => '1',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
                     'description'   => '理系基本授業です',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],
                 [
                     'title'         => '統計学',
@@ -93,11 +93,11 @@ class LectureTableSeeder extends Seeder
                     'weekday'       => '1',
                     'time_slot'     => '4',
                     'length'        => '90',
-                    'year'          => '2016',
-                    'semester'      => '1',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
                     'description'   => '理系基本授業です',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],
                 [
                     'title'         => 'Leading',
@@ -109,11 +109,11 @@ class LectureTableSeeder extends Seeder
                     'weekday'       => '1',
                     'time_slot'     => '5',
                     'length'        => '90',
-                    'year'          => '2016',
-                    'semester'      => '1',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
                     'description'   => '理系基本授業です',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],
                 [
                     'title'         => '図論',
@@ -125,11 +125,11 @@ class LectureTableSeeder extends Seeder
                     'weekday'       => '2',
                     'time_slot'     => '1',
                     'length'        => '90',
-                    'year'          => '2016',
-                    'semester'      => '1',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
                     'description'   => '理系基本授業です',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],
                 [
                     'title'         => '経営学',
@@ -141,11 +141,11 @@ class LectureTableSeeder extends Seeder
                     'weekday'       => '2',
                     'time_slot'     => '2',
                     'length'        => '90',
-                    'year'          => '2016',
-                    'semester'      => '1',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
                     'description'   => '理系基本授業です',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],
                 [
                     'title'         => '集合論',
@@ -157,11 +157,11 @@ class LectureTableSeeder extends Seeder
                     'weekday'       => '2',
                     'time_slot'     => '3',
                     'length'        => '90',
-                    'year'          => '2016',
-                    'semester'      => '1',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
                     'description'   => '理系基本授業です',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],
                 [
                     'title'         => 'プログラミング',
@@ -173,11 +173,11 @@ class LectureTableSeeder extends Seeder
                     'weekday'       => '2',
                     'time_slot'     => '4',
                     'length'        => '90',
-                    'year'          => '2016',
-                    'semester'      => '1',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
                     'description'   => '理系基本授業です',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],
                 [
                     'title'         => 'データ構造',
@@ -189,11 +189,11 @@ class LectureTableSeeder extends Seeder
                     'weekday'       => '3',
                     'time_slot'     => '5',
                     'length'        => '90',
-                    'year'          => '2016',
-                    'semester'      => '1',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
                     'description'   => '理系基本授業です',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],
                 [
                     'title'         => '犯罪心理学',
@@ -205,11 +205,11 @@ class LectureTableSeeder extends Seeder
                     'weekday'       => '3',
                     'time_slot'     => '6',
                     'length'        => '90',
-                    'year'          => '2016',
-                    'semester'      => '1',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
                     'description'   => '専攻の特論です',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],
             ];
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\CustomRelations;
 use App\Models\Access\User\User;
 use App\Models\Lecture\Department;
+use App\Models\Lecture\Semester;
 use App\Models\Lecture\Room;
 
 class Lecture extends Model
@@ -49,6 +50,13 @@ class Lecture extends Model
         $department = $department->setConnection($this->connection);
 		return $this->CustomBelongsTo($department);
 	}
+
+    public function semester()
+    {
+        $semester = new Semester;
+        $semester = $semester->setConnection($this->connection);
+        return $this->CustomBelongsTo($semester);
+    }
 
 	public function rooms()
 	{

@@ -13,6 +13,17 @@ class CreateLectureRelatedTables extends Migration
     public function up()
     {
         foreach (config('database.schools') as $connection_name) {
+            Schema::connection($connection_name)->create('semesters', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+
+                $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+                $table->timestamp('updated_at');
+                $table->softDeletes();
+
+                $table->unique('name');
+            });
+
             Schema::connection($connection_name)->create('lectures', function (Blueprint $table) {
                 $table->increments('id')->unsigned();
                 $table->integer('sort')->default(0)->unsigned();
@@ -30,7 +41,7 @@ class CreateLectureRelatedTables extends Migration
                 $table->tinyInteger('time_slot')->nullable();
                 $table->smallInteger('length')->nullable()->unsigned();
                 $table->tinyInteger("year")->nullable();
-                $table->tinyInteger("semester")->nullable();
+                $table->integer("semester_id")->unsigned()->nullable();
                 // 1:current lecture 0:closed lecture
                 $table->tinyInteger("status")->default(1);
                 $table->text('description');
@@ -45,6 +56,15 @@ class CreateLectureRelatedTables extends Migration
                 $table->foreign('department_id')
                     ->references('id')
                     ->on('departments')
+                    ->onUpdate('cascade')
+                    ->onDelete('set null');
+
+                /**
+                 * Add Foreign/Unique/Index
+                 */
+                $table->foreign('semester_id')
+                    ->references('id')
+                    ->on('semesters')
                     ->onUpdate('cascade')
                     ->onDelete('set null');
             });
@@ -135,6 +155,7 @@ class CreateLectureRelatedTables extends Migration
              */
             Schema::connection($connection_name)->table('lectures', function (Blueprint $table) {
                 $table->dropForeign('lectures_department_id_foreign');
+                $table->dropForeign('lectures_semester_id_foreign');
             });
 
             Schema::connection($connection_name)->table('rooms', function (Blueprint $table) {
@@ -150,6 +171,8 @@ class CreateLectureRelatedTables extends Migration
             Schema::connection($connection_name)->drop('lectures');
             Schema::connection($connection_name)->drop('rooms');
             Schema::connection($connection_name)->drop('lecture_teacher');
+            Schema::connection($connection_name)->drop('semesters');
+               
         }
     }
 }
