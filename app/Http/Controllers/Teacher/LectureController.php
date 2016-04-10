@@ -11,6 +11,8 @@ use App\Models\Lecture\Faculty;
 //Exceptions
 use App\Exceptions\ApiException;
 //Requests
+use App\Http\Requests\Teacher\Lecture\SearchLectureRequest;
+use App\Http\Requests\Teacher\Lecture\StoreLectureRequest;
 use App\Http\Requests\Teacher\Lecture\UpdateLectureRequest;
 // Carbon
 use Carbon\Carbon;
@@ -42,6 +44,20 @@ class LectureController extends Controller
         $domain = env('APP_URL');
         $env = env('APP_ENV');
         return view('teacher.index', compact('domain', 'env', 'school'));
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function search(SearchLectureRequest $request)
+    {
+        $overlappedLecture = Lecture::where('code', $request->code)
+            ->where('department_id', $request->department)
+            // ->where('year', explode("&", $request->year_semester)[0])
+            // ->where('semester', explode("&", $request->year_semester)[1])
+            ->first();
+
+        return \Response::json(['overlappedLecture' => $overlappedLecture], 200);
     }
 
     /**
@@ -126,7 +142,7 @@ class LectureController extends Controller
 
         foreach ($years as $year) {
             foreach ($semesters as $key => $semester) {
-                $year_semester += array($year.'/'.$key => $year.' '.$semester);
+                $year_semester += array($year.'&'.$key => $year.' '.$semester);
             }
         }
 

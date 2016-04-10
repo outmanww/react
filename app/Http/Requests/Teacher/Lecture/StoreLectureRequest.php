@@ -28,7 +28,7 @@ class StoreLectureRequest extends Request
     public function rules()
     {
         return [
-            'title'          => 'required|string|max:15',
+            'title'          => 'required|string|max:20',
             'department_id'  => 'required|integer',
             'code'           => 'required|string',
             'grade'          => 'required|integer',
@@ -36,6 +36,7 @@ class StoreLectureRequest extends Request
             'length'         => 'required|integer',
             'year'           => 'required|integer',
             'semester'       => 'required|integer',
+            'place'          => 'required|string|max:20',
             'description'    => 'required|string|max:100',
         ];
     }

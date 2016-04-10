@@ -45,12 +45,35 @@ body {height:100%; padding: 0}
 }
 
 .content-top-space {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
-.space-top-2 {
-    margin-top: 12.5px;
+.space-top-1 {
+    margin-top: 6px;
 }
+.space-top-2 {
+    margin-top: 12px;
+}
+.space-top-3 {
+    margin-top: 24px;
+}
+.space-top-4 {
+    margin-top: 48px;
+}
+
+.space-bottom-1 {
+    margin-bottom: 6px;
+}
+.space-bottom-2 {
+    margin-bottom: 12px;
+}
+.space-bottom-3 {
+    margin-bottom: 24px;
+}
+.space-bottom-4 {
+    margin-bottom: 48px;
+}
+
 
 .space-left-3 {
     margin-left: 20px;
@@ -62,4 +85,13 @@ body {height:100%; padding: 0}
 
 .error-message {
     color: #FE5A5F;
+}
+
+.has-border {
+    border: 1px solid #dce0e0;
+}
+
+.right-panel {
+    margin: 40px;
+    background-color: #FFF;
 }

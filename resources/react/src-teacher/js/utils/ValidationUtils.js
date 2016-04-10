@@ -26,21 +26,42 @@ export function format(columns) {
   return formated;
 }
 
-// Lecture
-export function validatLectureName(name) {
-  if (typeof name !== 'string') {
+export function validatSelectBox(value) {
+  if (typeof value !== 'string') {
     throw new Error(`Invalid argument supplied, expect string`);
   }
 
-  if (name.length === 0) {
-    return { value: name, status: 2, message: 'required' };
+  return { value: value, status: 1, message: '' };
+}
+
+export function validatSelectBoxRequired(value) {
+  if (typeof value !== 'string') {
+    throw new Error(`Invalid argument supplied, expect string`);
   }
 
-  if (name.length > 8) {
-    return { value: name, status: 2, message: 'max:8'};
+  if (value == 0) {
+    return { value: value, status: 2, message: 'required' };
   }
 
-  return { value: name, status: 1, message: '' };
+  return { value: value, status: 1, message: '' };
+}
+
+
+// Lecture
+export function validatLectureTitle(title) {
+  if (typeof title !== 'string') {
+    throw new Error(`Invalid argument supplied, expect string`);
+  }
+
+  if (title.length === 0) {
+    return { value: title, status: 2, message: 'required' };
+  }
+
+  if (title.length > 30) {
+    return { value: title, status: 2, message: 'max:30'};
+  }
+
+  return { value: title, status: 1, message: '' };
 }
 
 export function validatLectureCode(code) {
@@ -48,50 +69,45 @@ export function validatLectureCode(code) {
     throw new Error(`Invalid argument supplied, expect string`);
   }
 
-  if (code.length === 0) {
-    return { value: code, status: 2, message: 'required' };
-  }
-
   if (code.match(/[^A-Za-z0-9]+/)) {
     return { value: code, status: 2, message: 'alphaNum'};
   }
 
-  if (code.length > 8) {
-    return { value: code, status: 2, message: 'max:8'};
+  if (code.length > 15) {
+    return { value: code, status: 2, message: 'max:15'};
   }
 
   return { value: code, status: 1, message: '' };
 }
-
 
 export function validatLecturePlace(place) {
   if (typeof place !== 'string') {
     throw new Error(`Invalid argument supplied, expect string`);
   }
 
-  if (place.length === 0) {
-    return { value: place, status: 2, message: 'required' };
-  }
-
-  if (place.length > 20) {
-    return { value: place, status: 2, message: 'max:16'};
+  if (place.length > 30) {
+    return { value: place, status: 2, message: 'max:30'};
   }
 
   return { value: place, status: 1, message: '' };
 }
 
-
-export function validatTypeDesc(desc) {
-  if (desc.length === 0) {
-    return { value: desc, status: 2, message: 'required' };
+export function validatLectureDescription(description) {
+  if (typeof description !== 'string') {
+    throw new Error(`Invalid argument supplied, expect string`);
   }
 
-  if (desc.length > 120) {
-    return { value: desc, status: 2, message: 'max:120'};
+  if (description.length > 120) {
+    return { value: description, status: 2, message: 'max:120'};
   }
 
-  return { value: desc, status: 1, message: '' };
+  return { value: description, status: 1, message: '' };
 }
+
+
+
+
+
 
 
   // if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(email)) {

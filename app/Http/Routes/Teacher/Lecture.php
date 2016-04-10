@@ -15,6 +15,7 @@ Route::group(['prefix' => 'room'], function() {
 Route::group(['prefix' => 'fetch/lectures'], function() {
 	Route::get('', 'LectureController@lectures');
 	Route::get('basic', 'LectureController@basic');
+	Route::post('search', 'LectureController@search');
 	Route::get('store', 'LectureController@store');
 	Route::get('{id}', 'LectureController@lecture');
 	Route::put('{id}/update', 'LectureController@update');

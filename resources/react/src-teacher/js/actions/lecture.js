@@ -32,6 +32,21 @@ export function fetchLectureBasic() {
   };
 }
 
+export function searchLecture(body) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.REQUEST_SEARCH_LECTURE,
+        types.REQUEST_SEARCH_LECTURE_SUCCESS,
+        types.REQUEST_SEARCH_LECTURE_FAIL
+      ],
+      endpoint: `lectures/search`,
+      method: 'POST',
+      body: body
+    }
+  };
+}
+
 export function fetchLecture(id) {
   return {
     [CALL_API]: {

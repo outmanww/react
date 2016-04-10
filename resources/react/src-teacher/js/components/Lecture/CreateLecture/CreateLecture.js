@@ -5,7 +5,10 @@ import { FormattedMessage } from 'react-intl';
 // Config
 import { SCHOOL_NAME } from '../../../../config/env';
 // Utils
-import { format, validatLectureName, validatLectureCode, validatLecturePlace } from '../../../utils/ValidationUtils';
+import {
+  format, validatLectureTitle, validatLectureCode, validatLecturePlace, validatLectureDescription,
+  validatSelectBox, validatSelectBoxRequired
+} from '../../../utils/ValidationUtils';
 // Actions
 import * as LectureActions from '../../../actions/lecture';
 import { routeActions } from 'react-router-redux';
@@ -17,15 +20,17 @@ import Icon from 'react-fa';
 import Colors from 'material-ui/lib/styles/colors';
 // React-bootstrap
 import { Input, Row, Col } from 'react-bootstrap';
+import Description from './Description';
 
 class CreateLecture extends Component {
   constructor(props, context) {
     super(props, context);
     props.actions.fetchLectureBasic();
     this.state = {
+      focused: 'default',
       ...format([
         'faculty', 'department', 'grade',
-        'name',
+        'title',
         'code',
         'yearSemester', 'weekday', 'timeSlot',
         'place',
@@ -36,13 +41,21 @@ class CreateLecture extends Component {
     this.hasError = false;
   }
 
+  searchLecture () {
+    const { state: { department, yearSemester, code}, props } = this;
+    if (department.value != 0 && yearSemester.value != 0 && code.value != 0) {
+      props.actions.searchLecture({
+        department: department.value,
+        yearSemester: yearSemester.value,
+        code: code.value
+      })
+    }
+  }
+
   render() {
-    const weeks = ['月','火','水','木','金','土','日'];
-    const { basic } = this.props;
+    const { basic, actions } = this.props;
     const { state } = this;
-
-    console.log(basic);
-
+console.log(state.department)
     return (
       <div className="row">
         <div className="space-top-2 row-space-2 clearfix">
@@ -55,10 +68,12 @@ class CreateLecture extends Component {
                 <div className="select select-block">
                   <select id="select-faculty"
                     name="faculty"
-                    defaultValue={5}
+                    defaultValue="0"
                     value={state.faculty.value}
-                    onChange={(e) => this.setState({ faculty: {value: e.target.value} })}
+                    onChange={(e) => this.setState({ faculty: validatSelectBox(e.target.value) })}
+                    onFocus={() => this.setState({focused: 'target'})}
                   >
+                    <option value="0">選択してください</option>
                     {basic.lectureBasic.faculties.data.map(f =>
                       <option value={f.id}>{f.name}</option>
                     )}
@@ -71,15 +86,18 @@ class CreateLecture extends Component {
                 <div className="select select-block">
                   <select id="select-department"
                     name="department"
-                    defaultValue={1}
+                    defaultValue="0"
                     value={state.department.value}
-                    onChange={(e) => this.setState({ department: {value: e.target.value} })}
+                    onChange={(e) => this.setState({ department: validatSelectBox(e.target.value) })}
+                    onFocus={() => this.setState({focused: 'target'})}
+                    onBlur={this.searchLecture.bind(this)}
                   >
-                    {
-                      basic.lectureBasic !== null &&
-                      basic.isFetching === false &&
-                      basic.lectureBasic.faculties.data.map(f =>
-                        <option value={f.id}>{f.name}</option>
+                    <option value="0">選択してください</option>
+                    {state.faculty.value != 0 &&
+                      basic.lectureBasic.faculties.data.filter(f =>
+                        f.id === Number(state.faculty.value)
+                      )[0].departments.map(d =>
+                        <option value={d.id}>{d.name}</option>
                       )
                     }
                   </select>
@@ -93,7 +111,8 @@ class CreateLecture extends Component {
                     name="grade"
                     defaultValue={1}
                     value={state.grade.value}
-                    onChange={(e) => this.setState({ grade: {value: e.target.value} })}
+                    onChange={(e) => this.setState({ grade: validatSelectBox(e.target.value) })}
+                    onFocus={() => this.setState({focused: 'target'})}
                   >
                     <option value={1}>学部１年</option>
                     <option value={2}>学部２年</option>
@@ -110,8 +129,8 @@ class CreateLecture extends Component {
               <div className="col-md-8">
                 <div className="row-space-top-1 label-large text-right">
                   <div>残り
-                    <span className={20 - state.name.value.length <= 0 ? 'error-message' : ''}>
-                      {20 - state.name.value.length}
+                    <span className={20 - state.title.value.length <= 0 ? 'error-message' : ''}>
+                      {20 - state.title.value.length}
                     </span>文字
                   </div>
                 </div>
@@ -119,11 +138,12 @@ class CreateLecture extends Component {
             </div>
             <div className="row">
               <div className="col-md-12">
-                <input className="overview-title input-large" id="input-name" type="text" maxLength={20}
-                  name="name"
+                <input className="overview-title input-large" id="input-title" type="text" maxLength={20}
+                  name="title"
                   placeholder="授業のタイトル"
-                  value={state.name.value}
-                  onChange={(e) => this.setState({ name: validatLectureName(e.target.value) })}
+                  value={state.title.value}
+                  onChange={(e) => this.setState({ title: validatLectureTitle(e.target.value) })}
+                  onFocus={() => this.setState({focused: 'title'})}
                 />
               </div>
             </div>
@@ -149,6 +169,8 @@ class CreateLecture extends Component {
                   placeholder="授業コード"
                   value={state.code.value}
                   onChange={(e) => this.setState({ code: validatLectureCode(e.target.value) })}
+                  onFocus={() => this.setState({focused: 'code'})}
+                  onBlur={this.searchLecture.bind(this)}
                 />
               </div>
             </div>
@@ -161,10 +183,16 @@ class CreateLecture extends Component {
                     name="yearSemester"
                     defaultValue={0}
                     value={state.yearSemester.value}
-                    onChange={(e) => this.setState({ yearSemester: {value: e.target.value} })}
+                    onChange={(e) => this.setState({ yearSemester: validatSelectBox(e.target.value) })}
+                    onFocus={() => this.setState({focused: 'time'})}
+                    onBlur={this.searchLecture.bind(this)}
                   >
-                    <option value={0}>2016年度 前期</option>
-                    <option value={1}>2016年度 後期</option>
+                    <option value="0">選択してください</option>
+                    {
+                      Object.keys(basic.lectureBasic.yearSemester).map(key =>
+                        <option value={key}>{basic.lectureBasic.yearSemester[key]}</option>
+                      )
+                    }
                   </select>
                 </div>
               </div>
@@ -176,7 +204,8 @@ class CreateLecture extends Component {
                     name="weekday"
                     defaultValue={1}
                     value={state.weekday.value}
-                    onChange={(e) => this.setState({ weekday: {value: e.target.value} })}
+                    onChange={(e) => this.setState({ weekday: validatSelectBox(e.target.value) })}
+                    onFocus={() => this.setState({focused: 'time'})}
                   >
                     <option value={1}>月曜日</option>
                     <option value={2}>火曜日</option>
@@ -196,7 +225,8 @@ class CreateLecture extends Component {
                     name="timeSlot"
                     defaultValue={1}
                     value={state.timeSlot.value}
-                    onChange={(e) => this.setState({ timeSlot: {value: e.target.value} })}
+                    onChange={(e) => this.setState({ timeSlot: validatSelectBox(e.target.value) })}
+                    onFocus={() => this.setState({focused: 'time'})}
                   >
                     <option value={1}>１限</option>
                     <option value={2}>２限</option>
@@ -229,6 +259,7 @@ class CreateLecture extends Component {
                   placeholder="授業の場所"
                   value={state.place.value}
                   onChange={(e) => this.setState({ place: validatLecturePlace(e.target.value) })}
+                  onFocus={() => this.setState({focused: 'place'})}
                 />
               </div>
             </div>
@@ -242,6 +273,7 @@ class CreateLecture extends Component {
                   placeholder="入力してください"
                   value={state.length.value}
                   onChange={(e) => this.setState({ length: {value: e.target.value} })}
+                  onFocus={() => this.setState({focused: 'length'})}
                 />
               </div>
             </div>
@@ -267,6 +299,7 @@ class CreateLecture extends Component {
                   placeholder="開講する授業についての簡単な説明を記述してください"
                   value={state.description.value}
                   onChange={(e) => this.setState({ description: validatLectureDescription(e.target.value) })}
+                  onFocus={() => this.setState({focused: 'description'})}
                 />
               </div>
             </div>
@@ -274,7 +307,7 @@ class CreateLecture extends Component {
           }
           </div>
           <div className="col-md-5">
-            説明
+            <Description focused={this.state.focused}/>
           </div>
         </div>
       </div>

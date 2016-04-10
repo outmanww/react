@@ -38,5 +38,7 @@ export default {
   "validate.alpha": `アルファベットで入力してください`,
   "validate.alphaNum": `半角英数字で入力してください`,
   "validate.max:8": `8文字以内で入力してください`,
+  "validate.max:15": `15文字以内で入力してください`,
+  "validate.max:30": `30文字以内で入力してください`,
   "validate.max:120": `120文字以内で入力してください`,
 };

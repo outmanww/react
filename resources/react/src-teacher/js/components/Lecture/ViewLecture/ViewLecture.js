@@ -244,7 +244,7 @@ class ViewLecture extends Component {
             </div>
 
             <div className="col-md-8">
-              <div className="right-panel">
+              <div className="has-border">
                 {/*<p className="select">編集するタイプを選択してください</p>*/}
                 <LineChart data={lineData} width="600" height="250"/>
               </div>
