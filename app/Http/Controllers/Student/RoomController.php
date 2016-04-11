@@ -73,6 +73,32 @@ class RoomController extends Controller
 
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
         
+        // point calculation on room_in event
+        if($request->action == config('controller.action.basic') && $request->type == config('controller.b_type.room_in') &&
+            $request->has('geo_lat') && $request->has('geo_long'))
+        {
+            $dbName = Affiliation::find($affiliation_id)->db_name;
+            $room = new Room;
+            $room = $room->setConnection($dbName);
+            $room = $room->where('key', $key)->firstOrFail();
+            $campuses = $room->lecture->department->faculty->campuses;
+
+            $is_in_campus = false;
+            foreach($campuses as $campus)
+            {
+                $distance = $this->haversineGreatCircleDistance(
+                    $campus->geo_lat, $campus->geo_long,
+                    $request->geo_lat, $request->geo_long);
+                if($distance <= $campus->range)
+                {
+                    $is_in_campus = true;
+                    break;
+                }
+            }
+            if(!$is_in_campus)
+                return \Response::json('not in campus', 400);
+        }
+
         $new_msg = null;
         if($request->action == config('controller.action.message'))
         {
@@ -170,7 +196,7 @@ class RoomController extends Controller
         return \Response::json($results, 200);
     }
 
-    public static function checkRoomKey($key)
+    private static function checkRoomKey($key)
     {
         $results = array(
             'status' => true,
@@ -209,6 +235,22 @@ class RoomController extends Controller
         $results['id'] = $room->id;
         
         return $results;
+    }
+
+    private function haversineGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
+    {
+        // convert from degrees to radians
+        $latFrom = deg2rad($latitudeFrom);
+        $lonFrom = deg2rad($longitudeFrom);
+        $latTo = deg2rad($latitudeTo);
+        $lonTo = deg2rad($longitudeTo);
+
+        $latDelta = $latTo - $latFrom;
+        $lonDelta = $lonTo - $lonFrom;
+
+        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+        cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+        return round($angle * $earthRadius, 2);
     }
 }
 
