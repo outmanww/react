@@ -15,7 +15,7 @@ class campus extends Model
     /**
      * 複数代入の許可
      */
-    protected $fillable = ['name', 'sort', 'geo_long', 'geo_lat', 'range'];
+    protected $fillable = ['name', 'sort', 'geo_long', 'geo_lat'];
 
     /**
      * @var array
@@ -28,4 +28,25 @@ class campus extends Model
         $facuty = $facuty->setConnection($this->connection);
 		return $this->CustomBelongsToMany($facuty);
 	}
+
+    public function inside($lat, $long)
+    {
+        $isInside = false;
+
+        $latArray = explode(',', $this->geo_lat);
+        $longArray = explode(',', $this->geo_long);
+        $polySides = count($latArray);
+        $j = $polySides-1;
+        
+        for ($i=0; $i<$polySides; $i++) {
+            if ($latArray[$i]<$lat && $latArray[$j]>=$lat
+            ||  $latArray[$j]<$lat && $latArray[$i]>=$lat) {
+                if ($longArray[$i]+($lat-$latArray[$i])/($latArray[$j]-$latArray[$i])*($longArray[$j]-$longArray[$i])<$long)
+                    $isInside=!$isInside;
+            }
+            $j=$i;
+        }
+
+        return $isInside;
+    }
 }

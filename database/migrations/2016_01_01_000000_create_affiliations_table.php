@@ -17,12 +17,10 @@ class CreateAffiliationsTable extends Migration
                 $table->increments('id')->unsigned();
                 $table->string('name');
                 $table->smallInteger('sort')->default(0)->unsigned();
-                // 経度
-                $table->double('geo_lat');
-                // 緯度
-                $table->double('geo_long');
-                // 範囲（メートル）
-                $table->integer('range')->default(1000)->unsigned();
+                // 経度配列
+                $table->string('geo_lat');
+                // 緯度配列
+                $table->string('geo_long');
                 $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
                 $table->timestamp('updated_at');
                 $table->softDeletes();

@@ -86,10 +86,12 @@ class RoomController extends Controller
             $is_in_campus = false;
             foreach($campuses as $campus)
             {
+                /*
                 $distance = $this->haversineGreatCircleDistance(
                     $campus->geo_lat, $campus->geo_long,
                     $request->geo_lat, $request->geo_long);
-                if($distance <= $campus->range)
+                if($distance <= $campus->range)*/
+                if($campus->inside($request->geo_lat, $request->geo_long))
                 {
                     $is_in_campus = true;
                     break;
@@ -236,7 +238,8 @@ class RoomController extends Controller
         
         return $results;
     }
-
+}
+/*
     private function haversineGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
     {
         // convert from degrees to radians
@@ -254,7 +257,7 @@ class RoomController extends Controller
     }
 }
 
-/*
+
         $room = Room::with([
                 'lecture' => function ($query) {
                     $query->select('id', 'title', 'time_slot', 'weekday');
