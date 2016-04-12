@@ -130,20 +130,7 @@ used to vertically center elements, may need modification if you're not using de
   line-height: 34px;
 }
 
-.right-panel {
-  height: 457px;
-  border: solid #9E9E9E 1px;
-  position: relative;
-
-  p.select {
-    margin-top: 200px;
-    text-align: center;
-  }         
-}
-
 .room-list {
-  
-
   a.list-group-item {
     box-sizing: border-box;
     height: 43px;
@@ -164,6 +151,36 @@ used to vertically center elements, may need modification if you're not using de
     &:hover {
       cursor: pointer;
       border: 1px solid #c4c4c4;
+    }
+  }
+}
+
+.hint-box {
+  position: relative;
+  min-height: 200px;
+
+  img {
+    position: absolute;
+    top: -25px;
+    left: 0;
+    right: 0;
+    height: 50px;
+    width: 50px;
+    margin: auto;
+  }
+
+  p {
+    font-size: 16px;
+    color: #565a5c;
+    margin: 10px 20px 0 20px;
+  }
+
+  div ul {
+    margin: 20px 20px 0 20px;
+
+    li p {
+      font-size: 14px;
+      margin: 0px 10px 0 10px;
     }
   }
 }

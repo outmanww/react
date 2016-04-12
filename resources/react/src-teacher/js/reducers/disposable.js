@@ -9,6 +9,9 @@ import {
   REQUEST_ROOM,
   REQUEST_ROOM_SUCCESS,
   REQUEST_ROOM_FAIL,
+  REQUEST_SEARCH_LECTURE,
+  REQUEST_SEARCH_LECTURE_SUCCESS,
+  REQUEST_SEARCH_LECTURE_FAIL,
 } from '../constants/LectureActionTypes';
 
 function change(state = {}, key, type, payload) {
@@ -37,10 +40,7 @@ function change(state = {}, key, type, payload) {
   }
 }
 
-const initialState = {
-  lecture: {},
-  room: {},
-};
+const initialState = {};
 
 export default function disposable(state = initialState, action) {
   const { type, payload } = action;
@@ -56,7 +56,14 @@ export default function disposable(state = initialState, action) {
     case REQUEST_ROOM_SUCCESS:
     case REQUEST_ROOM_FAIL:
       return Object.assign({}, state, {
-        room: change(state.lecture, 'room', type.replace(/_ROOM/g, ''), payload)
+        room: change(state.room, 'room', type.replace(/_ROOM/g, ''), payload)
+      });
+
+    case REQUEST_SEARCH_LECTURE:
+    case REQUEST_SEARCH_LECTURE_SUCCESS:
+    case REQUEST_SEARCH_LECTURE_FAIL:
+      return Object.assign({}, state, {
+        overlappedLecture: change(state.overlappedLecture, 'overlappedLecture', type.replace(/_SEARCH_LECTURE/g, ''), payload)
       });
 
     case CLEAR_DISPOSABLE:

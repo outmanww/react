@@ -34,13 +34,13 @@ class CreateLectureRelatedTables extends Migration
                 $table->string('code')->nullable();
 
                 // student grade
-                $table->tinyInteger('grade')->nullable();
+                $table->string('grade')->nullable();
                 // lecture place
                 $table->string('place')->nullable();
                 $table->tinyInteger('weekday')->nullable();
                 $table->tinyInteger('time_slot')->nullable();
                 $table->smallInteger('length')->nullable()->unsigned();
-                $table->tinyInteger("year")->nullable();
+                $table->smallInteger("year")->nullable();
                 $table->integer("semester_id")->unsigned()->nullable();
                 // 1:current lecture 0:closed lecture
                 $table->tinyInteger("status")->default(1);

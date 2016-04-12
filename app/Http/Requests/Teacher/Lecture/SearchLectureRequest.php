@@ -8,7 +8,7 @@ use App\Http\Requests\Request;
  * Class StoreLectureRequest
  * @package App\Http\Requests\Teacher\Lecture
  */
-class StoreLectureRequest extends Request
+class SearchLectureRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,15 +29,8 @@ class StoreLectureRequest extends Request
     {
         return [
             'department'    => 'required|integer',
-            'grade'         => 'integer',
-            'title'         => 'required|string|max:20',
-            'code'          => 'string',
+            'code'          => 'required|string',
             'year_semester' => 'required|string',
-            'weekday'       => 'required|integer',
-            'time_slot'     => 'required|integer',
-            'place'         => 'string|max:20',
-            'length'        => 'integer',
-            'description'   => 'string|max:120',
         ];
     }
 }

@@ -8,10 +8,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Lecture\Lecture;
 use App\Models\Lecture\Department;
 use App\Models\Lecture\Faculty;
+use App\Models\Lecture\Semester;
 //Exceptions
 use App\Exceptions\ApiException;
 //Requests
+use App\Http\Requests\Teacher\Lecture\SearchLectureRequest;
+use App\Http\Requests\Teacher\Lecture\StoreLectureRequest;
 use App\Http\Requests\Teacher\Lecture\UpdateLectureRequest;
+// Carbon
+use Carbon\Carbon;
 
 /**
  * Class FrontendController
@@ -40,6 +45,34 @@ class LectureController extends Controller
         $domain = env('APP_URL');
         $env = env('APP_ENV');
         return view('teacher.index', compact('domain', 'env', 'school'));
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function search(SearchLectureRequest $request)
+    {
+        $overlappedLecture = Lecture::with([
+                'users' => function ($query) {
+                    $query->select('users.id', 'family_name', 'given_name');
+                },
+                'semester' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'department' => function ($query) {
+                    $query->select('id', 'name', 'faculty_id');
+                },
+                'department.faculty' => function ($query) {
+                    $query->select('id', 'name');
+                }
+            ])
+            ->where('code', $request->code)
+            ->where('department_id', $request->department)
+            ->where('year', explode("&", $request->year_semester)[0])
+            ->where('semester_id', explode("&", $request->year_semester)[1])
+            ->first();
+
+        return \Response::json(['overlappedLecture' => $overlappedLecture], 200);
     }
 
     /**
@@ -104,11 +137,11 @@ class LectureController extends Controller
      */
     public function basic($school)
     {
-        $user = \Auth::guard('users')->user();
-        $department = $user
+        $user = \Auth::guard('users')
+            ->user()
             ->department()
             ->with(['faculty' => function ($query) { $query->select('id', 'name'); }])
-            ->get(['id', 'name', 'faculty_id']);
+            ->first(['id', 'name', 'faculty_id']);
 
         $faculties = Faculty::with([
                 'departments' => function ($query) {
@@ -118,9 +151,26 @@ class LectureController extends Controller
             ->orderBy('sort', 'asc')
             ->get(['id', 'name']);
 
+        $semesters = Semester::all(['id', 'name']);
+        $years = [ Carbon::now()->year - 1, Carbon::now()->year ];
+        $year_semester = [];
+
+        foreach ($years as $year) {
+            foreach ($semesters as $semester) {
+                $year_semester += array($year.'&'.$semester->id => $year.'年 '.$semester->name);
+            }
+        }
+
         return \Response::json([
-            'faculties' => $faculties,
-            'year_semester' => $
+            'faculties' => [
+                'default' => [
+                    'faculty' => $user['faculty']['id'],
+                    'department' => $user['id']
+                ],
+                'data' => $faculties,
+            ],
+            'year_semester' => $year_semester,
+            'all' => $semesters
         ], 200);
     }
 
@@ -129,6 +179,7 @@ class LectureController extends Controller
      */
     public function store($school, StoreLectureRequest $request)
     {
+        $lecture = new Lecture;
         return \Response::json($request, 200);
     }
 

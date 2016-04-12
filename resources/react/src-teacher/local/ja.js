@@ -35,8 +35,11 @@ export default {
   	=user {ユーザー} =role {ロール} =permission {パーミッション}}{method, plural,
   	=activate {の停止解除} =deactivate {の停止} =restore{の復旧} =destroy{の削除} =delete{の完全削除} =resend{へのメール送信}}に失敗しました。もう一度実行してください`,
   "validate.required": `入力必須項目です`,
+  "validate.num": `英数字で入力してください`,
   "validate.alpha": `アルファベットで入力してください`,
-  "validate.alphaNum": `半角英数字で入力してください`,
+  "validate.alphaNum": `アルファベットまたは英数字で入力してください`,
   "validate.max:8": `8文字以内で入力してください`,
+  "validate.max:15": `15文字以内で入力してください`,
+  "validate.max:30": `30文字以内で入力してください`,
   "validate.max:120": `120文字以内で入力してください`,
 };
