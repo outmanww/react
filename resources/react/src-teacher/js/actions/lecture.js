@@ -47,6 +47,21 @@ export function searchLecture(body) {
   };
 }
 
+export function createLecture(body) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.CREATE_LECTURE,
+        types.CREATE_LECTURE_SUCCESS,
+        types.CREATE_LECTURE_FAIL
+      ],
+      endpoint: `lectures/store`,
+      method: 'POST',
+      body: body
+    }
+  };
+}
+
 export function fetchLecture(id) {
   return {
     [CALL_API]: {

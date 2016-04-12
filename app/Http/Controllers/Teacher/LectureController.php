@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lecture\Lecture;
 use App\Models\Lecture\Department;
 use App\Models\Lecture\Faculty;
+use App\Models\Lecture\Semester;
 //Exceptions
 use App\Exceptions\ApiException;
 //Requests
@@ -51,10 +52,24 @@ class LectureController extends Controller
      */
     public function search(SearchLectureRequest $request)
     {
-        $overlappedLecture = Lecture::where('code', $request->code)
+        $overlappedLecture = Lecture::with([
+                'users' => function ($query) {
+                    $query->select('users.id', 'family_name', 'given_name');
+                },
+                'semester' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'department' => function ($query) {
+                    $query->select('id', 'name', 'faculty_id');
+                },
+                'department.faculty' => function ($query) {
+                    $query->select('id', 'name');
+                }
+            ])
+            ->where('code', $request->code)
             ->where('department_id', $request->department)
-            // ->where('year', explode("&", $request->year_semester)[0])
-            // ->where('semester', explode("&", $request->year_semester)[1])
+            ->where('year', explode("&", $request->year_semester)[0])
+            ->where('semester_id', explode("&", $request->year_semester)[1])
             ->first();
 
         return \Response::json(['overlappedLecture' => $overlappedLecture], 200);
@@ -136,13 +151,13 @@ class LectureController extends Controller
             ->orderBy('sort', 'asc')
             ->get(['id', 'name']);
 
-        $semesters = ['0' => '前期', '1' => '後期', '2' => 'その他'];
+        $semesters = Semester::all(['id', 'name']);
         $years = [ Carbon::now()->year - 1, Carbon::now()->year ];
         $year_semester = [];
 
         foreach ($years as $year) {
-            foreach ($semesters as $key => $semester) {
-                $year_semester += array($year.'&'.$key => $year.' '.$semester);
+            foreach ($semesters as $semester) {
+                $year_semester += array($year.'&'.$semester->id => $year.'年 '.$semester->name);
             }
         }
 
@@ -154,7 +169,8 @@ class LectureController extends Controller
                 ],
                 'data' => $faculties,
             ],
-            'year_semester' => $year_semester
+            'year_semester' => $year_semester,
+            'all' => $semesters
         ], 200);
     }
 
@@ -163,6 +179,7 @@ class LectureController extends Controller
      */
     public function store($school, StoreLectureRequest $request)
     {
+        $lecture = new Lecture;
         return \Response::json($request, 200);
     }
 

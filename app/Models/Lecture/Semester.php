@@ -10,6 +10,9 @@ use App\Models\Lecture\Lecture;
 class Semester extends Model
 {
 	use SoftDeletes;
+
+    protected $connection;
+
     /**
      * The attributes that are not mass assignable.
      */
@@ -19,6 +22,17 @@ class Semester extends Model
      * @var array
      */
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
+     * set connection from url parameters
+     */
+    public function __construct()
+    {
+        $school = \Request::route('school');
+        if (isset($school)) {
+            $this->setConnection($school);
+        }
+    }
 
     public function lectures()
     {

@@ -40,11 +40,7 @@ function change(state = {}, key, type, payload) {
   }
 }
 
-const initialState = {
-  lecture: {},
-  room: {},
-  overlappedLecture: {},
-};
+const initialState = {};
 
 export default function disposable(state = initialState, action) {
   const { type, payload } = action;

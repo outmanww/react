@@ -26,6 +26,15 @@ export function format(columns) {
   return formated;
 }
 
+export function getValues(data) {
+  return　Object.keys(data).reduce((pre, key) => {
+    if (typeof data[key] === 'object') {
+      pre[key] = data[key].value;
+    }
+    return pre;
+  }, {});
+}
+
 export function validatSelectBox(value) {
   if (typeof value !== 'string') {
     throw new Error(`Invalid argument supplied, expect string`);
@@ -39,7 +48,7 @@ export function validatSelectBoxRequired(value) {
     throw new Error(`Invalid argument supplied, expect string`);
   }
 
-  if (value == 0) {
+  if (value === "" || value === "default") {
     return { value: value, status: 2, message: 'required' };
   }
 
@@ -90,6 +99,18 @@ export function validatLecturePlace(place) {
   }
 
   return { value: place, status: 1, message: '' };
+}
+
+export function validatLectureLength(length) {
+  if (typeof length !== 'string') {
+    throw new Error(`Invalid argument supplied, expect string`);
+  }
+
+  if (length.match(/[^0-9]+/)) {
+    return { value: place, status: 2, message: 'num'};
+  }
+
+  return { value: length, status: 1, message: '' };
 }
 
 export function validatLectureDescription(description) {

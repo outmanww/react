@@ -28,16 +28,16 @@ class StoreLectureRequest extends Request
     public function rules()
     {
         return [
-            'title'          => 'required|string|max:20',
-            'department_id'  => 'required|integer',
-            'code'           => 'required|string',
-            'grade'          => 'required|integer',
-            'time_slot'      => 'required|integer',
-            'length'         => 'required|integer',
-            'year'           => 'required|integer',
-            'semester'       => 'required|integer',
-            'place'          => 'required|string|max:20',
-            'description'    => 'required|string|max:100',
+            'department'    => 'required|integer',
+            'grade'         => 'integer',
+            'title'         => 'required|string|max:20',
+            'code'          => 'string',
+            'year_semester' => 'required|string',
+            'weekday'       => 'required|integer',
+            'time_slot'     => 'required|integer',
+            'place'         => 'string|max:20',
+            'length'        => 'integer',
+            'description'   => 'string|max:120',
         ];
     }
 }

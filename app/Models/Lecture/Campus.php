@@ -11,7 +11,7 @@ class campus extends Model
 {
 	use SoftDeletes, CustomRelations;
 
-    protected $connection = 'connection-name';
+    protected $connection;
     /**
      * 複数代入の許可
      */
@@ -21,6 +21,17 @@ class campus extends Model
      * @var array
      */
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
+     * set connection from url parameters
+     */
+    public function __construct()
+    {
+        $school = \Request::route('school');
+        if (isset($school)) {
+            $this->setConnection($school);
+        }
+    }
 
 	public function faculties()
 	{

@@ -31,18 +31,28 @@ class SemesterTableSeeder extends Seeder
                 [
                     'id'         => 1,
                     'name'       => '前期',
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],[
                     'id'         => 2,
                     'name'       => '後期',
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],[
                     'id'         => 3,
                     'name'       => '通年',
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],[
                     'id'         => 4,
                     'name'       => '集中',
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ],[
                     'id'         => 5,
                     'name'       => 'その他',
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
                 ]
             ];
 
