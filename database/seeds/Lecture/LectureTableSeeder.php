@@ -183,7 +183,7 @@ class LectureTableSeeder extends Seeder
                     'title'         => 'データ構造',
                     'sort'          => '10',
                     'department_id' => $department_1->id,
-                    'code'          => '151212',
+                    'code'          => '151213',
                     'grade'         => '学部２年',
                     'place'         => 'IB館４６5',
                     'weekday'       => '3',

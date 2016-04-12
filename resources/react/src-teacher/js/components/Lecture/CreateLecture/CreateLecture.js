@@ -75,7 +75,6 @@ class CreateLecture extends Component {
   }
 
   createLecture () {
-    const { createLecture } = this.props.actions;
     const { state } = this;
 
     this.setState({
@@ -93,13 +92,17 @@ class CreateLecture extends Component {
     },() => {
       this.checkError();
       if (!this.hasError) {
-        //createLecture(getValues(this.state));
         this.setState({
           open: true,
           join: false
         });
       };
     });
+  }
+
+  storeLecture() {
+    const { createLecture } = this.props.actions;
+    createLecture(getValues(this.state));
   }
 
   render() {
@@ -124,7 +127,7 @@ class CreateLecture extends Component {
       {value: 5, string: '修士１年'},
       {value: 6, string: '修士２年'},
     ];
-
+console.log(state)
     return (
       <div className="row">
         <div className="space-top-2 row-space-2 clearfix">
@@ -165,8 +168,10 @@ class CreateLecture extends Component {
                     name="department"
                     value={state.department.value}
                     onChange={(e) => {
-                      this.setState({ department: validatSelectBoxRequired(e.target.value) })
-                      this.searchLecture.bind(this)
+                      this.setState(
+                        {department: validatSelectBoxRequired(e.target.value) },
+                        this.searchLecture.bind(this)
+                      )
                     }}
                     onFocus={() => this.setState({focused: 'target'})}
                   >
@@ -281,9 +286,11 @@ class CreateLecture extends Component {
                   <select id="select-year-semester"
                     name="yearSemester"
                     value={state.yearSemester.value}
-                    onChange={(e) => this.setState({ yearSemester: validatSelectBoxRequired(e.target.value) })}
+                    onChange={(e) => this.setState(
+                      { yearSemester: validatSelectBoxRequired(e.target.value) },
+                      this.searchLecture.bind(this)
+                    )}
                     onFocus={() => this.setState({focused: 'time'})}
-                    onBlur={this.searchLecture.bind(this)}
                   >
                     <option value="default">選択してください</option>
                     {
@@ -472,43 +479,45 @@ class CreateLecture extends Component {
             modal={false}
             open={state.open}
           >
-            <ConfirmLecture lecture={
-              state.join ?
-              {
-                join: state.join,
-                department: overlapped.overlappedLecture.department.name,
-                grade: overlapped.overlappedLecture.grade,
-                title: overlapped.overlappedLecture.title,
-                code: overlapped.overlappedLecture.code,
-                yearSemester: `${overlapped.overlappedLecture.year}年 ${overlapped.overlappedLecture.semester.name}`,
-                weekday: weekdays.find(w => w.value === Number(overlapped.overlappedLecture.weekday)).string,
-                timeSlot: `${overlapped.overlappedLecture.timeSlot}限`,
-                place: overlapped.overlappedLecture.place,
-                length: overlapped.overlappedLecture.length,
-                description: overlapped.overlappedLecture.description,
-                me: user.user.name,
-                otherTeacher: overlapped.overlappedLecture.users.map(u => 
-                  `${u.familyName} ${u.givenName}`
-                )
-              }:
-              {
-                join: state.join,
-                department: basic.lectureBasic.faculties.data.find(
-                  f => f.id === Number(state.faculty.value)
-                ).departments.find(
-                  d => d.id === Number(state.department.value)
-                ).name,
-                grade: grades.find(w => w.value === Number(state.grade.value)).string,
-                title: state.title.value,
-                code: state.code.value,
-                yearSemester: basic.lectureBasic.yearSemester[state.yearSemester.value],
-                weekday: weekdays.find(w => w.value === Number(state.weekday.value)).string,
-                timeSlot: `${state.timeSlot.value}限`,
-                place: state.place.value,
-                length: state.length.value,
-                description: state.description.value
+            <ConfirmLecture
+              lecture={
+                state.join ?
+                {
+                  join: state.join,
+                  department: overlapped.overlappedLecture.department.name,
+                  grade: overlapped.overlappedLecture.grade,
+                  title: overlapped.overlappedLecture.title,
+                  code: overlapped.overlappedLecture.code,
+                  yearSemester: `${overlapped.overlappedLecture.year}年 ${overlapped.overlappedLecture.semester.name}`,
+                  weekday: weekdays.find(w => w.value === Number(overlapped.overlappedLecture.weekday)).string,
+                  timeSlot: `${overlapped.overlappedLecture.timeSlot}限`,
+                  place: overlapped.overlappedLecture.place,
+                  length: overlapped.overlappedLecture.length,
+                  description: overlapped.overlappedLecture.description,
+                  me: user.user.name,
+                  otherTeacher: overlapped.overlappedLecture.users.map(u => 
+                    `${u.familyName} ${u.givenName}`
+                  )
+                }:
+                {
+                  join: state.join,
+                  department: basic.lectureBasic.faculties.data.find(
+                    f => f.id === Number(state.faculty.value)
+                  ).departments.find(
+                    d => d.id === Number(state.department.value)
+                  ).name,
+                  grade: grades.find(w => w.value === Number(state.grade.value)).string,
+                  title: state.title.value,
+                  code: state.code.value,
+                  yearSemester: basic.lectureBasic.yearSemester[state.yearSemester.value],
+                  weekday: weekdays.find(w => w.value === Number(state.weekday.value)).string,
+                  timeSlot: `${state.timeSlot.value}限`,
+                  place: state.place.value,
+                  length: state.length.value,
+                  description: state.description.value
+                }
               }
-            }/>
+            />
           </Dialog>
         }
       </div>

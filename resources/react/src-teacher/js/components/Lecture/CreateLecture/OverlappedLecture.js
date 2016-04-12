@@ -16,7 +16,7 @@ class OverlappedLecture extends Component {
     const style = {
       opacity: spring(1),
     }
-
+console.log(lecture.users.some(u => u.id === myId), lecture.users, myId)
     return (
       <Motion defaultStyle={defaultStyle} style={style}>
         {style => 

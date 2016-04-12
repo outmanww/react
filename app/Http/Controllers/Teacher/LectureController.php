@@ -180,6 +180,20 @@ class LectureController extends Controller
     public function store($school, StoreLectureRequest $request)
     {
         $lecture = new Lecture;
+        // $lecture->title = $request->title;
+        // $lecture->department_id =;
+        // $lecture->code =;
+        // $lecture->grade =;
+        // $lecture->place =;
+        // $lecture->weekday =;
+        // $lecture->time_slot =;
+        // $lecture->length =;
+        // $lecture->year =;
+        // $lecture->semester_id =;
+        // $lecture->description =;
+        // $lecture->status =;
+        // $lecture->save();
+
         return \Response::json($request, 200);
     }
 

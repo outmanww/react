@@ -53,14 +53,17 @@ class ConfirmLecture extends Component {
               <span className="list-body">{lecture.description}</span>
             }
           </li>
-          <li className="list-group-item">
-            <span className="list-head">担当講師</span>
-              <span className="list-body">
-                {
-                  `${lecture.me} ${lecture.otherTeacher.map(t => `${t} `)}`
-                }
-              </span>
-          </li>
+          {
+            typeof lecture.otherTeacher !== 'undefined' &&
+            <li className="list-group-item">
+              <span className="list-head">担当講師</span>
+                <span className="list-body">
+                  {
+                    `${lecture.me} ${lecture.otherTeacher.map(t => `${t} `)}`
+                  }
+                </span>
+            </li>
+          }
         </ul>
       </div>
     );
