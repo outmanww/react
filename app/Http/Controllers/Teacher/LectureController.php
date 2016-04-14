@@ -179,22 +179,26 @@ class LectureController extends Controller
      */
     public function store($school, StoreLectureRequest $request)
     {
-        $lecture = new Lecture;
-        // $lecture->title = $request->title;
-        // $lecture->department_id =;
-        // $lecture->code =;
-        // $lecture->grade =;
-        // $lecture->place =;
-        // $lecture->weekday =;
-        // $lecture->time_slot =;
-        // $lecture->length =;
-        // $lecture->year =;
-        // $lecture->semester_id =;
-        // $lecture->description =;
-        // $lecture->status =;
-        // $lecture->save();
+        $exploded = explode('&', $request->year_semester);
+        $year = $exploded[0];
+        $semester = $exploded[1];
 
-        return \Response::json($request, 200);
+        $lecture = new Lecture;
+        $lecture->title = $request->title;
+        $lecture->department_id = $request->department;
+        $lecture->code = $request->code;
+        $lecture->grade = $request->grade;
+        $lecture->place = $request->place;
+        $lecture->weekday = $request->weekday;
+        $lecture->time_slot = $request->time_slot;
+        $lecture->length = $request->length;
+        $lecture->year = $year;
+        $lecture->semester_id = $semester;
+        $lecture->description = $request->description;
+        $lecture->status = 1;
+        $lecture->save();
+
+        return \Response::json($lecture, 200);
     }
 
     /**

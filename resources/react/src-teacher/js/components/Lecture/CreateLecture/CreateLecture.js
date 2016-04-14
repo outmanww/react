@@ -139,14 +139,15 @@ class CreateLecture extends Component {
     ];
 
     const grades = [
-      {value: 1, string: '学部１年'},
-      {value: 2, string: '学部２年'},
-      {value: 3, string: '学部３年'},
-      {value: 4, string: '学部４年'},
-      {value: 5, string: '修士１年'},
-      {value: 6, string: '修士２年'},
+      {value: '学部１年', string: '学部１年'},
+      {value: '学部２年', string: '学部２年'},
+      {value: '学部３年', string: '学部３年'},
+      {value: '学部４年', string: '学部４年'},
+      {value: '修士１年', string: '修士１年'},
+      {value: '修士２年', string: '修士２年'},
+      {value: '全学年', string: '全学年'},
     ];
-console.log(state)
+
 console.log('overlapped=', overlapped,', open', state.open)
 
     return (
@@ -524,7 +525,7 @@ console.log('overlapped=', overlapped,', open', state.open)
                   ).departments.find(
                     d => d.id === Number(state.department.value)
                   ).name,
-                  grade: grades.find(w => w.value === Number(state.grade.value)).string,
+                  grade: grades.find(w => w.value === state.grade.value).string,
                   title: state.title.value,
                   code: state.code.value,
                   yearSemester: basic.lectureBasic.yearSemester[state.yearSemester.value],

@@ -12,9 +12,14 @@ class Lecture extends Component {
 
   render() {
     const { routes, actions } = this.props;
+    const style = {
+      minHeight: window.innerHeight - 64,
+      background: Colors.blueGrey50,
+      padding: '0 40px 40px'
+    };
+
     return (
-      <div style={{ minHeight: window.innerHeight - 64, background: Colors.blueGrey50, marginTop:0}}>
-        <div className="container">
+      <div style={style}>
           <section className="content-header">
             <div className="row">
               <h3>授業の管理</h3>
@@ -23,7 +28,6 @@ class Lecture extends Component {
           <section className="content">
             {this.props.children}
           </section>
-        </div>
       </div>
     );
   }
