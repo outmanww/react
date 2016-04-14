@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { browserHistory } from 'react-router';
-import { syncHistory } from 'react-router-redux';
+import { routerMiddleware } from 'react-router-redux';
 import { devTools, persistState as persistDevToolsState } from 'redux-devtools';
 import createLogger from 'redux-logger';
 import persistState from 'redux-localstorage';
@@ -8,7 +8,7 @@ import persistState from 'redux-localstorage';
 import Middlewares from '../middleware';
 import rootReducer from '../reducers';
 
-const reduxRouterMiddleware = syncHistory(browserHistory);
+const reduxRouterMiddleware = routerMiddleware(browserHistory);
 
 Middlewares.push(reduxRouterMiddleware);
 

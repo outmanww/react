@@ -8,6 +8,8 @@ import * as LectureActions from '../../../actions/lecture';
 import { push } from 'react-router-redux';
 // Components
 import { RaisedButton } from 'material-ui';
+import IconButton from 'material-ui/lib/icon-button';
+
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Icon from 'react-fa';
@@ -62,17 +64,25 @@ class Lectures extends Component {
                     <td>{l.title}</td>
                     <td>{`${weeks[Math.floor((Number(l.timeSlot) - 1) % 5 / 5)]}曜${(Number(l.timeSlot) - 1) % 5 + 1}限`}</td>
                     <td>{`${l.department.name}・${l.department.faculty.name}`}</td>
-                   <td>
-                    <LinkContainer to={{ pathname: `/${SCHOOL_NAME}/teacher/lectures/${l.id}`}}>
+                    <td>
                       <OverlayTrigger placement="top" overlay={(<Tooltip>詳細</Tooltip>)}>
-                        <Button bsStyle="primary" bsSize="small"><Icon name="pencil"/></Button>
+                        <button
+                          className="btn btn-sm btn-primary"
+                          style={{padding: '5px 8px'}}
+                          onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/${l.id}`)}
+                        >
+                          <span className="fa fa-pencil" style={{fontSize: 16}}/>
+                        </button>
                       </OverlayTrigger>
-                    </LinkContainer>
-                    <LinkContainer to={{ pathname: `/${SCHOOL_NAME}/teacher/lectures/${l.id}`}}>
                       <OverlayTrigger placement="top" overlay={(<Tooltip>開講</Tooltip>)}>
-                        <Button bsStyle="danger" bsSize="small" style={{marginLeft: 10}}><Icon name="book"/></Button>
+                        <button
+                          className="btn btn-sm btn-primary"
+                          style={{marginLeft: 5, padding: '5px 8px'}}
+                          onClick={() => }
+                        >
+                          <span className="fa fa-pencil" style={{fontSize: 16}}/>
+                        </button>
                       </OverlayTrigger>
-                    </LinkContainer>
                     </td>
                   </tr>
                 )}

@@ -14,8 +14,10 @@ use App\Http\Requests\Student\Auth\SigninRequest;
 use App\Http\Requests\Student\Auth\ResendConfirmationEmailRequest;
 // Models
 use \App\Models\Student\Student;
-//Exceptions
+// Exceptions
 use App\Exceptions\ApiException;
+// Jobs
+use App\Jobs\Student\SendSignUpSucceedEmail;
 
 class AuthController extends Controller
 {
@@ -58,16 +60,18 @@ class AuthController extends Controller
 
         $token = sha1(uniqid(mt_rand(), true));
 
-        $student->create([
-            'family_name' => $request->family_name,
-            'given_name'  => $request->given_name,
-            'email'       => $request->email,
-            'password'    => bcrypt($request->password),
-            'api_token'   => $token,
-            'confirmation_code' => md5(uniqid(mt_rand(), true)),
-            'confirmed'   => config('access.users.confirm_email') ? 0 : 1,
-            'status'      => 1,
-        ]);
+        $student->family_name = $request->family_name;
+        $student->given_name = $request->given_name;
+        $student->email = $request->email;
+        $student->password = bcrypt($request->password);
+        $student->api_token = $token;
+        $student->confirmation_code = md5(uniqid(mt_rand(), true));
+        $student->confirmed = config('access.users.confirm_email') ? 0 : 1;
+        $student->status = 1;
+        $student->save();
+
+        // Queue jobを使ってメール送信
+        $this->dispatch(new SendSignUpSucceedEmail($student));
 
         return \Response::json(['api_token' => $token], 200);
     }

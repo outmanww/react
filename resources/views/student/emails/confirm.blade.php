@@ -1,0 +1,1 @@
+{{ 'メールアドレスの確認　' . url('account/confirm/' . $token) }}

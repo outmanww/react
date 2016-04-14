@@ -29,7 +29,7 @@ class StoreLectureRequest extends Request
     {
         return [
             'department'    => 'required|integer',
-            'grade'         => 'integer',
+            'grade'         => 'required|string',
             'title'         => 'required|string|max:20',
             'code'          => 'string',
             'year_semester' => 'required|string',

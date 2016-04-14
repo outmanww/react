@@ -9,8 +9,6 @@ class ConfirmLecture extends Component {
   render() {
     const { lecture } = this.props;
 
-    console.log(lecture)
-
     return (
       <div className="space-top-4 space-bottom-3">
         <ul className="list-group list-group-flush">
