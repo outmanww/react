@@ -173,7 +173,7 @@ class RoomController extends Controller
             ->select('created_at')
             ->first();
 
-        if(empty($time_fore_in)){
+        if(count($time_fore_in)){
             $time_fore_in = $time_room_in;
         }
         else{
