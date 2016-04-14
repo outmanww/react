@@ -7,7 +7,7 @@ import { SCHOOL_NAME } from '../../../../config/env';
 import * as LectureActions from '../../../actions/lecture';
 import { push } from 'react-router-redux';
 // Components
-import { RaisedButton } from 'material-ui';
+import { FlatButton, RaisedButton, Dialog } from 'material-ui';
 import IconButton from 'material-ui/lib/icon-button';
 
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
@@ -18,6 +18,7 @@ import Colors from 'material-ui/lib/styles/colors';
 class Lectures extends Component {
   constructor(props, context) {
     super(props, context);
+    this.state = { open: false };
     props.actions.fetchLectures();
   }
 
@@ -78,7 +79,7 @@ class Lectures extends Component {
                         <button
                           className="btn btn-sm btn-primary"
                           style={{marginLeft: 5, padding: '5px 8px'}}
-                          onClick={() => }
+                          onClick={() => this.setState({open: true})}
                         >
                           <span className="fa fa-pencil" style={{fontSize: 16}}/>
                         </button>
@@ -91,6 +92,26 @@ class Lectures extends Component {
             </div>
           </div>
         </div>
+        <Dialog
+          title="Dialog With Actions"
+          actions={[
+            <FlatButton
+              label="Cancel"
+              secondary={true}
+              onTouchTap={() => this.setState({open: false})}
+            />,
+            <FlatButton
+              label="Submit"
+              primary={true}
+              disabled={true}
+              onTouchTap={() => this.setState({open: false})}
+            />
+          ]}
+          modal={true}
+          open={this.state.open}
+        >
+          Only actions can close this dialog.
+        </Dialog>
       </div>
     );
   }
