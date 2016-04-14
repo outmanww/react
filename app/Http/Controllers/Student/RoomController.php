@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Student\PointController;
 // Models
 use App\Models\Lecture\Room;
-use App\Models\Lecture\Point;
+use App\Models\Point\Point;
 use App\Models\Student\Affiliation;
 use App\Models\Student\Reaction;
 // Request
