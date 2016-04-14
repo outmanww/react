@@ -54,12 +54,30 @@ class CreateLecture extends Component {
           message: ''
         }
       })
-    }  
+    }
+
+    const { open } = this.state;
+    const { storeLecture } = this.props.disposable;
+
+    if (
+      open &&
+      typeof storeLecture !== 'undefined' &&
+      storeLecture.isFetching &&
+      !nextProps.disposable.storeLecture.isFetching
+    ) {
+      console.log('componentWillReceivePropsが反応')
+      this.setState({open: false});
+    }
   }
 
   searchLecture () {
     const { state: { department, yearSemester, code}, props } = this;
-    if (department.value != 0 && yearSemester.value != 0 && code.value != 0) {
+    if (
+      department.value !== '' &&
+      yearSemester.value !== '' &&
+      code.value !== ''
+    ) {
+      console.log('searchLecture')
       props.actions.searchLecture({
         department: department.value,
         yearSemester: yearSemester.value,
@@ -101,8 +119,9 @@ class CreateLecture extends Component {
   }
 
   storeLecture() {
-    const { createLecture } = this.props.actions;
-    createLecture(getValues(this.state));
+    console.log('this.storeLecture');
+    const { storeLecture } = this.props.actions;
+    storeLecture(getValues(this.state));
   }
 
   render() {
@@ -128,6 +147,8 @@ class CreateLecture extends Component {
       {value: 6, string: '修士２年'},
     ];
 console.log(state)
+console.log('overlapped=', overlapped,', open', state.open)
+
     return (
       <div className="row">
         <div className="space-top-2 row-space-2 clearfix">
@@ -439,8 +460,8 @@ console.log(state)
           <div className="col-md-5">
             {
               typeof overlapped !== 'undefined' &&
-              overlapped.overlappedLecture != null &&
-              overlapped.overlappedLecture != 0 &&
+              overlapped.overlappedLecture !== null &&
+              !overlapped.isFetching &&
               <OverlappedLecture
                 myId={user.user.id}
                 lecture={overlapped.overlappedLecture}
@@ -453,19 +474,16 @@ console.log(state)
         </div>
 
         {
+          state.open &&
           basic.lectureBasic !== null &&
           basic.isFetching === false &&
-          state.open &&
           typeof overlapped !== 'undefined' &&
-          overlapped.overlappedLecture != null &&
-          overlapped.overlappedLecture != 0 &&
-
           <Dialog
             title="入力内容の確認"
             actions={[
               <FlatButton
                 label="キャンセル"
-                onClick={() => this.setState({ open: false })}
+                onTouchTap={() => this.setState({ open: false })}
               />,
               <FlatButton
                 label="確定"
@@ -473,7 +491,7 @@ console.log(state)
                 keyboardFocused={true}
                 rippleColor={Colors.lightBlue600}
                 hoverColor={Colors.lightBlue50}
-                onClick={() => this.setState({ open: false })}
+                onTouchTap={() => this.storeLecture()}
               />
             ]}
             modal={false}
@@ -526,6 +544,7 @@ console.log(state)
 }
 
 CreateLecture.propTypes = {
+  user: PropTypes.object.isRequired,
   basic: PropTypes.object.isRequired,
   disposable: PropTypes.object.isRequired,
   routes: PropTypes.array.isRequired,

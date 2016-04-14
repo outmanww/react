@@ -47,13 +47,13 @@ export function searchLecture(body) {
   };
 }
 
-export function createLecture(body) {
+export function storeLecture(body) {
   return {
     [CALL_API]: {
       types: [
-        types.CREATE_LECTURE,
-        types.CREATE_LECTURE_SUCCESS,
-        types.CREATE_LECTURE_FAIL
+        types.STORE_LECTURE,
+        types.STORE_LECTURE_SUCCESS,
+        types.STORE_LECTURE_FAIL
       ],
       endpoint: `lectures/store`,
       method: 'POST',

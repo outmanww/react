@@ -12,6 +12,9 @@ import {
   REQUEST_SEARCH_LECTURE,
   REQUEST_SEARCH_LECTURE_SUCCESS,
   REQUEST_SEARCH_LECTURE_FAIL,
+  STORE_LECTURE,
+  STORE_LECTURE_SUCCESS,
+  STORE_LECTURE_FAIL,
 } from '../constants/LectureActionTypes';
 
 function change(state = {}, key, type, payload) {
@@ -64,6 +67,13 @@ export default function disposable(state = initialState, action) {
     case REQUEST_SEARCH_LECTURE_FAIL:
       return Object.assign({}, state, {
         overlappedLecture: change(state.overlappedLecture, 'overlappedLecture', type.replace(/_SEARCH_LECTURE/g, ''), payload)
+      });
+
+    case STORE_LECTURE:
+    case STORE_LECTURE_SUCCESS:
+    case STORE_LECTURE_FAIL:
+      return Object.assign({}, state, {
+        storeLecture: change(state.storeLecture, 'storeLecture', type.replace(/STORE_LECTURE/g, 'REQUEST'), payload)
       });
 
     case CLEAR_DISPOSABLE:
