@@ -80,7 +80,7 @@ class Handler extends ExceptionHandler
          * Data not found in database
          */
         if ($e instanceof ModelNotFoundException) {
-            return \Response::json('Not Found', 404);
+            return \Response::json($e->getMessage().' Not Found', 404);
         }
         return parent::render($request, $e);
     }

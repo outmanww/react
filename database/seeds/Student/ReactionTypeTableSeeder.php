@@ -31,9 +31,12 @@ class ReactionTypeTableSeeder extends Seeder
                 'name'       => '基本アクション',
             ],[
                 'id'         => 2,
-                'name'       => 'リアクトアクション',
+                'name'       => 'リアクトアクション(匿名)',
             ],[
                 'id'         => 3,
+                'name'       => 'リアクトアクション(実名)',
+            ],[
+                'id'         => 4,
                 'name'       => 'メッセージアクション',
             ]
         ];
