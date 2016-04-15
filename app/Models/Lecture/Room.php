@@ -297,4 +297,37 @@ class Room extends Model
 				config('controller.r_type.interesting')=>$num_interesting_array,
 				config('controller.r_type.boring')=>$num_boring_array];
 	}
+
+	public function genKey()
+	{
+        $affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+
+		for($i=0;$i<config('controller.max_rand_key_gen');$i++)
+		{
+			$keyIdx = random_int( 0 , 999 );
+			$key = $affiliation_id*1000+$keyIdx;
+			if ($this->where('key', $key)->where('closed_at', null)->get()->count()==0) {
+				$this->key = $key;
+				return true;
+			}
+		}
+		
+		$items = $this->where('closed_at', null)->select('key')->get();
+		$used_keys = array();
+		foreach ($items as $item)
+			array_push($used_keys, $item->key);
+		$keyIdx = random_int( 0 , 999 );
+		for($i=0;$i<=1000;$i++)
+		{
+			$key = $affiliation_id*1000+$keyIdx;
+			if(!in_array($key, $used_keys))
+			{
+				$this->key = $key;
+				return true;
+			}
+			$keyIdx = ($keyIdx++)%1000;
+		}
+
+		return false;
+	}
 }
