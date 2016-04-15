@@ -60,7 +60,7 @@ class PointController extends Controller
         return \Response::json($points, 200);
     }
 
-    public function use(UsePointRequest $request)
+    public function usePoint(UsePointRequest $request)
     {
         $student = \Auth::guard('students')->user();
         $item_points = $request->amount*Item::findOrFail($request->item_id)->point;

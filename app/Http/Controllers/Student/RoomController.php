@@ -173,14 +173,14 @@ class RoomController extends Controller
             ->select('created_at')
             ->first();
 
-        if(empty($time_fore_in)){
+        if(0 == count($time_fore_in)){
             $time_fore_in = $time_room_in;
         }
         else{
             $time_fore_in = Carbon::createFromFormat('Y-m-d H:i:s', $time_fore_in->created_at);
         }
 
-        if($time_fore_in->ne($time_room_in)){
+        if($time_fore_in->lt($time_room_in)){
             $time_fore_in = $time_room_in;
         }
 
