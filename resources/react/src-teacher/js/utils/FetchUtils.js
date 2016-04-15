@@ -17,6 +17,7 @@ export function callApi(endpoint, method, body) {
       request.body = body;
     } else {
       request.headers['Content-Type'] = 'application/json';
+      request.headers['Accept'] = 'application/json';
       request.body = JSON.stringify(keyToSnake(body));
     }
   }

@@ -15,6 +15,9 @@ import {
   STORE_LECTURE,
   STORE_LECTURE_SUCCESS,
   STORE_LECTURE_FAIL,
+  JOIN_LECTURE,
+  JOIN_LECTURE_SUCCESS,
+  JOIN_LECTURE_FAIL,
 } from '../constants/LectureActionTypes';
 
 function change(state = {}, key, type, payload) {
@@ -43,7 +46,23 @@ function change(state = {}, key, type, payload) {
   }
 }
 
-const initialState = {};
+const initialState = {
+  lecture: {
+    lecture: null
+  },
+  room: {
+    room: null
+  },
+  overlappedLecture: {
+    overlappedLecture: null
+  },
+  storeLecture: {
+    storeLecture: null
+  },
+  joinLecture: {
+    joinLecture: null
+  },
+};
 
 export default function disposable(state = initialState, action) {
   const { type, payload } = action;
@@ -74,6 +93,13 @@ export default function disposable(state = initialState, action) {
     case STORE_LECTURE_FAIL:
       return Object.assign({}, state, {
         storeLecture: change(state.storeLecture, 'storeLecture', type.replace(/STORE_LECTURE/g, 'REQUEST'), payload)
+      });
+
+    case JOIN_LECTURE:
+    case JOIN_LECTURE_SUCCESS:
+    case JOIN_LECTURE_FAIL:
+      return Object.assign({}, state, {
+        joinLecture: change(state.joinLecture, 'joinLecture', type.replace(/JOIN_LECTURE/g, 'REQUEST'), payload)
       });
 
     case CLEAR_DISPOSABLE:
