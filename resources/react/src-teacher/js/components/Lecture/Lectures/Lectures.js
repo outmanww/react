@@ -3,7 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // Config
 import { SCHOOL_NAME } from '../../../../config/env';
+// Utils
+import { format, getValues, validatLectureLength } from '../../../utils/ValidationUtils';
 // Actions
+import * as InitializeActions from '../../../actions/initialize';
 import * as LectureActions from '../../../actions/lecture';
 import { push } from 'react-router-redux';
 // Components
@@ -14,16 +17,72 @@ import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Icon from 'react-fa';
 import Colors from 'material-ui/lib/styles/colors';
+import CreateRoom from './CreateRoom';
 
 class Lectures extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = { open: false };
-    props.actions.fetchLectures();
+
+    const { clearDisposable, fetchLectures } = props.actions;
+    clearDisposable();
+    fetchLectures();
+
+    this.state = {
+      open: false,
+      id: 0,
+      ...format(['length'])
+    };
+    this.hasError = true;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { lecture } = nextProps.lecture;
+    if (lecture !== null) {
+      this.setState({
+        length: {
+          value: String(lecture.length),
+          status: 0,
+          message: ''
+        }
+      });
+    }
+
+    const { room, actions } = this.props;
+    if (this.state.open && room.isFetching && !nextProps.room.isFetching) {
+      if (nextProps.room.didInvalidate) {
+        this.setState({open: false});
+        actions.clearDisposable();
+      } else {
+        actions.push(`/${SCHOOL_NAME}/teacher/dashboard`);
+      }
+    }
+  }
+
+  checkError() {
+    this.hasError = Object.keys(this.state).some(key => {
+      if (typeof this.state[key] !== 'object') {
+        return false;
+      }
+      return this.state[key].status === 2
+    })
+  }
+
+  openRoom() {
+    const { openRoom } = this.props.actions;
+    const { id, length } = this.state;
+
+    this.setState({
+      length: validatLectureLength(length.value)
+    },() => {
+      this.checkError();
+      if (!this.hasError) {
+        openRoom(id, length.value);
+      }
+    });
   }
 
   render() {
-    const { lectures, actions } = this.props;
+    const { me, lectures, lecture, room, actions } = this.props;
     const weeks = ['月','火','水','木','金','土','日'];
     return (
       <div className="row">
@@ -79,7 +138,13 @@ class Lectures extends Component {
                         <button
                           className="btn btn-sm btn-primary"
                           style={{marginLeft: 5, padding: '5px 8px'}}
-                          onClick={() => this.setState({open: true})}
+                          onClick={() => {
+                            actions.fetchLecture(l.id);
+                            this.setState({
+                              open: true,
+                              id: l.id
+                            });
+                          }}
                         >
                           <span className="fa fa-pencil" style={{fontSize: 16}}/>
                         </button>
@@ -93,24 +158,33 @@ class Lectures extends Component {
           </div>
         </div>
         <Dialog
-          title="Dialog With Actions"
+          title="授業を開講"
           actions={[
             <FlatButton
-              label="Cancel"
+              label="キャンセル"
               secondary={true}
               onTouchTap={() => this.setState({open: false})}
             />,
             <FlatButton
-              label="Submit"
+              label="開講"
               primary={true}
-              disabled={true}
-              onTouchTap={() => this.setState({open: false})}
+              disabled={false}
+              onTouchTap={() => {
+                if (!room.isFetching) {
+                  this.openRoom()
+                }
+              }}
             />
           ]}
           modal={true}
           open={this.state.open}
         >
-          Only actions can close this dialog.
+          <CreateRoom
+            me={me}
+            lecture={lecture}
+            length={this.state.length.value}
+            setState={this.setState.bind(this)}
+          />
         </Dialog>
       </div>
     );
@@ -118,20 +192,31 @@ class Lectures extends Component {
 }
 
 Lectures.propTypes = {
-  routes: PropTypes.array.isRequired,
+  me: PropTypes.object.isRequired,
+  lectures: PropTypes.object.isRequired,
+  lecture: PropTypes.object.isRequired,
+  room: PropTypes.object.isRequired,
+  routes: PropTypes.object.isRequired,
   children: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   return {
+    me: state.user,
     lectures: state.lectures,
+    lecture: state.disposable.lecture,
+    room: state.room,
     routes: ownProps.routes
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = Object.assign(LectureActions, {push});
+  const actions = Object.assign(
+    InitializeActions,
+    LectureActions,
+    { push }
+  );
   return {
     actions: bindActionCreators(actions, dispatch)
   };

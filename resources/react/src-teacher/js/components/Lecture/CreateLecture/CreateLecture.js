@@ -11,8 +11,9 @@ import {
   validatLectureTitle, validatLectureCode, validatLecturePlace, validatLectureLength, validatLectureDescription
 } from '../../../utils/ValidationUtils';
 // Actions
+import * as InitializeActions from '../../../actions/initialize';
 import * as LectureActions from '../../../actions/lecture';
-import { routeActions } from 'react-router-redux';
+import { push } from 'react-router-redux';
 // Material-ui
 import { FlatButton, RaisedButton, Dialog } from 'material-ui';
 import Colors from 'material-ui/lib/styles/colors';
@@ -26,7 +27,11 @@ import ConfirmLecture from './ConfirmLecture';
 class CreateLecture extends Component {
   constructor(props, context) {
     super(props, context);
-    props.actions.fetchLectureBasic();
+    const { clearDisposable, fetchLectureBasic } = props.actions;
+
+    clearDisposable();
+    fetchLectureBasic();
+
     this.state = {
       open: false,
       join: false,
@@ -56,29 +61,27 @@ class CreateLecture extends Component {
       })
     }
 
-    const { open } = this.state;
-    const { storeLecture } = this.props.disposable;
+    const { storeLecture, joinLecture, actions } = this.props;
 
     if (
-      open &&
-      typeof storeLecture !== 'undefined' &&
-      storeLecture.isFetching &&
-      !nextProps.disposable.storeLecture.isFetching
+      this.state.open &&
+      (storeLecture.isFetching && !nextProps.storeLecture.isFetching) ||
+      (joinLecture.isFetching && !nextProps.joinLecture.isFetching)
     ) {
-      console.log('componentWillReceivePropsが反応')
-      this.setState({open: false});
+      if (nextProps.storeLecture.didInvalidate || nextProps.joinLecture.didInvalidate) {
+        this.setState({open: false});
+        actions.clearDisposable();
+      } else {
+        actions.push(`/${SCHOOL_NAME}/teacher/lectures`);
+      }
     }
   }
 
   searchLecture () {
-    const { state: { department, yearSemester, code}, props } = this;
-    if (
-      department.value !== '' &&
-      yearSemester.value !== '' &&
-      code.value !== ''
-    ) {
-      console.log('searchLecture')
-      props.actions.searchLecture({
+    const { department, yearSemester, code } = this.state;
+    const { actions } = this.props;
+    if (department.value !== '' && yearSemester.value !== '' && code.value !== '') {
+      actions.searchLecture({
         department: department.value,
         yearSemester: yearSemester.value,
         code: code.value
@@ -119,14 +122,20 @@ class CreateLecture extends Component {
   }
 
   storeLecture() {
-    console.log('this.storeLecture');
-    const { storeLecture } = this.props.actions;
-    storeLecture(getValues(this.state));
+    const { join } = this.state;
+    const { overlappedLecture, storeLecture, joinLecture, actions } = this.props;
+
+    if (!storeLecture.isFetching && !joinLecture.isFetching) {
+      if (join) {
+        actions.joinLecture(overlappedLecture.overlappedLecture.id);
+      } else {
+        actions.storeLecture(getValues(this.state));
+      }
+    }
   }
 
   render() {
-    const { user, basic, actions, disposable } = this.props;
-    const overlapped = disposable.overlappedLecture;
+    const { user, basic, overlappedLecture, actions } = this.props;
     const { state } = this;
     const weekdays = [
       {value: 1, string: '月曜日'},
@@ -147,9 +156,7 @@ class CreateLecture extends Component {
       {value: '修士２年', string: '修士２年'},
       {value: '全学年', string: '全学年'},
     ];
-
-console.log('overlapped=', overlapped,', open', state.open)
-
+console.log(this.state.open, basic.lectureBasic, basic.isFetching, overlappedLecture)
     return (
       <div className="row">
         <div className="space-top-2 row-space-2 clearfix">
@@ -197,7 +204,7 @@ console.log('overlapped=', overlapped,', open', state.open)
                     }}
                     onFocus={() => this.setState({focused: 'target'})}
                   >
-                    <option value="default">選択してください</option>
+                    <option value="">選択してください</option>
                     {state.faculty.value != 0 &&
                       basic.lectureBasic.faculties.data.find(f =>
                         f.id === Number(state.faculty.value)
@@ -226,7 +233,7 @@ console.log('overlapped=', overlapped,', open', state.open)
                     }}
                     onFocus={() => this.setState({focused: 'target'})}
                   >
-                    <option value="default">選択してください</option>
+                    <option value="">選択してください</option>
                     {grades.map(w => <option value={w.value}>{w.string}</option>)}
                   </select>
                 </div>
@@ -314,7 +321,7 @@ console.log('overlapped=', overlapped,', open', state.open)
                     )}
                     onFocus={() => this.setState({focused: 'time'})}
                   >
-                    <option value="default">選択してください</option>
+                    <option value="">選択してください</option>
                     {
                       Object.keys(basic.lectureBasic.yearSemester).map(key =>
                         <option value={key}>{basic.lectureBasic.yearSemester[key]}</option>
@@ -338,7 +345,7 @@ console.log('overlapped=', overlapped,', open', state.open)
                     onChange={(e) => this.setState({ weekday: validatSelectBoxRequired(e.target.value) })}
                     onFocus={() => this.setState({focused: 'time'})}
                   >
-                    <option value="default">選択してください</option>
+                    <option value="">選択してください</option>
                     {weekdays.map(w => <option value={w.value}>{w.string}</option>)}
                   </select>
                 </div>
@@ -358,7 +365,7 @@ console.log('overlapped=', overlapped,', open', state.open)
                     onChange={(e) => this.setState({ timeSlot: validatSelectBoxRequired(e.target.value) })}
                     onFocus={() => this.setState({focused: 'time'})}
                   >
-                    <option value="default">選択してください</option>
+                    <option value="">選択してください</option>
                     <option value={1}>１限</option>
                     <option value={2}>２限</option>
                     <option value={3}>３限</option>
@@ -460,12 +467,11 @@ console.log('overlapped=', overlapped,', open', state.open)
           </div>
           <div className="col-md-5">
             {
-              typeof overlapped !== 'undefined' &&
-              overlapped.overlappedLecture !== null &&
-              !overlapped.isFetching &&
+              overlappedLecture.overlappedLecture !== null &&
+              !overlappedLecture.isFetching &&
               <OverlappedLecture
                 myId={user.user.id}
-                lecture={overlapped.overlappedLecture}
+                lecture={overlappedLecture.overlappedLecture}
                 setState={this.setState.bind(this)}
                 push={actions.push}
               />
@@ -478,7 +484,6 @@ console.log('overlapped=', overlapped,', open', state.open)
           state.open &&
           basic.lectureBasic !== null &&
           basic.isFetching === false &&
-          typeof overlapped !== 'undefined' &&
           <Dialog
             title="入力内容の確認"
             actions={[
@@ -503,18 +508,18 @@ console.log('overlapped=', overlapped,', open', state.open)
                 state.join ?
                 {
                   join: state.join,
-                  department: overlapped.overlappedLecture.department.name,
-                  grade: overlapped.overlappedLecture.grade,
-                  title: overlapped.overlappedLecture.title,
-                  code: overlapped.overlappedLecture.code,
-                  yearSemester: `${overlapped.overlappedLecture.year}年 ${overlapped.overlappedLecture.semester.name}`,
-                  weekday: weekdays.find(w => w.value === Number(overlapped.overlappedLecture.weekday)).string,
-                  timeSlot: `${overlapped.overlappedLecture.timeSlot}限`,
-                  place: overlapped.overlappedLecture.place,
-                  length: overlapped.overlappedLecture.length,
-                  description: overlapped.overlappedLecture.description,
+                  department: overlappedLecture.overlappedLecture.department.name,
+                  grade: overlappedLecture.overlappedLecture.grade,
+                  title: overlappedLecture.overlappedLecture.title,
+                  code: overlappedLecture.overlappedLecture.code,
+                  yearSemester: `${overlappedLecture.overlappedLecture.year}年 ${overlappedLecture.overlappedLecture.semester.name}`,
+                  weekday: weekdays.find(w => w.value === Number(overlappedLecture.overlappedLecture.weekday)).string,
+                  timeSlot: `${overlappedLecture.overlappedLecture.timeSlot}限`,
+                  place: overlappedLecture.overlappedLecture.place,
+                  length: overlappedLecture.overlappedLecture.length,
+                  description: overlappedLecture.overlappedLecture.description,
                   me: user.user.name,
-                  otherTeacher: overlapped.overlappedLecture.users.map(u => 
+                  otherTeacher: overlappedLecture.overlappedLecture.users.map(u => 
                     `${u.familyName} ${u.givenName}`
                   )
                 }:
@@ -547,7 +552,8 @@ console.log('overlapped=', overlapped,', open', state.open)
 CreateLecture.propTypes = {
   user: PropTypes.object.isRequired,
   basic: PropTypes.object.isRequired,
-  disposable: PropTypes.object.isRequired,
+  overlappedLecture: PropTypes.object.isRequired,
+  storeLecture: PropTypes.object.isRequired,
   routes: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
 };
@@ -556,13 +562,19 @@ function mapStateToProps(state, ownProps) {
   return {
     user: state.user,
     basic: state.lectureBasic,
-    disposable: state.disposable,
+    overlappedLecture: state.disposable.overlappedLecture,
+    storeLecture: state.disposable.storeLecture,
+    joinLecture: state.disposable.joinLecture,
     routes: ownProps.routes
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = Object.assign(LectureActions, routeActions);
+  const actions = Object.assign(
+    InitializeActions,
+    LectureActions,
+    { push: push }
+  );
   return {
     actions: bindActionCreators(actions, dispatch)
   };

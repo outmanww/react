@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 //use App\Repositories\Teacher\Lecture\LectureContract;
 //Models
 use App\Models\Lecture\Lecture;
+use App\Models\Lecture\Room;
 use App\Models\Lecture\Department;
 use App\Models\Lecture\Faculty;
 use App\Models\Lecture\Semester;
@@ -14,6 +15,8 @@ use App\Exceptions\ApiException;
 //Requests
 use App\Http\Requests\Teacher\Lecture\SearchLectureRequest;
 use App\Http\Requests\Teacher\Lecture\StoreLectureRequest;
+use App\Http\Requests\Teacher\Lecture\JoinLectureRequest;
+use App\Http\Requests\Teacher\Lecture\OpenRoomRequest;
 use App\Http\Requests\Teacher\Lecture\UpdateLectureRequest;
 // Carbon
 use Carbon\Carbon;
@@ -115,6 +118,9 @@ class LectureController extends Controller
         }
 
         $lecture = Lecture::with([
+            'semester' => function ($query) {
+                $query->select('id', 'name');
+            },
             'department' => function ($query) {
                 $query->select('id', 'name', 'faculty_id');
             },
@@ -198,7 +204,38 @@ class LectureController extends Controller
         $lecture->status = 1;
         $lecture->save();
 
-        return \Response::json($lecture, 200);
+        $user = \Auth::guard('users')->user();
+        $user->lectures()->attach($lecture->id);
+
+        return \Response::json('success', 200);
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function join($school, JoinLectureRequest $request)
+    {
+        $user = \Auth::guard('users')->user();
+        $user->lectures()->attach($request->id);
+
+        return \Response::json('success', 200);
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function open($school, $id, OpenRoomRequest $request)
+    {
+        $user = \Auth::guard('users')->user();
+
+        $room = new Room;
+        $room->lecture_id = $id;
+        $room->teacher_id = $user->id;
+        $room->key = '123456';
+        $room->length = $request->length;
+        $room->save();
+
+        return \Response::json($room, 200);
     }
 
     /**

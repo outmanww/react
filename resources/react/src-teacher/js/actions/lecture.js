@@ -62,6 +62,23 @@ export function storeLecture(body) {
   };
 }
 
+export function joinLecture(id) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.JOIN_LECTURE,
+        types.JOIN_LECTURE_SUCCESS,
+        types.JOIN_LECTURE_FAIL
+      ],
+      endpoint: `lectures/join`,
+      method: 'POST',
+      body: {id: id}
+    }
+  };
+}
+
+
+
 export function fetchLecture(id) {
   return {
     [CALL_API]: {
@@ -88,6 +105,21 @@ export function fetchRoom(id) {
       endpoint: `room/${id}`,
       method: 'GET',
       body: null
+    }
+  };
+}
+
+export function openRoom(id, length) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.OPEN_ROOM,
+        types.OPEN_ROOM_SUCCESS,
+        types.OPEN_ROOM_FAIL
+      ],
+      endpoint: `lectures/${id}/open`,
+      method: 'POST',
+      body: {length}
     }
   };
 }
