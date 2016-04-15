@@ -22,6 +22,12 @@ function wrapState(ComposedComponent) {
       };
     }
 
+    componentWillReceiveProps(nextProps) {
+      this.state = {
+        selectedIndex: nextProps.pathname
+      };
+    }
+
     handleUpdateSelectedIndex(e, index) {
       this.props.push({
         pathname: index
