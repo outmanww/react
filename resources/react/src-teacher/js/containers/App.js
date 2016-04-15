@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 // Config
 import { SCHOOL_NAME } from '../../config/env';
 // Actions
+import * as InitializeActions from '../actions/initialize';
 import * as UserActions from '../actions/user';
-import { push, routeActions } from 'react-router-redux';
+import { push } from 'react-router-redux';
 // Theme
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
@@ -18,7 +19,6 @@ import MainSidebar from '../components/Common/MainSidebar';
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
 import SocialPublic from 'material-ui/lib/svg-icons/social/public';
 var Breadcrumbs = require('react-breadcrumbs');
-
 
 @ThemeDecorator(ThemeManager.getMuiTheme(MyTheme))
 class App extends Component {
@@ -128,6 +128,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   const actions = Object.assign(
+    InitializeActions,
     UserActions,
     {push: push}
   );

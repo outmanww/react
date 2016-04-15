@@ -71,7 +71,7 @@ class Alert extends Component {
           <div className="alert-wrap">
             {alerts.map(({ key, data: {status, messageId, value}, style }) => {
               return (
-                <div className={`callout custom-alert callout-${status}`} style={style} key={key}>
+                <div className={`alert custom-alert alert-${status}`} style={style} key={key}>
                   <FormattedMessage id={messageId} values={value}>
                     {text => <p>{text}</p>}
                   </FormattedMessage>
