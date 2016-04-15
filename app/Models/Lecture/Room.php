@@ -57,7 +57,7 @@ class Room extends Model
 
 	public function statusPie($interval, $type_id)
 	{
-        $affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
 
 		$results = array(
             'total' => 0,
@@ -111,7 +111,7 @@ class Room extends Model
 
 	public function historyAttendance($interval)
 	{
-        $affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
 
 		// room create time and close time
 		$room_create_time = $this->created_at;
@@ -170,7 +170,7 @@ class Room extends Model
 
 	public function historyReaction($interval, $type_id)
 	{
-        $affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
 
 		// room create time and close time
 		$room_create_time = $this->created_at;
@@ -220,8 +220,8 @@ class Room extends Model
 
 	public function historyAllTypeReaction($interval)
 	{
-        $affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
-
+		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+		
 		// room create time and close time
 		$room_create_time = $this->created_at;
 		if(!$this->closed_at)
