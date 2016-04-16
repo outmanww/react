@@ -13,8 +13,17 @@ return [
     // interval (in minuts) when check the latest status
     'interval_status_student' => 5,
 
+    // time (in minutes) between length and close
+    'time_between_length_close' => 10,
+
     // interval (in minutes) between two reactions
     'interval_reaction' => 10,
+
+    // default interval for chart data
+    'default_interval_line_chart' => 10,
+
+    // default interval for chart data
+    'default_interval_pie_chart' => 5,
 
     // action
     'action' => [

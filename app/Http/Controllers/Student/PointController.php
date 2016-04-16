@@ -72,9 +72,4 @@ class PointController extends Controller
             ]);
         return \Response::json("OK", 200);
     }
-
-    public static function calPoints($min)
-    {
-    	return floor($min/config('controller.min_point_rate'));
-    }
 }
