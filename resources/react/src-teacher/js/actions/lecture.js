@@ -1,4 +1,5 @@
 import * as types from '../constants/LectureActionTypes';
+import { ADD_SIDE_ALERT } from '../constants/ActionTypes';
 import { CALL_API } from '../middleware/fetchMiddleware';
 import { push } from 'react-router-redux';
 
@@ -58,6 +59,16 @@ export function storeLecture(body) {
       endpoint: `lectures/store`,
       method: 'POST',
       body: body
+    },
+    meta: {
+      actionsOnSuccess: [
+        () => ({
+          type: ADD_SIDE_ALERT,
+          status: 'success',
+          messageId: 'lecture.store.success',
+          value: ''
+        })
+      ]
     }
   };
 }
@@ -73,6 +84,16 @@ export function joinLecture(id) {
       endpoint: `lectures/join`,
       method: 'POST',
       body: {id: id}
+    },
+    meta: {
+      actionsOnSuccess: [
+        () => ({
+          type: ADD_SIDE_ALERT,
+          status: 'success',
+          messageId: 'lecture.join.success',
+          value: ''
+        })
+      ]
     }
   };
 }

@@ -228,10 +228,17 @@ class LectureController extends Controller
     {
         $user = \Auth::guard('users')->user();
 
+        if ($user->hasActiveRoom()) {
+            throw new ApiException('user.alreadyHasRoom');
+        }
+
         $room = new Room;
+
+        if (!$room->genKey()) {
+            throw new ApiException('room.overSize');
+        }
         $room->lecture_id = $id;
         $room->teacher_id = $user->id;
-        $room->key = '123456';
         $room->length = $request->length;
         $room->save();
 

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Paper } from 'material-ui';
 import Colors from 'material-ui/lib/styles/colors';
+import Charts from './Charts';
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -14,13 +15,20 @@ class Dashboard extends Component {
   }
 
   render() {
+    const style = {
+      minHeight: window.innerHeight - 64,
+      background: Colors.blueGrey50,
+      padding: '0 40px 40px'
+    };
+
     return (
-      <div style={{ minHeight: '600px', background: Colors.blueGrey50}}>
-        <div className="container">
-          <section className="content-header">
-            <h3>Dashboard</h3>
-          </section>
-        </div>
+      <div style={style}>
+        <section className="content-header">
+          <h3>Dashboard</h3>
+        </section>
+        <section className="content">
+          <Charts/>
+        </section>
       </div>
     );
   }

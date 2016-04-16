@@ -25,9 +25,10 @@ class ReactionTableSeeder extends Seeder
         }
         
         // seed reactions table
-        $affiliation = DB::table('affiliations')
+        $nagoya_u = DB::table('affiliations')
             ->where('name', '名古屋大学')
             ->first();
+
         $student_1 = DB::table('students')
             ->where('family_name', '山田')
             ->first();
@@ -38,7 +39,7 @@ class ReactionTableSeeder extends Seeder
         $reactions = [
             [
                 'student_id'       => $student_1->id,
-                'affiliation_id'   => $affiliation->id,
+                'affiliation_id'   => $nagoya_u->id,
                 'room_id'          => 1,
                 'action_id'        => 1,
                 'type_id'          => 1,
@@ -46,7 +47,7 @@ class ReactionTableSeeder extends Seeder
                 'created_at'       => Carbon::now(),
             ],[
                 'student_id'       => $student_1->id,
-                'affiliation_id'   => $affiliation->id,
+                'affiliation_id'   => $nagoya_u->id,
                 'room_id'          => 1,
                 'action_id'        => 2,
                 'type_id'          => 1,
@@ -54,7 +55,7 @@ class ReactionTableSeeder extends Seeder
                 'created_at'       => Carbon::now(),
             ],[
                 'student_id'       => $student_1->id,
-                'affiliation_id'   => $affiliation->id,
+                'affiliation_id'   => $nagoya_u->id,
                 'room_id'          => 1,
                 'action_id'        => 2,
                 'type_id'          => 2,
@@ -62,7 +63,7 @@ class ReactionTableSeeder extends Seeder
                 'created_at'       => Carbon::now(),
             ],[
                 'student_id'       => $student_1->id,
-                'affiliation_id'   => $affiliation->id,
+                'affiliation_id'   => $nagoya_u->id,
                 'room_id'          => 1,
                 'action_id'        => 3,
                 'type_id'          => 1,
@@ -70,7 +71,7 @@ class ReactionTableSeeder extends Seeder
                 'created_at'       => Carbon::now(),
             ],[
                 'student_id'       => $student_1->id,
-                'affiliation_id'   => $affiliation->id,
+                'affiliation_id'   => $nagoya_u->id,
                 'room_id'          => 1,
                 'action_id'        => 1,
                 'type_id'          => 3,
@@ -78,7 +79,7 @@ class ReactionTableSeeder extends Seeder
                 'created_at'       => Carbon::now(),
             ],[
                 'student_id'       => $student_1->id,
-                'affiliation_id'   => $affiliation->id,
+                'affiliation_id'   => $nagoya_u->id,
                 'room_id'          => 1,
                 'action_id'        => 1,
                 'type_id'          => 4,
@@ -86,7 +87,7 @@ class ReactionTableSeeder extends Seeder
                 'created_at'       => Carbon::now(),
             ],[
                 'student_id'       => $student_1->id,
-                'affiliation_id'   => $affiliation->id,
+                'affiliation_id'   => $nagoya_u->id,
                 'room_id'          => 1,
                 'action_id'        => 1,
                 'type_id'          => 2,
@@ -94,7 +95,7 @@ class ReactionTableSeeder extends Seeder
                 'created_at'       => Carbon::now(),
             ],[
                 'student_id'       => $student_2->id,
-                'affiliation_id'   => $affiliation->id,
+                'affiliation_id'   => $nagoya_u->id,
                 'room_id'          => 1,
                 'action_id'        => 1,
                 'type_id'          => 1,

@@ -29,4 +29,18 @@ class DashboardController extends Controller
         $env = env('APP_ENV');
         return view('teacher.index', compact('domain', 'env', 'school'));
     }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function test()
+    {
+        $user = \Auth::guard('users')->user();
+        $room = $user->rooms()->where('closed_at', null)->first();
+
+        $reactions = $room->historyAllTypeReaction(5);
+
+        return \Response::json($reactions, 200);
+    }
+
 }
