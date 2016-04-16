@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Student\PointController;
 // Models
 use App\Models\Lecture\Room;
 use App\Models\Point\Point;
@@ -44,7 +43,6 @@ class RoomController extends Controller
         $room = $room->setConnection($dbName);
         $room = $room->where('key', $key)
             ->select('lecture_id', 'teacher_id', 'closed_at')->firstOrFail();
-
         $weekday = $this->weeks[$room->lecture->weekday];
     
         $results = array(
@@ -73,7 +71,7 @@ class RoomController extends Controller
 
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
         
-        // point calculation on room_in event
+        // room_in event
         if($request->action == config('controller.action.basic') && $request->type == config('controller.b_type.room_in') &&
             $request->has('geo_lat') && $request->has('geo_long'))
         {

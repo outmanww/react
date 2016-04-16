@@ -39,4 +39,9 @@ class Point extends Model
             ->where('room_id', $room_id)
             ->orderBy('created_at','desc');
     }
+    
+    public static function calPoints($min)
+    {
+        return floor($min/config('controller.min_point_rate'));
+    }
 }
