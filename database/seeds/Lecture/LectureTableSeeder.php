@@ -211,6 +211,22 @@ class LectureTableSeeder extends Seeder
                     'created_at'    => Carbon::now(),
                     'updated_at'    => Carbon::now()
                 ],
+                [
+                    'title'         => 'Mathmatics',
+                    'sort'          => '12',
+                    'department_id' => $department_2->id,
+                    'code'          => '121256',
+                    'grade'         => '学部３年',
+                    'place'         => '工学５号館２０１',
+                    'weekday'       => '3',
+                    'time_slot'     => '6',
+                    'length'        => '90',
+                    'year'          => 2016,
+                    'semester_id'   => 1,
+                    'description'   => 'A lecture for mathmatics',
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
+                ],
             ];
 
             DB::connection($connection_name)->table('lectures')->insert($lectures);

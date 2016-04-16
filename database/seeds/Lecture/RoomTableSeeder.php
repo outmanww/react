@@ -33,11 +33,17 @@ class RoomTableSeeder extends Seeder
             $lecture_2 = DB::connection($connection_name)->table('lectures')
                 ->where('sort', 11)
                 ->first();
+            $lecture_3 = DB::connection($connection_name)->table('lectures')
+                ->where('sort', 12)
+                ->first();
             $teacher_1 = DB::connection($connection_name)->table('users')
                 ->where('family_name', '柳浦')
                 ->first();
             $teacher_2 = DB::connection($connection_name)->table('users')
                 ->where('family_name', '宮崎')
+                ->first();
+            $teacher_3 = DB::connection($connection_name)->table('users')
+                ->where('family_name', 'Dean')
                 ->first();
 
             $rooms = [
@@ -45,6 +51,14 @@ class RoomTableSeeder extends Seeder
                     'lecture_id'       => $lecture_2->id,
                     'teacher_id'       => $teacher_2->id,
                     'key'              => '001700',
+                    'created_at'       => Carbon::now(),
+                    'updated_at'       => Carbon::now(),
+                    'closed_at'        => null,
+                ],
+                [
+                    'lecture_id'       => $lecture_3->id,
+                    'teacher_id'       => $teacher_3->id,
+                    'key'              => '001001',
                     'created_at'       => Carbon::now(),
                     'updated_at'       => Carbon::now(),
                     'closed_at'        => null,
