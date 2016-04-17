@@ -38,9 +38,18 @@ class DashboardController extends Controller
         $user = \Auth::guard('users')->user();
         $room = $user->rooms()->where('closed_at', null)->first();
 
-        $reactions = $room->historyAllTypeReaction(5);
+        // echo "<pre>";
+        // var_dump($room);
+        // echo "</pre>";
 
-        return \Response::json($reactions, 200);
+        $charts = $room->getChartData(5, 5);
+
+        return \Response::json($charts, 200);
+    }
+
+    public function now()
+    {
+        return \Carbon\Carbon::now();
     }
 
 }

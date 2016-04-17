@@ -17,21 +17,49 @@ class Charts extends Component {
   }
 
   render() {
+    const { line } = this.props.charts;
 
-    const labels = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-    const data   = [28, 48, 40, 19, 86, 27, 90, 8, 10, 80, 60];
+    let labels = [];
+    for (let i = line.boring.length - 1; i >= 0; i--) {
+      labels.unshift(5 * i);
+    }
+
+    const colors = {
+      confused: '199,36,58',
+      interesting: '0,122,183',
+      boring: '35,172,14',
+    }
+
     const lineData = {
       labels: labels,
       datasets: [
         {
-          label: "My Second dataset",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
+          label: "confused",
+          fillColor: `rgba(${colors.confused},0.02)`,
+          strokeColor: `rgba(${colors.confused},1)`,
+          pointColor: `rgba(${colors.confused},1)`,
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(151,187,205,1)",
-          data: data
+          data: line.confused
+        },{
+          label: "interesting",
+          fillColor: `rgba(${colors.interesting},0.02)`,
+          strokeColor: `rgba(${colors.interesting},1)`,
+          pointColor: `rgba(${colors.interesting},1)`,
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: line.interesting
+        },{
+          label: "boring",
+          fillColor: `rgba(${colors.boring},0.02)`,
+          strokeColor: `rgba(${colors.boring},1)`,
+          pointColor: `rgba(${colors.boring},1)`,
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: line.boring
         }
       ]
     };
@@ -42,9 +70,8 @@ class Charts extends Component {
           <div id="line-wrap" className="raw">
             <Line
               data={lineData}
-              width={`${this.state.lineWidth}px`}
-              height="250"
-              style={{width: this.state.lineWidth, height: 250}}
+              width="1000"
+              height="300"
             />
           </div>
         </div>
