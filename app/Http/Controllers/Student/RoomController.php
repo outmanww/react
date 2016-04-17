@@ -21,7 +21,8 @@ use Carbon\Carbon;
 class RoomController extends Controller
 {
 
-    protected $weeks = ['日','月','火','水','木','金','土'];
+    protected $weeks = ['Sun.','Mon.','Tue.','Wed.','Thu.','Fri.','Sat.'];
+    protected $weeksJP = ['日','月','火','水','木','金','土'];
 
     /**
      * @return Response
