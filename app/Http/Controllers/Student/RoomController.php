@@ -47,7 +47,7 @@ class RoomController extends Controller
     
         $results = array(
             'lecture' => $room->lecture->title,
-            'teacher' => $room->teacher->family_name.$room->teacher->given_name,
+            'teacher' => $room->teacher->family_name.' '.$room->teacher->given_name,
             'timeslot' => $weekday.$room->lecture->time_slot
             );
 
