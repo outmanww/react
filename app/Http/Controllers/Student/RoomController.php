@@ -41,13 +41,26 @@ class RoomController extends Controller
         $dbName = Affiliation::find($affiliation_id)->db_name;
         $room = new Room;
         $room = $room->setConnection($dbName);
+
+
+
+
+
+        return $room->where('key', $key)->firstOrFail()->getChartData();
+
+
+
         $room = $room->where('key', $key)
             ->select('lecture_id', 'teacher_id', 'closed_at')->firstOrFail();
+
+
+
+
         $weekday = $this->weeks[$room->lecture->weekday];
     
         $results = array(
             'lecture' => $room->lecture->title,
-            'teacher' => $room->teacher->family_name.$room->teacher->given_name,
+            'teacher' => $room->teacher->family_name.' '.$room->teacher->given_name,
             'timeslot' => $weekday.$room->lecture->time_slot
             );
 

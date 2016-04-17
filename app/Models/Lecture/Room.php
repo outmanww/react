@@ -265,7 +265,8 @@ class Room extends Model
     		$event_time = $event_time->diffInMinutes($room_create_time);
     		
     		$slotIndex = ceil($event_time/$interval);
-
+	   		if($slotIndex >= $num_slot)
+	   			continue;
     		$weight = ($event_time-$lastTime) / config('controller.interval_reaction');
 			if($weight>=1)
 				$num_array[$slotIndex]++;
@@ -320,9 +321,11 @@ class Room extends Model
         		$lastStudentID = $reaction_event['student_id'];
         	}
     		$event_time = Carbon::createFromFormat('Y-m-d H:i:s', $reaction_event['created_at']);
+
     		$event_time = $event_time->diffInMinutes($room_create_time);
-    		
-    		$slotIndex = ceil($event_time/$interval);
+       		$slotIndex = ceil($event_time/$interval);
+       		if($slotIndex >= $num_slot)
+       			continue;
         	if($reaction_event['type_id'] == config('controller.r_type.confused'))
         	{
         		$weight = ($event_time-$lastConTime) / config('controller.interval_reaction');

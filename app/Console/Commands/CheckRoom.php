@@ -21,14 +21,14 @@ class CheckRoom extends Command
      *
      * @var string
      */
-    protected $signature = 'checkRoom';
+    protected $signature = 'check-room';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Check Room Status';
+    protected $description = 'Check room status, and close finished rooms';
 
     /**
      * Execute the console command.
