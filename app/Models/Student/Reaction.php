@@ -56,6 +56,15 @@ class Reaction extends Model
             ->where('type_id', config('controller.b_type.room_in'))
             ->orderBy('created_at','desc');
     }
+    public function scopeLastBasic($query, $student_id, $affiliation_id, $room_id)
+    {
+        return $query
+            ->where('affiliation_id', $affiliation_id)
+            ->where('student_id', $student_id)
+            ->where('room_id', $room_id)
+            ->where('action_id', config('controller.action.basic'))
+            ->orderBy('created_at','desc');
+    }
     public function scopeFromForeIn($query, $student_id, $affiliation_id, $room_id)
     {
         return $query
@@ -98,6 +107,16 @@ class Reaction extends Model
             ->whereIn('action_id', [config('controller.action.reaction_anonymous'),config('controller.action.reaction_realname')])
             ->where('type_id', $type_id);
     }
+
+    public function scopeMessageFromMin($query, $affiliation_id, $room_id, $fromTime)
+    {
+        return $query
+            ->where('affiliation_id', $affiliation_id)
+            ->where('room_id', $room_id)
+            ->where('action_id', config('controller.action.message'))
+            ->where('created_at', '>', $fromTime);
+    }
+
     public function calDiffMin(Carbon $room_in)
     {
         $datetime = $this->created_at;

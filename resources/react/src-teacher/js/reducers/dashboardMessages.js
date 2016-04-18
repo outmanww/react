@@ -1,33 +1,31 @@
 import {
-  REQUEST_CHARTS,
-  REQUEST_CHARTS_SUCCESS,
-  REQUEST_CHARTS_FAIL,
+  REQUEST_MESSAGES,
+  REQUEST_MESSAGES_SUCCESS,
+  REQUEST_MESSAGES_FAIL,
 } from '../constants/DashboardActionTypes';
 
 const initialState = {
-  line: null,
-  pie: null,
+  dashboardMessages: null,
   isFetching: false,
   didInvalidate: false
 };
 
-export default function dashboardCharts(state = initialState, action) {
+export default function dashboardMessages(state = initialState, action) {
   switch (action.type) {
-  case REQUEST_CHARTS:
+  case REQUEST_MESSAGES:
     return Object.assign({}, state, {
       isFetching: true,
       didInvalidate: false
     });
 
-  case REQUEST_CHARTS_SUCCESS:
+  case REQUEST_MESSAGES_SUCCESS:
     return Object.assign({}, state, {
-      line: action.payload.line,
-      pie: action.payload.pie,
+      dashboardMessages: action.payload,
       isFetching: false,
       didInvalidate: false
     });
 
-  case REQUEST_CHARTS_FAIL:
+  case REQUEST_MESSAGES_FAIL:
     return Object.assign({}, state, {
       isFetching: false,
       didInvalidate: true

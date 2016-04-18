@@ -41,20 +41,8 @@ class RoomController extends Controller
         $dbName = Affiliation::find($affiliation_id)->db_name;
         $room = new Room;
         $room = $room->setConnection($dbName);
-
-
-
-
-
-        return $room->where('key', $key)->firstOrFail()->getChartData();
-
-
-
         $room = $room->where('key', $key)
             ->select('lecture_id', 'teacher_id', 'closed_at')->firstOrFail();
-
-
-
 
         $weekday = $this->weeks[$room->lecture->weekday];
     
@@ -110,6 +98,16 @@ class RoomController extends Controller
             }
             if(!$is_in_campus)
                 return \Response::json('not in campus', 400);
+        }
+
+        // fore in event
+        if($request->action == config('controller.action.basic') && $request->type == config('controller.b_type.fore_in'))
+        {
+            // if the last event is not fore out event, ignore
+            $last_room_in = Reaction::lastBasic($student->id, $affiliation_id, $check_key_rst['id'])
+                ->select('type_id')->firstOrFail();
+            if($last_room_in->type_id != config('controller.b_type.fore_out'))
+                return \Response::json('No need to fore in', 400);
         }
 
         $new_msg = null;

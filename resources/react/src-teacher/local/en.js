@@ -1,36 +1,26 @@
 /*eslint-disable max-len,quotes*/
 export default {
-  "nav.dashboard": `Dashboard`,
-  "nav.lecture": `Lecture Management`,
+  "unexpected": `Connection error, please try again`,
 
-  "plan.notFound": `The plan not found.`,
-  "plan.alreadyExist": `The plan already exist.`,
-  "plan.hasFlights": `The plan has fligts`,
+  "nav.dashboard": `Dashbord`,
+  "nav.lecture": `Lecture`,
 
-  "type.notFound": `The type not found.`,
-  "type.sameNameExist": `The type has same name already exist.`,
-  "type.hasPlans": `The type has plans`,
+  "user.alreadyHasRoom": `Active room for this lecture already exists`,
 
-  "place.notFound": `The place not found.`,
-  "place.sameNameExist": `The place has same name already exist.`,
-  "place.hasPlans": `The place has plans`,
+  "lecture.store.success": `New lecture has been created`,
+  "lecture.join.success": `New lecture has been registed`,
 
-  "generatePin.success": `Generate Pin code successfully.`,
-  "sideAlert.success": `{attribute, plural,
-  	=user {User} =role {Role} =permission {Permission}}{method, plural,
-  	=activate {activate} =deactivate {deactivate} =restore{restore} =destroy{delete} =delete{delete permanently} =resend{send comfirmatin mail}} successfully`,
-  "sideAlert.fail": `{attribute, plural,
-  	=user {User} =role {Role} =permission {Permission}}{method, plural,
-  	=activate {activate} =deactivate {deactivate} =restore{restore} =destroy{delete} =delete{delete permanently} =resend{send comfirmatin mail}} failer. Try it again.`,
+  "room.overSize": `New room for this lecture is not available now`,
 
 
-  "server.undefined": "server error",
-  "sideAlert.success": "The {attribute} was successfully {method}.",
-  "sideAlert.fail": "There was a problem to {method} this {attribute}. Please try again",
 
-  "validate.required": `required input`,
-  "validate.alpha": `required alphabet`,
-  "validate.max:8": `max 8`,
-  "validate.max:120": `max 120`,
+  "validate.required": `Required`,
+  "validate.num": `Please input numeric character`,
+  "validate.alpha": `Please input alphabet`,
+  "validate.alphaNum": `Please input alphanumeric character`,
+  "validate.max:8": `Max size: 8 characters`,
+  "validate.max:15": `Max size: 15 characters`,
+  "validate.max:30": `Max size: 30 characters`,
+  "validate.max:120": `Max size: 120 characters`,
 
 };

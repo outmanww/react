@@ -9,9 +9,11 @@ import lectures from './lectures';
 import lectureBasic from './lectureBasic';
 import room from './room';
 import dashboardCharts from './dashboardCharts';
+import dashboardMessages from './dashboardMessages';
 
 const rootReducer = combineReducers(Object.assign({
-  application, alert, disposable, user, lectures, lectureBasic, room, dashboardCharts
+  application, alert, disposable, user, lectures, lectureBasic, room,
+  dashboardCharts, dashboardMessages
 }, {
   routing: routeReducer
 }

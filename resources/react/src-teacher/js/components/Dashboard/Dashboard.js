@@ -7,13 +7,16 @@ import * as DashboardActions from '../../actions/dashboard';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Paper } from 'material-ui';
 import Colors from 'material-ui/lib/styles/colors';
-import Charts from './Charts';
+import PieCharts from './PieCharts';
+import LineChart from './LineChart';
+import Message from './Message';
 
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
-    const { fetchCharts } = props.actions;
+    const { fetchCharts, fetchMessages } = props.actions;
     fetchCharts();
+    fetchMessages();
     this.state = {
       intervalId: null
     };
@@ -23,7 +26,7 @@ class Dashboard extends Component {
     const { fetchCharts } = this.props.actions;
     const intervalId = setInterval(()=> {
       fetchCharts();
-    }, 1000);
+    }, 5000);
     this.setState({intervalId});
   }
 
@@ -45,9 +48,24 @@ class Dashboard extends Component {
           <h3>Dashboard</h3>
         </section>
         <section className="content">
-          {charts.charts !== null &&
-            <Charts charts={charts.charts}/>
-          }
+          <div className="raw">
+            <div className="col-md-8">
+              <div className="raw">
+                {charts.pie !== null &&
+                  <PieCharts pie={charts.pie}/>
+                }
+              </div>
+              <div className="raw">
+                {charts.line !== null &&
+                  <LineChart line={charts.line}/>
+                }
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="raw">
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     );

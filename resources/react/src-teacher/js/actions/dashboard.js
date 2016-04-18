@@ -17,3 +17,25 @@ export function fetchCharts() {
     }
   };
 }
+
+export function fetchMessages() {
+  return {
+    [CALL_API]: {
+      types: [
+        types.REQUEST_MESSAGES,
+        types.REQUEST_MESSAGES_SUCCESS,
+        types.REQUEST_MESSAGES_FAIL
+      ],
+      endpoint: (state) => {
+        const messages = state.dashboardMessages.dashboardMessages;
+        if (messages === null) {
+          return 'messages/?latest=0'
+        } else {
+          return `messages/?latest=${messages[0].time}`
+        }
+      },
+      method: 'GET',
+      body: null
+    }
+  };
+}

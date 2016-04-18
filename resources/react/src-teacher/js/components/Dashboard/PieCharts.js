@@ -60,30 +60,28 @@ class PieChart extends Component {
     ];
 
     return (
-      <div className="space-top-4 space-bottom-3">
-        <div className="has-border">
-          <div className="col-md-4 clearfix">
+      <div>
+          <div className="col-md-4">
             <DoughnutChart
               data={confused}
               width="200"
               height="200"
             />
           </div>
-          <div className="col-md-4 clearfix">
+          <div className="col-md-4">
             <DoughnutChart
               data={interesting}
               width="200"
               height="200"
             />
           </div>
-          <div className="col-md-4 clearfix">
+          <div className="col-md-4">
             <DoughnutChart
               data={boring}
               width="200"
               height="200"
             />
           </div>
-        </div>
       </div>
     );
   }
