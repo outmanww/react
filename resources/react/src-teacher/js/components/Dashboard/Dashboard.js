@@ -14,8 +14,9 @@ import Message from './Message';
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
-    const { fetchCharts } = props.actions;
+    const { fetchCharts, fetchMessages } = props.actions;
     fetchCharts();
+    fetchMessages();
     this.state = {
       intervalId: null
     };
@@ -62,7 +63,6 @@ class Dashboard extends Component {
             </div>
             <div className="col-md-4">
               <div className="raw">
-                <Message messages={{}}/>
               </div>
             </div>
           </div>
