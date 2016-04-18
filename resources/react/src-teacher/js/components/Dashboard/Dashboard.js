@@ -12,7 +12,23 @@ import Charts from './Charts';
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
-    props.actions.fetchCharts();
+    const { fetchCharts } = props.actions;
+    fetchCharts();
+    this.state = {
+      intervalId: null
+    };
+  }
+
+  componentDidMount() {
+    const { fetchCharts } = this.props.actions;
+    const intervalId = setInterval(()=> {
+      fetchCharts();
+    }, 1000);
+    this.setState({intervalId});
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
   }
 
   render() {
@@ -29,7 +45,7 @@ class Dashboard extends Component {
           <h3>Dashboard</h3>
         </section>
         <section className="content">
-          {charts.charts !== null && !charts.isFetching &&
+          {charts.charts !== null &&
             <Charts charts={charts.charts}/>
           }
         </section>

@@ -38,10 +38,6 @@ class DashboardController extends Controller
         $user = \Auth::guard('users')->user();
         $room = $user->rooms()->where('closed_at', null)->first();
 
-        // echo "<pre>";
-        // var_dump($room);
-        // echo "</pre>";
-
         $charts = $room->getChartData(5, 5);
 
         return \Response::json($charts, 200);
