@@ -419,6 +419,33 @@ class Room extends Model
 		return false;
 	}
 
+	public function getMessage($latestTime = null)
+	{
+ 		// get affiliation ID
+		if(is_null($this->affiliation_id))
+			$this->affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+
+        // transfer from timestamp to carbon
+		if(is_null($latestTime))
+		{
+			$latestTime = $this->created_at;
+		}
+		else
+		{
+			$latestTime = Carbon::createFromTimestamp($latestTime);
+		}
+
+		// get all message data
+		$messages = Reaction::messageFromMin($this->affiliation_id, $this->id, $latestTime)
+								->select('created_at as time','type_id as type','message')
+            					->orderBy('time','desc')
+								->get();
+		foreach($messages as $message)
+			$message['time'] = strtotime($message['time']);
+
+		return $messages;
+	}
+
 	// close room operation
 	public function closeRoom($history_data_interval = 10)
 	{
