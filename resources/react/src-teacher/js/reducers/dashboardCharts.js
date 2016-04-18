@@ -5,7 +5,8 @@ import {
 } from '../constants/DashboardActionTypes';
 
 const initialState = {
-  charts: null,
+  line: null,
+  pie: null,
   isFetching: false,
   didInvalidate: false
 };
@@ -20,7 +21,8 @@ export default function dashboardCharts(state = initialState, action) {
 
   case REQUEST_CHARTS_SUCCESS:
     return Object.assign({}, state, {
-      charts: action.payload,
+      line: action.payload.line,
+      pie: action.payload.pie,
       isFetching: false,
       didInvalidate: false
     });
