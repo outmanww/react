@@ -5,6 +5,7 @@ namespace App\Models\Lecture;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 // Models
 use App\Models\Student\Reaction;
 use App\Models\Student\Affiliation;
