@@ -182,7 +182,7 @@ class Room extends Model
 			$room_close_time = $this->closed_at;
 
 		// room length
-		$room_length = $room_close_time->diffInMinutes($room_create_time);
+		$room_length = $room_close_time->diffInMinutes($room_create_time)+1;
 		$num_slot = ceil($room_length/$interval);
 
 		// prepare array
@@ -244,7 +244,7 @@ class Room extends Model
 			$room_close_time = $this->closed_at;
 
 		// room length
-		$room_length = $room_close_time->diffInMinutes($room_create_time);
+		$room_length = $room_close_time->diffInMinutes($room_create_time)+1;
 		$num_slot = ceil($room_length/$interval);
 
 		// prepare array
@@ -299,7 +299,7 @@ class Room extends Model
 			$room_close_time = $this->closed_at;
 
 		// room length
-		$room_length = $room_close_time->diffInMinutes($room_create_time);
+		$room_length = $room_close_time->diffInMinutes($room_create_time)+1;
 		$num_slot = ceil($room_length/$interval);
 
 		// prepare array
