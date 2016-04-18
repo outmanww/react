@@ -21,6 +21,8 @@ class Room extends Model
 
 	protected $connection;
 
+	private $affiliation_id;
+
     /**
      * 複数代入の許可
      */
@@ -40,6 +42,7 @@ class Room extends Model
         if (isset($school)) {
             $this->setConnection($school);
         }
+        $affiliation_id = null;
     }
 
 	public function teacher()
@@ -56,21 +59,27 @@ class Room extends Model
 		return $this->CustomBelongsTo($lecture);
 	}
 
-	public function statusPie($type_id, $interval = 5)
+	// get data for pie chart
+	private function statusPie(int $type_id, int $interval = 5)
 	{
-		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+		// get affiliation ID
+		if(is_null($affiliation_id))
+			$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
 
+		// prepare the result array
 		$results = array(
             'attendance' => 0,
             'reaction' => 0,
             );
 		
+		// get last room events for each student ID
 		$room_events = Reaction::allRoomEvent($affiliation_id, $this->id)
 									->select('student_id', 'type_id', 'created_at')
 									->groupBy('student_id')
 									->havingRaw('created_at = MAX(created_at)')
 									->get();
 
+		// count the current attendance
 		$attendance_array = array();
 		foreach($room_events as $room_event)
         {
@@ -79,41 +88,28 @@ class Room extends Model
         }
         $results['attendance'] = count($attendance_array);
 
+        // get the reaction events in $interval minutes
         $reaction_events = Reaction::inMinutes($affiliation_id, $this->id, $type_id, $interval)
         								->select('student_id')
         								->groupBy('student_id')
         								->get();
 		foreach($reaction_events as $reaction_event)
         {
+        	// if the student is still in attendance, count to the number
         	if(in_array($reaction_event['student_id'], $attendance_array))
         		$results['reaction']++;
         }
-/*
-		$results['attendance'] = Reaction::where('affiliation_id', $affiliation_id)
-			->where('room_id', $this->id)
-			->where('action_id', config('controller.action.basic'))
-			->groupBy('student_id')
-			->havingRaw('COUNT(CASE type_id WHEN '.config('controller.b_type.room_in').' THEN 1 ELSE NULL END) > COUNT(CASE type_id WHEN '.config('controller.b_type.room_out').' THEN 1 ELSE NULL END)')
-			->get()
-			->count();
 
-		$results['reaction'] = Reaction::where('affiliation_id', $affiliation_id)
-			->where('room_id', $this->id)
-	        ->whereIn('action_id', [config('controller.action.reaction_anonymous'),config('controller.action.reaction_realname')])
-            ->where('created_at', '>', Carbon::now()->subMinutes($interval))
-			->where('type_id', $type_id)
-			->groupBy('student_id')
-			->havingRaw('COUNT(CASE type_id WHEN '.config('controller.b_type.room_in').' THEN 1 ELSE NULL END) > COUNT(CASE type_id WHEN '.config('controller.b_type.room_out').' THEN 1 ELSE NULL END)')
-			->get()
-			->count();
-*/
 		return $results;
 	}
 
-	private function statusPieAll($interval = 5)
+	private function statusPieAll(int $interval = 5)
 	{
-		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+		// get affiliation ID
+		if(is_null($affiliation_id))
+			$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
 
+		// prepare the result array
 		$results = array(
             'attendance' => 0,
             'confused' => 0,
@@ -121,12 +117,14 @@ class Room extends Model
             'boring' => 0,
             );
 		
+		// get last room events for each student ID
 		$room_events = Reaction::allRoomEvent($affiliation_id, $this->id)
 									->select('student_id', 'type_id', 'created_at')
 									->groupBy('student_id')
 									->havingRaw('created_at = MAX(created_at)')
 									->get();
 
+		// count the current attendance
 		$attendance_array = array();
 		foreach($room_events as $room_event)
         {
@@ -135,6 +133,7 @@ class Room extends Model
         }
         $results['attendance'] = count($attendance_array);
 
+        // get the reaction events in $interval minutes
         $reaction_events = Reaction::inMinutes($affiliation_id, $this->id, config('controller.r_type.confused'), $interval)
         								->select('student_id')
         								->groupBy('student_id')
@@ -164,13 +163,16 @@ class Room extends Model
         	if(in_array($reaction_event['student_id'], $attendance_array))
         		$results['boring']++;
         }
+
 		return $results;
 	}
 
-
-	public function historyAttendance($interval = 10)
+	// get attendance data
+	private function historyAttendance(int $interval = 10)
 	{
-		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+		// get affiliation ID
+		if(is_null($affiliation_id))
+			$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
 
 		// room create time and close time
 		$room_create_time = $this->created_at;
@@ -192,6 +194,7 @@ class Room extends Model
 								->select('created_at','type_id')
 								->get();
 
+		// calculate the attendance for each slot
         foreach($room_events as $room_event)
         {
         	if($room_event['type_id'] == config('controller.b_type.room_in'))
@@ -227,9 +230,11 @@ class Room extends Model
 		return $num_student_array;
 	}
 
-	public function historyReaction($type_id, $interval = 10)
+	private function historyReaction(int $type_id, int $interval = 10)
 	{
-		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+		// get affiliation ID
+		if(is_null($affiliation_id))
+			$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
 
 		// room create time and close time
 		$room_create_time = $this->created_at;
@@ -247,12 +252,14 @@ class Room extends Model
 		for($i=0; $i<$num_slot; $i++)
 			array_push($num_array, 0);
 
+		// get all reaction event by type
 		$reaction_events = Reaction::allReactionEventByType($affiliation_id, $this->id, $type_id)
 								->select('created_at','student_id')
 								->orderBy('student_id')
 								->orderBy('created_at')
 								->get();
 
+		// calculate the weighted reaction for each event
 		$lastStudentID = -1;
         foreach($reaction_events as $reaction_event)
         {
@@ -278,9 +285,11 @@ class Room extends Model
 		return $num_array;
 	}
 
-	private function historyAllTypeReaction($interval = 10)
+	private function historyAllTypeReaction(int $interval = 10)
 	{
-		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+		// get affiliation ID
+		if(is_null($affiliation_id))
+			$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
 		
 		// room create time and close time
 		$room_create_time = $this->created_at;
@@ -304,12 +313,14 @@ class Room extends Model
 			array_push($num_boring_array, 0);
 		}
 
+		// get all reaction event
 		$reaction_events = Reaction::allReactionEvent($affiliation_id, $this->id)
 								->select('created_at','student_id','type_id')
 								->orderBy('student_id')
 								->orderBy('created_at')
 								->get();
 
+		// calculate the weighted reaction for each event
 		$lastStudentID = -1;
         foreach($reaction_events as $reaction_event)
         {
@@ -361,7 +372,8 @@ class Room extends Model
 				'boring'=>$num_boring_array];
 	}
 
-	public function getChartData($pieInterval = 5, $lineInterval = 10)
+	// data for all chart data real time
+	public function getChartData(int $pieInterval = 5, int $lineInterval = 10)
 	{
 		$results = array();
 
@@ -371,9 +383,12 @@ class Room extends Model
 		return $results;
 	}
 
+	// generate key for new room
 	public function genKey()
 	{
-        $affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+ 		// get affiliation ID
+		if(is_null($affiliation_id))
+			$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
 
 		for($i=0;$i<config('controller.max_rand_key_gen');$i++)
 		{
@@ -404,7 +419,8 @@ class Room extends Model
 		return false;
 	}
 
-	public function closeRoom($history_data_interval = 10)
+	// close room operation
+	public function closeRoom(int $history_data_interval = 10)
 	{
 		// if already closed
 		if(null != $this->closed_at)
@@ -413,8 +429,13 @@ class Room extends Model
 		// get time now
         $now = Carbon::now();
 
-        // get affiliation id
-		$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+		// save close status to avoid room event
+        $this->closed_at = $now;
+        $this->save();
+
+ 		// get affiliation ID
+		if(is_null($affiliation_id))
+			$affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
 
 		// room create time
 		$room_create_time = $this->created_at;
@@ -459,7 +480,6 @@ class Room extends Model
         }
 
         // add history data
-        $this->closed_at = $now;
         $reactions = $this->historyAllTypeReaction($history_data_interval);
         $this->history_attendance = implode(",",$reactions['attendance']);
         $this->history_confused = implode(",",$reactions['confused']);

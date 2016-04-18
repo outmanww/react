@@ -44,9 +44,6 @@ class RoomController extends Controller
         $room = $room->where('key', $key)
             ->select('lecture_id', 'teacher_id', 'closed_at')->firstOrFail();
 
-
-
-
         $weekday = $this->weeks[$room->lecture->weekday];
     
         $results = array(
