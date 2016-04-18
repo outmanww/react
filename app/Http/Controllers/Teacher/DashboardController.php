@@ -43,6 +43,19 @@ class DashboardController extends Controller
         return \Response::json($charts, 200);
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function message()
+    {
+        $user = \Auth::guard('users')->user();
+        $room = $user->rooms()->where('closed_at', null)->first();
+
+        $messages = $room->getMessage();
+
+        return \Response::json($messages, 200);
+    }
+
     public function now()
     {
         return \Carbon\Carbon::now();
