@@ -74,7 +74,7 @@ class Room extends Model
 		
 		// get last room events for each student ID	
 		$room_events = Reaction::allRoomEvent($this->affiliation_id, $this->id)
-									->select('student_id', 'type_id', "MAX(created_at)")
+									->select(DB::raw('student_id, type_id, MAX(created_at)'))
 									->groupBy('student_id')
 									->get();
 
@@ -118,7 +118,7 @@ class Room extends Model
 		
 		// get last room events for each student ID
 		$room_events = Reaction::allRoomEvent($this->affiliation_id, $this->id)
-									->select('student_id', 'type_id', "MAX(created_at)")
+									->select(DB::raw('student_id, type_id, MAX(created_at)'))
 									->groupBy('student_id')
 									->get();
 
@@ -467,7 +467,7 @@ class Room extends Model
 
 		// get last room event for each student
 		$room_events = Reaction::allRoomEvent($this->affiliation_id, $this->id)
-									->select('id', 'student_id', 'type_id', "MAX(created_at)")
+									->select(DB::raw('id, student_id, type_id, MAX(created_at)'))
 									->groupBy('student_id')
 									->get();
 
