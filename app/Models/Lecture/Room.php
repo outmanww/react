@@ -72,11 +72,10 @@ class Room extends Model
             'reaction' => 0,
             );
 		
-		// get last room events for each student ID
+		// get last room events for each student ID	
 		$room_events = Reaction::allRoomEvent($this->affiliation_id, $this->id)
-									->select('student_id', 'type_id', 'created_at')
+									->select('student_id', 'type_id', 'MAX(created_at)')
 									->groupBy('student_id')
-									->havingRaw('created_at = MAX(created_at)')
 									->get();
 
 		// count the current attendance
@@ -119,9 +118,8 @@ class Room extends Model
 		
 		// get last room events for each student ID
 		$room_events = Reaction::allRoomEvent($this->affiliation_id, $this->id)
-									->select('student_id', 'type_id', 'created_at')
+									->select('student_id', 'type_id', 'MAX(created_at)')
 									->groupBy('student_id')
-									->havingRaw('created_at = MAX(created_at)')
 									->get();
 
 		// count the current attendance
@@ -469,9 +467,8 @@ class Room extends Model
 
 		// get last room event for each student
 		$room_events = Reaction::allRoomEvent($this->affiliation_id, $this->id)
-									->select('id', 'student_id', 'type_id', 'created_at')
+									->select('id', 'student_id', 'type_id', 'MAX(created_at)')
 									->groupBy('student_id')
-									->havingRaw('created_at = MAX(created_at)')
 									->get();
 
 		foreach($room_events as $room_event)
