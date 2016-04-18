@@ -100,6 +100,16 @@ class RoomController extends Controller
                 return \Response::json('not in campus', 400);
         }
 
+        // fore in event
+        if($request->action == config('controller.action.basic') && $request->type == config('controller.b_type.fore_in'))
+        {
+            // if the last event is not fore out event, ignore
+            $last_room_in = Reaction::lastBasic($student->id, $affiliation_id, $check_key_rst['id'])
+                ->select('type_id')->firstOrFail();
+            if($last_room_in->type_id != config('controller.b_type.fore_out'))
+                return \Response::json('No need to fore in', 400);
+        }
+
         $new_msg = null;
         if($request->action == config('controller.action.message'))
         {

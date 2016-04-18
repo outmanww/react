@@ -56,6 +56,15 @@ class Reaction extends Model
             ->where('type_id', config('controller.b_type.room_in'))
             ->orderBy('created_at','desc');
     }
+    public function scopeLastBasic($query, $student_id, $affiliation_id, $room_id)
+    {
+        return $query
+            ->where('affiliation_id', $affiliation_id)
+            ->where('student_id', $student_id)
+            ->where('room_id', $room_id)
+            ->where('action_id', config('controller.action.basic'))
+            ->orderBy('created_at','desc');
+    }
     public function scopeFromForeIn($query, $student_id, $affiliation_id, $room_id)
     {
         return $query
