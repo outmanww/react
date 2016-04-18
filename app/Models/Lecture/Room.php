@@ -481,7 +481,7 @@ class Room extends Model
         	// add room out event
 	        Reaction::insert([
 	            'student_id' => $room_event['student_id'],
-	            'this->affiliation_id' => $this->affiliation_id,
+	            'affiliation_id' => $this->affiliation_id,
 	            'action_id' => config('controller.action.basic'),
 	            'type_id' => config('controller.b_type.room_out'),
 	            'room_id' => $this->id,
@@ -497,7 +497,7 @@ class Room extends Model
             {
                 Point::insert([
                     'student_id' => $room_event['student_id'],
-                    'this->affiliation_id' => $this->affiliation_id,
+                    'affiliation_id' => $this->affiliation_id,
                     'room_id' => $this->id,
                     'point_diff' => $new_points
                     ]);
