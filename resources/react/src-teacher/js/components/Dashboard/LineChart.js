@@ -1,8 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import { LineChart } from './charts/LineChart';
 import { Line } from 'react-chartjs';
 
-class Charts extends Component {
+class LineChart extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -17,7 +16,7 @@ class Charts extends Component {
   }
 
   render() {
-    const { line } = this.props.charts;
+    const { line } = this.props;
 
     let labels = [];
     for (let i = line.boring.length - 1; i >= 0; i--) {
@@ -67,10 +66,10 @@ class Charts extends Component {
     return (
       <div className="space-top-4 space-bottom-3">
         <div className="has-border">
-          <div id="line-wrap" className="raw">
+          <div id="line-wrap">
             <Line
               data={lineData}
-              width="1000"
+              width="800"
               height="300"
             />
           </div>
@@ -80,8 +79,8 @@ class Charts extends Component {
   }
 }
 
-Charts.propTypes = {
-  focused: PropTypes.string.isRequired,
+LineChart.propTypes = {
+  line: PropTypes.object.isRequired,
 };
 
-export default Charts;
+export default LineChart;

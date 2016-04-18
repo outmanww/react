@@ -5,7 +5,6 @@ var autoprefixer = require('autoprefixer');
 
 module.exports = {
   devtool: 'cheap-module-source-map',
-  //devtool: 'eval',  
   entry: [
     'webpack-hot-middleware/client?path=http://localhost:3001/__webpack_hmr',
     'bootstrap-loader',
