@@ -60,7 +60,7 @@ class Room extends Model
 	}
 
 	// get data for pie chart
-	private function statusPie(int $type_id, int $interval = 5)
+	private function statusPie($type_id, $interval = 5)
 	{
 		// get affiliation ID
 		if(is_null($this->affiliation_id))
@@ -103,7 +103,7 @@ class Room extends Model
 		return $results;
 	}
 
-	private function statusPieAll(int $interval = 5)
+	private function statusPieAll($interval = 5)
 	{
 		// get affiliation ID
 		if(is_null($this->affiliation_id))
@@ -168,7 +168,7 @@ class Room extends Model
 	}
 
 	// get attendance data
-	private function historyAttendance(int $interval = 10)
+	private function historyAttendance($interval = 10)
 	{
 		// get affiliation ID
 		if(is_null($this->affiliation_id))
@@ -230,7 +230,7 @@ class Room extends Model
 		return $num_student_array;
 	}
 
-	private function historyReaction(int $type_id, int $interval = 10)
+	private function historyReaction($type_id, $interval = 10)
 	{
 		// get affiliation ID
 		if(is_null($this->affiliation_id))
@@ -285,7 +285,7 @@ class Room extends Model
 		return $num_array;
 	}
 
-	private function historyAllTypeReaction(int $interval = 10)
+	private function historyAllTypeReaction($interval = 10)
 	{
 		// get affiliation ID
 		if(is_null($this->affiliation_id))
@@ -373,7 +373,7 @@ class Room extends Model
 	}
 
 	// data for all chart data real time
-	public function getChartData(int $pieInterval = 5, int $lineInterval = 10)
+	public function getChartData($pieInterval = 5, $lineInterval = 10)
 	{
 		$results = array();
 
@@ -420,7 +420,7 @@ class Room extends Model
 	}
 
 	// close room operation
-	public function closeRoom(int $history_data_interval = 10)
+	public function closeRoom($history_data_interval = 10)
 	{
 		// if already closed
 		if(null != $this->closed_at)
