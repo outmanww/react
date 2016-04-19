@@ -63,6 +63,7 @@ class Room extends Model
 	// get data for pie chart
 	private function statusPie($type_id, $interval = 5)
 	{
+		$now = Carbon::now();
 		// get affiliation ID
 		if(is_null($this->affiliation_id))
 			$this->affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
@@ -89,7 +90,7 @@ class Room extends Model
         $results['attendance'] = count($attendance_array);
 
         // get the reaction events in $interval minutes
-        $reaction_events = Reaction::inMinutes($this->affiliation_id, $this->id, $type_id, $interval)
+        $reaction_events = Reaction::inMinutes($this->affiliation_id, $this->id, $type_id, $interval, $now)
         								->select('student_id')
         								->groupBy('student_id')
         								->get();
@@ -105,6 +106,7 @@ class Room extends Model
 
 	private function statusPieAll($interval = 5)
 	{
+		$now = Carbon::now();
 		// get affiliation ID
 		if(is_null($this->affiliation_id))
 			$this->affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
@@ -133,7 +135,7 @@ class Room extends Model
         $results['attendance'] = count($attendance_array);
 
         // get the reaction events in $interval minutes
-        $reaction_events = Reaction::inMinutes($this->affiliation_id, $this->id, config('controller.r_type.confused'), $interval)
+        $reaction_events = Reaction::inMinutes($this->affiliation_id, $this->id, config('controller.r_type.confused'), $interval, $now)
         								->select('student_id')
         								->groupBy('student_id')
         								->get();
@@ -143,7 +145,7 @@ class Room extends Model
         		$results['confused']++;
         }
 
-        $reaction_events = Reaction::inMinutes($this->affiliation_id, $this->id, config('controller.r_type.interesting'), $interval)
+        $reaction_events = Reaction::inMinutes($this->affiliation_id, $this->id, config('controller.r_type.interesting'), $interval, $now)
         								->select('student_id')
         								->groupBy('student_id')
         								->get();
@@ -153,7 +155,7 @@ class Room extends Model
         		$results['interesting']++;
         }
 
-        $reaction_events = Reaction::inMinutes($this->affiliation_id, $this->id, config('controller.r_type.boring'), $interval)
+        $reaction_events = Reaction::inMinutes($this->affiliation_id, $this->id, config('controller.r_type.boring'), $interval, $now)
         								->select('student_id')
         								->groupBy('student_id')
         								->get();
@@ -468,7 +470,7 @@ class Room extends Model
 
 		// get last room event for each student
 		$room_events = Reaction::allRoomEvent($this->affiliation_id, $this->id)
-									->select(DB::raw('id, student_id, type_id, MAX(created_at)'))
+									->select(DB::raw('id, student_id, type_id, MAX(created_at) as created_at'))
 									->groupBy('student_id')
 									->get();
 
@@ -477,6 +479,12 @@ class Room extends Model
         	// if the student has already quit the room, continue with next one
         	if(config('controller.b_type.room_out') == $room_event['type_id'])
         		continue;
+
+	        // point calculation on room_out event
+            $point = new Point;
+            $point->calRoomPoint($this->affiliation_id, $this->id, $room_event['student_id'], $now);
+            if($point->point_diff > 0)
+            	$point->save();
 
         	// add room out event
 	        Reaction::insert([
@@ -487,21 +495,6 @@ class Room extends Model
 	            'room_id' => $this->id,
 	            'message' => null,
 	            ]);
-
-	        // point calculation
-            $last_room_in = Carbon::createFromFormat('Y-m-d H:i:s', $room_event['created_at']);
-            $min_diff = $now->diffInMinutes($last_room_in);
-            $new_points = Point::calPoints($min_diff);
-
-            if($new_points>0)
-            {
-                Point::insert([
-                    'student_id' => $room_event['student_id'],
-                    'affiliation_id' => $this->affiliation_id,
-                    'room_id' => $this->id,
-                    'point_diff' => $new_points
-                    ]);
-            }
         }
 
         // add history data
