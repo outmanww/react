@@ -50,13 +50,10 @@ class PointController extends Controller
             ->first();
 
         if(empty($points))
-        {
             $points=0;
-        }
         else
-        {
             $points=$points->point_diff;
-        }
+        
         return \Response::json($points, 200);
     }
 

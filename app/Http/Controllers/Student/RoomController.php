@@ -30,9 +30,8 @@ class RoomController extends Controller
     {
         $check_key_rst = $this->checkRoomKey($key);
         
-        if (!$check_key_rst['status']) {
+        if (!$check_key_rst['status'])
             return \Response::json($check_key_rst['err_msg'], 400);
-        }
 
         $key = sprintf("%06d", $key);
 
@@ -60,62 +59,98 @@ class RoomController extends Controller
      */
     public function action(StudentActionRequest $request, $key)
     {
+        $now = Carbon::now();
         $student = \Auth::guard('students_api')->user();
 
         $check_key_rst = $this->checkRoomKey($key);
         
-        if (!$check_key_rst['status']) {
+        if (!$check_key_rst['status'])
             return \Response::json($check_key_rst['err_msg'], 400);
-        }
 
         $key = sprintf("%06d", $key);
 
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
         
-        // room_in event
-        if($request->action == config('controller.action.basic') && $request->type == config('controller.b_type.room_in') &&
-            $request->has('geo_lat') && $request->has('geo_long'))
+        if($request->action == config('controller.action.basic'))
         {
-            $dbName = Affiliation::find($affiliation_id)->db_name;
-            $room = new Room;
-            $room = $room->setConnection($dbName);
-            $room = $room->where('key', $key)->firstOrFail();
-            $campuses = $room->lecture->department->faculty->campuses;
+            // get last basic event
+            $last_basic = Reaction::lastBasic($student->id, $affiliation_id, $check_key_rst['id'])
+                    ->select('type_id')->first();
+            $last_basic_type = null;
+            if(count($last_basic) > 0)
+                $last_basic_type = $last_basic->type_id;
 
-            $is_in_campus = false;
-            foreach($campuses as $campus)
+            // room_in event
+            if($request->type == config('controller.b_type.room_in'))
             {
-                /*
-                $distance = $this->haversineGreatCircleDistance(
-                    $campus->geo_lat, $campus->geo_long,
-                    $request->geo_lat, $request->geo_long);
-                if($distance <= $campus->range)*/
-                if($campus->inside($request->geo_lat, $request->geo_long))
+                if($last_basic_type != null && $last_basic_type != config('controller.b_type.room_out'))
+                    return \Response::json('logical error in room in', 410);
+                // check gps
+                if($request->has('geo_lat') && $request->has('geo_long'))
                 {
-                    $is_in_campus = true;
-                    break;
+                    $dbName = Affiliation::find($affiliation_id)->db_name;
+                    $room = new Room;
+                    $room = $room->setConnection($dbName);
+                    $room = $room->where('key', $key)->firstOrFail();
+                    $campuses = $room->lecture->department->faculty->campuses;
+
+                    $is_in_campus = false;
+                    foreach($campuses as $campus)
+                    {
+                        /*
+                        $distance = $this->haversineGreatCircleDistance(
+                            $campus->geo_lat, $campus->geo_long,
+                            $request->geo_lat, $request->geo_long);
+                        if($distance <= $campus->range)*/
+                        if($campus->inside($request->geo_lat, $request->geo_long))
+                        {
+                            $is_in_campus = true;
+                            break;
+                        }
+                    }
+                    if(!$is_in_campus)
+                        return \Response::json('not in campus', 400);
                 }
             }
-            if(!$is_in_campus)
-                return \Response::json('not in campus', 400);
+            // room out event
+            elseif($request->action == config('controller.action.basic'))
+            {
+                if($last_basic_type == null || $last_basic_type == config('controller.b_type.room_out'))
+                    return \Response::json('logical error in room out', 411);
+
+                // point calculation on room_out event
+                $point = new Point;
+                $point->calRoomPoint($affiliation_id, $check_key_rst['id'], $student->id, $now);
+                if($point->point_diff > 0)
+                    $point->save();
+            }
+            // fore in event
+            elseif($request->type == config('controller.b_type.fore_in'))
+            {
+                if($last_basic_type == null || $last_basic_type == config('controller.b_type.room_out'))
+                    return \Response::json('logical error in fore in', 412);
+                // if the last event is not fore out event, ignore
+                if($last_basic->type_id != config('controller.b_type.fore_out'))
+                    return \Response::json('No need to fore in', 400);
+            }
+            // fore out event
+            elseif($request->type == config('controller.b_type.fore_in'))
+            {
+                if($last_basic_type == null || $last_basic_type == config('controller.b_type.room_out'))
+                    return \Response::json('logical error in fore out', 413);
+                // if the last event is not fore out event, ignore
+                if($last_basic->type_id == config('controller.b_type.fore_out'))
+                    return \Response::json('No need to fore out', 400);
+            }
         }
 
-        // fore in event
-        if($request->action == config('controller.action.basic') && $request->type == config('controller.b_type.fore_in'))
-        {
-            // if the last event is not fore out event, ignore
-            $last_room_in = Reaction::lastBasic($student->id, $affiliation_id, $check_key_rst['id'])
-                ->select('type_id')->firstOrFail();
-            if($last_room_in->type_id != config('controller.b_type.fore_out'))
-                return \Response::json('No need to fore in', 400);
-        }
-
+        // for message
         $new_msg = null;
         if($request->action == config('controller.action.message'))
         {
             $new_msg = $request->message;
         }
-        $reaction_new = Reaction::create([
+        $reaction_new = Reaction::insert([
             'student_id' => $student->id,
             'affiliation_id' => $affiliation_id,
             'action_id' => $request->action,
@@ -123,28 +158,6 @@ class RoomController extends Controller
             'room_id' => $check_key_rst['id'],
             'message' => $new_msg,
             ]);
-
-        // point calculation on room_out event
-        if($request->action == config('controller.action.basic') && $request->type == config('controller.b_type.room_out'))
-        {
-            $last_room_in = Reaction::fromRoomIn($student->id, $affiliation_id, $check_key_rst['id'])
-                ->select('created_at')
-                ->firstOrFail();
-
-            $min_diff = $reaction_new->calDiffMin($last_room_in->created_at);
-                    
-            $new_points = PointController::calPoints($min_diff);
-
-            if($new_points>0)
-            {
-                Point::insert([
-                    'student_id' => $student->id,
-                    'affiliation_id' => $affiliation_id,
-                    'room_id' => $check_key_rst['id'],
-                    'point_diff' => $new_points
-                    ]);
-            }
-        }
 
         return \Response::json('Request OK!', 200);
     }
@@ -154,6 +167,7 @@ class RoomController extends Controller
      */
     public function status($key)
     {
+        $now = Carbon::now();
         $student = \Auth::guard('students_api')->user();
 
         $check_key_rst = $this->checkRoomKey($key);
@@ -166,35 +180,38 @@ class RoomController extends Controller
 
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
 
-        $num_confused = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.confused'), config('controller.interval_status_student'))
+        $num_confused = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.confused'), config('controller.interval_status_student'), $now)
            ->get()->count();
-        $num_interesting = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.interesting'), config('controller.interval_status_student'))
+        $num_interesting = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.interesting'), config('controller.interval_status_student'), $now)
             ->get()->count();
-        $num_boring = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.boring'), config('controller.interval_status_student'))
+        $num_boring = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.boring'), config('controller.interval_status_student'), $now)
            ->get()->count();
 
-        $time_room_in = Reaction::fromRoomIn($student->id, $affiliation_id, $check_key_rst['id'])
-            ->select('created_at')
-            ->firstOrFail();
-        $time_room_in = Carbon::createFromFormat('Y-m-d H:i:s', $time_room_in->created_at);
-
-        $time_fore_in = Reaction::fromForeIn($student->id, $affiliation_id, $check_key_rst['id'])
+        // get last room in time
+        $time_room_in = Reaction::lastRoomIn($student->id, $affiliation_id, $check_key_rst['id'])
             ->select('created_at')
             ->first();
+        if(0 == count($time_room_in))
+            return \Response::json('No room in event', 400);
+        $time_room_in = Carbon::createFromFormat('Y-m-d H:i:s', $time_room_in->created_at);
 
-        if(0 == count($time_fore_in)){
+        // get last fore in time
+        $time_fore_in = Reaction::lastForeIn($student->id, $affiliation_id, $check_key_rst['id'])
+            ->select('created_at')
+            ->first();
+        if(0 == count($time_fore_in))
+        {
             $time_fore_in = $time_room_in;
         }
-        else{
+        else
+        {
             $time_fore_in = Carbon::createFromFormat('Y-m-d H:i:s', $time_fore_in->created_at);
+            if($time_fore_in->lt($time_room_in))
+                $time_fore_in = $time_room_in;
         }
 
-        if($time_fore_in->lt($time_room_in)){
-            $time_fore_in = $time_room_in;
-        }
-
-        $time_room_in = Carbon::now()->diffInMinutes($time_room_in);
-        $time_fore_in = Carbon::now()->diffInMinutes($time_fore_in);
+        $time_room_in = $now->diffInMinutes($time_room_in);
+        $time_fore_in = $now->diffInMinutes($time_fore_in);
 
         $results = array(
             'num_confused' => $num_confused,
