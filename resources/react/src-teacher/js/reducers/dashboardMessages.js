@@ -5,7 +5,7 @@ import {
 } from '../constants/DashboardActionTypes';
 
 const initialState = {
-  dashboardMessages: null,
+  dashboardMessages: [],
   isFetching: false,
   didInvalidate: false
 };

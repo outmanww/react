@@ -28,9 +28,10 @@ export function fetchMessages() {
       ],
       endpoint: (state) => {
         const messages = state.dashboardMessages.dashboardMessages;
-        if (messages === null) {
+        if (messages.length === 0) {
           return 'messages/?latest=0'
-        } else {
+        }
+        else {
           return `messages/?latest=${messages[0].time}`
         }
       },
