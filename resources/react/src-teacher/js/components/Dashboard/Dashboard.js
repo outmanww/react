@@ -23,10 +23,11 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    const { fetchCharts } = this.props.actions;
+    const { fetchCharts, fetchMessages } = this.props.actions;
     const intervalId = setInterval(()=> {
       fetchCharts();
-    }, 5000);
+      fetchMessages();
+    }, 10000);
     this.setState({intervalId});
   }
 
@@ -35,7 +36,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { charts } = this.props;
+    const { charts, messages } = this.props;
     const style = {
       minHeight: window.innerHeight - 64,
       background: Colors.blueGrey50,
@@ -63,6 +64,7 @@ class Dashboard extends Component {
             </div>
             <div className="col-md-4">
               <div className="raw">
+                <Message messages={messages}/>
               </div>
             </div>
           </div>
@@ -78,6 +80,7 @@ Dashboard.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     charts: state.dashboardCharts,
+    messages: state.dashboardMessages,
     routes: ownProps.routes
   };
 }

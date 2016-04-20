@@ -20,7 +20,7 @@ export default function dashboardMessages(state = initialState, action) {
 
   case REQUEST_MESSAGES_SUCCESS:
     return Object.assign({}, state, {
-      dashboardMessages: action.payload,
+      dashboardMessages: Object.values(action.payload),
       isFetching: false,
       didInvalidate: false
     });

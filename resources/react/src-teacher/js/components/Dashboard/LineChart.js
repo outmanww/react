@@ -5,7 +5,7 @@ class LineChart extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      lineWidth: 300
+      lineWidth: 0
     };
   }
 
@@ -13,6 +13,12 @@ class LineChart extends Component {
     this.setState({
       lineWidth: document.getElementById('line-wrap').clientWidth
     });
+
+    // window.onresize = () => {
+    //   this.setState({
+    //     lineWidth: document.getElementById('line-wrap').clientWidth
+    //   });
+    // }
   }
 
   render() {
@@ -63,15 +69,20 @@ class LineChart extends Component {
       ]
     };
 
+console.log(this.state.lineWidth)
+
     return (
       <div className="space-top-4 space-bottom-3">
         <div className="has-border">
           <div id="line-wrap">
-            <Line
-              data={lineData}
-              width="800"
-              height="300"
-            />
+            {this.state.lineWidth !== 0 &&
+              <Line
+                data={lineData}
+                width={this.state.lineWidth}
+                height="300"
+                style={{width: this.state.lineWidth}}
+              />
+            }
           </div>
         </div>
       </div>

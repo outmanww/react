@@ -90,7 +90,7 @@ class ReactionTableSeeder extends Seeder
                 'student_id'       => $student_ids[$keyArray],
                 'affiliation_id'   => $nagoya_u->id,
                 'room_id'          => $active_room->id,
-                'action_id'        => 3,
+                'action_id'        => 4,
                 'type_id'          => mt_rand(1, 3),
                 'message'          => 'ダミーメッセージ',
                 'created_at'       => Carbon::now()->subMinutes(mt_rand(1, 79))

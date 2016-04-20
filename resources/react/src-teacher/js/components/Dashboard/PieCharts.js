@@ -11,9 +11,6 @@ class PieChart extends Component {
 
   render() {
     const { pie } = this.props;
-
-    console.log(pie);
-
     const colors = {
       confused: '199,36,58',
       interesting: '0,122,183',
