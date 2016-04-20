@@ -233,7 +233,7 @@ class RoomController extends Controller
             )
             ->first();
             
-        if(!isset($time_fore_in) || $time_fore_in->lt($time_room_in))
+        if(!isset($time_fore_in) || $time_fore_in->created_at->lt($time_room_in))
             $time_fore_in = $time_room_in;
         else
             $time_fore_in = $time_fore_in->created_at;
