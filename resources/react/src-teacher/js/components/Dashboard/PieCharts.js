@@ -12,9 +12,9 @@ class PieChart extends Component {
   render() {
     const { pie } = this.props;
     const colors = {
-      confused: '199,36,58',
-      interesting: '0,122,183',
-      boring: '35,172,14',
+      confused: '57,73,171',
+      interesting: '67,160,71',
+      boring: '229,57,53',
     }
 
     const confused = [

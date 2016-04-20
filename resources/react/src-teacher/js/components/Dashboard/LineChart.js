@@ -30,9 +30,9 @@ class LineChart extends Component {
     }
 
     const colors = {
-      confused: '199,36,58',
-      interesting: '0,122,183',
-      boring: '35,172,14',
+      confused: '153,153,255',
+      interesting: '255,102,153',
+      boring: '102,255,153',
     }
 
     const lineData = {
