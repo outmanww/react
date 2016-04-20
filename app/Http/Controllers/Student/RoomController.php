@@ -134,7 +134,7 @@ class RoomController extends Controller
                     return \Response::json('No need to fore in', 400);
             }
             // fore out event
-            elseif($request->type == config('controller.b_type.fore_in'))
+            elseif($request->type == config('controller.b_type.fore_out'))
             {
                 if($last_basic_type == null || $last_basic_type == config('controller.b_type.room_out'))
                     return \Response::json('logical error in fore out', 413);
