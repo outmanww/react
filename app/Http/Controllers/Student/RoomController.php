@@ -231,10 +231,12 @@ class RoomController extends Controller
                 $affiliation_id,
                 $check_key_rst['id']
             )
-            ->first()->created_at;
+            ->first();
             
         if(!isset($time_fore_in) || $time_fore_in->lt($time_room_in))
             $time_fore_in = $time_room_in;
+        else
+            $time_fore_in = $time_fore_in->created_at;
 
         $time_room_in = $time_room_in->diffInMinutes($now);
         $time_fore_in = $time_fore_in->diffInMinutes($now);
