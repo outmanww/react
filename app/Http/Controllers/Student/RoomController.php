@@ -113,7 +113,7 @@ class RoomController extends Controller
                 }
             }
             // room out event
-            elseif($request->action == config('controller.action.basic'))
+            elseif($request->type == config('controller.b_type.room_out'))
             {
                 if($last_basic_type == null || $last_basic_type == config('controller.b_type.room_out'))
                     return \Response::json('logical error in room out', 411);
@@ -172,7 +172,8 @@ class RoomController extends Controller
 
         $check_key_rst = $this->checkRoomKey($key);
 
-        if (!$check_key_rst['status']) {
+        if (!$check_key_rst['status'])
+        {
             return \Response::json($check_key_rst['err_msg'], 400);
         }
 
@@ -180,48 +181,80 @@ class RoomController extends Controller
 
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
 
-        $num_confused = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.confused'), config('controller.interval_status_student'), $now)
-           ->get()->count();
-        $num_interesting = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.interesting'), config('controller.interval_status_student'), $now)
-            ->get()->count();
-        $num_boring = Reaction::inMinutes($affiliation_id, $check_key_rst['id'], config('controller.r_type.boring'), config('controller.interval_status_student'), $now)
-           ->get()->count();
+        $num_confused = Reaction::inMinutes(
+                $affiliation_id,
+                $check_key_rst['id'],
+                config('controller.r_type.confused'),
+                config('controller.interval_status_student'),
+                $now->copy()
+            )
+           ->get()
+           ->count();
+
+        $num_interesting = Reaction::inMinutes(
+                $affiliation_id,
+                $check_key_rst['id'],
+                config('controller.r_type.interesting'),
+                config('controller.interval_status_student'),
+                $now->copy()
+            )
+            ->get()
+            ->count();
+
+        $num_boring = Reaction::inMinutes(
+                $affiliation_id,
+                $check_key_rst['id'],
+                config('controller.r_type.boring'),
+                config('controller.interval_status_student'),
+                $now->copy()
+            )
+           ->get()
+           ->count();
 
         // get last room in time
-        $time_room_in = Reaction::lastRoomIn($student->id, $affiliation_id, $check_key_rst['id'])
+        $time_room_in = Reaction::lastRoomIn(
+                $student->id,
+                $affiliation_id,
+                $check_key_rst['id']
+            )
             ->select('created_at')
             ->first();
-        if(0 == count($time_room_in))
+
+        if(!isset($time_room_in))
+        {
             return \Response::json('No room in event', 400);
-        $time_room_in = Carbon::createFromFormat('Y-m-d H:i:s', $time_room_in->created_at);
+        }
+
+        $time_room_in = $time_room_in->created_at;
 
         // get last fore in time
-        $time_fore_in = Reaction::lastForeIn($student->id, $affiliation_id, $check_key_rst['id'])
+        $time_fore_in = Reaction::lastForeIn(
+                $student->id,
+                $affiliation_id,
+                $check_key_rst['id']
+            )
             ->select('created_at')
             ->first();
-        if(0 == count($time_fore_in))
+
+        if(isset($time_fore_in) && $time_fore_in->created_at->lt($time_room_in))
         {
-            $time_fore_in = $time_room_in;
+            $time_fore_in = $time_fore_in->created_at;
         }
         else
         {
-            $time_fore_in = Carbon::createFromFormat('Y-m-d H:i:s', $time_fore_in->created_at);
-            if($time_fore_in->lt($time_room_in))
-                $time_fore_in = $time_room_in;
+            $time_fore_in = $time_room_in;
         }
 
-        $time_room_in = $now->diffInMinutes($time_room_in);
-        $time_fore_in = $now->diffInMinutes($time_fore_in);
+        $time_room_in = $time_room_in->diffInMinutes($now);
+        $time_fore_in = $time_fore_in->diffInMinutes($now);
 
-        $results = array(
+        return \Response::json([
             'num_confused' => $num_confused,
             'num_interesting' => $num_interesting,
             'num_boring' => $num_boring,
             'timediff_room_in' => $time_room_in,
             'timediff_fore_in' => $time_fore_in
-            );
-
-        return \Response::json($results, 200);
+            ], 200);
     }
 
     private static function checkRoomKey($key)
