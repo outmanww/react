@@ -37,13 +37,6 @@ class ReactionTableSeeder extends Seeder
         $student_ids = DB::table('students')
             ->lists('id');
 
-        $student_1 = DB::table('students')
-            ->where('family_name', '山田')
-            ->first();
-        $student_2 = DB::table('students')
-            ->where('family_name', '鈴木')
-            ->first();
-
         $reactions = [];
 
         foreach ($student_ids as $key => $student_id) {
@@ -90,6 +83,26 @@ class ReactionTableSeeder extends Seeder
                 'created_at'       => Carbon::now()->subMinutes(mt_rand(1, 79))
             ];
         }
+
+        for ($i=0; $i < 30; $i++) {
+            $keyArray = array_rand($student_ids, 1);
+            $reactions[] = [
+                'student_id'       => $student_ids[$keyArray],
+                'affiliation_id'   => $nagoya_u->id,
+                'room_id'          => $active_room->id,
+                'action_id'        => 3,
+                'type_id'          => mt_rand(1, 3),
+                'message'          => 'ダミーメッセージ',
+                'created_at'       => Carbon::now()->subMinutes(mt_rand(1, 79))
+            ];
+        }
+
+        // $student_1 = DB::table('students')
+        //     ->where('family_name', '山田')
+        //     ->first();
+        // $student_2 = DB::table('students')
+        //     ->where('family_name', '鈴木')
+        //     ->first();
 
         // $reactions = [
         //     [
