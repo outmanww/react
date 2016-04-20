@@ -168,6 +168,7 @@ class RoomController extends Controller
     public function status($key)
     {
         $now = Carbon::now();
+
         $student = \Auth::guard('students_api')->user();
 
         $check_key_rst = $this->checkRoomKey($key);
@@ -217,15 +218,12 @@ class RoomController extends Controller
                 $affiliation_id,
                 $check_key_rst['id']
             )
-            ->select('created_at')
-            ->first();
+            ->first()->created_at;
 
         if(!isset($time_room_in))
         {
             return \Response::json('No room in event', 400);
         }
-
-        $time_room_in = $time_room_in->created_at;
 
         // get last fore in time
         $time_fore_in = Reaction::lastForeIn(
@@ -233,17 +231,10 @@ class RoomController extends Controller
                 $affiliation_id,
                 $check_key_rst['id']
             )
-            ->select('created_at')
-            ->first();
-
-        if(isset($time_fore_in) && $time_fore_in->created_at->lt($time_room_in))
-        {
-            $time_fore_in = $time_fore_in->created_at;
-        }
-        else
-        {
+            ->first()->created_at;
+            
+        if(!isset($time_fore_in) || $time_fore_in->lt($time_room_in))
             $time_fore_in = $time_room_in;
-        }
 
         $time_room_in = $time_room_in->diffInMinutes($now);
         $time_fore_in = $time_fore_in->diffInMinutes($now);
