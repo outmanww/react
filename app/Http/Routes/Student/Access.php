@@ -22,6 +22,9 @@ Route::group(['namespace' => 'Auth'], function () {
 
         Route::get('signout', 'AuthController@logout')->name('auth.logout');
 
+        Route::get('apitoken', function(){
+            return \Response::json('student exists', 200);
+        });
         // Change Password Routes
         // Route::get('/{school}/password/change', 'PasswordController@showChangePasswordForm')->name('auth.password.change');
         // Route::post('/{school}/password/change', 'PasswordController@changePassword')->name('auth.password.update');
