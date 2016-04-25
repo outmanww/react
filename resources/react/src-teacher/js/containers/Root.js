@@ -19,9 +19,11 @@ export default class Root extends Component {
   render() {
     const { history, store, locale } = this.props;
 
+    console.log(i18n.ja);
+
     return (
       <Provider store={store}>
-        <IntlProvider key="intl" locale={locale} messages={i18n['ja']}>
+        <IntlProvider key="intl" locale={locale} messages={i18n.ja}>
           <Router history={history}>
             <Route name="Top" path="/nagoya-u/teacher" component={App}>
               <Route path="dashboard" component={Dashboard}/>
