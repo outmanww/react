@@ -4,6 +4,8 @@
  * Frontend Controllers
  */
 Route::get('/', 'FrontendController@index')->name('frontend.index');
+Route::get('/userPolicy', 'FrontendController@userPolicy')->name('frontend.userPolicy');
+Route::get('/privacyPolicy', 'FrontendController@privacyPolicy')->name('frontend.privacyPolicy');
 Route::get('/schools', 'FrontendController@schools')->name('frontend.schools');
 
 /**

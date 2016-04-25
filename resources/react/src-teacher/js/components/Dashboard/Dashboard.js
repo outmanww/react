@@ -49,21 +49,43 @@ class Dashboard extends Component {
           <h3>Dashboard</h3>
         </section>
         <section className="content">
-          <div className="raw">
+          <div className="row">
+          {charts.room !== null &&
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">
+                <span className="list-head">対象</span>
+                <span className="list-body">
+                  {`${charts.room.lecture.department.faculty.name}・${charts.room.lecture.department.name}・${charts.room.lecture.grade}`}
+                </span>
+              </li>
+              <li className="list-group-item">
+                <span className="list-head">授業名</span>
+                <span className="list-body">{charts.room.lecture.title}</span>
+              </li>
+              <li className="list-group-item">
+                <span className="list-head">開講時期</span>
+                <span>{`${charts.room.lecture.year} ${charts.room.lecture.semester.name} ${charts.room.lecture.timeSlot}限`}</span>
+              </li>
+              <li className="list-group-item">
+                <span className="list-head">授業の長さ</span>
+                <span className="list-body">{`${charts.room.length}`}</span>
+              </li>
+            </ul>
+          }
+          </div>
+          <div className="row">
             <div className="col-md-8">
-              <div className="raw">
-                {charts.pie !== null &&
-                  <PieCharts pie={charts.pie}/>
-                }
-              </div>
-              <div className="raw">
+              {charts.pie !== null &&
+                <PieCharts pie={charts.pie}/>
+              }
+              <div className="row">
                 {charts.line !== null &&
                   <LineChart line={charts.line}/>
                 }
               </div>
             </div>
             <div className="col-md-4">
-              <div className="raw">
+              <div className="row">
                 <Message messages={messages}/>
               </div>
             </div>

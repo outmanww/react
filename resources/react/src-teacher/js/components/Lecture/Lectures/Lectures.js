@@ -131,7 +131,7 @@ class Lectures extends Component {
                           style={{padding: '5px 8px'}}
                           onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/${l.id}`)}
                         >
-                          <span className="fa fa-pencil" style={{fontSize: 16}}/>
+                          <span className="fa fa-area-chart" style={{fontSize: 16}}/>
                         </button>
                       </OverlayTrigger>
                       <OverlayTrigger placement="top" overlay={(<Tooltip>開講</Tooltip>)}>
@@ -146,7 +146,7 @@ class Lectures extends Component {
                             });
                           }}
                         >
-                          <span className="fa fa-pencil" style={{fontSize: 16}}/>
+                          <span className="fa fa-play-circle-o" style={{fontSize: 16}}/>
                         </button>
                       </OverlayTrigger>
                     </td>

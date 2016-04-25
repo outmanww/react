@@ -8,9 +8,15 @@ import persistState from 'redux-localstorage';
 import Middlewares from '../middleware';
 import rootReducer from '../reducers';
 
+const logger = createLogger({
+  level: 'info',
+  duration: true
+});
+
 const reduxRouterMiddleware = routerMiddleware(browserHistory);
 
-Middlewares.push(reduxRouterMiddleware);
+Middlewares.push(logger, reduxRouterMiddleware);
+// Middlewares.push(reduxRouterMiddleware);
 
 const createStoreWithMiddleware = compose(
   applyMiddleware(...Middlewares),

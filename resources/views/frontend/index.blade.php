@@ -18,7 +18,6 @@
           <li><a href="#overview">Overview</a></li>
           <li><a href="#features">Features</a></li>
           <li><a href="#screens">Screenshots</a></li>
-          <li><a href="#download">Download</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="/schools">学校関係者の方</a></li>
         </ul>
@@ -181,37 +180,7 @@ src="http://www.youtube.com/embed/k32xyP3KuWE?autoplay=0" frameborder="0" allowf
 </section>
 <!-- screen shots slider section --> 
 
-<!--subscribe section -->
-<section id="download" class="section subscribe">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2 text-center">
-        <h2>Get Your Free Download Of Rooky App <span>today!</span></h2>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae. </p>
-        <div  class="banner-btn"> <a href="#"><img src="images/apple-store-btn.png"></a> <a href="#" class="banner-btn"><img src="images/google-store-btn.png"></a></div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3 text-center subscribe-form">
-        <h3 class="subscribe-title">Stay informed with our newsletter</h3>
-        <!-- subscribe form -->
-        <form method="post" action="php/subscribe.php" name="subscribeform" id="subscribeform">
-          <input type="text" name="email" placeholder="Enter your email address to get notified" id="subemail" />
-          <input type="submit" name="send" value="Notify me" id="subsubmit" class="btn2" />
-        </form>
-        <!-- subscribe message -->
-        <div id="mesaj"></div>
-        <!-- subscribe message --> 
-      </div>
-      <!-- subscribe form --> 
-    </div>
-  </div>
-</section>
-<!--subscribe section --> 
-
 <!--contact section -->
-
 <section id="contact" class="section text-center">
   <div class="container">
     <div class="row">
@@ -235,8 +204,10 @@ src="http://www.youtube.com/embed/k32xyP3KuWE?autoplay=0" frameborder="0" allowf
     <!--contact form end--> 
   </div>
 </section>
-
 <!--contact section --> 
+
+@include('frontend.includes.footer')
+
 @endsection
 
 @section('after-scripts-end')

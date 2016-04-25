@@ -21,6 +21,22 @@ class FrontendController extends Controller
     /**
      * @return \Illuminate\View\View
      */
+    public function userPolicy()
+    {
+        return view('frontend.pages.userPolicy');
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function privacyPolicy()
+    {
+        return view('frontend.pages.privacyPolicy');
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
     public function schools()
     {
         return view('frontend.schools.index');

@@ -11,7 +11,7 @@ class LineChart extends Component {
 
   componentDidMount() {
     this.setState({
-      lineWidth: document.getElementById('line-wrap').clientWidth
+      lineWidth: document.getElementById('line-wrap').clientWidth - 20
     });
 
     // window.onresize = () => {
@@ -72,18 +72,16 @@ class LineChart extends Component {
 console.log(this.state.lineWidth)
 
     return (
-      <div className="space-top-4 space-bottom-3">
-        <div className="has-border">
-          <div id="line-wrap">
-            {this.state.lineWidth !== 0 &&
-              <Line
-                data={lineData}
-                width={this.state.lineWidth}
-                height="300"
-                style={{width: this.state.lineWidth}}
-              />
-            }
-          </div>
+      <div className="space-top-3 space-bottom-3 has-border">
+        <div id="line-wrap">
+          {this.state.lineWidth !== 0 &&
+            <Line
+              data={lineData}
+              width={this.state.lineWidth}
+              height="300"
+              style={{width: this.state.lineWidth}}
+            />
+          }
         </div>
       </div>
     );
