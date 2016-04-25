@@ -18,10 +18,10 @@ import CreateLecture from '../components/Lecture/CreateLecture/CreateLecture';
 export default class Root extends Component {
   render() {
     const { history, store, locale } = this.props;
-    console.log(locale);
+
     return (
       <Provider store={store}>
-        <IntlProvider key="intl" locale={locale} messages={i18n[locale]}>
+        <IntlProvider key="intl" locale={locale} messages={i18n['ja']}>
           <Router history={history}>
             <Route name="Top" path="/nagoya-u/teacher" component={App}>
               <Route path="dashboard" component={Dashboard}/>
