@@ -18,6 +18,7 @@ import CreateLecture from '../components/Lecture/CreateLecture/CreateLecture';
 export default class Root extends Component {
   render() {
     const { history, store, locale } = this.props;
+    console.log(locale);
     return (
       <Provider store={store}>
         <IntlProvider key="intl" locale={locale} messages={i18n[locale]}>
