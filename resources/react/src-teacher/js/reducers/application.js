@@ -1,10 +1,10 @@
-import { _LOCALE } from '../../config/env';
+import { LOCALE } from '../../config/env';
 import {
   CANGE_LOCALE
 } from '../constants/ActionTypes';
 
 const initialState = {
-  locale: _LOCALE,
+  locale: LOCALE,
 };
 
 export default function application(state = initialState, action) {
