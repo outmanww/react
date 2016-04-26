@@ -251,7 +251,7 @@ class UserTableSeeder extends Seeder
                     'building'          => '',
                     'introduction'      => '自己紹介です',
                     'url'               => 'http://www.aoimiyazaki.jp/',
-                    'email'             => 'mutunori.yagiura@'.$connection_name.'.com',
+                    'email'             => 'ken.saito@'.$connection_name.'.com',
                     'password'          => bcrypt('123456'),
                     'confirmation_code' => md5(uniqid(mt_rand(), true)),
                     'confirmed'         => true,
