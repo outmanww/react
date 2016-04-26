@@ -28,7 +28,68 @@
   </header>
   <!-- banner text section-->
   <div id="banner" class="container">
-    <div class="col-md-5 col-sm-12"> <img class="banner-img img-responsive" src="images/app-screen.png"> </div>
+
+
+<style type="text/css">
+  .phone {
+    background-image: url(http://l.com/images/phone.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    bottom: 0px;
+    height: 621px;
+    left: -80px;
+    padding-left: 224px;
+    padding-top: 79px;
+    position: absolute;
+    text-align: left;
+    width: 803px !important;
+  }
+
+  .info .logo {
+    color: #ffffff;
+    font-family: 'Montserrat';
+    font-size: 50px;
+    line-height: 40px;
+    text-transform: uppercase;
+  }
+
+  .info .welcome {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 48px;
+    margin: 10px auto 50px;
+    width: 440px;
+  }
+</style>
+
+
+
+<div class="phone eight columns animated fadeInLeft">
+  <div class="preview">
+    <img src="images/preview.jpg" alt="">
+  </div>
+</div>
+
+<div class="info eight columns animated fadeInRight" style="margin-top: 257px; bottom: 203px; right: 0px;">
+  <div class="logo">Rome</div>
+  <div class="welcome">Quality is not an act, it's a habit.</div>
+  <div class="download">
+    <ul class="cross">
+    <li class="ios" data-title="iPhone" data-url="http://itunes.apple.com/us/genre/ios/id36?mt=8"></li>
+    <li class="windowsphone" data-title="Windows Phone" data-url="http://www.windowsphone.com/en-us/store"></li>
+    <li class="android" data-title="Android" data-url="http://play.google.com/store"></li>
+    <li class="blackberry" data-title="Blackberry" data-url="http://appworld.blackberry.com/webstore/"></li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+    <div class="col-md-5 col-sm-12">
+      <img class="banner-img img-responsive" src="images/app-screen.png">
+    </div>
     <div class="col-md-7 col-sm-12">
       <div class="banner-text">
         <h1>Beautiful and Elegant App Landing Page for <span>Startup</span> business</h1>
