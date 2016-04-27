@@ -196,7 +196,7 @@ class LectureTableSeeder extends Seeder
                     'updated_at'    => Carbon::now()
                 ],
                 [
-                    'title'         => '犯罪心理学',
+                    'title'         => '国際政治学',
                     'sort'          => '11',
                     'department_id' => $department_2->id,
                     'code'          => '321212',
