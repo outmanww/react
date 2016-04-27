@@ -437,7 +437,7 @@ ul li {
 }
 
 .phone {
-background-image: url(/images/phone.png);
+background-image: url(../../../../images/phone.png);
 background-repeat: no-repeat;
 background-position: center center;
 bottom: 0px;
