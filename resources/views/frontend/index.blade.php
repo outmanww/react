@@ -248,7 +248,7 @@
   <div class="container clearfix fullscreen" style="height: 770px;">
     <div class="phone eight columns animated fadeInLeft">
       <div class="preview">
-        <img src="images/app-screen/3.jpg" alt="">
+        <img src="images/app-screen/4.png" alt="">
       </div>
     </div>
 
@@ -410,14 +410,16 @@
   </div>
   <!-- owl-carousel starts -->
   <div id="owl-demo" class="owl-carousel">
-    <div class="item"><img src="images/app-screen/1.jpg"></div>
-    <div class="item"><img src="images/app-screen/2.jpg"></div>
-    <div class="item"><img src="images/app-screen/3.jpg"></div>
-    <div class="item"><img src="images/app-screen/4.jpg"></div>
-    <div class="item"><img src="images/app-screen/1.jpg"></div>
-    <div class="item"><img src="images/app-screen/2.jpg"></div>
-    <div class="item"><img src="images/app-screen/3.jpg"></div>
-    <div class="item"><img src="images/app-screen/4.jpg"></div>
+    <div class="item"><img width="281" height="500" src="images/app-screen/1.png"></div>
+    <div class="item"><img width="281" height="500" src="images/app-screen/2.png"></div>
+    <div class="item"><img width="281" height="500" src="images/app-screen/3.png"></div>
+    <div class="item"><img width="281" height="500" src="images/app-screen/4.png"></div>
+    <div class="item"><img width="281" height="500" src="images/app-screen/5.png"></div>
+    <div class="item"><img width="281" height="500" src="images/app-screen/1.png"></div>
+    <div class="item"><img width="281" height="500" src="images/app-screen/2.png"></div>
+    <div class="item"><img width="281" height="500" src="images/app-screen/3.png"></div>
+    <div class="item"><img width="281" height="500" src="images/app-screen/4.png"></div>
+    <div class="item"><img width="281" height="500" src="images/app-screen/5.png"></div>
   </div>
   <!-- owl-carousel starts --> 
 </section>
