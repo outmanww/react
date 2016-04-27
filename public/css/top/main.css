@@ -1,14 +1,3 @@
-/* ------------------------------------------------------------------------------
-	Template Name: Rooky
-	Author: Designstub
-	Author URI: http://www.designstub.com
-	License: GNU General Public License version 3.0
-	License URI: http://www.gnu.org/licenses/gpl-3.0.html
-	Version: 1.0
-
-/* ------------------------------------------------------------------------------
-	Typography
--------------------------------------------------------------------------------*/
 @import url(http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,600,700);
 
 p {
@@ -316,31 +305,7 @@ ul li {
 -------------------------------------------------------------------------------*/
 .banner {
 	background-color: #3b3be8;
-	min-height: 750px;
-}
-.banner-text {
-	padding-top: 35%;
-}
-.banner-text h1 {
-	color: #fff;
-	font-family: "Roboto", sans-serif;
-	font-weight: 100;
-	line-height: 48px;
-	margin-bottom: 5%;
-}
-.banner-text span {
-	font-weight: 300;
-}
-.banner-text p {
-	color: #fff;
-	font-size: 16px;
-	font-weight: 300;
-	line-height: 24px;
-	margin-bottom: 7%;
-}
-.banner-img {
-	bottom: -186px;
-	position: relative;
+	min-height: 770px;
 }
 .banner-btn a {
 	margin-right: 15px;
@@ -349,7 +314,7 @@ ul li {
 /* ------------------------------------------------------------------------------
 	Overview
 -------------------------------------------------------------------------------*/
-  .overview-content h4 {
+.overview-content h4 {
 	text-transform:uppercase;
 	letter-spacing:1px;
 }

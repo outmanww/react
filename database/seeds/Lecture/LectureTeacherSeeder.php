@@ -67,7 +67,7 @@ class LectureTeacherSeeder extends Seeder
                 ->where('family_name', '松下')
                 ->first();
             $MZ = DB::connection($connection_name)->table('users')
-                ->where('family_name', '宮崎')
+                ->where('family_name', '斉藤')
                 ->first();
             $lecture_teacher = [
                 [

@@ -7,42 +7,172 @@
 @endsection
 
 @section('content')
-<!-- header section -->
-<section class="banner" role="banner">
-  <header id="header">
-    <div class="header-content clearfix"> <a class="logo" href="/"><img src="images/logo.png" alt=""></a> 
-      <!-- navigation section  -->
-      <nav class="navigation" role="navigation">
-        <ul class="primary-nav">
-          <li><a href="#banner">Home</a></li>
-          <li><a href="#overview">Overview</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#screens">Screenshots</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="/schools">学校関係者の方</a></li>
-        </ul>
-      </nav>
-      <a href="#" class="nav-toggle">Menu<span></span></a>
-    </div>
-    <!-- navigation section  --> 
-  </header>
-  <!-- banner text section-->
-  <div id="banner" class="container">
+<style type="text/css">
+.device .screen {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    z-index: 2;
+    text-align: left;
+    display: block;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    -webkit-box-shadow: 0 0 0 3px #111;
+    box-shadow: 0 0 0 3px #111;
+}
 
+.device .screen img {
+    height: 459px;
+    margin-bottom: -6px;
+    width: 276px;
+}
+
+#iphone5s .device {
+    background: #2c2b2c;
+    border-radius: 50px;
+    display: block;
+    margin: 0 auto;
+    padding: 105px 22px;
+    position: relative;
+    width: 320px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+}
+
+#iphone5s .inner {
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    -moz-border-radius: 46px;
+    -webkit-border-radius: 46px;
+    border-radius: 46px;
+    background: #1e1e1e;
+    z-index: 1;
+}
+
+#iphone5s .sleep {
+    position: absolute;
+    top: -4px;
+    right: 60px;
+    width: 60px;
+    height: 4px;
+    -webkit-border-radius: 2px 2px 0px 0px;
+    border-radius: 2px 2px 0px 0px;
+    background: #282727;
+}
+
+#iphone5s .volume, #iphone5c .volume {
+    position: absolute;
+    left: -4px;
+    top: 180px;
+    z-index: 0;
+    height: 27px;
+    width: 4px;
+    -webkit-border-radius: 2px 0px 0px 2px;
+    border-radius: 2px 0px 0px 2px;
+    background: #282727;
+}
+
+#iphone5s .volume:before, #iphone5c .volume:before {
+    position: absolute;
+    left: 0px;
+    top: -75px;
+    height: 35px;
+    width: 4px;
+    -webkit-border-radius: 2px 0px 0px 2px;
+    border-radius: 2px 0px 0px 2px;
+    background: inherit;
+    content: '';
+    display: block;
+}
+
+#iphone5s .volume:after, #iphone5c .volume:after {
+    position: absolute;
+    left: 0px;
+    bottom: -64px;
+    height: 27px;
+    width: 4px;
+    -webkit-border-radius: 2px 0px 0px 2px;
+    border-radius: 2px 0px 0px 2px;
+    background: inherit;
+    content: '';
+    display: block;
+}
+
+#iphone5s.silver .device {
+    background: #bcbcbc;
+}
+
+#iphone5s.silver .inner {
+    background: #fcfcfc;
+}
+
+#iphone5s.silver .start {
+    -webkit-box-shadow: inset 0 0 0 4px #bcbcbc;
+    box-shadow: inset 0 0 0 4px #bcbcbc;
+}
+
+.silver .start:after, .gold .start:after {
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+#iphone5s.silver .top-bar {
+    background: #eaebec;
+}
+
+#iphone5s.silver .volume {
+    background: #d6d6d6;
+}
+
+</style>
 
 <style type="text/css">
+  .container {
+      position: relative;
+      width: 960px;
+      margin: 0 auto;
+      padding: 0;
+  }
+
   .phone {
     background-image: url(http://l.com/images/phone.png);
     background-repeat: no-repeat;
     background-position: center center;
     bottom: 0px;
     height: 621px;
-    left: -80px;
+    left: -100px;
     padding-left: 224px;
     padding-top: 79px;
     position: absolute;
     text-align: left;
     width: 803px !important;
+  }
+
+  .phone .preview img {
+      border: 3px solid #252527;
+      border-radius: 3px;
+      box-sizing: content-box !important;
+      height: 391px;
+      width: 218px;
+  }
+
+  .eight.columns {
+      width: 460px;
+  }
+
+  .info {
+      padding-left: 20px;
+      position: absolute;
+      text-align: left;
+  }
+
+  .columns {
+      float: left;
+      display: inline;
+      margin-left: 10px;
+      margin-right: 10px;
   }
 
   .info .logo {
@@ -61,46 +191,83 @@
     margin: 10px auto 50px;
     width: 440px;
   }
+
+  .info div.download {
+    margin-top: 60px;
+  }
+
+
+
+  .overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%,rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80000000', endColorstr='#000000',GradientType=0 );
+    bottom: 0px;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    max-height: 770px;
+  }
+
+  .background {
+    background-color: #222222;
+    background-image: url(http://demo.limitless.company/rome/cross/img/backgrounds/home.jpg);
+    background-position: bottom;
+    background-repeat: repeat-y;
+    background-size: cover;
+  }
+
 </style>
 
 
-
-<div class="phone eight columns animated fadeInLeft">
-  <div class="preview">
-    <img src="images/preview.jpg" alt="">
-  </div>
-</div>
-
-<div class="info eight columns animated fadeInRight" style="margin-top: 257px; bottom: 203px; right: 0px;">
-  <div class="logo">Rome</div>
-  <div class="welcome">Quality is not an act, it's a habit.</div>
-  <div class="download">
-    <ul class="cross">
-    <li class="ios" data-title="iPhone" data-url="http://itunes.apple.com/us/genre/ios/id36?mt=8"></li>
-    <li class="windowsphone" data-title="Windows Phone" data-url="http://www.windowsphone.com/en-us/store"></li>
-    <li class="android" data-title="Android" data-url="http://play.google.com/store"></li>
-    <li class="blackberry" data-title="Blackberry" data-url="http://appworld.blackberry.com/webstore/"></li>
-    </ul>
-  </div>
-</div>
-
-
-
-
-    <div class="col-md-5 col-sm-12">
-      <img class="banner-img img-responsive" src="images/app-screen.png">
+<!-- header section -->
+<section class="banner" role="banner">
+  <header id="header">
+    <div class="header-content clearfix">
+      <a class="logo" href="/"><img src="images/logo.png" alt=""></a> 
+      <!-- navigation section  -->
+      <nav class="navigation" role="navigation">
+        <ul class="primary-nav">
+          <li><a href="#banner">Home</a></li>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#screens">Screenshots</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="/schools">学校関係者の方</a></li>
+        </ul>
+      </nav>
+      <a href="#" class="nav-toggle">Menu<span></span></a>
     </div>
-    <div class="col-md-7 col-sm-12">
-      <div class="banner-text">
-        <h1>Beautiful and Elegant App Landing Page for <span>Startup</span> business</h1>
-        <p>Amazing, clean and modern landing page template for showcase your mobile application to the world. Best Start Up For Your New App. </p>
-        <div class="banner-btn"><a href="#"><img src="images/apple-store-btn.png"></a> <a href="#"><img src="images/google-store-btn.png"></a> </div>
-      </div>
-      <!-- banner text section--> 
-      
-    </div>
-  </div>
+    <!-- navigation section  --> 
+  </header>
 </section>
+
+<div class="background fullscreen" id="home">
+<div class="overlay">
+  <!-- container -->
+  <div class="container clearfix fullscreen" style="height: 770px;">
+    <div class="phone eight columns animated fadeInLeft">
+      <div class="preview">
+        <img src="images/app-screen/3.jpg" alt="">
+      </div>
+    </div>
+
+    <div class="info eight columns animated fadeInRight" style="margin-top: 257px; bottom: 235; right: 0px;">
+      <div class="logo">Rome</div>
+      <div class="welcome">Quality is not an act, it's a habit.</div>
+      <div class="download">
+        <div class="banner-btn">
+          <a href="#"><img src="images/apple-store-btn.png"></a>
+          <a href="#"><img src="images/google-store-btn.png"></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- container -->
+  <div class="more"></div>
+</div>
+</div>
 <!-- header section --> 
 
 <!-- overview section -->
@@ -112,8 +279,7 @@
         <p class="section-intro">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis quasi architecto beatae vitae dicta sunt explicabo. </p>
       </div>
       <div class="col-md-12 text-center overview-video">
-        <iframe 
-src="http://www.youtube.com/embed/k32xyP3KuWE?autoplay=0" frameborder="0" allowfullscreen > </iframe>
+        <iframe src="http://www.youtube.com/embed/k32xyP3KuWE?autoplay=0" frameborder="0" allowfullscreen ></iframe>
       </div>
     </div>
     <div class="row">
@@ -149,7 +315,7 @@ src="http://www.youtube.com/embed/k32xyP3KuWE?autoplay=0" frameborder="0" allowf
       </div>
     </div>
     <div class="row features1-content-space">
-      <div class="col-md-4 col-sm-12">
+      <div class="col-md-3 col-sm-12">
         <div class="features1-content left"> <span class="icon icon-upload"></span>
           <h4>Light Weight</h4>
           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium demque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore </p>
@@ -159,8 +325,27 @@ src="http://www.youtube.com/embed/k32xyP3KuWE?autoplay=0" frameborder="0" allowf
           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium demque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore </p>
         </div>
       </div>
-      <div class="col-md-4 col-sm-12 middle"> <img class="img-responsive" src="images/feature-mobile.png"> </div>
-      <div class="col-md-4 col-sm-12">
+      <div class="col-md-6 col-sm-12">
+
+<div id="iphone5s" class="silver">
+  <div class="device">
+    <div class="inner"></div>
+    <div class="sleep"></div>
+    <div class="volume"></div>
+    <div class="camera"></div>
+    <div class="top-bar"></div>
+    <div class="sensor"></div>
+    <div class="speaker"></div>
+    <div class="screen">
+      <img src="./img/gallery/screen-1.jpg" alt="">
+    </div>
+    <div class="bottom-bar"></div>
+    <div class="start"></div>
+  </div>
+</div>
+
+      </div>
+      <div class="col-md-3 col-sm-12">
         <div class="features1-content right"> <span class="icon icon-speedometer"></span>
           <h4>Boost performance</h4>
           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium demque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore </p>
@@ -225,17 +410,14 @@ src="http://www.youtube.com/embed/k32xyP3KuWE?autoplay=0" frameborder="0" allowf
   </div>
   <!-- owl-carousel starts -->
   <div id="owl-demo" class="owl-carousel">
-    <div class="item"><img src="images/app-screen/app1.png"></div>
-    <div class="item"><img src="images/app-screen/app2.png"></div>
-    <div class="item"><img src="images/app-screen/app3.png"></div>
-    <div class="item"><img src="images/app-screen/app4.png"></div>
-    <div class="item"><img src="images/app-screen/app1.png"></div>
-    <div class="item"><img src="images/app-screen/app2.png"></div>
-    <div class="item"><img src="images/app-screen/app3.png"></div>
-    <div class="item"><img src="images/app-screen/app4.png"></div>
-    <div class="item"><img src="images/app-screen/app1.png"></div>
-    <div class="item"><img src="images/app-screen/app2.png"></div>
-    <div class="item"><img src="images/app-screen/app3.png"></div>
+    <div class="item"><img src="images/app-screen/1.jpg"></div>
+    <div class="item"><img src="images/app-screen/2.jpg"></div>
+    <div class="item"><img src="images/app-screen/3.jpg"></div>
+    <div class="item"><img src="images/app-screen/4.jpg"></div>
+    <div class="item"><img src="images/app-screen/1.jpg"></div>
+    <div class="item"><img src="images/app-screen/2.jpg"></div>
+    <div class="item"><img src="images/app-screen/3.jpg"></div>
+    <div class="item"><img src="images/app-screen/4.jpg"></div>
   </div>
   <!-- owl-carousel starts --> 
 </section>

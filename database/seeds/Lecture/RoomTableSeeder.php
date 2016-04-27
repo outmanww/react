@@ -40,7 +40,7 @@ class RoomTableSeeder extends Seeder
                 ->where('family_name', '柳浦')
                 ->first();
             $teacher_2 = DB::connection($connection_name)->table('users')
-                ->where('family_name', '宮崎')
+                ->where('family_name', '斉藤')
                 ->first();
             $teacher_3 = DB::connection($connection_name)->table('users')
                 ->where('family_name', 'Dean')
