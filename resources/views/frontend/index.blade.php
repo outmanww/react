@@ -12,7 +12,7 @@
 <section class="banner" role="banner">
   <header id="header">
     <div class="header-content clearfix">
-      <a class="logo" href="/"><img src="images/logo.png" alt=""></a> 
+      <a class="logo" href="/"><img height="60" src="images/logo.png" alt=""></a> 
       <!-- navigation section  -->
       <nav class="navigation" role="navigation">
         <ul class="primary-nav">
@@ -41,8 +41,8 @@
     </div>
 
     <div class="info eight columns animated fadeInRight" style="margin-top: 257px; bottom: 235; right: 0px;">
-      <div class="logo">Rome</div>
-      <div class="welcome">Quality is not an act, it's a habit.</div>
+      <div class="logo">Re:act</div>
+      <div class="welcome">双方向型講義を実現する</div>
       <div class="download">
         <div class="banner-btn">
           <a href="#"><img src="images/apple-store-btn.png"></a>
@@ -67,7 +67,7 @@
         <p class="section-intro">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis quasi architecto beatae vitae dicta sunt explicabo. </p>
       </div>
       <div class="col-md-12 text-center overview-video">
-        <iframe src="http://www.youtube.com/embed/k32xyP3KuWE?autoplay=0" frameborder="0" allowfullscreen ></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/XJ2nZL5Dabc" frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
     <div class="row">
