@@ -21,31 +21,47 @@ class PointController extends Controller
 {
     /**
      * @return Response
+     * check user current points
      */
     public function point()
     {
         $student = \Auth::guard('students_api')->user();
-        $results = array(
-            'points' => $student->points->sum('point_diff')
-            );
-        return \Response::json($results, 200); 
+        return \Response::json(['points' => $student->points->sum('point_diff')], 200); 
+    }
+
+    /**
+     * @return Response
+     * use points in shopping
+     */
+    public function usePoint(UsePointRequest $request)
+    {
+        $student = \Auth::guard('students')->user();
+        $item = Item::find($request->item_id);
+        if (!$item instanceof Item) {
+            throw new ApiException('item.not_found');
+        }
+
+        $item_points = $request->amount*$item->point;
+        Point::insert([
+            'student_id' => $student->id,
+            'item_id' => $request->item_id,
+            'amount' => $request->amount,
+            'point_diff' => (0-$item_points),
+            ]);
+        return \Response::json("OK", 200);
     }
 
     public function roomPoints($key)
     {
-        $check_key_rst = RoomController::checkRoomKey($key);
-        
-        if (!$check_key_rst['status']) {
-            return \Response::json($check_key_rst['err_msg'], 400);
-        }
+        $room = RoomController::getRoomByKey($key);
 
         $key = sprintf("%06d", $key);
 
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
 
-        $student = Student::find(1);
+        $student = \Auth::guard('students')->user();
 
-        $points = Point::lastRoom($student->id, $affiliation_id, $check_key_rst['id'])
+        $points = Point::lastRoom($student->id, $affiliation_id, $room->id)
             ->select('point_diff')
             ->first();
 
@@ -55,18 +71,5 @@ class PointController extends Controller
             $points=$points->point_diff;
         
         return \Response::json($points, 200);
-    }
-
-    public function usePoint(UsePointRequest $request)
-    {
-        $student = \Auth::guard('students')->user();
-        $item_points = $request->amount*Item::findOrFail($request->item_id)->point;
-        Point::insert([
-            'student_id' => $student->id,
-            'item_id' => $request->item_id,
-            'amount' => $request->amount,
-            'point_diff' => (0-$item_points),
-            ]);
-        return \Response::json("OK", 200);
     }
 }

@@ -81,4 +81,43 @@ return [
 
         ],
     ],
+
+    'room' => [
+        'not_found' => '該当する教室が見つかりません．',
+        'not_room_in' => '入室されていません．',
+        'not_integer' => 'ルームキーは数字のみです．',
+        'closed' => 'この教室はすでに終了しました．',
+        'already_room_in' => 'すでに入室状態です．',
+        'already_room_out' => 'すでに退室状態です．',
+        'already_fore_in' => 'すでにbackground状態です．',
+        'already_fore_out' => 'すでにforeground状態です．',
+        'not_in_campus' => '学校にいないため，入室はできません．',
+    ],
+
+    'shop_type' => [
+        'not_found' => '該当する店カタログが見つかりません．',
+    ],
+
+    'shop' => [
+        'not_found' => '該当するお店が見つかりません．',
+    ],
+
+    'item' => [
+        'not_found' => '該当する商品が見つかりません．',
+    ],
+
+    'student' => [
+        'not_found' => '該当するユーザが見つかりません．',
+    ],
+
+    'email' => [
+        'not_found' => 'このemailが登録されていません．',
+    ],
+
+    'confirmation' => [
+        'not_found' => '確認コードが見つかりません．',
+        'already_confirmed' => 'すでに登録しました．',
+        'mismatch' => '確認コードが無効です．',
+    ],
+    
 ];

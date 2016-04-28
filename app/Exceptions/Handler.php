@@ -51,7 +51,10 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         if ($e instanceof ApiException) {
-            return \Response::json($e->getMessage(), 400);
+            return \Response::json([
+                'type' => $e->getMessage(),
+                'message' => trans('exceptions'.$e->getMessage())
+            ], 400);
         }
 
         /**
