@@ -26,7 +26,7 @@ class SignupRequest extends Request
         return [
             'family_name' => 'required|max:50',
             'given_name'  => 'required|max:50',
-            'email'       => 'required|email|max:255|unique:students',
+            'email'       => 'required|email|max:255',
             'password' => 'required|min:6|max:32|alpha_num',
         ];
     }

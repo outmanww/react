@@ -81,4 +81,43 @@ return [
 
         ],
     ],
+
+    'room' => [
+        'not_found' => 'Room not found.',
+        'not_room_in' => 'Not even enter the room.',
+        'not_integer' => 'Room key should be numeric.',
+        'closed' => 'This room has been closed',
+        'already_room_in' => 'This user has already entered the room.',
+        'already_room_out' => 'This user has already quit the room.',
+        'already_fore_in' => 'This user has alreday run this application in the foreground.',
+        'already_fore_out' => 'This user has alreday run this application in the background.',
+        'not_in_campus' => 'You should first be in campus, and then you can enter a room.',
+    ],
+
+    'shop_type' => [
+        'not_found' => 'Shop type not found.',
+    ],
+
+    'shop' => [
+        'not_found' => 'Shop not found.',
+    ],
+
+    'item' => [
+        'not_found' => 'Item not found.',
+    ],
+
+    'student' => [
+        'not_found' => 'Student not found.',
+    ],
+
+    'email' => [
+        'not_found' => 'Email not found.',
+        'already_exist' => 'This Email has been already used by other user.',
+    ],
+
+    'confirmation' => [
+        'not_found' => 'Confirmation code not found.',
+        'already_confirmed' => 'This user has already been confirmed.',
+        'mismatch' => 'Confirmation code is not correct.',
+    ],
 ];
