@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+//Exceptions
+use App\Exceptions\ApiException;
 // Models
 use App\Models\Lecture\Room;
 use App\Models\Point\Point;
