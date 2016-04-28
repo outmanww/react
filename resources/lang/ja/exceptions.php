@@ -112,6 +112,7 @@ return [
 
     'email' => [
         'not_found' => 'このemailが登録されていません．',
+        'already_exist' => 'このemailはすでにほかのユーザに使われています．',
     ],
 
     'confirmation' => [

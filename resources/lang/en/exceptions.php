@@ -112,6 +112,7 @@ return [
 
     'email' => [
         'not_found' => 'Email not found.',
+        'already_exist' => 'This Email has been already used by other user.',
     ],
 
     'confirmation' => [

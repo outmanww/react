@@ -56,6 +56,12 @@ class AuthController extends Controller
      */
     protected function signup(SignupRequest $request)
     {
+        $student = Student::where('email', $email)->first();
+
+        if ($student instanceof Student) {
+            throw new ApiException('email.already_exist');
+        }
+
         $student = new Student;
 
         $token = sha1(uniqid(mt_rand(), true));
