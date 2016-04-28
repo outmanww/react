@@ -220,8 +220,9 @@ class RoomController extends Controller
 
     public static function getRoomByKey($key)
     {
-        return $key >= 0;
-        
+        $aaa = $key >= 0;
+        throw new ApiException($aaa);
+
         // if($key >= 0 && $key <= 999999)
 
 
