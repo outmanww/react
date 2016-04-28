@@ -56,7 +56,7 @@ class AuthController extends Controller
      */
     protected function signup(SignupRequest $request)
     {
-        $student = Student::where('email', $email)->first();
+        $student = Student::where('email', $request->email)->first();
 
         if ($student instanceof Student) {
             throw new ApiException('email.already_exist');
