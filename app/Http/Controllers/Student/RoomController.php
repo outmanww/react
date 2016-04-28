@@ -186,7 +186,7 @@ class RoomController extends Controller
                 $affiliation_id,
                 $room->id
             )
-            ->first()->created_at;
+            ->first();
 
         if(!$room_in instanceof Reaction)
             throw new ApiException('room.not_room_in');
