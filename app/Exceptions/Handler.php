@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
         if ($e instanceof ApiException) {
             return \Response::json([
                 'type' => $e->getMessage(),
-                'message' => trans('exceptions'.$e->getMessage())
+                'message' => trans('exceptions.'.$e->getMessage())
             ], 400);
         }
 
