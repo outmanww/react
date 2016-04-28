@@ -220,7 +220,14 @@ class RoomController extends Controller
 
     public static function getRoomByKey($key)
     {
-        if (!is_int($key))
+        return $key >= 0;
+        
+        // if($key >= 0 && $key <= 999999)
+
+
+        // if (intval($key) == 0 && )
+
+        if (is_int($key))
             throw new ApiException('room.not_integer');
 
         $key = sprintf("%06d", $key);
