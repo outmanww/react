@@ -77,9 +77,14 @@ class DashboardController extends Controller
         return \Response::json($messages, 200);
     }
 
+    // public function now()
+    // {
+    //     return \Carbon\Carbon::now();
+    // }
+
     public function now()
     {
-        return \Carbon\Carbon::now();
+        return trans('exceptions.room.not_found');
     }
 
 }
