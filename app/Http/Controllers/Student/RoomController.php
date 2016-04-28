@@ -34,7 +34,7 @@ class RoomController extends Controller
     
         $results = ['lecture' => $room->lecture->title,
             'teacher' => $room->teacher->family_name.' '.$room->teacher->given_name,
-            'timeslot' => $weekday.$room->lecture->time_slot]
+            'timeslot' => $weekday.$room->lecture->time_slot];
 
         return \Response::json($results, 200); 
     }
