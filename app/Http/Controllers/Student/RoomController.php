@@ -220,6 +220,7 @@ class RoomController extends Controller
     {
         if (!intval($key))
             throw new ApiException('room.not_integer');
+
         $key = sprintf("%06d", $key);
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
         $dbName = Affiliation::find($affiliation_id)->db_name;
@@ -231,9 +232,9 @@ class RoomController extends Controller
         if(!$room instanceof Room)
             throw new ApiException('room.not_found');
 
-        if($room->closed_at){
+        if($room->closed_at)
             throw new ApiException('room.closed');
-        
+
         return $room;
     }
 }
