@@ -222,9 +222,13 @@ class RoomController extends Controller
     {
         $key = sprintf("%06d", $key);
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
-        $dbName = Affiliation::find($affiliation_id)->db_name;
+
+        $affiliation = Affiliation::find($affiliation_id);
+        if(!$affiliation instanceof Affiliation)
+            throw new ApiException('room.not_found');
+        
         $room = new Room;
-        $room = $room->setConnection($dbName);
+        $room = $room->setConnection($affiliation->db_name);
 
         $room = $room->where('key', $key)->first();
 
