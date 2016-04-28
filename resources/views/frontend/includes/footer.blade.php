@@ -1,13 +1,12 @@
 <!--subscribe section -->
-<section id="download" class="section subscribe">
-  <div class="overlay"></div>
+<section id="footer" class="section subscribe">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <a href="/schools"><p>学校一覧</p></a>
-        <a href="/userPolicy"><p>利用規約</p></a>
-        <a href="/privacyPolicy"><p>プライバシーポリシー</p></a>
-        <a href="http://optimind-jp.com"><p>運営会社</p></a>
+        <p><a href="/schools">学校一覧</a></p>
+        <p><a href="/userPolicy">利用規約</a></p>
+        <p><a href="/privacyPolicy">プライバシーポリシー</a></p>
+        <p><a href="http://optimind-jp.com">運営会社</a></p>
       </div>
       <div class="col-md-8 text-center">
         <h2>Get Your Free Download Of Rooky App <span>today!</span></h2>

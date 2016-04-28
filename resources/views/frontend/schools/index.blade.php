@@ -9,11 +9,12 @@
 <!-- header section -->
 <header id="header" class="fixed">
   <div class="header-content clearfix">
-    <a class="logo" href="/"><img src="images/logo.png" alt=""></a> 
+    <a class="logo" href="/"><img height="60" src="/images/logo.png" alt=""></a> 
     <!-- navigation section  -->
     <nav class="navigation" role="navigation">
       <ul class="primary-nav">
-        <li><a href="#"></a></li>
+        <li><a href="/">Top</a></li>
+        <li><a href="/">マイページへ</a></li>
       </ul>
     </nav>
     <a href="#" class="nav-toggle">Menu<span></span></a>

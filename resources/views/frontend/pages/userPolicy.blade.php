@@ -9,19 +9,19 @@
 @section('content')
 <!-- header section -->
 <header id="header" class="fixed">
-  <div class="header-content clearfix"> <a class="logo" href="/"><img src="images/logo.png" alt=""></a> 
+  <div class="header-content clearfix">
+    <a class="logo" href="/"><img height="60" src="/images/logo.png" alt=""></a> 
     <!-- navigation section  -->
     <nav class="navigation" role="navigation">
       <ul class="primary-nav">
         <li><a href="/">Top</a></li>
-        <li><a href="/schools">学校関係者の方</a></li>
+        <li><a href="/">マイページへ</a></li>
       </ul>
     </nav>
     <a href="#" class="nav-toggle">Menu<span></span></a>
   </div>
   <!-- navigation section  --> 
 </header>
-
 
 <section class="slice">
 <div class="w-section inverse">

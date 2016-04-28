@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/css/top/responsive.css">
 <link rel="stylesheet" href="/css/top/line-icon.css">
 <link rel="stylesheet" href="/css/top/main.css">
+<link rel="stylesheet" href="/css/top/iphone5.css">
 @endsection
 
 @section('content')
@@ -12,7 +13,7 @@
 <section class="banner" role="banner">
   <header id="header">
     <div class="header-content clearfix">
-      <a class="logo" href="/"><img height="60" src="images/logo.png" alt=""></a> 
+      <a class="logo" href="/"><img height="60" src="/images/logo.png" alt=""></a> 
       <!-- navigation section  -->
       <nav class="navigation" role="navigation">
         <ul class="primary-nav">
@@ -63,7 +64,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-center">
-        <h2 class="section-title">Present Your App To The World With <span>Rooky</span></h2>
+        <h2 class="section-title">学生に反応を促し、学生の心の声をリアルタイムで教員に伝えられる</h2>
         <p class="section-intro">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis quasi architecto beatae vitae dicta sunt explicabo. </p>
       </div>
       <div class="col-md-12 text-center overview-video">
