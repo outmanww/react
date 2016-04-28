@@ -10,7 +10,7 @@
 <!-- header section -->
 <header id="header" class="fixed">
   <div class="header-content clearfix">
-    <a class="logo" href="/"><img src="/images/logo.png" alt=""></a> 
+    <a class="logo" href="/"><img height="60" src="/images/logo.png" alt=""></a> 
     <!-- navigation section  -->
     <nav class="navigation" role="navigation">
       <ul class="primary-nav">
@@ -21,6 +21,7 @@
   </div>
   <!-- navigation section  --> 
 </header>
+
 <!-- header section --> 
 <div class="school-bg" style="background-image: url({{$image_path}});">
     <div class="container">

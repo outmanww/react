@@ -81,10 +81,4 @@ class DashboardController extends Controller
     // {
     //     return \Carbon\Carbon::now();
     // }
-
-    public function now()
-    {
-        return trans('exceptions.room.not_found');
-    }
-
 }

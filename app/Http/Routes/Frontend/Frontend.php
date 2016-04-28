@@ -8,6 +8,8 @@ Route::get('/userPolicy', 'FrontendController@userPolicy')->name('frontend.userP
 Route::get('/privacyPolicy', 'FrontendController@privacyPolicy')->name('frontend.privacyPolicy');
 Route::get('/schools', 'FrontendController@schools')->name('frontend.schools');
 
+Route::get('/test', 'FrontendController@test');
+
 /**
  * These frontend controllers require the user to be logged in
  */

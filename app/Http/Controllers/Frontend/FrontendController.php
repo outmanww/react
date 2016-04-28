@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App;
 
 /**
  * Class FrontendController
@@ -40,5 +41,10 @@ class FrontendController extends Controller
     public function schools()
     {
         return view('frontend.schools.index');
+    }
+
+    public function test()
+    {
+        return trans('exceptions.room.not_found');
     }
 }

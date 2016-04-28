@@ -20,6 +20,8 @@ class LocaleMiddleware
      */
     public function handle($request, Closure $next)
     {
+        App::setLocale(\Request::header('Accept-Language'));
+
         /**
          * Locale is enabled and allowed to be changed
          */

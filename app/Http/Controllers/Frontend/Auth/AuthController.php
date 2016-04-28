@@ -15,10 +15,7 @@ use App\Services\Access\Traits\AuthenticatesAndRegistersUsers;
  */
 class AuthController extends Controller
 {
-
     use AuthenticatesAndRegistersUsers, ConfirmUsers, ThrottlesLogins, UseSocialite;
-
-
 
     /**
      * Where to redirect users after login / registration.

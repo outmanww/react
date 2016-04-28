@@ -6,19 +6,22 @@
 @endsection
 
 @section('content')
-<header id="header">
-@include('frontend.includes.nav')
-<div class="header-content clearfix"> <a class="logo" href="#"><img src="images/logo.png" alt=""></a> 
-  <!-- navigation section  -->
-  <nav class="navigation" role="navigation">
-    <ul class="primary-nav">
-      <li><a href="#">名古屋大学にログイン中</a></li>
-    </ul>
-  </nav>
-  <a href="#" class="nav-toggle">Menu<span></span></a>
-</div>
-<!-- navigation section  --> 
+<header id="header" class="fixed">
+  <div class="header-content clearfix">
+    <a class="logo" href="/"><img height="60" src="/images/logo.png" alt=""></a> 
+    <!-- navigation section  -->
+    <nav class="navigation" role="navigation">
+      <ul class="primary-nav">
+        <li><a href="/">Top</a></li>
+        <li><a href="/">マイページへ</a></li>
+      </ul>
+    </nav>
+    <a href="#" class="nav-toggle">Menu<span></span></a>
+  </div>
+  <!-- navigation section  --> 
 </header>
+
+
 
 <div class="container">
     <div class="card card-container">

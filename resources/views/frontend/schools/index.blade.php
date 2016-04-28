@@ -49,7 +49,7 @@
             </div>
           </a>
         </div>
-        <div class="col-lg-2 col-md-4 col-sm-4 work">
+<!--         <div class="col-lg-2 col-md-4 col-sm-4 work">
           <a href="/aichitoho-u/signin" class="work-box">
             <img src="/images/schools/aichitoho-u-logo.png" alt="">
             <div class="overlay overlay-aichtoho-u">
@@ -58,7 +58,7 @@
               </div>
             </div>
           </a>
-        </div>
+        </div> -->
         <!--
         <div class="col-lg-2 col-md-4 col-sm-4 work">
           <a href="/chukyo-u/signin" class="work-box">
