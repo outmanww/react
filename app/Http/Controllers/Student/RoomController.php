@@ -220,17 +220,6 @@ class RoomController extends Controller
 
     public static function getRoomByKey($key)
     {
-        $aaa = $key >= 0;
-        throw new ApiException($aaa);
-
-        // if($key >= 0 && $key <= 999999)
-
-
-        // if (intval($key) == 0 && )
-
-        if (is_int($key))
-            throw new ApiException('room.not_integer');
-
         $key = sprintf("%06d", $key);
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
         $dbName = Affiliation::find($affiliation_id)->db_name;
