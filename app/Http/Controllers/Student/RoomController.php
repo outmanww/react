@@ -95,11 +95,13 @@ class RoomController extends Controller
                 if($last_basic_type == null || $last_basic_type == config('controller.b_type.room_out'))
                     throw new ApiException('room.already_room_out');
 
+                /*
                 // point calculation on room_out event
                 $point = new Point;
                 $point->calRoomPoint($affiliation_id, $room->id, $student->id, $now);
                 if($point->point_diff > 0)
                     $point->save();
+                */
             }
             // fore in event
             elseif($request->type == config('controller.b_type.fore_in'))

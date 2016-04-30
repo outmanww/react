@@ -37,7 +37,11 @@ class Point extends Model
 
     public function calRoomPoint($affiliation_id, $room_id, $student_id, $end_time)
     {
+        $this->affiliation_id = $affiliation_id;
+        $this->room_id = $room_id;
+        $this->student_id = $student_id;
         $this->point_diff = 0;
+
         $point_time = 0;
         // get all basic room events
         $basic_room_events = Reaction::allBasicEventByStudentID($affiliation_id, $room_id, $student_id, $end_time)
@@ -52,17 +56,19 @@ class Point extends Model
         {
             $time_room_event = Carbon::createFromFormat('Y-m-d H:i:s', $basic_room_event['created_at']);
 
-            if($basic_room_event->type_id == config('controller.b_type.room_out'))
-                $new_points = 0;
-            elseif($basic_room_event->type_id == config('controller.b_type.room_in'))
-                $last_start_time = $time_room_event;
-            elseif($basic_room_event->type_id == config('controller.b_type.fore_in'))
-                $last_start_time = $time_room_event;
-            elseif($basic_room_event->type_id == config('controller.b_type.fore_out'))
+            switch ($basic_room_event->type_id)
             {
-                if($last_start_time == null)
-                    return;
-                $new_points += $this->getPointsFromTime($time_room_event->diffInMinutes($last_start_time));
+                case config('controller.b_type.room_in'):
+                case config('controller.b_type.fore_in'):
+                    $last_start_time = $time_room_event;
+                    break;
+                case config('controller.b_type.room_out'):
+                case config('controller.b_type.fore_out'):
+                    if($last_start_time != null)
+                        $new_points += $this->getPointsFromTime($time_room_event->diffInMinutes($last_start_time));
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -74,9 +80,6 @@ class Point extends Model
             $new_points += $this->getPointsFromTime($end_time->diffInMinutes($last_start_time));
 
         // save property
-        $this->affiliation_id = $affiliation_id;
-        $this->room_id = $room_id;
-        $this->student_id = $student_id;
         $this->point_diff = $new_points;
     }
                 
