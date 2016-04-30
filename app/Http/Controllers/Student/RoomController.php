@@ -67,9 +67,6 @@ class RoomController extends Controller
             // room_in event
             if($request->type == config('controller.b_type.room_in'))
             {
-                if($last_basic_type != null && $last_basic_type != config('controller.b_type.room_out'))
-                    throw new ApiException('room.already_room_in');
-
                 // check gps
                 if($request->has('geo_lat') && $request->has('geo_long'))
                 {
@@ -87,6 +84,9 @@ class RoomController extends Controller
                     if(!$is_in_campus)
                         throw new ApiException('room.not_in_campus');
                 }
+
+                if($last_basic_type == config('controller.b_type.room_in') || $last_basic_type == config('controller.b_type.fore_in'))
+                    throw new ApiException('room.already_room_in');
             }
 
             // room out event
