@@ -61,21 +61,21 @@ return [
     'frontend' => [
         'auth' => [
             'confirmation' => [
-                'already_confirmed' => 'Your account is already confirmed.',
-                'confirm' => 'Confirm your account!',
-                'created_confirm' => 'Your account was successfully created. We have sent you an e-mail to confirm your account.',
-                'mismatch' => 'Your confirmation code does not match.',
-                'not_found' => 'That confirmation code does not exist.',
+                'already_confirmed' => 'すでにメールアドレスの確認が完了しています',
+                'confirm' => 'メールアドレスの確認が完了しました',
+                'created_confirm' => 'ユーザー登録が完了しました 確認のためのメールを送信しました',
+                'mismatch' => '確認用のURLが間違っています。もう一度確認してください',
+                'not_found' => '確認用のURLが間違っています。もう一度確認してください',
                 'resend' => 'Your account is not confirmed. Please click the confirmation link in your e-mail, or <a href="/:school/account/confirm/resend/:token">click here</a> to resend the confirmation e-mail.',
-                'success' => 'Your account has been successfully confirmed!',
-                'resent' => 'A new confirmation e-mail has been sent to the address on file.',
+                'success' => 'メールアドレスの確認が完了しました',
+                'resent' => '確認メールが送信されました。メールを確認してください',
             ],
 
-            'deactivated' => 'Your account has been deactivated.',
-            'email_taken' => 'That e-mail address is already taken.',
+            'deactivated' => 'このアカウントは現在利用できんません',
+            'email_taken' => 'このメールアドレスはすでに利用されています',
 
             'password' => [
-                'change_mismatch' => 'That is not your old password.',
+                'change_mismatch' => '現在のパスワードが間違っています',
             ],
 
 
@@ -83,42 +83,42 @@ return [
     ],
 
     'room' => [
-        'not_found' => '該当する教室が見つかりません．',
-        'not_room_in' => '入室されていません．',
-        'not_integer' => 'ルームキーは数字のみです．',
-        'closed' => 'この教室はすでに終了しました．',
-        'already_room_in' => 'すでに入室状態です．',
-        'already_room_out' => 'すでに退室状態です．',
-        'already_fore_in' => 'すでにbackground状態です．',
-        'already_fore_out' => 'すでにforeground状態です．',
-        'not_in_campus' => '学校にいないため，入室はできません．',
+        'not_found' => '該当する教室が見つかりません',
+        'not_room_in' => '入室されていません',
+        'not_integer' => 'ルームキーは数字のみです',
+        'closed' => 'この教室はすでに終了しました',
+        'already_room_in' => 'すでに入室状態です',
+        'already_room_out' => 'すでに退室状態です',
+        'already_fore_in' => 'すでにbackground状態です',
+        'already_fore_out' => 'すでにforeground状態です',
+        'not_in_campus' => '指定エリア外にいるため利用できません',
     ],
 
     'shop_type' => [
-        'not_found' => '該当する店カタログが見つかりません．',
+        'not_found' => '該当する店カタログが見つかりません',
     ],
 
     'shop' => [
-        'not_found' => '該当するお店が見つかりません．',
+        'not_found' => '該当するお店が見つかりません',
     ],
 
     'item' => [
-        'not_found' => '該当する商品が見つかりません．',
+        'not_found' => '該当する商品が見つかりません',
     ],
 
     'student' => [
-        'not_found' => '該当するユーザが見つかりません．',
+        'not_found' => '該当するユーザが見つかりません',
     ],
 
     'email' => [
-        'not_found' => 'このemailが登録されていません．',
-        'already_exist' => 'このemailはすでにほかのユーザに使われています．',
+        'not_found' => 'このemailが登録されていません',
+        'already_exist' => 'このメールアドレスはすでに利用されています',
     ],
 
     'confirmation' => [
-        'not_found' => '確認コードが見つかりません．',
-        'already_confirmed' => 'すでに登録しました．',
-        'mismatch' => '確認コードが無効です．',
+        'not_found' => '確認コードが見つかりません',
+        'already_confirmed' => 'すでに登録しました',
+        'mismatch' => '確認コードが無効です',
     ],
     
 ];

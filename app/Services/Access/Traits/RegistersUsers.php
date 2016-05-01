@@ -28,6 +28,10 @@ trait RegistersUsers
      */
     public function register(RegisterRequest $request)
     {
+        if (!$this->user->findByEmail($request->email)) {
+            return redirect()->route('auth.register', [$request->route('school')])->withFlashDanger(trans('exceptions.frontend.auth.email_taken'));
+        }
+
         if (config('access.users.confirm_email')) {
             $user = $this->user->create($request->all());
             event(new UserRegistered($user));

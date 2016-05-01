@@ -31,7 +31,7 @@ class RegisterRequest extends Request
             'family_name' => 'required|max:255',
             'given_name' => 'required|max:255',
             'personal_id' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255',
             'password' => 'required|confirmed|min:6',
         ];
     }

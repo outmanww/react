@@ -18,7 +18,7 @@ class User extends Authenticatable
 {
     use SoftDeletes, UserAccess, UserLecture, UserAttribute, UserRelationship, CustomRelations;
 
-    protected $connection;
+    public $connection;
 
     /**
      * The attributes that are not mass assignable.
