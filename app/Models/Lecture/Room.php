@@ -470,22 +470,24 @@ class Room extends Model
 
 		// get last room event for each student
 		$room_events = Reaction::allRoomEvent($this->affiliation_id, $this->id)
-									->select(DB::raw('id, student_id, type_id, MAX(created_at) as created_at'))
+//									->select(DB::raw('id, student_id, type_id, MAX(created_at) as created_at'))
+									->select('student_id')
 									->groupBy('student_id')
 									->get();
 
 		foreach($room_events as $room_event)
         {
+        	/*
         	// if the student has already quit the room, continue with next one
         	if(config('controller.b_type.room_out') == $room_event['type_id'])
         		continue;
-
+			*/
 	        // point calculation on room_out event
             $point = new Point;
             $point->calRoomPoint($this->affiliation_id, $this->id, $room_event['student_id'], $now);
             if($point->point_diff > 0)
             	$point->save();
-
+            /*
         	// add room out event
 	        Reaction::insert([
 	            'student_id' => $room_event['student_id'],
@@ -495,6 +497,7 @@ class Room extends Model
 	            'room_id' => $this->id,
 	            'message' => null,
 	            ]);
+	         */
         }
 
         // add history data

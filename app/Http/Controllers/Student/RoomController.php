@@ -67,9 +67,6 @@ class RoomController extends Controller
             // room_in event
             if($request->type == config('controller.b_type.room_in'))
             {
-                if($last_basic_type != null && $last_basic_type != config('controller.b_type.room_out'))
-                    throw new ApiException('room.already_room_in');
-
                 // check gps
                 if($request->has('geo_lat') && $request->has('geo_long'))
                 {
@@ -87,6 +84,9 @@ class RoomController extends Controller
                     if(!$is_in_campus)
                         throw new ApiException('room.not_in_campus');
                 }
+
+                if($last_basic_type == config('controller.b_type.room_in') || $last_basic_type == config('controller.b_type.fore_in'))
+                    throw new ApiException('room.already_room_in');
             }
 
             // room out event
@@ -95,11 +95,13 @@ class RoomController extends Controller
                 if($last_basic_type == null || $last_basic_type == config('controller.b_type.room_out'))
                     throw new ApiException('room.already_room_out');
 
+                /*
                 // point calculation on room_out event
                 $point = new Point;
                 $point->calRoomPoint($affiliation_id, $room->id, $student->id, $now);
                 if($point->point_diff > 0)
                     $point->save();
+                */
             }
             // fore in event
             elseif($request->type == config('controller.b_type.fore_in'))
@@ -222,9 +224,13 @@ class RoomController extends Controller
     {
         $key = sprintf("%06d", $key);
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
-        $dbName = Affiliation::find($affiliation_id)->db_name;
+
+        $affiliation = Affiliation::find($affiliation_id);
+        if(!$affiliation instanceof Affiliation)
+            throw new ApiException('room.not_found');
+        
         $room = new Room;
-        $room = $room->setConnection($dbName);
+        $room = $room->setConnection($affiliation->db_name);
 
         $room = $room->where('key', $key)->first();
 

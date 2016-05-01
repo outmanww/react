@@ -88,7 +88,7 @@ class AuthController extends Controller
     protected function signin(SigninRequest $request)
     {
         if (!\Auth::guard('students')->once($request->all())) {
-            throw new ApiException('student.notFound');
+            throw new ApiException('student.not_found');
         }
 
         $token = \Auth::guard('students')->user()->api_token;
