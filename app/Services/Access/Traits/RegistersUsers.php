@@ -5,6 +5,9 @@ namespace App\Services\Access\Traits;
 use Illuminate\Support\Facades\Auth;
 use App\Events\Frontend\Auth\UserRegistered;
 use App\Http\Requests\Frontend\Auth\RegisterRequest;
+use App\Models\Access\User\User;
+// Jobs
+use App\Jobs\Teacher\SendSignUpSucceedEmail;
 
 /**
  * Class RegistersUsers
@@ -28,15 +31,21 @@ trait RegistersUsers
      */
     public function register(RegisterRequest $request)
     {
-        if (!$this->user->findByEmail($request->email)) {
+        if ($this->user->findByEmail($request->email) instanceof User) {
             return redirect()->route('auth.register', [$request->route('school')])->withFlashDanger(trans('exceptions.frontend.auth.email_taken'));
         }
 
-        if (config('access.users.confirm_email')) {
+        if (config('access.users.confirm_email'))
+        {
             $user = $this->user->create($request->all());
+
+            $this->dispatch(new SendSignUpSucceedEmail($user));
             event(new UserRegistered($user));
+
             return redirect()->route('auth.login', [$request->route('school')])->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.created_confirm'));
-        } else {
+        }
+        else
+        {
             auth()->login($this->user->create($request->all()));
             event(new UserRegistered(access()->user()));
             return redirect($this->redirectPath());

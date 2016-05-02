@@ -77,37 +77,29 @@ class EloquentUserRepository implements UserContract
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => null,
-                'confirmation_code' => md5(uniqid(mt_rand(), true)),
+                'teacher_confirmed' => 0,
                 'confirmed' => 1,
+                'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'status' => 1,
             ]);
         } else {
-            $user = User::create([
-                'family_name' => $data['family_name'],
-                'given_name' => $data['given_name'],
-                'personal_id' => $data['personal_id'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
-                'confirmation_code' => md5(uniqid(mt_rand(), true)),
-                'confirmed' => config('access.users.confirm_email') ? 0 : 1,
-                'status' => 1,
-            ]);
+            $user = new User;
+
+            $user->family_name = $data['family_name'];
+            $user->given_name = $data['given_name'];
+            $user->email = $data['email'];
+            $user->password = bcrypt($data['password']);
+            $user->teacher_confirmed = 0;
+            $user->confirmed = config('access.users.confirm_email') ? 0 : 1;
+            $user->confirmation_code = md5(uniqid(mt_rand(), true));
+            $user->status = 1;
+            $user->save();
         }
 
         /**
          * Add the default site role to the new user
          */
         $user->attachRole($this->role->getDefaultUserRole());
-
-        /**
-         * If users have to confirm their email and this is not a social account,
-         * send the confirmation email
-         *
-         * If this is a social account they are confirmed through the social provider by default
-         */
-        if (config('access.users.confirm_email') && $provider === false) {
-            $this->sendConfirmationEmail($user);
-        }
 
         /**
          * Return the user object

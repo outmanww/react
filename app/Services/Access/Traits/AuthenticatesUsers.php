@@ -63,9 +63,10 @@ trait AuthenticatesUsers
         }
 
         return redirect()->back()
-            ->withInput($request->only($this->loginUsername(), 'remember'))
+            ->withInput($request
+            ->only($this->loginUsername(), 'remember'))
             ->withErrors([
-                $this->loginUsername() => trans('auth.failed'),
+                $this->loginUsername() => trans('auth.failed')
             ]);
     }
 
@@ -111,11 +112,20 @@ trait AuthenticatesUsers
         /**
          * Check to see if the users account is confirmed and active
          */
-        if (! access()->user()->isConfirmed()) {
+        if (! access()->user()->isConfirmed())
+        {
             $token = access()->user()->confirmation_code;
             auth()->logout();
-            throw new GeneralException(trans('exceptions.frontend.auth.confirmation.resend', ['school' => 'nu', 'token' => $token]));
-        } elseif (! access()->user()->isActive()) {
+            throw new GeneralException(trans(
+                'exceptions.frontend.auth.confirmation.resend',
+                [
+                    'school' => $request->route('school'),
+                    'token' => $token
+                ]
+            ));
+        }
+        elseif (! access()->user()->isActive())
+        {
             auth()->logout();
             throw new GeneralException(trans('exceptions.frontend.auth.deactivated'));
         }

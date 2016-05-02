@@ -66,7 +66,7 @@ return [
                 'created_confirm' => 'ユーザー登録が完了しました 確認のためのメールを送信しました',
                 'mismatch' => '確認用のURLが間違っています。もう一度確認してください',
                 'not_found' => '確認用のURLが間違っています。もう一度確認してください',
-                'resend' => 'Your account is not confirmed. Please click the confirmation link in your e-mail, or <a href="/:school/account/confirm/resend/:token">click here</a> to resend the confirmation e-mail.',
+                'resend' => 'メールアドレスの確認が完了していません、メールを確認してください。または、<a href="/:school/account/confirm/resend/:token">こちらのリンク</a>より確認メールの再送信を行ってください。',
                 'success' => 'メールアドレスの確認が完了しました',
                 'resent' => '確認メールが送信されました。メールを確認してください',
             ],

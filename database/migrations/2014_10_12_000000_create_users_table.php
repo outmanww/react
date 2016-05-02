@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
                 $table->string('password', 60)->nullable();
 
                 $table->tinyInteger('status')->default(0)->unsigned();
+                $table->tinyInteger('teacher_confirmed')->default(0)->unsigned();
                 $table->string('confirmation_code');
                 $table->boolean('confirmed')->default(config('access.users.confirm_email') ? false : true);
                 $table->rememberToken();

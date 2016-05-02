@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services\Access\Traits;
+// Jobs
+use App\Jobs\Teacher\ResendConfirmationEmail;
 
 /**
  * Class ConfirmUsers
@@ -18,7 +20,8 @@ trait ConfirmUsers
     public function confirmAccount($school, $token)
     {
         $this->user->confirmAccount($token);
-        return redirect()->route('auth.login')->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.success'));
+        return redirect()->route('auth.login', [$school])
+            ->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.success'));
     }
 
     /**
@@ -27,7 +30,10 @@ trait ConfirmUsers
      */
     public function resendConfirmationEmail($school, $token)
     {
-        $this->user->resendConfirmationEmail($token);
-        return redirect()->route('auth.login')->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.resent'));
+        $user = $this->user->findByToken($token);
+        $this->dispatch(new ResendConfirmationEmail($user));
+
+        return redirect()->route('auth.login', [$school])
+            ->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.resent'));
     }
 }
