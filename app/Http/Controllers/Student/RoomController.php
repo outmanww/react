@@ -232,7 +232,9 @@ class RoomController extends Controller
         $room = new Room;
         $room = $room->setConnection($affiliation->db_name);
 
-        $room = $room->where('key', $key)->first();
+        $room = $room->where('key', $key)
+                        ->orderBy('created_at','desc')
+                        ->first();
 
         if(!$room instanceof Room)
             throw new ApiException('room.not_found');
