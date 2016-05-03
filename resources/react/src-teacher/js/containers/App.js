@@ -90,6 +90,11 @@ class App extends Component {
             </div>
           }
         />
+        {user.user !== null && !user.isFetching && !user.user.confirmed &&
+          <div className="global-alert">
+            <p>管理者によるユーザー確認が完了していないため、授業の新規登録及び講義の開講は実行できません</p>
+          </div>
+        }
         <Paper
           style={Object.assign({}, styles.leftNav, {left: open ? 0 : -230})}
         >
@@ -99,7 +104,10 @@ class App extends Component {
             push={actions.push}/>
         </Paper>
         <Paper
-          style={{marginLeft: open ? 230 : 0, marginTop: 64}}
+          style={{
+            marginLeft: open ? 230 : 0,
+            marginTop: user.user !== null && !user.isFetching && !user.user.confirmed ? 114 : 64
+          }}
         >
           {children}
         </Paper> 

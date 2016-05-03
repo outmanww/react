@@ -82,11 +82,15 @@ return [
         ],
     ],
 
+    'lecture' => [
+        'not_found' => '該当する授業が見つかりません',
+    ],
+
     'room' => [
-        'not_found' => '該当する教室が見つかりません',
+        'not_found' => '該当する授業が見つかりません',
         'not_room_in' => '入室されていません',
         'not_integer' => 'ルームキーは数字のみです',
-        'closed' => 'この教室はすでに終了しました',
+        'closed' => 'この授業はすでに終了しました',
         'already_room_in' => 'すでに入室状態です',
         'already_room_out' => 'すでに退室状態です',
         'already_fore_in' => 'すでにbackground状態です',

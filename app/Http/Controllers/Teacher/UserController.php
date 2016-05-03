@@ -21,6 +21,7 @@ class UserController extends Controller
 
         return \Response::json([
             'hasRole' => $user->hasRole('Teacher'),
+            'confirmed' => $user->teacher_confirmed === 1 ? true : false,
             'email' => $user->email,
             'id' => $user->id,
             'name' => $name,

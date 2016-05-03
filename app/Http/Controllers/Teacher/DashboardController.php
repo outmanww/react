@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+//Models
+use App\Models\Lecture\Room;
+//Exceptions
+use App\Exceptions\ApiException;
 
 /**
  * Class DashboardController
@@ -41,7 +45,7 @@ class DashboardController extends Controller
             ->where('closed_at', null)
             ->with([
                 'lecture' => function ($query) {
-                    $query->select('id', 'department_id', 'semester_id', 'title', 'year', 'time_slot', 'grade');
+                    $query->select('id', 'department_id', 'semester_id', 'title', 'year', 'weekday', 'time_slot', 'grade');
                 },
                 'lecture.semester' => function ($query) {
                     $query->select('id', 'name');
@@ -55,6 +59,13 @@ class DashboardController extends Controller
             ])
             ->select('id', 'lecture_id', 'length', 'created_at', 'key')
             ->first();
+
+        if (!$room instanceof Room) {
+            return \Response::json([
+                'room' => null,
+                'charts' => null
+            ], 200);
+        }
 
         $charts = $room->getChartData(5, 5);
 
@@ -72,13 +83,12 @@ class DashboardController extends Controller
         $user = \Auth::guard('users')->user();
         $room = $user->rooms()->where('closed_at', null)->first();
 
+        if (!$room instanceof Room) {
+            return \Response::json(null, 200);
+        }
+
         $messages = $room->getMessage();
 
         return \Response::json($messages, 200);
     }
-
-    // public function now()
-    // {
-    //     return \Carbon\Carbon::now();
-    // }
 }

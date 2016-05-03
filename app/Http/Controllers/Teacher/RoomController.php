@@ -52,4 +52,12 @@ class RoomController extends Controller
 
         return \Response::json(['room' => $reaction], 200);
     }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function room($school, $id)
+    {
+        
+    }
 }

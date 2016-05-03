@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import moment from 'moment';
 // Actions
 import * as DashboardActions from '../../actions/dashboard';
 // Components
+import { RaisedButton } from 'material-ui';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Paper } from 'material-ui';
 import Colors from 'material-ui/lib/styles/colors';
@@ -27,7 +29,7 @@ class Dashboard extends Component {
     const intervalId = setInterval(()=> {
       fetchCharts();
       fetchMessages();
-    }, 10000);
+    }, 100000);
     this.setState({intervalId});
   }
 
@@ -37,6 +39,15 @@ class Dashboard extends Component {
 
   render() {
     const { charts, messages } = this.props;
+    const weekdays = {
+      '1': '月曜日',
+      '2': '火曜日',
+      '3': '水曜日',
+      '4': '木曜日',
+      '5': '金曜日',
+      '6': '土曜日',
+      '0': '日曜日'
+    };
     const style = {
       minHeight: window.innerHeight - 64,
       background: Colors.blueGrey50,
@@ -46,33 +57,32 @@ class Dashboard extends Component {
     return (
       <div style={style}>
         <section className="content-header">
-          <h3>Dashboard</h3>
+          <h3>ダッシュボード</h3>
         </section>
         <section className="content">
-          <div className="row">
           {charts.room !== null &&
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item">
-                <span className="list-head">対象</span>
-                <span className="list-body">
-                  {`${charts.room.lecture.department.faculty.name}・${charts.room.lecture.department.name}・${charts.room.lecture.grade}`}
-                </span>
-              </li>
-              <li className="list-group-item">
-                <span className="list-head">授業名</span>
-                <span className="list-body">{charts.room.lecture.title}</span>
-              </li>
-              <li className="list-group-item">
-                <span className="list-head">開講時期</span>
-                <span>{`${charts.room.lecture.year} ${charts.room.lecture.semester.name} ${charts.room.lecture.timeSlot}限`}</span>
-              </li>
-              <li className="list-group-item">
-                <span className="list-head">授業の長さ</span>
-                <span className="list-body">{`${charts.room.length}`}</span>
-              </li>
-            </ul>
+            <div className="room-info-wrap row">
+              <div className="col-md-3 bg-gray room-key-wrap">
+                <p>入室キー</p>
+                <p>{charts.room.key}</p>
+              </div>
+              <div className="col-md-5 room-info-main-wrap">
+                <p>{`${charts.room.lecture.department.faculty.name} ${charts.room.lecture.department.name} ${charts.room.lecture.grade}対象`}</p>
+                <p>{`${charts.room.lecture.year}年${charts.room.lecture.semester.name} ${weekdays[charts.room.lecture.weekday]}${charts.room.lecture.timeSlot}限`}</p>
+                <p>{charts.room.lecture.title}</p>
+              </div>
+              <div className="col-md-4 room-close-wrap">
+                <RaisedButton
+                  style={{width: 200, margin: '20px 0 0 20px'}}
+                  label="新規登録"
+                  secondary={true}
+                  onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/create`)}
+                />
+                <p><span>開始</span><span>{moment(charts.room.createdAt).format('HH:mm')}</span></p>
+                <p><span>終了予定</span><span>{moment(charts.room.createdAt).add(charts.room.length, 'm').format('HH:mm')}</span></p>
+              </div>
+            </div>
           }
-          </div>
           <div className="row">
             <div className="col-md-8">
               {charts.pie !== null &&

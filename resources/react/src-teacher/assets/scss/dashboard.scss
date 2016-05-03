@@ -1,3 +1,53 @@
+.room-info-wrap {
+	height: 150px;
+	background-color: white;
+
+	.room-key-wrap {
+		height: 100%;
+
+		p {
+			margin-left: 20px;
+			&:nth-child(1) {
+				margin-top: 20px;
+			}
+
+			&:nth-child(2) {
+				font-size: 28px;
+				margin-top: 20px;
+			}
+		}
+	}
+
+	.room-info-main-wrap {
+		p {
+			margin-left: 20px;
+			margin-top: 20px;
+			&:nth-child(2) {
+				margin-top: 10px;
+			}
+			&:nth-child(3) {
+				font-size: 28px;
+				margin-top: 10px;
+			}
+		}
+	}
+
+	.room-close-wrap {
+		p {
+			margin-left: 20px;
+			margin-top: 10px;
+			font-size: 16px;
+			span:nth-child(1) {
+				display: inline-block;
+				width: 100px;
+			}
+			span:nth-child(2) {
+				font-weight: 600;
+			}
+		}
+	}
+}
+
 #message-wrap {
 	height: 575px;
 	overflow-y: scroll;

@@ -158,7 +158,7 @@ class LectureController extends Controller
             ->get(['id', 'name']);
 
         $semesters = Semester::all(['id', 'name']);
-        $years = [ Carbon::now()->year - 1, Carbon::now()->year ];
+        $years = [ Carbon::now()->year, Carbon::now()->year - 1 ];
         $year_semester = [];
 
         foreach ($years as $year) {
@@ -170,8 +170,8 @@ class LectureController extends Controller
         return \Response::json([
             'faculties' => [
                 'default' => [
-                    'faculty' => $user['faculty']['id'],
-                    'department' => $user['id']
+                    'faculty' => $user['faculty']['id'] !== null ? $user['faculty']['id'] : Faculty::first()->id,
+                    'department' => $user['id'] !== null ? $user['faculty']['id'] : Department::first()->id,
                 ],
                 'data' => $faculties,
             ],
