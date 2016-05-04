@@ -1,38 +1,50 @@
 .room-info-wrap {
-	height: 150px;
+	width: 900px;
 	background-color: white;
 
 	.room-key-wrap {
 		height: 100%;
 
 		p {
-			margin-left: 20px;
-			&:nth-child(1) {
-				margin-top: 20px;
-			}
+			margin: 0;
+			span{
+				margin-left: 20px;
+				&:nth-child(1) {
+					margin-top: 20px;
+				}
 
-			&:nth-child(2) {
-				font-size: 28px;
-				margin-top: 20px;
+				&:nth-child(2) {
+					font-size: 28px;
+					margin-top: 20px;
+				}
 			}
 		}
 	}
 
-	.room-info-main-wrap {
+	.room-title-wrap {
 		p {
 			margin-left: 20px;
 			margin-top: 20px;
-			&:nth-child(2) {
-				margin-top: 10px;
+			font-size: 28px;
+		}
+	}
+
+	.room-detail-wrap {
+		p {
+			margin-left: 20px;
+			margin-top: 10px;
+			font-size: 16px;
+			span:nth-child(1) {
+				display: inline-block;
+				width: 100px;
 			}
-			&:nth-child(3) {
-				font-size: 28px;
-				margin-top: 10px;
+			span:nth-child(2) {
+				font-weight: 600;
 			}
 		}
 	}
 
-	.room-close-wrap {
+	.room-time-wrap {
 		p {
 			margin-left: 20px;
 			margin-top: 10px;

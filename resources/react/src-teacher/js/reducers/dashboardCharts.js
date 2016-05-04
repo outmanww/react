@@ -5,6 +5,7 @@ import {
 } from '../constants/DashboardActionTypes';
 
 const initialState = {
+  exist: false,
   room: null,
   line: null,
   pie: null,
@@ -22,6 +23,7 @@ export default function dashboardCharts(state = initialState, action) {
 
   case REQUEST_CHARTS_SUCCESS:
     return Object.assign({}, state, {
+      exist: action.payload.exist,
       room: action.payload.room,
       line: action.payload.charts.line,
       pie: action.payload.charts.pie,

@@ -62,14 +62,14 @@ class DashboardController extends Controller
 
         if (!$room instanceof Room) {
             return \Response::json([
-                'room' => null,
-                'charts' => null
+                'exist' => false
             ], 200);
         }
 
         $charts = $room->getChartData(5, 5);
 
         return \Response::json([
+            'exist' => true,
             'room' => $room,
             'charts' => $charts
         ], 200);

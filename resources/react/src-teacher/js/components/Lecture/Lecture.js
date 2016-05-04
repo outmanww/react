@@ -15,7 +15,7 @@ class Lecture extends Component {
     const style = {
       minHeight: window.innerHeight - 64,
       background: Colors.blueGrey50,
-      padding: '0 40px 40px'
+      padding: '0 60px 60px'
     };
 
     return (
@@ -26,7 +26,9 @@ class Lecture extends Component {
             </div>
           </section>
           <section className="content">
-            {this.props.children}
+            <div className="row">
+              {this.props.children}
+            </div>
           </section>
       </div>
     );

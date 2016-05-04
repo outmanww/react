@@ -50,56 +50,73 @@ class Dashboard extends Component {
     };
     const style = {
       minHeight: window.innerHeight - 64,
-      background: Colors.blueGrey50,
-      padding: '0 40px 40px'
+      background: Colors.grey50,
+      padding: '0 60px 60px'
     };
 
     return (
       <div style={style}>
         <section className="content-header">
-          <h3>ダッシュボード</h3>
+          <div className="row">
+            <h3>ダッシュボード</h3>
+          </div>
         </section>
         <section className="content">
-          {charts.room !== null &&
-            <div className="room-info-wrap row">
-              <div className="col-md-3 bg-gray room-key-wrap">
-                <p>入室キー</p>
-                <p>{charts.room.key}</p>
+          {charts.exist ?
+            <div>
+              <div className="row">
+                <div className="panel panel-default room-info-wrap">
+                  <div className="panel-heading">
+                    <div className="row">
+                      <div className="pull-left room-key-wrap">
+                        <p><span>入室キー</span><span>{charts.room.key}</span></p>
+                      </div>
+                      <RaisedButton
+                        style={{width: 150, marginRight: 20, float:'right'}}
+                        label="終了"
+                        secondary={true}
+                        onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/create`)}
+                      />
+                    </div>
+                  </div>
+                  <div className="panel-body">
+                    <div className="col-md-3 room-title-wrap">
+                      <p>{charts.room.lecture.title}</p>
+                    </div>
+                    <div className="col-md-5 room-detail-wrap">
+                      <p>{`${charts.room.lecture.department.faculty.name} ${charts.room.lecture.department.name} ${charts.room.lecture.grade}対象`}</p>
+                      <p>{`${charts.room.lecture.year}年${charts.room.lecture.semester.name} ${weekdays[charts.room.lecture.weekday]}${charts.room.lecture.timeSlot}限`}</p>
+                    </div>
+                    <div className="col-md-4 room-time-wrap">
+                      <p><span>開始</span><span>{moment(charts.room.createdAt).format('HH:mm')}</span></p>
+                      <p><span>終了予定</span><span>{moment(charts.room.createdAt).add(charts.room.length, 'm').format('HH:mm')}</span></p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="col-md-5 room-info-main-wrap">
-                <p>{`${charts.room.lecture.department.faculty.name} ${charts.room.lecture.department.name} ${charts.room.lecture.grade}対象`}</p>
-                <p>{`${charts.room.lecture.year}年${charts.room.lecture.semester.name} ${weekdays[charts.room.lecture.weekday]}${charts.room.lecture.timeSlot}限`}</p>
-                <p>{charts.room.lecture.title}</p>
+
+              <div className="row">
+                <div className="col-md-8">
+                  {charts.pie !== null &&
+                    <PieCharts pie={charts.pie}/>
+                  }
+                  <div className="row">
+                    {charts.line !== null &&
+                      <LineChart line={charts.line}/>
+                    }
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="row">
+                    <Message messages={messages}/>
+                  </div>
+                </div>
               </div>
-              <div className="col-md-4 room-close-wrap">
-                <RaisedButton
-                  style={{width: 200, margin: '20px 0 0 20px'}}
-                  label="新規登録"
-                  secondary={true}
-                  onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/create`)}
-                />
-                <p><span>開始</span><span>{moment(charts.room.createdAt).format('HH:mm')}</span></p>
-                <p><span>終了予定</span><span>{moment(charts.room.createdAt).add(charts.room.length, 'm').format('HH:mm')}</span></p>
-              </div>
+            </div> :
+            <div className="panel">
+              <div className="panel-body">開講中の授業がありません</div>
             </div>
           }
-          <div className="row">
-            <div className="col-md-8">
-              {charts.pie !== null &&
-                <PieCharts pie={charts.pie}/>
-              }
-              <div className="row">
-                {charts.line !== null &&
-                  <LineChart line={charts.line}/>
-                }
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="row">
-                <Message messages={messages}/>
-              </div>
-            </div>
-          </div>
         </section>
       </div>
     );

@@ -144,3 +144,18 @@ export function openRoom(id, length) {
     }
   };
 }
+
+export function closeRoom(id, length) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.OPEN_ROOM,
+        types.OPEN_ROOM_SUCCESS,
+        types.OPEN_ROOM_FAIL
+      ],
+      endpoint: `lectures/${id}/open`,
+      method: 'POST',
+      body: {length}
+    }
+  };
+}

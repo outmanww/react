@@ -1,5 +1,5 @@
 [lang="ja"] input, [lang="ja"] textarea, [lang="ja"] .input-prefix, [lang="ja"] .input-suffix {
-    font-family: "ヒラギノ角ゴ Pro","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,Osaka,"ＭＳ Ｐゴシック","MS PGothic","MS Gothic","ＭＳ ゴシック","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+  font-family: Hiragino Sans,"ヒラギノ角ゴ Pro","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,Osaka,"ＭＳ Ｐゴシック","MS PGothic","MS Gothic","ＭＳ ゴシック","Helvetica Neue",Helvetica,Arial,sans-serif !important;
 }
 
 html {height:100%;}
@@ -28,24 +28,23 @@ body {height:100%; padding: 0}
 }
 
 .content-header {
-    padding: 20px 0 10px 20px;
-    margin: 0;
+  padding: 20px 0 20px 0;
 
-    h1 {
+  h1 {
 		small {
 			font-size:16px;
 			color: #3D5AFE;
 			cursor: pointer;
 
 			&::before {
-			    content: "\f105";
-			    color: #424242;
-			    display: inline-block;
-			    font-family: FontAwesome;
-			    margin: 0 10px 0 10px;
+		    content: "\f105";
+		    color: #424242;
+		    display: inline-block;
+		    font-family: FontAwesome;
+		    margin: 0 10px 0 10px;
 			}
 		}    	
-    }
+  }
 }
 
 .content-top-space {
