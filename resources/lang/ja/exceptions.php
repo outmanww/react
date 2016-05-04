@@ -124,5 +124,8 @@ return [
         'already_confirmed' => 'すでに登録しました',
         'mismatch' => '確認コードが無効です',
     ],
-    
+
+    'api_token' => [
+        'not_found' => '認証コードが見つかりません',
+    ]
 ];

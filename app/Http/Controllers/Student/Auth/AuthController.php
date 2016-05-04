@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Student\Auth\SignupRequest;
 use App\Http\Requests\Student\Auth\SigninRequest;
 use App\Http\Requests\Student\Auth\ResendConfirmationEmailRequest;
+use App\Http\Requests\Student\Auth\CheckApitokenRequest;
 // Models
 use \App\Models\Student\Student;
 // Exceptions
@@ -54,7 +55,7 @@ class AuthController extends Controller
     /**
      * Create a new user
      */
-    protected function signup(SignupRequest $request)
+    public function signup(SignupRequest $request)
     {
         $student = Student::where('email', $request->email)->first();
 
@@ -85,7 +86,7 @@ class AuthController extends Controller
     /**
      * Get api_token from email and password
      */
-    protected function signin(SigninRequest $request)
+    public function signin(SigninRequest $request)
     {
         if (!\Auth::guard('students')->once($request->all())) {
             throw new ApiException('student.not_found');
@@ -96,6 +97,16 @@ class AuthController extends Controller
         return \Response::json(['api_token' => $token], 200);
     }
 
+    public function apitoken(CheckApitokenRequest $request)
+    {
+        $student = $this->findByApitoken($request->api_token);
+
+        return \Response::json(['confirmed' => $student->confirmed], 200);
+    }
+
+    /**
+     * Get student from email
+     */
     public function findByEmail($email) {
         $student = Student::where('email', $email)->first();
 
@@ -106,6 +117,22 @@ class AuthController extends Controller
         return $student;
     }
 
+    /**
+     * Get student from API token
+     */
+    public function findByApitoken($api_token) {
+        $student = Student::where('api_token', $api_token)->first();
+
+        if (!$student instanceof Student) {
+            throw new ApiException('api_token.not_found');
+        }
+
+        return $student;
+    }
+
+    /**
+     * Get student from confirmation code
+     */
     public function findByToken($token) {
         $student = Student::where('confirmation_code', $token)->first();
 
