@@ -239,8 +239,13 @@ class RoomController extends Controller
         if(!$room instanceof Room)
             throw new ApiException('room.not_found');
 
-        if($room->closed_at)
-            throw new ApiException('room.closed');
+        if(isset($room->closed_at))
+        {
+            if(0 == $room->closed_at->diffInDays(Carbon::now()))
+                throw new ApiException('room.closed');
+            else
+                throw new ApiException('room.not_found');
+        }
 
         return $room;
     }
