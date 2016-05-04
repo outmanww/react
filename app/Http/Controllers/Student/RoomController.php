@@ -241,6 +241,9 @@ class RoomController extends Controller
 
         if(isset($room->closed_at))
         {
+            echo '<pre>';
+            var_dump($room->closed_at);
+            echo '</pre>';
             if(0 == $room->closed_at->diffInDays($now))
                 throw new ApiException('room.closed');
             else
