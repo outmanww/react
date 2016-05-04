@@ -36,9 +36,9 @@ class SendSignUpSucceedEmail extends Job implements ShouldQueue
         $mailer->send(
             'student.emails.signup',
             [
-                'token' => $user->confirmation_code,
-                'name' => $user->family_name.' '.$user->given_name,
-                'email' => $user->email,
+                'token' => $student->confirmation_code,
+                'name' => $student->family_name.' '.$student->given_name,
+                'email' => $student->email,
                 'school' => \Request::route('school')
             ],
             function ($message) use ($student) {
