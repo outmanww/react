@@ -96,7 +96,8 @@ class AuthController extends Controller
 
         return \Response::json(['api_token' => $student->api_token,
                                 'family_name' => $student->family_name,
-                                'given_name' => $student->given_name], 200);
+                                'given_name' => $student->given_name,
+                                'confirmed' => $student->confirmed], 200);
     }
 
     public function apitoken(CheckApitokenRequest $request)
