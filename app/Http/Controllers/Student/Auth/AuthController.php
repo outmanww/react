@@ -94,6 +94,9 @@ class AuthController extends Controller
 
         $student = \Auth::guard('students')->user();
 
+        $student->api_token = sha1(uniqid(mt_rand(), true));
+        $student->save;
+
         return \Response::json(['api_token' => $student->api_token,
                                 'family_name' => $student->family_name,
                                 'given_name' => $student->given_name,
