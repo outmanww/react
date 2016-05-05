@@ -1,16 +1,19 @@
 /*eslint-disable max-len,quotes*/
 export default {
-  "unexpected": `接続エラーです。もう一度実行してください。`,
+  "unexpected": `接続エラーですもう一度実行してください`,
 
   "nav.dashboard": `ダッシュボード`,
   "nav.lecture": `授業の管理`,
 
   "user.alreadyHasRoom": `すでに開講中の授業が存在しています`,
 
-  "lecture.store.success": `新しく講義を作成しました。`,
-  "lecture.join.success": `新しい講義を登録しました。`,
+  "lecture.store.success": `新しく講義を作成しました`,
+  "lecture.join.success": `新しい講義を登録しました`,
 
-  "room.overSize": `現在一時的に授業の開講ができません。`,
+  "room.open.success": `授業を開始しました`,
+  "room.close.success": `授業を終了しました`,
+
+  "room.overSize": `現在一時的に授業の開講ができません`,
 
 
 
@@ -39,6 +42,6 @@ export default {
     =activate {の停止を解除} =deactivate {を停止} =restore{を復旧} =destroy{を削除} =delete{を完全に削除} =resend{に確認メールを送信}}しました`,
   "sideAlert.fail": `{attribute, plural,
     =user {ユーザー} =role {ロール} =permission {パーミッション}}{method, plural,
-    =activate {の停止解除} =deactivate {の停止} =restore{の復旧} =destroy{の削除} =delete{の完全削除} =resend{へのメール送信}}に失敗しました。もう一度実行してください`,
+    =activate {の停止解除} =deactivate {の停止} =restore{の復旧} =destroy{の削除} =delete{の完全削除} =resend{へのメール送信}}に失敗しましたもう一度実行してください`,
   
 };

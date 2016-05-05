@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 // Actions
 import * as DashboardActions from '../../actions/dashboard';
+import * as LectureActions from '../../actions/lecture';
 // Components
 import { RaisedButton } from 'material-ui';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
@@ -38,7 +39,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { charts, messages } = this.props;
+    const { charts, messages, actions } = this.props;
     const weekdays = {
       '1': '月曜日',
       '2': '火曜日',
@@ -75,7 +76,7 @@ class Dashboard extends Component {
                         style={{width: 150, marginRight: 20, float:'right'}}
                         label="終了"
                         secondary={true}
-                        onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/create`)}
+                        onClick={() => actions.closeRoom(charts.room.id)}
                       />
                     </div>
                   </div>
@@ -135,7 +136,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = Object.assign({}, DashboardActions);
+  const actions = Object.assign(LectureActions, DashboardActions);
   return {
     actions: bindActionCreators(actions, dispatch)
   };

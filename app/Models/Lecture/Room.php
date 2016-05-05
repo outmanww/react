@@ -438,9 +438,10 @@ class Room extends Model
 
 		// get all message data
 		$messages = Reaction::messageFromMin($this->affiliation_id, $this->id, $latestTime)
-								->select('created_at as time','type_id as type','message')
-            					->orderBy('time','desc')
-								->get();
+			->select('created_at as time','type_id as type','message')
+			->orderBy('time','desc')
+			->get();
+
 		foreach($messages as $message)
 			$message['time'] = strtotime($message['time']);
 
@@ -452,7 +453,7 @@ class Room extends Model
 	{
 		// if already closed
 		if(null != $this->closed_at)
-			return;
+			throw new ApiException('room.not_yours');
 
 		// get time now
         $now = Carbon::now();
@@ -465,15 +466,12 @@ class Room extends Model
 		if(is_null($this->affiliation_id))
 			$this->affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
 
-		// room create time
-		$room_create_time = $this->created_at;
-
 		// get last room event for each student
 		$room_events = Reaction::allRoomEvent($this->affiliation_id, $this->id)
-//									->select(DB::raw('id, student_id, type_id, MAX(created_at) as created_at'))
-									->select('student_id')
-									->groupBy('student_id')
-									->get();
+//			->select(DB::raw('id, student_id, type_id, MAX(created_at) as created_at'))
+			->select('student_id')
+			->groupBy('student_id')
+			->get();
 
 		foreach($room_events as $room_event)
         {

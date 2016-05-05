@@ -29,3 +29,7 @@ export const JOIN_LECTURE_FAIL = 'JOIN_LECTURE_FAIL';
 export const OPEN_ROOM = 'OPEN_ROOM';
 export const OPEN_ROOM_SUCCESS = 'OPEN_ROOM_SUCCESS';
 export const OPEN_ROOM_FAIL = 'OPEN_ROOM_FAIL';
+
+export const CLOSE_ROOM = 'CLOSE_ROOM';
+export const CLOSE_ROOM_SUCCESS = 'CLOSE_ROOM_SUCCESS';
+export const CLOSE_ROOM_FAIL = 'CLOSE_ROOM_FAIL';

@@ -36,18 +36,7 @@ class RoomController extends Controller
      */
     public function room($school, $id)
     {
-        $room = Room::find($id);
-
-        if (!$room) {
-            throw new ApiException('room.notFound');
-        }
-
-        $user = \Auth::guard('users')->user();
-
-        if (!$user->hasRoom($id)) {
-            throw new ApiException('room.notYours');
-        }
-
+        $room = $this->findByID($id);
         $reaction = Reaction::where('room_id', $id)->get();
 
         return \Response::json(['room' => $reaction], 200);
@@ -56,8 +45,29 @@ class RoomController extends Controller
     /**
      * @return \Illuminate\View\View
      */
-    public function room($school, $id)
+    public function closeRoom($school, $id)
     {
-        
+        $room = $this->findByID($id);
+        $room->closeRoom(5);
+
+        return \Response::json('success', 200);
     }
+
+    protected function findByID($id)
+    {
+        $room = Room::find($id);
+
+        if (!$room) {
+            throw new ApiException('room.not_found');
+        }
+
+        $user = \Auth::guard('users')->user();
+
+        if (!$user->hasRoom($id)) {
+            throw new ApiException('room.not_yours');
+        }
+
+        return $room;
+    }
+
 }

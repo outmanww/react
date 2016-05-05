@@ -2,7 +2,7 @@
 
 Route::group(['prefix' => 'fetch/room'], function() {
 	Route::get('/{id}', 'RoomController@room');
-	Route::get('/{id}/close', 'RoomController@room');
+	Route::patch('/{id}/close', 'RoomController@closeRoom');
 });
 
 // Route::group(['prefix' => 'fetch/lectures'], function() {

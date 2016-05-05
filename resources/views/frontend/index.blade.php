@@ -47,7 +47,7 @@
       <div class="download">
         <div class="banner-btn">
           <a href="#"><img src="images/apple-store-btn.png"></a>
-          <a href="#"><img src="images/google-store-btn.png"></a>
+          <a href="https://play.google.com/store/apps/details?id=com.optimind_react.reactadroid"><img src="images/google-store-btn.png"></a>
         </div>
       </div>
     </div>

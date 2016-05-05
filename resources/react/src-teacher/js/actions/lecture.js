@@ -1,5 +1,6 @@
 import * as types from '../constants/LectureActionTypes';
 import { ADD_SIDE_ALERT } from '../constants/ActionTypes';
+import { REQUEST_CHARTS_SUCCESS } from '../constants/DashboardActionTypes';
 import { CALL_API } from '../middleware/fetchMiddleware';
 import { push } from 'react-router-redux';
 
@@ -141,21 +142,49 @@ export function openRoom(id, length) {
       endpoint: `lectures/${id}/open`,
       method: 'POST',
       body: {length}
+    },
+    meta: {
+      actionsOnSuccess: [
+        () => ({
+          type: ADD_SIDE_ALERT,
+          status: 'success',
+          messageId: 'room.open.success',
+          value: ''
+        })
+      ]
     }
   };
 }
 
-export function closeRoom(id, length) {
+export function closeRoom(id) {
   return {
     [CALL_API]: {
       types: [
-        types.OPEN_ROOM,
-        types.OPEN_ROOM_SUCCESS,
-        types.OPEN_ROOM_FAIL
+        types.CLOSE_ROOM,
+        types.CLOSE_ROOM_SUCCESS,
+        types.CLOSE_ROOM_FAIL
       ],
-      endpoint: `lectures/${id}/open`,
-      method: 'POST',
-      body: {length}
+      endpoint: `room/${id}/close`,
+      method: 'PATCH',
+      body: null
+    },
+    meta: {
+      actionsOnSuccess: [
+        () => ({
+          type: REQUEST_CHARTS_SUCCESS,
+          payload: {
+            exist: false,
+            room: null,
+            charts: { line: null, pie: null }
+          }
+        }),
+        () => ({
+          type: ADD_SIDE_ALERT,
+          status: 'success',
+          messageId: 'room.close.success',
+          value: ''
+        })
+      ]
     }
   };
 }

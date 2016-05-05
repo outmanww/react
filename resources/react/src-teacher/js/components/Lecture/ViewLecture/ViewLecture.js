@@ -20,14 +20,15 @@ class ViewLecture extends Component {
     super(props, context);
     const { actions, routeParams } = props;
     this.state = {
-      id: 0
+      id: 0,
+      editable: true
     };
     actions.fetchLecture(routeParams.id);
   }
 
   render() {
     const { userId, lecture, room, actions } = this.props;
-    const { id } = this.state;
+    const { id, editable } = this.state;
 
     const beChanged = key => {
       const target = types.find(type => type.id === id.value);
@@ -85,8 +86,8 @@ class ViewLecture extends Component {
                 </div>
                 <input className="overview-title input-large" type="text" name="name" id="input-name"
                   defaultValue={lecture.lecture.title}
-                  placeholder=""
                   maxLength={15}
+                  disabled={!editable}
                 />
               </div>
 
@@ -96,7 +97,7 @@ class ViewLecture extends Component {
                     <label className="label-large" htmlFor="select-property_type_id">授業の時期</label>
                     <div className="row-space-1">
                       <div className="select select-block">
-                        <select name="property_type_id" id="select-property_type_id">
+                        <select name="property_type_id" id="select-property_type_id" disabled={!editable}>
                           <option selected value={1}>2016年度 前期</option>
                           <option value={2}>2016年度 前期</option>
                         </select>
@@ -108,7 +109,7 @@ class ViewLecture extends Component {
                     <label className="label-large" htmlFor="select-property_type_id">曜日</label>
                     <div className="row-space-1">
                       <div className="select select-block">
-                        <select name="property_type_id" id="select-property_type_id">
+                        <select name="property_type_id" id="select-property_type_id" disabled={!editable}>
                           <option selected value={1}>月曜日</option>
                           <option value={2}>火曜日</option>
                           <option value={3}>水曜日</option>
@@ -124,7 +125,7 @@ class ViewLecture extends Component {
                     <label className="label-large" htmlFor="select-property_type_id">限</label>
                     <div className="row-space-1">
                       <div className="select select-block">
-                        <select name="property_type_id" id="select-property_type_id">
+                        <select name="property_type_id" id="select-property_type_id" disabled={!editable}>
                           <option selected value={1}>１限</option>
                           <option value={2}>２限</option>
                           <option value={3}>３限</option>
@@ -153,6 +154,7 @@ class ViewLecture extends Component {
                   defaultValue={lecture.lecture.place}
                   placeholder=""
                   maxLength={15}
+                  disabled={!editable}
                 />
               </div>
             </div>
@@ -163,7 +165,7 @@ class ViewLecture extends Component {
                     <label className="label-large" htmlFor="select-property_type_id">対象学年</label>
                     <div className="row-space-1">
                       <div className="select select-block">
-                        <select name="property_type_id" id="select-property_type_id">
+                        <select name="property_type_id" id="select-property_type_id" disabled={!editable}>
                           <option selected value={1}>月曜日</option>
                           <option value={2}>火曜日</option>
                           <option value={3}>水曜日</option>
@@ -179,7 +181,7 @@ class ViewLecture extends Component {
                     <label className="label-large" htmlFor="select-property_type_id">授業時間</label>
                     <div className="row-space-1">
                       <div className="select select-block">
-                        <select name="property_type_id" id="select-property_type_id">
+                        <select name="property_type_id" id="select-property_type_id" disabled={!editable}>
                           <option selected value={1}>１限</option>
                           <option value={2}>２限</option>
                           <option value={3}>３限</option>
@@ -204,11 +206,11 @@ class ViewLecture extends Component {
                   </div>
                 </div>
                 <textarea className="overview-summary" rows={6} name="summary"
-                  placeholder=""
                   maxLength={250}
                   data-ignore-handle-blur="true"
                   id="textarea-summary"
                   defaultValue={lecture.lecture.description}
+                  disabled={!editable}
                 />
               </div>
             </div>

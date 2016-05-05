@@ -95,7 +95,7 @@ return [
         'already_room_out' => 'すでに退室状態です',
         'already_fore_in' => 'すでにbackground状態です',
         'already_fore_out' => 'すでにforeground状態です',
-        'not_in_campus' => '指定エリア外にいるため利用できません',
+        'not_in_campus' => '指定エリア外にいるため利用できません',        
     ],
 
     'shop_type' => [
