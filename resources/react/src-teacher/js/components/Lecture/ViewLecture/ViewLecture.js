@@ -63,13 +63,40 @@ class ViewLecture extends Component {
 
     return (
       <div>
-        <div className="row content-wrap-white">
-          {lecture.lecture !== 'undefind' && !lecture.isFetching &&
-          <div>
+        {lecture.lecture !== 'undefind' && !lecture.isFetching &&
+        <div>
+          <div className="row content-wrap-white relative">
+            <div className="switch-wrap edit-lecture-switch">
+              <div className="either">
+                <input type="radio" defaultChecked="checked" checked={editable} />
+                <label
+                  className="switch-opened"
+                  data-label="編集"
+                  onClick={() => this.setState({
+                    editable: true,
+                    id: 0
+                  })}
+                >
+                  編集
+                </label>
+                <input type="radio" checked={!editable}/>
+                <label
+                  className="switch-closed"
+                  data-label="ロック"
+                  onClick={() => this.setState({
+                    editable: false,
+                    ...format(['id', 'name', 'en', 'description'])
+                  })}
+                >
+                  ロック
+                </label>
+              </div>
+            </div>
+
             <div className="col-md-12">
-              <h4 className="">
-                <span>{`${lecture.lecture.department.name}・${lecture.lecture.department.faculty.name}`}</span>
-                <span>{`授業コード：${lecture.lecture.code}`}</span>
+              <h4 className="space-top-4 lecture-title">
+                <span>{`${lecture.lecture.department.name}・${lecture.lecture.department.faculty.name}対象　`}</span>
+                <span>{`　授業コード：${lecture.lecture.code}`}</span>
               </h4>
             </div>
             <div className="col-md-6">
@@ -215,46 +242,43 @@ class ViewLecture extends Component {
               </div>
             </div>
           </div>
-          }
-        </div>
 
-        <div className="row content-wrap-white content-top-space">
-          <div className="col-md-12">
-            <h4 className="space-top-2">過去の授業一覧</h4>
-          </div>
-          {lecture.lecture !== 'undefind' && !lecture.isFetching &&
-          <div className="space-top-2">
-            <div className="col-md-4">
-              <div className="list-group room-list">
-                {lecture.lecture.rooms.map(r =>
-                  <a
-                    key={r.id}
-                    className={`list-group-item${r.teacher.id === userId ? r.id === id ? ' active' : '' : ' disabled'}`}
-                    onClick={() => {
-                      if (room.room !== 'undefined' && !room.isFetching) {
-                        actions.fetchRoom(r.id);
-                        this.setState({id: r.id});
-                      }
-                    }}
-                  >
-                    <span className="badge">14 人</span>
-                    <span className="">{r.createdAt}</span>
-                    <span className="space-left-3">{r.teacher.familyName} {r.teacher.givenName}</span>
-                  </a>
-                )}
-              </div>
+          <div className="row content-wrap-white content-top-space">
+            <div className="col-md-12">
+              <h4 className="space-top-2">過去の授業一覧</h4>
             </div>
+            <div className="space-top-2">
+              <div className="col-md-4">
+                <div className="list-group room-list">
+                  {lecture.lecture.rooms.map(r =>
+                    <a
+                      key={r.id}
+                      className={`list-group-item${r.teacher.id === userId ? r.id === id ? ' active' : '' : ' disabled'}`}
+                      onClick={() => {
+                        if (room.room !== 'undefined' && !room.isFetching) {
+                          actions.fetchRoom(r.id);
+                          this.setState({id: r.id});
+                        }
+                      }}
+                    >
+                      <span className="badge">14 人</span>
+                      <span className="">{r.createdAt}</span>
+                      <span className="space-left-3">{r.teacher.familyName} {r.teacher.givenName}</span>
+                    </a>
+                  )}
+                </div>
+              </div>
 
-            <div className="col-md-8">
-              <div className="has-border">
-                {/*<p className="select">編集するタイプを選択してください</p>*/}
-                <LineChart data={lineData} width="600" height="250"/>
+              <div className="col-md-8">
+                <div className="has-border">
+                  {/*<p className="select">編集するタイプを選択してください</p>*/}
+                  <LineChart data={lineData} width="600" height="250"/>
+                </div>
               </div>
             </div>
           </div>
-          }
         </div>
-
+        }
       </div>
     );
   }

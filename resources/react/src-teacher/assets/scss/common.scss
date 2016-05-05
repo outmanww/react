@@ -13,6 +13,10 @@ body {height:100%; padding: 0}
   outline: none;
 }
 
+.relative {
+  position: relative;
+}
+
 .bg-gray {
   background-color: #F5F5F5;
 }
@@ -61,6 +65,9 @@ body {height:100%; padding: 0}
     margin-top: 24px;
 }
 .space-top-4 {
+    margin-top: 36px;
+}
+.space-top-5 {
     margin-top: 48px;
 }
 

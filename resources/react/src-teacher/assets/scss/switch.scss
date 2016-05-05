@@ -25,6 +25,7 @@
                     &::before {
                         box-sizing: border-box;
                         content: attr(data-label);
+                        font-size: 16px;
 
                         position: absolute;
                         z-index: 1;
