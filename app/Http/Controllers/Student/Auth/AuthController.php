@@ -97,17 +97,25 @@ class AuthController extends Controller
         $student->api_token = sha1(uniqid(mt_rand(), true));
         $student->save;
 
-        return \Response::json(['api_token' => $student->api_token,
-                                'family_name' => $student->family_name,
-                                'given_name' => $student->given_name,
-                                'confirmed' => $student->confirmed], 200);
+        return \Response::json([
+            'api_token' => $student->api_token,
+            'family_name' => $student->family_name,
+            'given_name' => $student->given_name,
+            'confirmed' => $student->confirmed
+        ], 200);
     }
 
     public function apitoken(CheckApitokenRequest $request)
     {
         $student = $this->findByApitoken($request->api_token);
 
-        return \Response::json(['confirmed' => $student->confirmed], 200);
+        // $student->api_token = sha1(uniqid(mt_rand(), true));
+        // $student->save;
+
+        return \Response::json([
+            'confirmed' => $student->confirmed,
+            'api_token' => $student->api_token
+        ], 200);
     }
 
     /**
