@@ -92,9 +92,11 @@ class AuthController extends Controller
             throw new ApiException('student.not_found');
         }
 
-        $token = \Auth::guard('students')->user()->api_token;
+        $student = \Auth::guard('students')->user();
 
-        return \Response::json(['api_token' => $token], 200);
+        return \Response::json(['api_token' => $student->api_token,
+                                'family_name' => $student->family_name,
+                                'given_name' => $student->given_name], 200);
     }
 
     public function apitoken(CheckApitokenRequest $request)
