@@ -108,13 +108,13 @@ class LectureController extends Controller
         $lecture = Lecture::find($id);
 
         if (!$lecture) {
-            throw new ApiException('lecture.notFound');
+            throw new ApiException('lecture.not_found');
         }
 
         $user = \Auth::guard('users')->user();
 
         if (!$user->hasLecture($id)) {
-            throw new ApiException('lecture.notYours');
+            throw new ApiException('lecture.not_yours');
         }
 
         $lecture = Lecture::with([
@@ -237,6 +237,7 @@ class LectureController extends Controller
         if (!$room->genKey()) {
             throw new ApiException('room.overSize');
         }
+
         $room->lecture_id = $id;
         $room->teacher_id = $user->id;
         $room->length = $request->length;
@@ -250,7 +251,29 @@ class LectureController extends Controller
      */
     public function update($school, $id, UpdateLectureRequest $request)
     {
-        return \Response::json($request, 200);
+        $lecture = Lecture::with([
+            'semester' => function ($query) {
+                $query->select('id', 'name');
+            }])
+            ->find($id);
+
+        if (!$lecture instanceof Lecture) {
+            throw new ApiException('lecture.not_found');
+        }
+
+        $exploded = explode('&', $request->year_semester);
+
+        $lecture->title = $request->title;
+        $lecture->year = $exploded[0];
+        $lecture->semester_id = $exploded[1];
+        $lecture->weekday = $request->weekday;
+        $lecture->time_slot = $request->time_slot;
+        $lecture->place = $request->place;
+        $lecture->length = $request->length;
+        $lecture->description = $request->description;
+        $lecture->save();
+
+        return \Response::json(['lecture' => $lecture], 200);
     }
 
     /**

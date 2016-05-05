@@ -38,38 +38,29 @@
   height: 44px;
 }
 
-[type="text"], [type="password"], [type="search"], [type="email"], [type="url"], [type="number"], [type="tel"], textarea, select, .input-prefix, .input-suffix {
-    display: block;
-    width: 100%;
-}
-
-[type="text"], [type="password"], [type="search"], [type="email"], [type="url"], [type="number"], [type="tel"], textarea, select, input[type="radio"], input[type="checkbox"], .input-prefix, .input-suffix {
-    border: 1px solid #c4c4c4;
-    border-radius: 2px;
-    background-color: #fff;
-    color: #565a5c;
-}
-
-[type="text"]:focus, [type="password"]:focus, [type="search"]:focus, [type="email"]:focus, [type="url"]:focus, [type="number"]:focus, [type="tel"]:focus, textarea:focus, select:focus, input[type="radio"]:focus, input[type="checkbox"]:focus, .input-prefix:focus, .input-suffix:focus {
-    border: 2px solid #00D1C1;
-    border-radius: 2px;
-    background-color: #fff;
-    color: #565a5c;
-}
-
-[type="text"], [type="password"], [type="search"], [type="email"], [type="url"], [type="number"], [type="tel"], textarea, select, .input-prefix, .input-suffix {
+[type="text"], [type="password"], [type="search"], [type="email"], [type="url"], [type="number"], [type="tel"], textarea, select {
     display: block;
     width: 100%;
 }
 
 [type="text"], [type="password"], [type="search"], [type="email"], [type="url"], [type="number"], [type="tel"], textarea, select, input[type="radio"], input[type="checkbox"] {
+    border: 1px solid #c4c4c4;
+    border-radius: 0;
+    background-color: #fff;
+    color: #565a5c;
     transition: border-color 0.2s;
 }
 
-.content-wrap-white {
-  background-color: white;
+[type="text"]:focus, [type="password"]:focus, [type="search"]:focus, [type="email"]:focus, [type="url"]:focus, [type="number"]:focus, [type="tel"]:focus, textarea:focus, select:focus, input[type="radio"]:focus, input[type="checkbox"]:focus {
+    border: 2px solid #00D1C1;
+    border-radius: 0;
+    background-color: #fff;
+    color: #565a5c;
 }
 
+.thin-gray-border {
+  border-color: #EEE;
+}
 
 .panel-table .panel-body{
   padding:0;
@@ -184,5 +175,5 @@ used to vertically center elements, may need modification if you're not using de
   position: absolute;
   top: 0;
   right: -5px;
-  width: 300px;
+  z-index: 1;
 }

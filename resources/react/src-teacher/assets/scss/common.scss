@@ -17,13 +17,21 @@ body {height:100%; padding: 0}
   position: relative;
 }
 
-.nona-appearance {
+.none-appearance {
   appearance: none;
   -webkit-appearance: none;
 }
 
+.none-resize {
+  resize: none;
+}
+
 .bg-gray {
   background-color: #F5F5F5;
+}
+
+.content-wrap-white {
+  background-color: white;
 }
 
 .content-wrap {
@@ -153,4 +161,10 @@ span.list-body {
     text-align: center;
     margin-top: 15px;
   }
+}
+
+.loading-wrap {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
 }

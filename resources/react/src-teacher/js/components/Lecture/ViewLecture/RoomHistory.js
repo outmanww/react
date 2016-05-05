@@ -1,38 +1,22 @@
 import React, { PropTypes, Component } from 'react';
 import { Line } from 'react-chartjs';
 
-class LineChart extends Component {
+class RoomHistory extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      lineWidth: 0
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      lineWidth: document.getElementById('line-wrap').clientWidth - 20
-    });
-
-    // window.onresize = () => {
-    //   this.setState({
-    //     lineWidth: document.getElementById('line-wrap').clientWidth
-    //   });
-    // }
   }
 
   render() {
     const { line } = this.props;
-
-    let labels = [];
-    for (let i = line.boring.length - 1; i >= 0; i--) {
-      labels.unshift(5 * i);
-    }
-
     const colors = {
       confused: '57,73,171',
       interesting: '67,160,71',
       boring: '229,57,53',
+    }
+
+    let labels = [];
+    for (let i = line.boring.length - 1; i >= 0; i--) {
+      labels.unshift(5 * i);
     }
 
     const lineData = {
@@ -69,25 +53,20 @@ class LineChart extends Component {
       ]
     };
 
+console.log(lineData);
+
     return (
-      <div className="space-top-3 space-bottom-3 has-border">
-        <div id="line-wrap">
-          {this.state.lineWidth !== 0 &&
-            <Line
-              data={lineData}
-              width={this.state.lineWidth}
-              height="300"
-              style={{width: this.state.lineWidth}}
-            />
-          }
-        </div>
+      <div className="has-border">
+        {/*<p className="select">編集するタイプを選択してください</p>*/}
+        <Line data={lineData} width="600" height="250"/>
       </div>
-    );
+    )
   }
 }
 
-LineChart.propTypes = {
+RoomHistory.propTypes = {
   line: PropTypes.object.isRequired,
+  messages: PropTypes.object.isRequired
 };
 
-export default LineChart;
+export default RoomHistory;

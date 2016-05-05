@@ -6,6 +6,9 @@ import {
   REQUEST_LECTURE,
   REQUEST_LECTURE_SUCCESS,
   REQUEST_LECTURE_FAIL,
+  UPDATE_LECTURE,
+  UPDATE_LECTURE_SUCCESS,
+  UPDATE_LECTURE_FAIL,
   REQUEST_ROOM,
   REQUEST_ROOM_SUCCESS,
   REQUEST_ROOM_FAIL,
@@ -32,7 +35,7 @@ function change(state = {}, key, type, payload) {
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        [key]: payload[key]
+        [key]: Object.assign({}, state[key], payload[key])
       });
 
     case 'REQUEST_FAIL':
@@ -49,6 +52,9 @@ function change(state = {}, key, type, payload) {
 const initialState = {
   lecture: {
     lecture: null
+  },
+  updateLecture: {
+    updateLecture: null
   },
   room: {
     room: null
@@ -72,6 +78,13 @@ export default function disposable(state = initialState, action) {
     case REQUEST_LECTURE_FAIL:
       return Object.assign({}, state, {
         lecture: change(state.lecture, 'lecture', type.replace(/_LECTURE/g, ''), payload)
+      });
+
+    case UPDATE_LECTURE:
+    case UPDATE_LECTURE_SUCCESS:
+    case UPDATE_LECTURE_FAIL:
+      return Object.assign({}, state, {
+        updateLecture: change(state.updateLecture, 'updateLecture', type.replace(/UPDATE_LECTURE/g, 'REQUEST'), payload)
       });
 
     case REQUEST_ROOM:

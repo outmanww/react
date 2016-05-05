@@ -145,6 +145,7 @@ class CreateLecture extends Component {
       {value: 5, string: '金曜日'},
       {value: 6, string: '土曜日'},
       {value: 0, string: '日曜日'},
+      {value: 7, string: 'その他'},
     ];
 
     const grades = [
@@ -156,7 +157,7 @@ class CreateLecture extends Component {
       {value: '修士２年', string: '修士２年'},
       {value: '全学年', string: '全学年'},
     ];
-console.log(this.state.open, basic.lectureBasic, basic.isFetching, overlappedLecture)
+
     return (
       <div className="row">
         <div className="space-top-2 row-space-2 clearfix">
@@ -371,6 +372,7 @@ console.log(this.state.open, basic.lectureBasic, basic.isFetching, overlappedLec
                     <option value={3}>３限</option>
                     <option value={4}>４限</option>
                     <option value={5}>５限</option>
+                    <option value={6}>その他</option>
                   </select>
                 </div>
               </div>

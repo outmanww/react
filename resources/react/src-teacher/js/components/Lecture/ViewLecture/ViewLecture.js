@@ -12,90 +12,106 @@ import {
 import * as LectureActions from '../../../actions/lecture';
 import { routeActions } from 'react-router-redux';
 // Material-UiI-components
-import { Paper, Card, CardHeader, CardText, CardActions, FlatButton, TextField } from 'material-ui';
+import { RaisedButton, FlatButton } from 'material-ui';
 import Colors from 'material-ui/lib/styles/colors';
-import ContentAdd from 'material-ui/lib/svg-icons/content/add';
-import FontIcon from 'material-ui/lib/font-icon';
-var LineChart = require("react-chartjs").Line;
-var PieChart = require("react-chartjs").Pie;
+// Components
+import Loading from '../../Common/Loading';
+import RoomHistory from './RoomHistory';
 
 class ViewLecture extends Component {
   constructor(props, context) {
     super(props, context);
     const { actions, routeParams } = props;
+
     this.state = {
       id: 0,
-      editable: true
+      editable: false
     };
+    actions.fetchLectureBasic();
     actions.fetchLecture(routeParams.id);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.lecture.lecture !== null) {
+      const lecture = nextProps.lecture.lecture;
+      this.setState({
+        title: lecture.title,
+        yearSemester: `${lecture.year}&${lecture.semester.id}`,
+        weekday: lecture.weekday,
+        timeSlot: lecture.timeSlot,
+        place: lecture.place,
+        length: lecture.length,
+        description: lecture.description,
+      })
+    }
+
+    if (
+      this.state.editable &&
+      this.props.update.isFetching &&
+      !nextProps.update.isFetching
+    ) {
+      this.setState({
+        editable: false
+      })
+    }
+  }
+
   render() {
-    const { userId, lecture, room, actions } = this.props;
-    const { id, editable } = this.state;
-
-    const beChanged = key => {
-      const target = types.find(type => type.id === id.value);
-      return target[key] !== this.state[key].value;
-    };
-
-    var lineData = {
-      labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90'],
-      datasets: [
-        {
-          label: "My First dataset",
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [65, 59, 80, 81, 56, 55, 40, 30, 10, 8]
-        },
-        {
-          label: "My Second dataset",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          data: [28, 48, 40, 19, 86, 27, 90, 8, 10, 80]
-        }
-      ]
-    };
+    const { userId, lecture, basic, update, room, actions } = this.props;
+    const { id, editable, title, yearSemester, weekday, timeSlot, place, length, description } = this.state;
 
     return (
       <div>
         {lecture.lecture !== 'undefind' && !lecture.isFetching &&
         <div>
           <div className="row content-wrap-white relative">
-            <div className="switch-wrap edit-lecture-switch">
-              <div className="either">
-                <input type="radio" defaultChecked="checked" checked={editable} />
-                <label
-                  className="switch-opened"
-                  data-label="編集"
-                  onClick={() => this.setState({
-                    editable: true,
-                    id: 0
-                  })}
-                >
-                  編集
-                </label>
-                <input type="radio" checked={!editable}/>
-                <label
-                  className="switch-closed"
-                  data-label="ロック"
+            {editable && update.isFetching &&
+              <div className="loading-wrap" style={{height: 350, paddingTop: 80}}>
+                <Loading/>
+              </div>
+            }
+
+            {editable ?
+              <div className="switch-wrap edit-lecture-switch">
+                <RaisedButton
+                  label={update.isFetching ? '保存中...' : '保存'}
+                  primary={true}
+                  rippleColor="#00BCD4"
+                  hoverColor="#B2EBF"
+                  style={{float: 'right', width: 120, margin: '0 10px 0 10px', fontSize: 16}}
+                  disabled={title.length === 0 || update.isFetching}
+                  onClick={() => {
+                    actions.updateLecture(
+                      lecture.lecture.id,
+                      { title, yearSemester, weekday, timeSlot, place, length, description }
+                    )
+                  }}
+                />
+                <FlatButton
+                  label="キャンセル"
+                  secondary={true}
+                  style={{float: 'right', width: 120, margin: '0 10px 0 10px', fontSize: 16}}
                   onClick={() => this.setState({
                     editable: false,
-                    ...format(['id', 'name', 'en', 'description'])
+                    title: lecture.lecture.title,
+                    yearSemester: `${lecture.lecture.year}&${lecture.lecture.semester.id}`,
+                    weekday: lecture.lecture.weekday,
+                    timeSlot: lecture.lecture.timeSlot,
+                    place: lecture.lecture.place,
+                    length: lecture.lecture.length,
+                    description: lecture.lecture.description
                   })}
-                >
-                  ロック
-                </label>
+                />
+              </div> :
+              <div className="switch-wrap edit-lecture-switch">
+                <RaisedButton
+                  label="編集"
+                  style={{float: 'right', width: 120, margin: '0 10px 0 10px', fontSize: 16}}
+                  primary={true}
+                  onClick={() => this.setState({editable: true})}
+                />
               </div>
-            </div>
+            }
 
             <div className="col-md-12">
               <h4 className="space-top-4 lecture-title">
@@ -107,17 +123,29 @@ class ViewLecture extends Component {
               <div className="space-top-2 row-space-2 clearfix">
                 <div className="row">
                   <div className="col-md-4">
-                    <label className="label-large" htmlFor="input-name">授業名</label>
+                    <label
+                      className={title.length === 0 ? 'label-large error' : 'label-large'}
+                      htmlFor="input-name"
+                    >
+                      授業名
+                    </label>
                   </div>
-                  <div className="col-md-8">
-                    <div className="row-space-top-1 label-large text-right">
-                      <div>残り<span>11</span>文字</div>
+                  {editable &&
+                    <div className="col-md-8">
+                      <div className="row-space-top-1 label-large text-right">
+                        <div>残り
+                          <span className={20 - title.length <= 0 ? 'error-message' : ''}>
+                            {20 - title.length}
+                          </span>文字
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  }
                 </div>
-                <input className="overview-title input-large" type="text" name="name" id="input-name"
-                  defaultValue={lecture.lecture.title}
-                  maxLength={15}
+                <input type="text" name="name" id="input-name" maxLength={20}
+                  className={editable ? 'overview-title input-large' : 'overview-title input-large none-resize thin-gray-border'}
+                  value={title}
+                  onChange={(e) => this.setState({ title: e.target.value })}
                   disabled={!editable}
                 />
               </div>
@@ -131,11 +159,16 @@ class ViewLecture extends Component {
                         <select
                           name="property_type_id"
                           id="select-property_type_id"
-                          className={editable ? '' : 'nona-appearance'}
+                          className={editable ? '' : 'none-appearance thin-gray-border'}
+                          value={yearSemester}
+                          onChange={(e) => this.setState({ yearSemester: e.target.value })}
                           disabled={!editable}
                         >
-                          <option selected value={1}>2016年度 前期</option>
-                          <option value={2}>2016年度 前期</option>
+                        {basic.lectureBasic !== null &&
+                          Object.keys(basic.lectureBasic.yearSemester).map(key =>
+                            <option value={key}>{basic.lectureBasic.yearSemester[key]}</option>
+                          )
+                        }
                         </select>
                       </div>
                     </div>
@@ -148,15 +181,19 @@ class ViewLecture extends Component {
                         <select
                           name="property_type_id"
                           id="select-property_type_id"
-                          className={editable ? '' : 'nona-appearance'}
+                          value={weekday}
+                          className={editable ? '' : 'none-appearance thin-gray-border'}
+                          onChange={(e) => this.setState({ weekday: e.target.value })}
                           disabled={!editable}
                         >
-                          <option selected value={1}>月曜日</option>
+                          <option value={1}>月曜日</option>
                           <option value={2}>火曜日</option>
                           <option value={3}>水曜日</option>
                           <option value={4}>木曜日</option>
                           <option value={5}>金曜日</option>
                           <option value={6}>土曜日</option>
+                          <option value={0}>日曜日</option>
+                          <option value={7}>その他</option>
                         </select>
                       </div>
                     </div>
@@ -166,12 +203,20 @@ class ViewLecture extends Component {
                     <label className="label-large" htmlFor="select-property_type_id">限</label>
                     <div className="row-space-1">
                       <div className="select select-block">
-                        <select name="property_type_id" id="select-property_type_id" disabled={!editable}>
-                          <option selected value={1}>１限</option>
+                        <select
+                          name="property_type_id"
+                          id="select-property_type_id"
+                          value={timeSlot}
+                          className={editable ? '' : 'none-appearance thin-gray-border'}
+                          disabled={!editable}
+                          onChange={(e) => this.setState({ timeSlot: e.target.value })}
+                        >
+                          <option value={1}>１限</option>
                           <option value={2}>２限</option>
                           <option value={3}>３限</option>
                           <option value={4}>４限</option>
                           <option value={5}>５限</option>
+                          <option value={6}>その他</option>
                         </select>
                       </div>
                     </div>
@@ -185,52 +230,41 @@ class ViewLecture extends Component {
                   <div className="col-md-4">
                     <label className="label-large" htmlFor="input-name">授業の場所</label>
                   </div>
-                  <div className="col-md-8">
-                    <div className="row-space-top-1 label-large text-right">
-                      <div>残り<span>11</span>文字</div>
+                  {editable &&
+                    <div className="col-md-8">
+                      <div className="row-space-top-1 label-large text-right">
+                        <div>残り
+                          <span className={20 - place.length <= 0 ? 'error-message' : ''}>
+                            {20 - place.length}
+                          </span>文字
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  }
                 </div>
-                <input className="overview-title input-large" type="text" name="name" id="input-name"
-                  defaultValue={lecture.lecture.place}
+                <input type="text" name="name" id="input-name"
+                  className={editable ? 'overview-title input-large' : 'overview-title input-large none-resize thin-gray-border'}
+                  value={place}
                   placeholder=""
                   maxLength={15}
                   disabled={!editable}
+                  onChange={(e) => this.setState({ place: e.target.value })}
                 />
               </div>
             </div>
             <div className="col-md-6">
               <div className="space-top-2 row-space-2 clearfix">
                 <div className="raw">
-                  <div className="col-md-6" style={{paddingLeft: 5, paddingRight: 5}}>
-                    <label className="label-large" htmlFor="select-property_type_id">対象学年</label>
-                    <div className="row-space-1">
-                      <div className="select select-block">
-                        <select name="property_type_id" id="select-property_type_id" disabled={!editable}>
-                          <option selected value={1}>月曜日</option>
-                          <option value={2}>火曜日</option>
-                          <option value={3}>水曜日</option>
-                          <option value={4}>木曜日</option>
-                          <option value={5}>金曜日</option>
-                          <option value={6}>土曜日</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-6" style={{paddingLeft: 10, paddingRight: 0}}>
-                    <label className="label-large" htmlFor="select-property_type_id">授業時間</label>
-                    <div className="row-space-1">
-                      <div className="select select-block">
-                        <select name="property_type_id" id="select-property_type_id" disabled={!editable}>
-                          <option selected value={1}>１限</option>
-                          <option value={2}>２限</option>
-                          <option value={3}>３限</option>
-                          <option value={4}>４限</option>
-                          <option value={5}>５限</option>
-                        </select>
-                      </div>
-                    </div>
+                  <div className="col-md-6" style={{paddingLeft: 0, paddingRight: 10}}>
+                    <label className="label-large" htmlFor="select-property_type_id">授業時間(分)</label>
+                    <input id="input-length" maxLength={3} type="number" step="10"
+                      className={editable ? 'overview-title input-large' : 'overview-title input-large none-resize thin-gray-border'}
+                      name="length"
+                      placeholder={editable ? '入力してください' : ''}
+                      value={length}
+                      disabled={!editable}
+                      onChange={(e) => this.setState({ length: e.target.value })}
+                    />
                   </div>
                 </div>
               </div>
@@ -238,24 +272,36 @@ class ViewLecture extends Component {
               <div className="space-top-2 row-space-2 clearfix">
                 <div className="row">
                   <div className="col-md-4">
-                    <label className="label-large" htmlFor="textarea-summary">授業の説明</label>
+                    <label className="label-large" htmlFor="textarea-description">授業の説明</label>
                   </div>
-                  <div className="col-md-8">
-                    <div className="row-space-top-1 label-large text-right">
-                      <div>残り<span>161</span>文字</div>
+                  {editable &&
+                    <div className="col-md-8">
+                      <div className="row-space-top-1 label-large text-right">
+                        <div>残り
+                          <span className={120 - description.length <= 0 ? 'error-message' : ''}>
+                            {120 - description.length}
+                          </span>文字
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  }
                 </div>
-                <textarea className="overview-summary" rows={6} name="summary"
-                  maxLength={250}
+                <textarea rows={3} name="summary" maxLength={120}
+                  id="textarea-description"
+                  className={editable ? 'overview-summary' : 'overview-summary none-resize thin-gray-border'}
                   data-ignore-handle-blur="true"
-                  id="textarea-summary"
-                  defaultValue={lecture.lecture.description}
+                  value={description}
                   disabled={!editable}
+                  onChange={(e) => this.setState({ description: e.target.value })}
                 />
               </div>
             </div>
           </div>
+
+
+
+
+
 
           <div className="row content-wrap-white content-top-space">
             <div className="col-md-12">
@@ -284,10 +330,12 @@ class ViewLecture extends Component {
               </div>
 
               <div className="col-md-8">
-                <div className="has-border">
-                  {/*<p className="select">編集するタイプを選択してください</p>*/}
-                  <LineChart data={lineData} width="600" height="250"/>
-                </div>
+              {room.room !== null &&
+                <RoomHistory
+                  line={room.room.charts}
+                  messages={room.room.messages}
+                />
+              }
               </div>
             </div>
           </div>
@@ -307,6 +355,8 @@ function mapStateToProps(state, ownProps) {
   return {
     userId: state.user.user ? state.user.user.id : 0,
     lecture: state.disposable.lecture,
+    update: state.disposable.updateLecture,
+    basic: state.lectureBasic,
     room: state.disposable.room,
     routeParams: ownProps.routeParams,
   };

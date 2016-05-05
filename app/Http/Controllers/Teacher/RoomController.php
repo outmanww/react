@@ -37,9 +37,21 @@ class RoomController extends Controller
     public function room($school, $id)
     {
         $room = $this->findByID($id);
-        $reaction = Reaction::where('room_id', $id)->get();
+        $charts = [
+            'attendance' => explode(",", $room->history_attendance),
+            'confused' => explode(",", $room->history_confused),
+            'interesting' => explode(",", $room->history_interesting),
+            'boring' => explode(",", $room->history_boring)
+        ];
 
-        return \Response::json(['room' => $reaction], 200);
+        $messages = $room->getMessage();
+
+        return \Response::json([
+            'room' => [
+                'charts' => $charts,
+                'messages' => $messages,
+            ]
+        ], 200);
     }
 
     /**

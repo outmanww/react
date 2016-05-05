@@ -20,7 +20,7 @@ Route::group(['prefix' => 'fetch/lectures'], function() {
 	Route::post('join', 'LectureController@join');
 	Route::get('{id}', 'LectureController@lecture');
 	Route::post('{id}/open', 'LectureController@open');
-	Route::put('{id}/update', 'LectureController@update');
+	Route::put('{id}', 'LectureController@update');
 	Route::patch('{id}/activate', 'LectureController@activate');
 	Route::patch('{id}/deactivate', 'LectureController@deactivate');
 	Route::delete('{id}', 'LectureController@destroy');

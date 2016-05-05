@@ -28,11 +28,13 @@ class UpdateLectureRequest extends Request
     public function rules()
     {
         return [
-            'title'  => 'string|max:15',
-            'grade' => 'integer',
-            'time_slot' => 'integer',
-            'length' => 'integer',
-            'description' => 'string|max:100',
+            'title'         => 'required|string|max:20',
+            'year_semester' => 'required|string',
+            'weekday'       => 'required|integer',
+            'time_slot'     => 'required|integer',
+            'place'         => 'string|max:20',
+            'length'        => 'integer',
+            'description'   => 'string|max:120',
         ];
     }
 }

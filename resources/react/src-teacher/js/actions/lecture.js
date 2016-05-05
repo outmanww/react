@@ -99,8 +99,6 @@ export function joinLecture(id) {
   };
 }
 
-
-
 export function fetchLecture(id) {
   return {
     [CALL_API]: {
@@ -112,6 +110,29 @@ export function fetchLecture(id) {
       endpoint: `lectures/${id}`,
       method: 'GET',
       body: null
+    }
+  };
+}
+
+export function updateLecture(id, body) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.UPDATE_LECTURE,
+        types.UPDATE_LECTURE_SUCCESS,
+        types.UPDATE_LECTURE_FAIL
+      ],
+      endpoint: `lectures/${id}`,
+      method: 'PUT',
+      body
+    },
+    meta: {
+      actionsOnSuccess: [
+        (response) => ({
+          type: types.REQUEST_LECTURE_SUCCESS,
+          payload: response
+        })
+      ]
     }
   };
 }
