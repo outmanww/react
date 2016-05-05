@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use App\Http\Requests\Student\Auth\SignupRequest;
 use App\Http\Requests\Student\Auth\SigninRequest;
+use App\Http\Requests\Student\Auth\SignoutRequest;
 use App\Http\Requests\Student\Auth\ResendConfirmationEmailRequest;
 use App\Http\Requests\Student\Auth\CheckApitokenRequest;
 // Models
@@ -102,6 +103,25 @@ class AuthController extends Controller
             'family_name' => $student->family_name,
             'given_name' => $student->given_name,
             'confirmed' => $student->confirmed
+        ], 200);
+    }
+
+    public function signout(SignoutRequest $request)
+    {
+        $student = Student::where('api_token', $request->api_token)->first();
+
+        if (!$student instanceof Student) {
+            throw new ApiException('student.not_found');
+        }
+
+        $student->api_token = sha1(uniqid(mt_rand(), true));
+        $student->save();
+
+        $message = 'signout.success';
+
+        return \Response::json([
+            'type' => $message,
+            'message' => 'サインアウトしました'
         ], 200);
     }
 

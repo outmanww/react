@@ -20,8 +20,7 @@ Route::group(['namespace' => 'Auth'], function () {
             return $student;
         });
 
-        Route::get('signout', 'AuthController@logout')->name('auth.logout');
-
+        Route::post('signout', 'AuthController@signout');
         Route::get('apitoken', 'AuthController@apitoken');
 
         // Change Password Routes

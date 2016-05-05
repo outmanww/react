@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
-class Swich extends Component {
+class Switch extends Component {
   constructor(props, context) {
     super(props, context);
   }
@@ -37,6 +37,6 @@ class Swich extends Component {
   }
 }
 
-Swich.propTypes = {};
+Switch.propTypes = {};
 
-export default Swich;
+export default Switch;

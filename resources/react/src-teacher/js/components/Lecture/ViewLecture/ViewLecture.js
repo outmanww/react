@@ -3,7 +3,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 // Utils
-import { format, validatTypeName, validatTypeEn, validatTypeDesc } from '../../../utils/ValidationUtils';
+import {
+  format, getValues,
+  validatSelectBox, validatSelectBoxRequired,
+  validatLectureTitle, validatLecturePlace, validatLectureLength, validatLectureDescription
+} from '../../../utils/ValidationUtils';
 //Actions
 import * as LectureActions from '../../../actions/lecture';
 import { routeActions } from 'react-router-redux';
@@ -14,8 +18,6 @@ import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import FontIcon from 'material-ui/lib/font-icon';
 var LineChart = require("react-chartjs").Line;
 var PieChart = require("react-chartjs").Pie;
-// Components
-import Switch from './Switch';
 
 class ViewLecture extends Component {
   constructor(props, context) {
@@ -68,11 +70,37 @@ class ViewLecture extends Component {
         {lecture.lecture !== 'undefind' && !lecture.isFetching &&
         <div>
           <div className="row content-wrap-white relative">
-            <Switch/>
+            <div className="switch-wrap edit-lecture-switch">
+              <div className="either">
+                <input type="radio" defaultChecked="checked" checked={editable} />
+                <label
+                  className="switch-opened"
+                  data-label="編集"
+                  onClick={() => this.setState({
+                    editable: true,
+                    id: 0
+                  })}
+                >
+                  編集
+                </label>
+                <input type="radio" checked={!editable}/>
+                <label
+                  className="switch-closed"
+                  data-label="ロック"
+                  onClick={() => this.setState({
+                    editable: false,
+                    ...format(['id', 'name', 'en', 'description'])
+                  })}
+                >
+                  ロック
+                </label>
+              </div>
+            </div>
+
             <div className="col-md-12">
               <h4 className="space-top-4 lecture-title">
-                <span>{`${lecture.lecture.department.name}・${lecture.lecture.department.faculty.name}対象　`}</span>
-                <span>{`　授業コード：${lecture.lecture.code}`}</span>
+                <span>{`授業コード：${lecture.lecture.code}　`}</span>
+                <span>{`　${lecture.lecture.department.faculty.name}　${lecture.lecture.department.name}対象`}</span>
               </h4>
             </div>
             <div className="col-md-6">
@@ -100,7 +128,12 @@ class ViewLecture extends Component {
                     <label className="label-large" htmlFor="select-property_type_id">授業の時期</label>
                     <div className="row-space-1">
                       <div className="select select-block">
-                        <select name="property_type_id" id="select-property_type_id" disabled={!editable}>
+                        <select
+                          name="property_type_id"
+                          id="select-property_type_id"
+                          className={editable ? '' : 'nona-appearance'}
+                          disabled={!editable}
+                        >
                           <option selected value={1}>2016年度 前期</option>
                           <option value={2}>2016年度 前期</option>
                         </select>
@@ -112,7 +145,12 @@ class ViewLecture extends Component {
                     <label className="label-large" htmlFor="select-property_type_id">曜日</label>
                     <div className="row-space-1">
                       <div className="select select-block">
-                        <select name="property_type_id" id="select-property_type_id" disabled={!editable}>
+                        <select
+                          name="property_type_id"
+                          id="select-property_type_id"
+                          className={editable ? '' : 'nona-appearance'}
+                          disabled={!editable}
+                        >
                           <option selected value={1}>月曜日</option>
                           <option value={2}>火曜日</option>
                           <option value={3}>水曜日</option>
