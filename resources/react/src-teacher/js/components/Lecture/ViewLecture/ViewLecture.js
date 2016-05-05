@@ -14,6 +14,8 @@ import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import FontIcon from 'material-ui/lib/font-icon';
 var LineChart = require("react-chartjs").Line;
 var PieChart = require("react-chartjs").Pie;
+// Components
+import Switch from './Switch';
 
 class ViewLecture extends Component {
   constructor(props, context) {
@@ -66,33 +68,7 @@ class ViewLecture extends Component {
         {lecture.lecture !== 'undefind' && !lecture.isFetching &&
         <div>
           <div className="row content-wrap-white relative">
-            <div className="switch-wrap edit-lecture-switch">
-              <div className="either">
-                <input type="radio" defaultChecked="checked" checked={editable} />
-                <label
-                  className="switch-opened"
-                  data-label="編集"
-                  onClick={() => this.setState({
-                    editable: true,
-                    id: 0
-                  })}
-                >
-                  編集
-                </label>
-                <input type="radio" checked={!editable}/>
-                <label
-                  className="switch-closed"
-                  data-label="ロック"
-                  onClick={() => this.setState({
-                    editable: false,
-                    ...format(['id', 'name', 'en', 'description'])
-                  })}
-                >
-                  ロック
-                </label>
-              </div>
-            </div>
-
+            <Switch/>
             <div className="col-md-12">
               <h4 className="space-top-4 lecture-title">
                 <span>{`${lecture.lecture.department.name}・${lecture.lecture.department.faculty.name}対象　`}</span>

@@ -95,7 +95,7 @@ class AuthController extends Controller
         $student = \Auth::guard('students')->user();
 
         $student->api_token = sha1(uniqid(mt_rand(), true));
-        $student->save;
+        $student->save();
 
         return \Response::json([
             'api_token' => $student->api_token,
@@ -110,7 +110,7 @@ class AuthController extends Controller
         $student = $this->findByApitoken($request->api_token);
 
         // $student->api_token = sha1(uniqid(mt_rand(), true));
-        // $student->save;
+        // $student->save();
 
         return \Response::json([
             'confirmed' => $student->confirmed,
