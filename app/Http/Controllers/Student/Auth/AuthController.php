@@ -164,35 +164,31 @@ class AuthController extends Controller
         return $student;
     }
 
-    /**
-     * Get student from confirmation code
-     */
-    public function findByToken($token) {
-        $student = Student::where('confirmation_code', $token)->first();
-
-        if (!$student instanceof Student) {
-            throw new ApiException('confirmation.not_found');
-        }
-
-        return $student;
-    }
-
     public function confirmAccount($token)
     {
-        $student = $this->findByToken($token);
+        $student = Student::where('confirmation_code', $token)->first();
+        $message = 'メールアドレスの確認が完了しました。アプリを起動してログインしてください。';
+
+        if (!$student instanceof Student) {
+            // throw new ApiException('confirmation.not_found');
+            $message = 'URLが一致しません。アプリから確認メールの再送信を行ってからもう一度実行してください。';
+            return view('student.confirmSuccess', compact('message'));
+        }
 
         if ($student->confirmed == 1) {
-            throw new ApiException('confirmation.already_confirmed');
+            // throw new ApiException('confirmation.already_confirmed');
+            $message = 'すでにメールアドレスの確認が完了しています。';
         }
 
         if ($student->confirmation_code != $token) {
-            throw new ApiException('confirmation.mismatch');
+            // throw new ApiException('confirmation.mismatch');
+            $message = 'URLが一致しません。アプリから確認メールの再送信を行ってからもう一度実行してください。';
         }
 
         $student->confirmed = 1;
         $student->save();
 
-        return \Response::json('confirmation.success', 200);
+        return view('student.confirmSuccess', compact('message'));
     }
 
     public function sendConfirmationEmail($user)
@@ -210,4 +206,7 @@ class AuthController extends Controller
         return $this->sendConfirmationEmail($this->findByEmail($email));
     }
 
+    public function confirmSuccess() {
+        return view('student.confirmSuccess', compact('message'));
+    }
 }

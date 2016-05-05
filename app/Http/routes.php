@@ -5,6 +5,7 @@ Route::group(['namespace' => 'Student', 'prefix' => 'student'], function() {
      * Student Routes
      */
     require (__DIR__ . '/Routes/Student/Access.php');
+    // require (__DIR__ . '/Routes/Student/Pages.php');
     require (__DIR__ . '/Routes/Student/Room.php');
     require (__DIR__ . '/Routes/Student/Point.php');
     require (__DIR__ . '/Routes/Student/Shopping.php');
