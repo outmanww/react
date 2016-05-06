@@ -90,8 +90,14 @@ class AuthController extends Controller
      */
     public function signin(SigninRequest $request)
     {
+        $student = Student::where('email', $request->email)->first();
+
+        if (!$student instanceof Student) {
+            throw new ApiException('email.not_found');
+        }
+
         if (!\Auth::guard('students')->once($request->all())) {
-            throw new ApiException('student.not_found');
+            throw new ApiException('password.not_correct');
         }
 
         $student = \Auth::guard('students')->user();

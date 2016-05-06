@@ -119,6 +119,10 @@ return [
         'already_exist' => 'このメールアドレスはすでに利用されています',
     ],
 
+    'password' => [
+        'not_correct' => 'パスワードが間違っています',
+    ],
+
     'confirmation' => [
         'not_found' => '確認コードが見つかりません',
         'already_confirmed' => 'すでに登録しました',
