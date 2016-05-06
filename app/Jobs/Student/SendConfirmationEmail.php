@@ -34,14 +34,15 @@ class SendConfirmationEmail extends Job implements ShouldQueue
     {
         $student = $this->student;
         $mailer->send(
-            'student.emails.confirm',
+            'student.emails.signup',
             [
                 'token' => $student->confirmation_code,
-                'name' => $user->family_name.' '.$user->given_name,
-                'email' => $user->email
+                'name' => $student->family_name.' '.$student->given_name,
+                'email' => $student->email,
             ],
             function ($message) use ($student) {
-                $message->to($student->email, $student->family_name)->subject(app_name() . ': メールの確認');
+                $message->to($student->email, $student->family_name)
+                    ->subject(app_name() . ': メールの確認');
             }
         );
     }

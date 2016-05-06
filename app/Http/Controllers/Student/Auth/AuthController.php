@@ -20,6 +20,7 @@ use \App\Models\Student\Student;
 use App\Exceptions\ApiException;
 // Jobs
 use App\Jobs\Student\SendSignUpSucceedEmail;
+use App\Jobs\Student\SendConfirmationEmail;
 
 class AuthController extends Controller
 {
@@ -191,22 +192,22 @@ class AuthController extends Controller
         return view('student.confirmSuccess', compact('message'));
     }
 
-    public function sendConfirmationEmail($user)
+    public function resendConfirmationEmail()
     {
-        if (!$user instanceof User) {
-            $user = $this->find($user);
+        $student = \Auth::guard('students_api')->user();
+
+        if (!$student instanceof Student) {
+            throw new ApiException('student.not_found');
         }
 
-        return Mail::send('frontend.auth.emails.confirm', ['token' => $user->confirmation_code], function ($message) use ($user) {
-            $message->to($user->email, $user->name)->subject(app_name() . ': ' . trans('exceptions.frontend.auth.confirmation.confirm'));
-        });
-    }
+        // Queue jobを使ってメール送信
+        $this->dispatch(new SendConfirmationEmail($student));
 
-    public function resendConfirmationEmail(ResendConfirmationEmailRequest $email) {
-        return $this->sendConfirmationEmail($this->findByEmail($email));
-    }
+        $message = 'resendConfirm.success';
 
-    public function confirmSuccess() {
-        return view('student.confirmSuccess', compact('message'));
+        return \Response::json([
+            'type' => $message,
+            'message' => '確認メールを再送信しました'
+        ], 200);
     }
 }

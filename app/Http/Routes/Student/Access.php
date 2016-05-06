@@ -22,6 +22,7 @@ Route::group(['namespace' => 'Auth'], function () {
 
         Route::post('signout', 'AuthController@signout');
         Route::get('apitoken', 'AuthController@apitoken');
+        Route::get('confirm/resend', 'AuthController@resendConfirmationEmail');
 
         // Change Password Routes
         // Route::get('/{school}/password/change', 'PasswordController@showChangePasswordForm')->name('auth.password.change');
@@ -36,9 +37,8 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::post('signin', 'AuthController@signin');
         Route::post('signup', 'AuthController@signup');
 
-        Route::get('account/confirm/success', 'AuthController@confirmSuccess');
-        Route::get('account/confirm/{token}', 'AuthController@confirmAccount');
-        Route::get('account/confirm/resend/{token}', 'AuthController@resendConfirmationEmail');
+        Route::get('confirm/success', 'AuthController@confirmSuccess');
+        Route::get('confirm/{token}', 'AuthController@confirmAccount');
 
         // Password Reset Routes
         // Route::get('password/reset/{token?}', 'PasswordController@showResetForm');
