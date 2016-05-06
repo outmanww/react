@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Student\Auth;
 use App\Http\Controllers\Controller;
 // Requests
 use App\Http\Requests\Student\Auth\InitializePasswordRequest;
+use App\Http\Requests\Student\Auth\ResetPasswordRequest;
+use App\Http\Requests\Student\Auth\ChangePasswordRequest;
 // Models
 use \App\Models\Student\Student;
 // Exceptions
@@ -42,6 +44,37 @@ class PasswordController extends Controller
         return \Response::json([
             'type' => $message,
             'message' => 'パスワードを初期化しました'
+        ], 200);
+    }
+
+    public function reset(ResetPasswordRequest $request)
+    {
+
+    }
+
+    public function change(ChangePasswordRequest $request)
+    {
+        $student = $this->findByEmail($request->email);
+
+        if (!\Auth::guard('students')->once(['email' => $request->email, 'password' => $request->current_password]))
+        {
+            throw new ApiException('password.not_correct');
+        }
+
+        $student = \Auth::guard('students')->user();
+
+        if (!$student instanceof Student) {
+            throw new ApiException('student.not_found');
+        }
+
+        $student->password = $request->new_password;
+        $student->save();
+
+        $message = 'changePassword.success';
+
+        return \Response::json([
+            'type' => $message,
+            'message' => 'パスワードを変更しました'
         ], 200);
     }
 

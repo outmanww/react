@@ -458,18 +458,21 @@ class CreateLecture extends Component {
                 />
               </div>
             </div>
-            <button
-              className="btn btn-primary center-block space-top-3"
-              onClick={() => this.createLecture()}
-            >
-              <span className="glyphicon glyphicon-pencil"></span>　新規作成
-            </button>
+            <div className="space-top-3">
+              <RaisedButton
+                style={{width: 150, float: 'right'}}
+                label="新規登録"
+                secondary={true}
+                onClick={() => this.createLecture()}
+              />
+            </div>
           </div>
           }
           </div>
           <div className="col-md-5">
             {
               overlappedLecture.overlappedLecture !== null &&
+              Object.keys(overlappedLecture.overlappedLecture).length !== 0 &&
               !overlappedLecture.isFetching &&
               <OverlappedLecture
                 myId={user.user.id}

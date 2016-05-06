@@ -25,6 +25,9 @@ Route::group(['namespace' => 'Auth'], function () {
 
         Route::get('confirm/resend', 'AuthController@resendConfirmationEmail');
 
+        Route::post('password/change', 'PasswordController@change');
+        Route::post('password/reset', 'PasswordController@reset');
+
         // Change Password Routes
         // Route::get('/{school}/password/change', 'PasswordController@showChangePasswordForm')->name('auth.password.change');
         // Route::post('/{school}/password/change', 'PasswordController@changePassword')->name('auth.password.update');

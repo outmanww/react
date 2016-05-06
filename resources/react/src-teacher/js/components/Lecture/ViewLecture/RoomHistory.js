@@ -83,6 +83,7 @@ console.log(lineData);
                         <Avatar
                           color={Colors.deepOrange300}
                           backgroundColor={
+                            
                             Colors.purple500
                           }
                         >

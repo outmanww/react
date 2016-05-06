@@ -14,7 +14,7 @@ class Lecture extends Component {
     const { routes, actions } = this.props;
     const style = {
       minHeight: window.innerHeight - 64,
-      background: Colors.blueGrey50,
+      background: Colors.grey50,
       padding: '0 60px 60px'
     };
 

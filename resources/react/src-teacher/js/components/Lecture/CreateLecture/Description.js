@@ -13,7 +13,7 @@ class Description extends Component {
       switch (focused) {
         case 'default': return (
           <div>
-            <p>デフォルトの説明文（考え中）</p>
+            <p>登録する授業の情報を登録してください</p>
           </div>
         );
         case 'target': return (

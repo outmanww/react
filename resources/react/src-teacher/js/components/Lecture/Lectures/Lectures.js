@@ -125,19 +125,10 @@ class Lectures extends Component {
                     <td>{`${weeks[Math.floor((Number(l.timeSlot) - 1) % 5 / 5)]}曜${(Number(l.timeSlot) - 1) % 5 + 1}限`}</td>
                     <td>{`${l.department.name}・${l.department.faculty.name}`}</td>
                     <td>
-                      <OverlayTrigger placement="top" overlay={(<Tooltip>詳細</Tooltip>)}>
-                        <button
-                          className="btn btn-sm btn-primary"
-                          style={{padding: '5px 8px'}}
-                          onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/${l.id}`)}
-                        >
-                          <span className="fa fa-area-chart" style={{fontSize: 16}}/>
-                        </button>
-                      </OverlayTrigger>
-                      <OverlayTrigger placement="top" overlay={(<Tooltip>開講</Tooltip>)}>
-                        <button
-                          className="btn btn-sm btn-primary"
-                          style={{marginLeft: 5, padding: '5px 8px'}}
+                    <div className="btn-group-row">
+                      <OverlayTrigger placement="top" overlay={(<Tooltip>授業開始</Tooltip>)}>
+                        <div
+                          className="custom-icon-btn btn-mint"
                           onClick={() => {
                             actions.fetchLecture(l.id);
                             this.setState({
@@ -146,9 +137,42 @@ class Lectures extends Component {
                             });
                           }}
                         >
-                          <span className="fa fa-play-circle-o" style={{fontSize: 16}}/>
-                        </button>
+                          <p>授業開始</p>
+                        </div>
                       </OverlayTrigger>
+                      <OverlayTrigger placement="top" overlay={(<Tooltip>詳細</Tooltip>)}>
+                        <div
+                          className="custom-icon-btn btn-aqua"
+                          onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/${l.id}`)}
+                        >
+                          <i className="fa fa-area-chart"/>
+                        </div>
+                      </OverlayTrigger>
+                      <OverlayTrigger placement="top" overlay={(<Tooltip>終了</Tooltip>)}>
+                        <div
+                          className="custom-icon-btn btn-blue"
+                          onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/${l.id}`)}
+                        >
+                          <i className="fa fa-pause"/>
+                        </div>
+                      </OverlayTrigger>
+                      <OverlayTrigger placement="top" overlay={(<Tooltip>再開</Tooltip>)}>
+                        <div
+                          className="custom-icon-btn btn-blue"
+                          onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/${l.id}`)}
+                        >
+                          <i className="fa fa-play"/>
+                        </div>
+                      </OverlayTrigger>
+                      <OverlayTrigger placement="top" overlay={(<Tooltip>削除</Tooltip>)}>
+                        <div
+                          className="custom-icon-btn btn-grapefruit"
+                          onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/${l.id}`)}
+                        >
+                          <i className="fa fa-trash"/>
+                        </div>
+                      </OverlayTrigger>
+                    </div>
                     </td>
                   </tr>
                 )}
