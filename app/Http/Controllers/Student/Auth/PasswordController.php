@@ -54,10 +54,7 @@ class PasswordController extends Controller
 
     public function change(ChangePasswordRequest $request)
     {
-        $student = $this->findByEmail($request->email);
-
-        if (!\Auth::guard('students')->once(['email' => $request->email, 'password' => $request->current_password]))
-        {
+        if (!\Auth::guard('students')->once($request->only('api_token', 'password'))) {
             throw new ApiException('password.not_correct');
         }
 
@@ -67,7 +64,7 @@ class PasswordController extends Controller
             throw new ApiException('student.not_found');
         }
 
-        $student->password = $request->new_password;
+        $student->password = bcrypt($request->new_password);
         $student->save();
 
         $message = 'changePassword.success';

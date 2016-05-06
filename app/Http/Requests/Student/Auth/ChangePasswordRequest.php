@@ -24,8 +24,7 @@ class ChangePasswordRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email|max:255',
-            'current_password' => 'required|min:6|max:32|alpha_num',
+            'password' => 'required|min:6|max:32|alpha_num',
             'new_password' => 'required|min:6|max:32|alpha_num'
         ];
     }
