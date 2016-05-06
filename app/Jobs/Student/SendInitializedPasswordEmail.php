@@ -9,20 +9,22 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\Student\Student;
 
-class SendSignUpSucceedEmail extends Job implements ShouldQueue
+class SendInitializedPasswordEmail extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
     protected $student;
+    protected $passsword;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Student $student)
+    public function __construct(Student $student, $passsword)
     {
         $this->student = $student;
+        $this->passsword = $passsword;        
     }
 
     /**
@@ -34,17 +36,15 @@ class SendSignUpSucceedEmail extends Job implements ShouldQueue
     {
         $student = $this->student;
         $mailer->send(
-            'student.emails.signup',
+            'student.emails.initializedPassword',
             [
-                'token' => $student->confirmation_code,
+                'password' => $this->passsword,
                 'name' => $student->family_name.' '.$student->given_name,
                 'email' => $student->email,
             ],
             function ($message) use ($student) {
-                $message->to(
-                    $student->email,
-                    $student->family_name
-                )->subject(app_name() . ': 登録完了');
+                $message->to($student->email, $student->family_name)
+                    ->subject(app_name() . ': パスワードの初期化');
             }
         );
     }
