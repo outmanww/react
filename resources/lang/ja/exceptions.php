@@ -120,7 +120,7 @@ return [
     ],
 
     'password' => [
-        'not_correct' => 'パスワードが間違っています',
+        'not_correct' => 'パスワードが正しくありません',
     ],
 
     'confirmation' => [
