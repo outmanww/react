@@ -19,10 +19,10 @@
         <ul class="primary-nav">
           <li><a href="#banner">Home</a></li>
           <li><a href="#overview">Overview</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#screens">Screenshots</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="/schools">学校関係者の方</a></li>
+<!--           <li><a href="#features">Features</a></li>
+ -->          <li><a href="#screens">Screenshots</a></li>
+<!--           <li><a href="#contact">Contact</a></li>
+ -->          <li><a href="/schools">学校関係者の方</a></li>
         </ul>
       </nav>
       <a href="#" class="nav-toggle">Menu<span></span></a>
@@ -65,7 +65,13 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-center">
         <h2 class="section-title">学生に反応を促し、学生の心の声をリアルタイムで教員に伝えられる</h2>
-        <p class="section-intro">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis quasi architecto beatae vitae dicta sunt explicabo. </p>
+        <p class="section-intro">
+          Re:actを用いると、大学や講演会など大人数の講義において学生や聴講者の反応をリアルタイムで教師または講演者に伝えることが出来ます。
+          <br/>
+          <br/>
+          聴講者はRe:actを通して「分からん」「いいね」「う～ん」の反応と、メッセージを送信でき、
+          周りの目を気にして「恥ずかしい」「講義の妨げになるのではないか」と、人前で手を上げて発言できない日本人のためのアプリです。
+        </p>
       </div>
       <div class="col-md-12 text-center overview-video">
         <iframe width="560" height="315" src="https://www.youtube.com/embed/XJ2nZL5Dabc" frameborder="0" allowfullscreen></iframe>
@@ -74,20 +80,20 @@
     <div class="row">
       <div class="col-md-4 col-sm-12 "> <span class="icon icon-browser"></span>
         <div class="overview-content">
-          <h4>Flexible Layouts</h4>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium demque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore </p>
+          <h4>リアルタイム</h4>
+          <p>ユーザーの反応は集計されたのち、リアルタイムで教師または講演者に届きます。</p>
         </div>
       </div>
       <div class="col-md-4 col-sm-12 "> <span class="icon icon-trophy"></span>
         <div class="overview-content">
-          <h4>Clean Design</h4>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium demque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore </p>
+          <h4>メッセージ機能</h4>
+          <p>必要な場合は簡単なメッセージを送信することができます。もちろんこれもリアルタイムで教師または講演者に届きます。</p>
         </div>
       </div>
       <div class="col-md-4 col-sm-12 "> <span class="icon icon-lifesaver"></span>
         <div class="overview-content">
-          <h4>Amazing Support</h4>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium demque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore </p>
+          <h4>使いやすいデザイン</h4>
+          <p>少ない操作で利用できるので授業の妨げになりません。</p>
         </div>
       </div>
     </div>
@@ -95,7 +101,7 @@
 </section>
 <!-- overview section --> 
 <!-- feature section 1 -->
-<section id="features" class="section features1">
+<!-- <section id="features" class="section features1">
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-center">
@@ -146,11 +152,11 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- feature section 1 --> 
 
 <!-- feature section 2 -->
-<section id="features" class="section features2">
+<!-- <section id="features" class="section features2">
   <div class="container">
     <div class="row">
       <div class="col-md-6" style="float:right;">
@@ -158,8 +164,8 @@
           <h2 class="section-title">Completely flexible, create the landing page <span>you want</span></h2>
           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
           <ul>
-            <li><i class="fa fa-check"></i> Sed ut perspiciatis unde omnis </li>
-            <li><i class="fa fa-check"></i> iste natus error sit voluptatem accusantium </li>
+            <li><i class="fa fa-check"></i> わからないと思ったらボタンをクリック </li>
+            <li><i class="fa fa-check"></i> メッセージの送信も可能 </li>
             <li><i class="fa fa-check"></i> doloremque laudantium, totam rem aperiam.</li>
           </ul>
         </div>
@@ -167,11 +173,11 @@
       <div class="col-md-6"> <img class="img-responsive" src="images/feature-screen2.png"> </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- feature section 2 --> 
 
 <!-- feature section 3 -->
-<section id="features" class="section features3">
+<!-- <section id="features" class="section features3">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -184,17 +190,17 @@
       <div class="col-md-6"> <img class="img-responsive" src="images/feature-screen3.png"> </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- feature section 3 --> 
 
 <!-- screen shots slider section-->
-<section id="screens" class="section screens">
+<section id="screens" class="section features1">
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-center">
-        <h2 class="section-title">A landing page for the <span>next generation</span></h2>
-        <p class="section-intro">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae. </p>
-      </div>
+        <h2 class="section-title">iPhone Android 良端末向けにアプリを公開<span></span></h2>
+<!--         <p class="section-intro">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae. </p>
+ -->      </div>
     </div>
   </div>
   <!-- owl-carousel starts -->
@@ -215,7 +221,7 @@
 <!-- screen shots slider section --> 
 
 <!--contact section -->
-<section id="contact" class="section text-center">
+<!-- <section id="contact" class="section text-center">
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 ">
@@ -224,7 +230,6 @@
       </div>
     </div>
     
-    <!--contact form start-->
     <div class="col-md-6 col-md-offset-3 conForm">
       <div id="message"></div>
       <form method="post" action="php/contact.php" name="cform" id="cform">
@@ -235,9 +240,8 @@
         <div id="simple-msg"></div>
       </form>
     </div>
-    <!--contact form end--> 
   </div>
-</section>
+</section> -->
 <!--contact section --> 
 
 @include('frontend.includes.footer')
