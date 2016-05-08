@@ -198,7 +198,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-center">
-        <h2 class="section-title">iPhone Android 良端末向けにアプリを公開<span></span></h2>
+        <h2 class="section-title">iPhone Android 両端末向けにアプリを公開<span></span></h2>
+        <br/>
 <!--         <p class="section-intro">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae. </p>
  -->      </div>
     </div>
