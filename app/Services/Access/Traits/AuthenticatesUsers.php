@@ -30,11 +30,9 @@ trait AuthenticatesUsers
 
         $school = Affiliation::where('db_name', $connection)->firstOrFail();
 
-        if (!$lecture instanceof Lecture) {
-            throw new ApiException('lecture.not_found');
+        if (!$school instanceof Affiliation) {
+            abort(404);
         }
-
-
 
         $name = $school->name;
         $logo_path = $school->logo_path;
