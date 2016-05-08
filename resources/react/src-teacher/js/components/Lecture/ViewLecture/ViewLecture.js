@@ -66,11 +66,11 @@ class ViewLecture extends Component {
         <div>
           <div className="row content-wrap-white relative">
             {editable && update.isFetching &&
-              <div className="loading-wrap" style={{height: 350, paddingTop: 80}}>
+              <div className="loading-wrap" style={{height: 270}}>
+                <div style={{height: 80}}></div>
                 <Loading/>
               </div>
             }
-
             {editable ?
               <div className="switch-wrap edit-lecture-switch">
                 <RaisedButton

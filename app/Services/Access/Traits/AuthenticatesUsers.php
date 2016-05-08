@@ -24,7 +24,17 @@ trait AuthenticatesUsers
      */
     public function showLoginForm($connection)
     {
-        $school = Affiliation::where('db_name', $connection)->first();
+        if ($connection !== 'nagoya-u') {
+            abort(404);
+        }
+
+        $school = Affiliation::where('db_name', $connection)->firstOrFail();
+
+        if (!$lecture instanceof Lecture) {
+            throw new ApiException('lecture.not_found');
+        }
+
+
 
         $name = $school->name;
         $logo_path = $school->logo_path;

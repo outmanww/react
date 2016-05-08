@@ -20,16 +20,16 @@ class Lecture extends Component {
 
     return (
       <div style={style}>
-          <section className="content-header">
-            <div className="row">
-              <h3>授業の管理</h3>
-            </div>
-          </section>
-          <section className="content">
-            <div className="row">
-              {this.props.children}
-            </div>
-          </section>
+        <section className="content-header">
+          <div className="row">
+            <h3>授業の管理</h3>
+          </div>
+        </section>
+        <section className="content">
+          <div className="row">
+            {this.props.children}
+          </div>
+        </section>
       </div>
     );
   }
