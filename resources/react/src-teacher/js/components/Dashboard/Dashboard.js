@@ -30,7 +30,7 @@ class Dashboard extends Component {
     const intervalId = setInterval(()=> {
       fetchCharts();
       fetchMessages();
-    }, 100000);
+    }, 1000);
     this.setState({intervalId});
   }
 

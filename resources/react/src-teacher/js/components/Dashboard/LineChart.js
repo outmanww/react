@@ -69,12 +69,22 @@ class LineChart extends Component {
       ]
     };
 
+    const chartOptions = {
+      scaleShowGridLines : true,
+      bezierCurve : false,
+      bezierCurveTension : 0,
+      animation : false,
+      // scaleShowHorizontalLines: true, //水平メモリ
+      // scaleShowVerticalLines: true, //垂直メモリ
+    };
+
     return (
       <div className="space-top-3 space-bottom-3 has-border">
         <div id="line-wrap">
           {this.state.lineWidth !== 0 &&
             <Line
               data={lineData}
+              options={chartOptions}
               width={this.state.lineWidth}
               height="300"
               style={{width: this.state.lineWidth}}

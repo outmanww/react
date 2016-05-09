@@ -46,7 +46,7 @@
       <div class="welcome">双方向型講義を実現する</div>
       <div class="download">
         <div class="banner-btn">
-          <a href="#"><img src="images/apple-store-btn.png"></a>
+          <a href="https://itunes.apple.com/jp/app/re-act/id1105304984?mt=8&ign-mpt=uo%3D4"><img src="images/apple-store-btn.png"></a>
           <a href="https://play.google.com/store/apps/details?id=com.optimind_react.reactadroid"><img src="images/google-store-btn.png"></a>
         </div>
       </div>
@@ -78,7 +78,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4 col-sm-12 "> <span class="icon icon-browser"></span>
+      <div class="col-md-4 col-sm-12 "><span class="icon icon-browser"></span>
         <div class="overview-content">
           <h4>リアルタイム</h4>
           <p>ユーザーの反応は集計されたのち、リアルタイムで教師または講演者に届きます。</p>

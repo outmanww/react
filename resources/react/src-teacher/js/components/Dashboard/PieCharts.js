@@ -22,7 +22,7 @@ class PieChart extends Component {
             value: pie.confused,
             color: `rgba(${colors.confused},1)`,
             highlight: `rgba(${colors.confused},0.8)`,
-            label: "Red"
+            label: "わからない"
         },
         {
             value: pie.attendance - pie.confused,
@@ -35,7 +35,7 @@ class PieChart extends Component {
             value: pie.interesting,
             color: `rgba(${colors.interesting},1)`,
             highlight: `rgba(${colors.interesting},0.8)`,
-            label: "Red"
+            label: "いいね"
         },
         {
             value: pie.attendance - pie.interesting,
@@ -48,7 +48,7 @@ class PieChart extends Component {
             value: pie.boring,
             color: `rgba(${colors.boring},1)`,
             highlight: `rgba(${colors.boring},0.8`,
-            label: "Red"
+            label: "うーん"
         },
         {
             value: pie.attendance - pie.boring,
@@ -59,6 +59,7 @@ class PieChart extends Component {
     return (
       <div className="row space-top-4" id="pie-wrap">
         <div className="col-md-4">
+          <p><i className="fa fa-thumbs-o-up"/>わからない</p>
           <DoughnutChart
             data={confused}
             width="200"
@@ -66,6 +67,7 @@ class PieChart extends Component {
           />
         </div>
         <div className="col-md-4">
+          <p>いいね</p>
           <DoughnutChart
             data={interesting}
             width="200"
@@ -73,6 +75,7 @@ class PieChart extends Component {
           />
         </div>
         <div className="col-md-4">
+          <p>うーん</p>
           <DoughnutChart
             data={boring}
             width="200"

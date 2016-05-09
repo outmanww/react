@@ -11,7 +11,10 @@
       <div class="col-md-8 text-center">
         <h2>Get Your Free Download Of Rooky App <span>today!</span></h2>
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae. </p>
-        <div  class="banner-btn"> <a href="#"><img src="images/apple-store-btn.png"></a> <a href="#" class="banner-btn"><img src="images/google-store-btn.png"></a></div>
+        <div  class="banner-btn">
+          <a href="#"><img src="images/apple-store-btn.png"></a>
+          <a href="#" class="banner-btn"><img src="images/google-store-btn.png"></a>
+        </div>
       </div>
     </div>
   </div>

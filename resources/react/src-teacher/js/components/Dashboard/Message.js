@@ -35,6 +35,8 @@ class message extends Component {
       </IconMenu>
     );
 
+    const AvatarColors = ['red400', 'purple400', 'indigo400', 'cyan400', 'green400', 'lime400', 'orange400', 'blueGrey200'];
+
     return (
       <div className="space-top-4 space-bottom-3 space-left-3">
         <div id="message-wrap">
@@ -46,7 +48,7 @@ class message extends Component {
                   leftAvatar={
                     <Avatar
                       color={Colors.deepOrange300}
-                      backgroundColor={Colors.purple500}
+                      backgroundColor={Colors[AvatarColors[Math.floor(Math.random() * AvatarColors.length)]]}
                     >
                       {m.id}
                     </Avatar>
