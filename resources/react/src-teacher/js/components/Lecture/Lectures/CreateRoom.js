@@ -40,13 +40,15 @@ class ConfirmLecture extends Component {
             }
             <li className="list-group-item">
               <span className="list-head">授業の長さ</span>
-              <input className="overview-title input-large" id="input-length" maxLength={3} type="number" step="10"
-                style={{width: 200}}
-                name="length" 
-                placeholder="入力してください"
-                value={length}
-                onChange={(e) => setState({ length: validatLectureLength(e.target.value) })}
-              />
+              <span>
+                <input className="overview-title input-large" id="input-length" maxLength={3} type="number" step="10"
+                  style={{width: 200, display: 'inline'}}
+                  name="length" 
+                  placeholder="入力してください"
+                  value={length}
+                  onChange={(e) => setState({ length: validatLectureLength(e.target.value) })}
+                />
+              </span>
             </li>
           </ul>
         }

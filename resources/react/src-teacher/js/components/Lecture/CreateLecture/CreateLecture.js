@@ -23,6 +23,7 @@ import { Input, Row, Col } from 'react-bootstrap';
 import Description from './Description';
 import OverlappedLecture from './OverlappedLecture';
 import ConfirmLecture from './ConfirmLecture';
+import Loading from '../../Common/Loading';
 
 class CreateLecture extends Component {
   constructor(props, context) {
@@ -135,7 +136,7 @@ class CreateLecture extends Component {
   }
 
   render() {
-    const { user, basic, overlappedLecture, actions } = this.props;
+    const { user, basic, overlappedLecture, storeLecture, actions } = this.props;
     const { state } = this;
     const weekdays = [
       {value: 1, string: '月曜日'},
@@ -162,311 +163,321 @@ class CreateLecture extends Component {
       <div className="row">
         <div className="space-top-2 row-space-2 clearfix">
           <div className="col-md-7">
-          {basic.lectureBasic !== null && basic.isFetching === false &&
-          <div>
-            <div className="raw">
-              <div className="col-md-4" style={{paddingLeft: 0, paddingRight: 10}}>
-                <label
-                  className={state.faculty.status === 2 ? 'label-large error' : 'label-large'}
-                  htmlFor="select-faculty"
-                >
-                  対象学部
-                </label>
-                <div className="select select-block">
-                  <select id="select-faculty"
-                    name="faculty"
-                    value={state.faculty.value}
-                    onChange={(e) => this.setState({ faculty: validatSelectBoxRequired(e.target.value) })}
-                    onFocus={() => this.setState({focused: 'target'})}
+          {basic.lectureBasic !== null && basic.isFetching === false ?
+            <div>
+              <div className="raw">
+                <div className="col-md-4" style={{paddingLeft: 0, paddingRight: 10}}>
+                  <label
+                    className={state.faculty.status === 2 ? 'label-large error' : 'label-large'}
+                    htmlFor="select-faculty"
                   >
-                    {basic.lectureBasic.faculties.data.map(f =>
-                      <option value={f.id}>{f.name}</option>
-                    )}
-                  </select>
+                    対象学部
+                  </label>
+                  <div className="select select-block">
+                    <select id="select-faculty"
+                      name="faculty"
+                      value={state.faculty.value}
+                      onChange={(e) => this.setState({ faculty: validatSelectBoxRequired(e.target.value) })}
+                      onFocus={() => this.setState({focused: 'target'})}
+                    >
+                      {basic.lectureBasic.faculties.data.map(f =>
+                        <option value={f.id}>{f.name}</option>
+                      )}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-4" style={{paddingLeft: 5, paddingRight: 5}}>
+                  <label
+                    className={state.department.status === 2 ? 'label-large error' : 'label-large'}
+                    htmlFor="select-department"
+                  >
+                    学科
+                  </label>
+                  <div className="select select-block">
+                    <select id="select-department"
+                      name="department"
+                      value={state.department.value}
+                      onChange={(e) => {
+                        this.setState(
+                          {department: validatSelectBoxRequired(e.target.value) },
+                          this.searchLecture.bind(this)
+                        )
+                      }}
+                      onFocus={() => this.setState({focused: 'target'})}
+                    >
+                      <option value="">選択してください</option>
+                      {state.faculty.value != 0 &&
+                        basic.lectureBasic.faculties.data.find(f =>
+                          f.id === Number(state.faculty.value)
+                        ).departments.map(d =>
+                          <option value={d.id}>{d.name}</option>
+                        )
+                      }
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-4" style={{paddingLeft: 10, paddingRight: 0}}>
+                  <label
+                    className={state.grade.status === 2 ? 'label-large error' : 'label-large'}
+                    htmlFor="select-grade"
+                  >
+                    学年
+                  </label>
+                  <div className="select select-block">
+                    <select id="select-grade"
+                      name="grade"
+                      value={state.grade.value}
+                      onChange={(e) => {
+                        this.setState({ grade: validatSelectBoxRequired(e.target.value) });
+                        this.searchLecture.bind(this);
+                      }}
+                      onFocus={() => this.setState({focused: 'target'})}
+                    >
+                      <option value="">選択してください</option>
+                      {grades.map(w => <option value={w.value}>{w.string}</option>)}
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div className="col-md-4" style={{paddingLeft: 5, paddingRight: 5}}>
-                <label
-                  className={state.department.status === 2 ? 'label-large error' : 'label-large'}
-                  htmlFor="select-department"
-                >
-                  学科
-                </label>
-                <div className="select select-block">
-                  <select id="select-department"
-                    name="department"
-                    value={state.department.value}
-                    onChange={(e) => {
-                      this.setState(
-                        {department: validatSelectBoxRequired(e.target.value) },
+              <div className="row">
+                <div className="col-md-4">
+                  <label
+                    className={state.title.status === 2 ? 'label-large error' : 'label-large'}
+                    htmlFor="input-title"
+                  >
+                    授業名
+                  </label>
+                </div>
+                <div className="col-md-8">
+                  <div className="row-space-top-1 label-large text-right">
+                    <div>残り
+                      <span className={20 - state.title.value.length <= 0 ? 'error-message' : ''}>
+                        {20 - state.title.value.length}
+                      </span>文字
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-12">
+                  <input className="overview-title input-large" id="input-title" type="text" maxLength={20}
+                    name="title"
+                    placeholder="授業のタイトル"
+                    value={state.title.value}
+                    onChange={(e) => this.setState({ title: validatLectureTitle(e.target.value) })}
+                    onFocus={() => this.setState({focused: 'title'})}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-4">
+                  <label
+                    className={state.code.status === 2 ? 'label-large error' : 'label-large'}
+                    htmlFor="input-code"
+                  >
+                    授業コード
+                  </label>
+                </div>
+                <div className="col-md-8">
+                  <div className="row-space-top-1 label-large text-right">
+                    {state.code.status === 2 &&
+                      <FormattedMessage id={`validate.${state.code.message}`}>
+                        {text => <div className="error-message" >{text}</div>}
+                      </FormattedMessage>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-12">
+                  <input className="overview-title input-large" id="input-code" type="text" maxLength={15}
+                    name="code"
+                    placeholder="授業コード"
+                    value={state.code.value}
+                    onChange={(e) => this.setState({ code: validatLectureCode(e.target.value) })}
+                    onFocus={() => this.setState({focused: 'code'})}
+                    onBlur={this.searchLecture.bind(this)}
+                  />
+                </div>
+              </div>
+
+              <div className="raw">
+                <div className="col-md-4" style={{paddingLeft: 0, paddingRight: 10}}>
+                  <label
+                    className={state.yearSemester.status === 2 ? 'label-large error' : 'label-large'}
+                    htmlFor="select-year-semester"
+                  >
+                    授業の時期
+                  </label>
+                  <div className="select select-block">
+                    <select id="select-year-semester"
+                      name="yearSemester"
+                      value={state.yearSemester.value}
+                      onChange={(e) => this.setState(
+                        { yearSemester: validatSelectBoxRequired(e.target.value) },
                         this.searchLecture.bind(this)
-                      )
-                    }}
-                    onFocus={() => this.setState({focused: 'target'})}
-                  >
-                    <option value="">選択してください</option>
-                    {state.faculty.value != 0 &&
-                      basic.lectureBasic.faculties.data.find(f =>
-                        f.id === Number(state.faculty.value)
-                      ).departments.map(d =>
-                        <option value={d.id}>{d.name}</option>
-                      )
-                    }
-                  </select>
+                      )}
+                      onFocus={() => this.setState({focused: 'time'})}
+                    >
+                      <option value="">選択してください</option>
+                      {
+                        Object.keys(basic.lectureBasic.yearSemester).map(key =>
+                          <option value={key}>{basic.lectureBasic.yearSemester[key]}</option>
+                        )
+                      }
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <div className="col-md-4" style={{paddingLeft: 10, paddingRight: 0}}>
-                <label
-                  className={state.grade.status === 2 ? 'label-large error' : 'label-large'}
-                  htmlFor="select-grade"
-                >
-                  学年
-                </label>
-                <div className="select select-block">
-                  <select id="select-grade"
-                    name="grade"
-                    value={state.grade.value}
-                    onChange={(e) => {
-                      this.setState({ grade: validatSelectBoxRequired(e.target.value) });
-                      this.searchLecture.bind(this);
-                    }}
-                    onFocus={() => this.setState({focused: 'target'})}
+                <div className="col-md-4" style={{paddingLeft: 5, paddingRight: 5}}>
+                  <label
+                    className={state.weekday.status === 2 ? 'label-large error' : 'label-large'}
+                    htmlFor="select-weekday"
                   >
-                    <option value="">選択してください</option>
-                    {grades.map(w => <option value={w.value}>{w.string}</option>)}
-                  </select>
+                    曜日
+                  </label>
+                  <div className="select select-block">
+                    <select id="select-weekday"
+                      name="weekday"
+                      value={state.weekday.value}
+                      onChange={(e) => this.setState({ weekday: validatSelectBoxRequired(e.target.value) })}
+                      onFocus={() => this.setState({focused: 'time'})}
+                    >
+                      <option value="">選択してください</option>
+                      {weekdays.map(w => <option value={w.value}>{w.string}</option>)}
+                    </select>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="row">
-              <div className="col-md-4">
-                <label
-                  className={state.title.status === 2 ? 'label-large error' : 'label-large'}
-                  htmlFor="input-title"
-                >
-                  授業名
-                </label>
-              </div>
-              <div className="col-md-8">
-                <div className="row-space-top-1 label-large text-right">
-                  <div>残り
-                    <span className={20 - state.title.value.length <= 0 ? 'error-message' : ''}>
-                      {20 - state.title.value.length}
-                    </span>文字
+                <div className="col-md-4" style={{paddingLeft: 10, paddingRight: 0}}>
+                  <label
+                    className={state.timeSlot.status === 2 ? 'label-large error' : 'label-large'}
+                    htmlFor="select-timeSlot"
+                  >
+                    限
+                  </label>
+                  <div className="select select-block">
+                    <select id="select-timeSlot"
+                      name="timeSlot"
+                      value={state.timeSlot.value}
+                      onChange={(e) => this.setState({ timeSlot: validatSelectBoxRequired(e.target.value) })}
+                      onFocus={() => this.setState({focused: 'time'})}
+                    >
+                      <option value="">選択してください</option>
+                      <option value={1}>１限</option>
+                      <option value={2}>２限</option>
+                      <option value={3}>３限</option>
+                      <option value={4}>４限</option>
+                      <option value={5}>５限</option>
+                      <option value={6}>その他</option>
+                    </select>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-md-12">
-                <input className="overview-title input-large" id="input-title" type="text" maxLength={20}
-                  name="title"
-                  placeholder="授業のタイトル"
-                  value={state.title.value}
-                  onChange={(e) => this.setState({ title: validatLectureTitle(e.target.value) })}
-                  onFocus={() => this.setState({focused: 'title'})}
-                />
-              </div>
-            </div>
 
-            <div className="row">
-              <div className="col-md-4">
-                <label
-                  className={state.code.status === 2 ? 'label-large error' : 'label-large'}
-                  htmlFor="input-code"
-                >
-                  授業コード
-                </label>
-              </div>
-              <div className="col-md-8">
-                <div className="row-space-top-1 label-large text-right">
-                  {state.code.status === 2 &&
-                    <FormattedMessage id={`validate.${state.code.message}`}>
-                      {text => <div className="error-message" >{text}</div>}
-                    </FormattedMessage>
-                  }
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-12">
-                <input className="overview-title input-large" id="input-code" type="text" maxLength={15}
-                  name="code"
-                  placeholder="授業コード"
-                  value={state.code.value}
-                  onChange={(e) => this.setState({ code: validatLectureCode(e.target.value) })}
-                  onFocus={() => this.setState({focused: 'code'})}
-                  onBlur={this.searchLecture.bind(this)}
-                />
-              </div>
-            </div>
-
-            <div className="raw">
-              <div className="col-md-4" style={{paddingLeft: 0, paddingRight: 10}}>
-                <label
-                  className={state.yearSemester.status === 2 ? 'label-large error' : 'label-large'}
-                  htmlFor="select-year-semester"
-                >
-                  授業の時期
-                </label>
-                <div className="select select-block">
-                  <select id="select-year-semester"
-                    name="yearSemester"
-                    value={state.yearSemester.value}
-                    onChange={(e) => this.setState(
-                      { yearSemester: validatSelectBoxRequired(e.target.value) },
-                      this.searchLecture.bind(this)
-                    )}
-                    onFocus={() => this.setState({focused: 'time'})}
+              <div className="row">
+                <div className="col-md-4">
+                  <label
+                    className={state.place.status === 2 ? 'label-large error' : 'label-large'}
+                    htmlFor="input-place"
                   >
-                    <option value="">選択してください</option>
-                    {
-                      Object.keys(basic.lectureBasic.yearSemester).map(key =>
-                        <option value={key}>{basic.lectureBasic.yearSemester[key]}</option>
-                      )
-                    }
-                  </select>
+                    授業の場所
+                  </label>
                 </div>
-              </div>
-
-              <div className="col-md-4" style={{paddingLeft: 5, paddingRight: 5}}>
-                <label
-                  className={state.weekday.status === 2 ? 'label-large error' : 'label-large'}
-                  htmlFor="select-weekday"
-                >
-                  曜日
-                </label>
-                <div className="select select-block">
-                  <select id="select-weekday"
-                    name="weekday"
-                    value={state.weekday.value}
-                    onChange={(e) => this.setState({ weekday: validatSelectBoxRequired(e.target.value) })}
-                    onFocus={() => this.setState({focused: 'time'})}
-                  >
-                    <option value="">選択してください</option>
-                    {weekdays.map(w => <option value={w.value}>{w.string}</option>)}
-                  </select>
-                </div>
-              </div>
-
-              <div className="col-md-4" style={{paddingLeft: 10, paddingRight: 0}}>
-                <label
-                  className={state.timeSlot.status === 2 ? 'label-large error' : 'label-large'}
-                  htmlFor="select-timeSlot"
-                >
-                  限
-                </label>
-                <div className="select select-block">
-                  <select id="select-timeSlot"
-                    name="timeSlot"
-                    value={state.timeSlot.value}
-                    onChange={(e) => this.setState({ timeSlot: validatSelectBoxRequired(e.target.value) })}
-                    onFocus={() => this.setState({focused: 'time'})}
-                  >
-                    <option value="">選択してください</option>
-                    <option value={1}>１限</option>
-                    <option value={2}>２限</option>
-                    <option value={3}>３限</option>
-                    <option value={4}>４限</option>
-                    <option value={5}>５限</option>
-                    <option value={6}>その他</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-md-4">
-                <label
-                  className={state.place.status === 2 ? 'label-large error' : 'label-large'}
-                  htmlFor="input-place"
-                >
-                  授業の場所
-                </label>
-              </div>
-              <div className="col-md-8">
-                <div className="row-space-top-1 label-large text-right">
-                  <div>残り
-                    <span className={20 - state.place.value.length <= 0 ? 'error-message' : ''}>
-                      {20 - state.place.value.length}
-                    </span>文字
+                <div className="col-md-8">
+                  <div className="row-space-top-1 label-large text-right">
+                    <div>残り
+                      <span className={20 - state.place.value.length <= 0 ? 'error-message' : ''}>
+                        {20 - state.place.value.length}
+                      </span>文字
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-md-12">
-                <input className="overview-title input-large" id="input-place" type="text" maxLength={20}
-                  name="place"
-                  placeholder="授業の場所"
-                  value={state.place.value}
-                  onChange={(e) => this.setState({ place: validatLecturePlace(e.target.value) })}
-                  onFocus={() => this.setState({focused: 'place'})}
-                />
+              <div className="row">
+                <div className="col-md-12">
+                  <input className="overview-title input-large" id="input-place" type="text" maxLength={20}
+                    name="place"
+                    placeholder="授業の場所"
+                    value={state.place.value}
+                    onChange={(e) => this.setState({ place: validatLecturePlace(e.target.value) })}
+                    onFocus={() => this.setState({focused: 'place'})}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="raw">
-              <div className="col-md-12" style={{paddingLeft: 0, paddingRight: 0}}>
-                <label
-                  className={state.length.status === 2 ? 'label-large error' : 'label-large'}
-                  htmlFor="select-property_type_id"
-                >
-                  授業時間(分)
-                </label>
-                <input className="overview-title input-large" id="input-length" maxLength={3} type="number" step="10"
-                  style={{width: 200}}
-                  name="length" 
-                  placeholder="入力してください"
-                  value={state.length.value}
-                  onChange={(e) => this.setState({ length: validatLectureLength(e.target.value) })}
-                  onFocus={() => this.setState({focused: 'length'})}
-                />
+              <div className="raw">
+                <div className="col-md-12" style={{paddingLeft: 0, paddingRight: 0}}>
+                  <label
+                    className={state.length.status === 2 ? 'label-large error' : 'label-large'}
+                    htmlFor="select-property_type_id"
+                  >
+                    授業時間(分)
+                  </label>
+                  <input className="overview-title input-large" id="input-length" maxLength={3} type="number" step="10"
+                    style={{width: 200}}
+                    name="length" 
+                    placeholder="入力してください"
+                    value={state.length.value}
+                    onChange={(e) => this.setState({ length: validatLectureLength(e.target.value) })}
+                    onFocus={() => this.setState({focused: 'length'})}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="row">
-              <div className="col-md-4">
-                <label
-                  className={state.description.status === 2 ? 'label-large error' : 'label-large'}
-                  htmlFor="textarea-description"
-                >
-                  授業の説明
-                </label>
-              </div>
-              <div className="col-md-8">
-                <div className="row-space-top-1 label-large text-right">
-                  <div>残り
-                    <span className={120 - state.description.value.length <= 0 ? 'error-message' : ''}>
-                      {120 - state.description.value.length}
-                    </span>文字
+              <div className="row">
+                <div className="col-md-4">
+                  <label
+                    className={state.description.status === 2 ? 'label-large error' : 'label-large'}
+                    htmlFor="textarea-description"
+                  >
+                    授業の説明
+                  </label>
+                </div>
+                <div className="col-md-8">
+                  <div className="row-space-top-1 label-large text-right">
+                    <div>残り
+                      <span className={120 - state.description.value.length <= 0 ? 'error-message' : ''}>
+                        {120 - state.description.value.length}
+                      </span>文字
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-md-12">
-                <textarea className="overview-summary" id="textarea-description" rows={3} maxLength={120}
-                  name="description"
-                  placeholder="開講する授業についての簡単な説明を記述してください"
-                  value={state.description.value}
-                  onChange={(e) => this.setState({ description: validatLectureDescription(e.target.value) })}
-                  onFocus={() => this.setState({focused: 'description'})}
+              <div className="row">
+                <div className="col-md-12">
+                  <textarea className="overview-summary" id="textarea-description" rows={3} maxLength={120}
+                    name="description"
+                    placeholder="開講する授業についての簡単な説明を記述してください"
+                    value={state.description.value}
+                    onChange={(e) => this.setState({ description: validatLectureDescription(e.target.value) })}
+                    onFocus={() => this.setState({focused: 'description'})}
+                  />
+                </div>
+              </div>
+              <div className="space-top-3">
+                <RaisedButton
+                  style={{width: 150, float: 'right'}}
+                  label="新規登録"
+                  secondary={true}
+                  onClick={() => this.createLecture()}
                 />
               </div>
+            </div> :
+            <div
+              className="loading-wrap"
+              style={{
+                height: 400,
+                margin: '0 -15px',
+                padding: '0 15px',
+              }}
+            >
+              <Loading coverColor={Colors.grey50}/>
             </div>
-            <div className="space-top-3">
-              <RaisedButton
-                style={{width: 150, float: 'right'}}
-                label="新規登録"
-                secondary={true}
-                onClick={() => this.createLecture()}
-              />
-            </div>
-          </div>
           }
           </div>
           <div className="col-md-5">
@@ -494,10 +505,12 @@ class CreateLecture extends Component {
             actions={[
               <FlatButton
                 label="キャンセル"
+                disabled={storeLecture.isFetching}
                 onTouchTap={() => this.setState({ open: false })}
               />,
               <FlatButton
                 label="確定"
+                disabled={storeLecture.isFetching}
                 secondary={true}
                 keyboardFocused={true}
                 rippleColor={Colors.lightBlue600}
@@ -508,6 +521,18 @@ class CreateLecture extends Component {
             modal={false}
             open={state.open}
           >
+            {storeLecture.isFetching &&
+              <div
+                className="loading-wrap"
+                style={{
+                  height: 341,
+                  margin: '0 -15px',
+                  padding: '0 15px'
+                }}
+              >
+                <Loading/>
+              </div>
+            }
             <ConfirmLecture
               lecture={
                 state.join ?

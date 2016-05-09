@@ -85,6 +85,7 @@ class Lectures extends Component {
   render() {
     const { me, lectures, lecture, room, actions } = this.props;
     const weeks = ['月','火','水','木','金','土','日'];
+console.log(lecture)
     return (
       <div className="row">
         <div className="col-md-12">
@@ -193,12 +194,13 @@ class Lectures extends Component {
             <FlatButton
               label="キャンセル"
               secondary={true}
+              disabled={lecture.isFetching || room.isFetching}
               onTouchTap={() => this.setState({open: false})}
             />,
             <FlatButton
               label="開講"
               primary={true}
-              disabled={false}
+              disabled={lecture.isFetching || room.isFetching}
               onTouchTap={() => {
                 if (!room.isFetching) {
                   this.openRoom()
@@ -209,12 +211,39 @@ class Lectures extends Component {
           modal={true}
           open={this.state.open}
         >
-          <CreateRoom
-            me={me}
-            lecture={lecture}
-            length={this.state.length.value}
-            setState={this.setState.bind(this)}
-          />
+          {lecture.isFetching ?
+            <div
+              className="loading-wrap"
+              style={{
+                position: 'static',
+                height: 286,
+                margin: '0 -15px',
+                padding: '0 15px',
+              }}
+            >
+              <Loading/>
+            </div> :
+            <div>
+              {room.isFetching &&
+                <div
+                  className="loading-wrap"
+                  style={{
+                    height: 226,
+                    margin: '0 -15px',
+                    padding: '0 15px'
+                  }}
+                >
+                  <Loading/>
+                </div>
+              }
+              <CreateRoom
+                me={me}
+                lecture={lecture}
+                length={this.state.length.value}
+                setState={this.setState.bind(this)}
+              />
+            </div>
+          }
         </Dialog>
       </div>
     );

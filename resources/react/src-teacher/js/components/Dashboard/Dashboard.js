@@ -30,7 +30,7 @@ class Dashboard extends Component {
     const intervalId = setInterval(()=> {
       fetchCharts();
       fetchMessages();
-    }, 1000);
+    }, 10000);
     this.setState({intervalId});
   }
 
@@ -115,7 +115,9 @@ class Dashboard extends Component {
               </div>
             </div> :
             <div className="panel">
-              <div className="panel-body">開講中の授業がありません</div>
+              <div className="panel-body">
+                <h4 className="text-center">開講中の授業がありません</h4>
+              </div>
             </div>
           }
         </section>

@@ -11,7 +11,7 @@ class LineChart extends Component {
 
   componentDidMount() {
     this.setState({
-      lineWidth: document.getElementById('line-wrap').clientWidth - 20
+      lineWidth: document.getElementById('line-wrap').clientWidth - 40
     });
 
     // window.onresize = () => {

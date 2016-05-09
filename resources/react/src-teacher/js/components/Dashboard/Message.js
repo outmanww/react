@@ -42,6 +42,13 @@ class message extends Component {
         <div id="message-wrap">
           <List subheader="メッセージ">
           {
+            messages.dashboardMessages.length === 0 &&
+            <ListItem
+              primaryText="メッセージはありません"
+              secondaryTextLines={2}
+            />
+          }
+          {messages.dashboardMessages.length !== 0 &&
             messages.dashboardMessages.map(m =>
               <div>
                 <ListItem

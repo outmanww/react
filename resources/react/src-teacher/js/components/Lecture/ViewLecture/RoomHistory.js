@@ -61,14 +61,21 @@ class RoomHistory extends Component {
       ]
     };
 
-console.log(lineData);
+    const chartOptions = {
+      scaleShowGridLines : true,
+      bezierCurve : false,
+      bezierCurveTension : 0,
+      animation : false,
+      // scaleShowHorizontalLines: true, //水平メモリ
+      // scaleShowVerticalLines: true, //垂直メモリ
+    };
 
     return (
       <div>
         <div className="row">
           <div className="has-border">
             {/*<p className="select">編集するタイプを選択してください</p>*/}
-            <Line data={lineData} width="600" height="250"/>
+            <Line data={lineData} options={chartOptions} width="600" height="250"/>
           </div>
         </div>
         <div className="row">

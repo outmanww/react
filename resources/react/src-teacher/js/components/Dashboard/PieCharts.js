@@ -25,7 +25,7 @@ class PieChart extends Component {
             label: "わからない"
         },
         {
-            value: pie.attendance - pie.confused,
+            value: pie.attendance === 0 ? 1 : pie.attendance - pie.confused,
             color: "rgba(255,255,255,1)",
         }
     ];
@@ -38,7 +38,7 @@ class PieChart extends Component {
             label: "いいね"
         },
         {
-            value: pie.attendance - pie.interesting,
+            value: pie.attendance === 0 ? 1 : pie.attendance - pie.interesting,
             color: "rgba(255,255,255,1)",
         }
     ];
@@ -51,33 +51,42 @@ class PieChart extends Component {
             label: "うーん"
         },
         {
-            value: pie.attendance - pie.boring,
+            value: pie.attendance === 0 ? 1 : pie.attendance - pie.boring,
             color: "rgba(255,255,255,1)",
         }
     ];
 
+    const chartOptions = {
+      segmentShowStroke : false,
+      animation : false,
+
+    };
+
     return (
       <div className="row space-top-4" id="pie-wrap">
         <div className="col-md-4">
-          <p><i className="fa fa-thumbs-o-up"/>わからない</p>
+          <p className="h4 text-center space-top-0">わからない</p>
           <DoughnutChart
             data={confused}
+            options={chartOptions}
             width="200"
             height="200"
           />
         </div>
         <div className="col-md-4">
-          <p>いいね</p>
+          <p className="h4 text-center space-top-0">いいね</p>
           <DoughnutChart
             data={interesting}
+            options={chartOptions}
             width="200"
             height="200"
           />
         </div>
         <div className="col-md-4">
-          <p>うーん</p>
+          <p className="h4 text-center space-top-0">うーん</p>
           <DoughnutChart
             data={boring}
+            options={chartOptions}
             width="200"
             height="200"
           />
