@@ -123,7 +123,7 @@ class Lectures extends Component {
                 <tbody>
                 {!lectures.isFetching && lectures.lectures !== null &&
                   lectures.lectures.map(l =>
-                  <tr key={l.id} className={l.status === 1 ? '' : 'active'}>
+                  <tr key={l.id} className={l.status == 1 ? '' : 'active'}>
                     <td>{l.code}</td>
                     <td>{l.title}</td>
                     <td>{`${weeks[Math.floor((Number(l.timeSlot) - 1) % 5 / 5)]}曜${(Number(l.timeSlot) - 1) % 5 + 1}限`}</td>
@@ -137,7 +137,7 @@ class Lectures extends Component {
                           <i className="fa fa-area-chart"/>
                         </div>
                       </OverlayTrigger>
-                      {l.status === 1 &&
+                      {l.status == 1 &&
                         <div
                           className="custom-btn btn-mint space-left-2 pull-left"
                           onClick={() => {
@@ -164,7 +164,7 @@ class Lectures extends Component {
                           </div>
                         </OverlayTrigger>
                       }
-                      {l.status === 1 &&
+                      {l.status == 1 &&
                         <OverlayTrigger placement="top" overlay={(<Tooltip>終了</Tooltip>)}>
                           <div
                             className="custom-icon-btn btn-grapefruit space-right-1 pull-right"

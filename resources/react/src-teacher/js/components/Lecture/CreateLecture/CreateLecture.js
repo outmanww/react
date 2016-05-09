@@ -159,6 +159,8 @@ class CreateLecture extends Component {
       {value: '全学年', string: '全学年'},
     ];
 
+console.log(this.state)
+
     return (
       <div className="row">
         <div className="space-top-2 row-space-2 clearfix">
