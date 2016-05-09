@@ -63,11 +63,9 @@ class ViewLecture extends Component {
     const { userId, lecture, basic, update, room, actions } = this.props;
     const { id, editable, title, yearSemester, weekday, timeSlot, place, length, description } = this.state;
 
-console.log(this.state);
-
     return (
       <div>
-        {lecture.lecture !== 'undefind' && !lecture.isFetching &&
+        {lecture.lecture !== null && !lecture.isFetching &&
         <div>
           <div className="row content-wrap-white relative">
             {editable && update.isFetching &&
