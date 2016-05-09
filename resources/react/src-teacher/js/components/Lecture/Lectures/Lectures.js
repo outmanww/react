@@ -85,7 +85,7 @@ class Lectures extends Component {
   render() {
     const { me, lectures, lecture, room, actions } = this.props;
     const weeks = ['月','火','水','木','金','土','日'];
-console.log(lecture)
+
     return (
       <div className="row">
         <div className="col-md-12">
@@ -96,11 +96,14 @@ console.log(lecture)
                   <h3 className="panel-title">登録授業一覧</h3>
                 </div>
                 <div className="col col-xs-6 text-right">
+                {me.user !== null &&
                   <RaisedButton
+                    disabled={!me.user.confirmed}
                     label="新規登録"
                     secondary={true}
                     onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/create`)}
                   />
+                }
                 </div>
               </div>
             </div>
@@ -108,17 +111,17 @@ console.log(lecture)
               <table className="table table-bordered">
                 <thead>
                   <tr>
-                    <th className="col-md-1">授業コード</th>
-                    <th className="col-md-2">授業名</th>
-                    <th className="col-md-2">開講日</th>
-                    <th className="col-md-3">学部・学科</th>
-                    <th className="col-md-4">アクション</th>
+                    <th className="col-md-2 text-left">授業コード</th>
+                    <th className="col-md-2 text-left">授業名</th>
+                    <th className="col-md-2 text-left">開講日</th>
+                    <th className="col-md-3 text-left">学部・学科</th>
+                    <th className="col-md-3 text-center">アクション</th>
                   </tr> 
                 </thead>
                 <tbody>
                 {!lectures.isFetching && lectures.lectures !== null &&
                   lectures.lectures.map(l =>
-                  <tr key={l.id} className="">
+                  <tr key={l.id} className={l.status === 1 ? '' : 'active'}>
                     <td>{l.code}</td>
                     <td>{l.title}</td>
                     <td>{`${weeks[Math.floor((Number(l.timeSlot) - 1) % 5 / 5)]}曜${(Number(l.timeSlot) - 1) % 5 + 1}限`}</td>
@@ -144,22 +147,24 @@ console.log(lecture)
                           <i className="fa fa-trash"/>
                         </div>
                       </OverlayTrigger>
-                      <OverlayTrigger placement="top" overlay={(<Tooltip>終了</Tooltip>)}>
-                        <div
-                          className="custom-icon-btn btn-blue space-right-1 pull-right"
-                          onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/${l.id}`)}
-                        >
-                          <i className="fa fa-pause"/>
-                        </div>
-                      </OverlayTrigger>
-                      <OverlayTrigger placement="top" overlay={(<Tooltip>再開</Tooltip>)}>
-                        <div
-                          className="custom-icon-btn btn-blue space-right-1 pull-right"
-                          onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/${l.id}`)}
-                        >
-                          <i className="fa fa-play"/>
-                        </div>
-                      </OverlayTrigger>
+                      {l.status === 1 ?
+                        <OverlayTrigger placement="top" overlay={(<Tooltip>終了</Tooltip>)}>
+                          <div
+                            className="custom-icon-btn btn-blue space-right-1 pull-right"
+                            onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/${l.id}`)}
+                          >
+                            <i className="fa fa-pause"/>
+                          </div>
+                        </OverlayTrigger> :
+                        <OverlayTrigger placement="top" overlay={(<Tooltip>再開</Tooltip>)}>
+                          <div
+                            className="custom-icon-btn btn-blue space-right-1 pull-right"
+                            onClick={() => actions.push(`/${SCHOOL_NAME}/teacher/lectures/${l.id}`)}
+                          >
+                            <i className="fa fa-play"/>
+                          </div>
+                        </OverlayTrigger>
+                      }
                       <OverlayTrigger placement="top" overlay={(<Tooltip>詳細</Tooltip>)}>
                         <div
                           className="custom-icon-btn btn-aqua space-right-1 pull-right"

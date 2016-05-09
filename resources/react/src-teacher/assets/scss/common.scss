@@ -34,6 +34,11 @@ body {height:100%; padding: 0}
   background-color: #FFF;
 }
 
+td.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .content-wrap-white {
   background-color: white;
 }
