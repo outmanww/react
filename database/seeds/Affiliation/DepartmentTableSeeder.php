@@ -95,6 +95,7 @@ class DepartmentTableSeeder extends Seeder
             ];
 
             DB::connection($connection_name)->table('departments')->insert($departments);
+
             /**
              * 情報文化学部のコース
              */
@@ -142,6 +143,49 @@ class DepartmentTableSeeder extends Seeder
                 ],[
                     'name'       => '共通',
                     'sort'       => '7',
+                    'faculty_id' => $faculties->id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]
+            ];
+
+            DB::connection($connection_name)->table('departments')->insert($departments);
+
+            /**
+             * 情報文化学部のコース
+             */
+            $faculties = DB::connection($connection_name)->table('faculties')
+                ->where('name', '工学部')
+                ->first();
+
+            $departments = [
+                [
+                    'name'       => '化学・生物工学科',
+                    'sort'       => '1',
+                    'faculty_id' => $faculties->id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ],[
+                    'name'       => '物理工学科',
+                    'sort'       => '2',
+                    'faculty_id' => $faculties->id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ],[
+                    'name'       => '電気電子・情報工学科',
+                    'sort'       => '3',
+                    'faculty_id' => $faculties->id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ],[
+                    'name'       => '機械・航空工学科',
+                    'sort'       => '4',
+                    'faculty_id' => $faculties->id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ],[
+                    'name'       => '環境土木・建築学科',
+                    'sort'       => '5',
                     'faculty_id' => $faculties->id,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()

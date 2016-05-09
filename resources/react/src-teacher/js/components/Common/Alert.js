@@ -39,7 +39,7 @@ class Alert extends Component {
       height: 0,
       opacity: 1,
       padding: 0,
-      marginBottom: 0,
+      marginBottom: 0
     };
   }
 
@@ -48,7 +48,7 @@ class Alert extends Component {
       height: spring(0),
       opacity: spring(0),
       padding: spring(0),
-      marginBottom: spring(0),
+      marginBottom: spring(0)
     };
   }
 

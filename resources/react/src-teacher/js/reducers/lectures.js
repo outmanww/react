@@ -19,6 +19,7 @@ export default function lectures(state = initialState, action) {
     });
 
   case REQUEST_LECTURES_SUCCESS:
+  console.log(Object.values(action.payload));
     return Object.assign({}, state, {
       lectures: Object.values(action.payload),
       isFetching: false,

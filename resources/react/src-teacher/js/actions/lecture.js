@@ -137,6 +137,52 @@ export function updateLecture(id, body) {
   };
 }
 
+export function deactivateLecture(id) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.DEACTIVATE_LECTURE,
+        types.DEACTIVATE_LECTURE_SUCCESS,
+        types.DEACTIVATE_LECTURE_FAIL
+      ],
+      endpoint: `lectures/${id}/deactivate`,
+      method: 'PATCH',
+      body: null
+    },
+    meta: {
+      actionsOnSuccess: [
+        (response) => ({
+          type: types.REQUEST_LECTURES_SUCCESS,
+          payload: response
+        })
+      ]
+    }
+  };
+}
+
+export function deleteLecture(id) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.DELETE_LECTURE,
+        types.DELETE_LECTURE_SUCCESS,
+        types.DELETE_LECTURE_FAIL
+      ],
+      endpoint: `lectures/${id}`,
+      method: 'DELETE',
+      body: null
+    },
+    meta: {
+      actionsOnSuccess: [
+        (response) => ({
+          type: types.REQUEST_LECTURES_SUCCESS,
+          payload: response
+        })
+      ]
+    }
+  };
+}
+
 export function fetchRoom(id) {
   return {
     [CALL_API]: {

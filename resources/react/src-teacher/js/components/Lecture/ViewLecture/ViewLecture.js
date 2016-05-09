@@ -35,7 +35,7 @@ class ViewLecture extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.lecture.lecture !== null) {
+    if (this.props.lecture.isFetching && nextProps.lecture.lecture !== null) {
       const lecture = nextProps.lecture.lecture;
       this.setState({
         title: lecture.title,
@@ -62,6 +62,8 @@ class ViewLecture extends Component {
   render() {
     const { userId, lecture, basic, update, room, actions } = this.props;
     const { id, editable, title, yearSemester, weekday, timeSlot, place, length, description } = this.state;
+
+console.log(this.state);
 
     return (
       <div>
@@ -315,7 +317,7 @@ class ViewLecture extends Component {
               <div className="col-md-4">
                 <div className="list-group room-list">
                   {lecture.lecture.rooms.length === 0 &&
-                    <h4>まだ授業がありません</h4>
+                    <h4 className="space-top-5">まだ授業がありません</h4>
                   }
                   {lecture.lecture.rooms.map(r =>
                     <a

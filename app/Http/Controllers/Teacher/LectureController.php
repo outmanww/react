@@ -87,12 +87,17 @@ class LectureController extends Controller
 
         $lectures = $user
             ->lectures()
+            ->where('deleted_at', null)
+            ->orderBy('created_at', 'desc')
             ->with([
                 'department' => function ($query) {
                     $query->select('id', 'name', 'faculty_id');
                 },
                 'department.faculty' => function ($query) {
                     $query->select('id', 'name');
+                },
+                'rooms' => function ($query) {
+                    $query->select('id', 'lecture_id');
                 }
             ])
             ->get();
@@ -289,7 +294,39 @@ class LectureController extends Controller
      */
     public function deactivate($school, $id)
     {
-        return \Response::json($id, 200);
+        $lecture = Lecture::find($id);
+
+        if (!$lecture instanceof Lecture) {
+            throw new ApiException('lecture.not_found');
+        }
+
+        $user = \Auth::guard('users')->user();
+
+        if (!$user->hasLecture($id)) {
+            throw new ApiException('lecture.not_yours');
+        }
+
+        $lecture->status = 0;
+        $lecture->save();
+
+        $lectures = $user
+            ->lectures()
+            ->where('deleted_at', null)
+            ->orderBy('created_at', 'desc')
+            ->with([
+                'department' => function ($query) {
+                    $query->select('id', 'name', 'faculty_id');
+                },
+                'department.faculty' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'rooms' => function ($query) {
+                    $query->select('id', 'lecture_id');
+                }
+            ])
+            ->get();
+
+        return \Response::json($lectures, 200);
     }
 
     /**
@@ -297,7 +334,38 @@ class LectureController extends Controller
      */
     public function destroy($school, $id)
     {
-        return \Response::json($id, 200);
+        $lecture = Lecture::find($id);
+
+        if (!$lecture instanceof Lecture) {
+            throw new ApiException('lecture.not_found');
+        }
+
+        $user = \Auth::guard('users')->user();
+
+        if (!$user->hasLecture($id)) {
+            throw new ApiException('lecture.not_yours');
+        }
+
+        $lecture->delete();
+        
+        $lectures = $user
+            ->lectures()
+            ->where('deleted_at', null)
+            ->orderBy('created_at', 'desc')
+            ->with([
+                'department' => function ($query) {
+                    $query->select('id', 'name', 'faculty_id');
+                },
+                'department.faculty' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'rooms' => function ($query) {
+                    $query->select('id', 'lecture_id');
+                }
+            ])
+            ->get();
+
+        return \Response::json($lectures, 200);
     }
 
     /**

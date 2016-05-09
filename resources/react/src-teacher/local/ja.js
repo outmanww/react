@@ -1,6 +1,6 @@
 /*eslint-disable max-len,quotes*/
 export default {
-  "unexpected": `接続エラーですもう一度実行してください`,
+  "unexpected": `接続エラーです。もう一度実行してください`,
 
   "nav.dashboard": `ダッシュボード`,
   "nav.lecture": `授業の管理`,
