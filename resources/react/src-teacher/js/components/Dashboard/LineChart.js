@@ -11,12 +11,12 @@ class LineChart extends Component {
 
   componentDidMount() {
     this.setState({
-      lineWidth: document.getElementById('line-wrap').clientWidth - 40
+      lineWidth: document.getElementById('dashboard-line-wrap').clientWidth - 40
     });
 
     // window.onresize = () => {
     //   this.setState({
-    //     lineWidth: document.getElementById('line-wrap').clientWidth
+    //     lineWidth: document.getElementById('dashboard-line-wrap').clientWidth
     //   });
     // }
   }
@@ -80,7 +80,7 @@ class LineChart extends Component {
 
     return (
       <div className="space-top-3 space-bottom-3 has-border">
-        <div id="line-wrap">
+        <div id="dashboard-line-wrap" className="bg-white" style={{padding: '20px'}}>
           {this.state.lineWidth !== 0 &&
             <Line
               data={lineData}

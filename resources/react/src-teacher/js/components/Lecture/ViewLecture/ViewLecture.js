@@ -10,13 +10,14 @@ import {
 } from '../../../utils/ValidationUtils';
 //Actions
 import * as LectureActions from '../../../actions/lecture';
+import * as InitializeActions from '../../../actions/initialize';
 import { routeActions } from 'react-router-redux';
 // Material-UiI-components
 import { RaisedButton, FlatButton } from 'material-ui';
 import Colors from 'material-ui/lib/styles/colors';
 // Components
-import Loading from '../../Common/Loading';
 import RoomHistory from './RoomHistory';
+import Loading from '../../Common/Loading';
 
 class ViewLecture extends Component {
   constructor(props, context) {
@@ -27,6 +28,8 @@ class ViewLecture extends Component {
       id: 0,
       editable: false
     };
+
+    actions.clearDisposable();
     actions.fetchLectureBasic();
     actions.fetchLecture(routeParams.id);
   }
@@ -91,6 +94,7 @@ class ViewLecture extends Component {
                   label="キャンセル"
                   secondary={true}
                   style={{float: 'right', width: 120, margin: '0 10px 0 10px', fontSize: 16}}
+                  disabled={update.isFetching}
                   onClick={() => this.setState({
                     editable: false,
                     title: lecture.lecture.title,
@@ -115,7 +119,7 @@ class ViewLecture extends Component {
 
             <div className="col-md-12">
               <h4 className="space-top-4 lecture-title">
-                <span>{`授業コード：${lecture.lecture.code}　`}</span>
+                <span>{`授業コード：${lecture.lecture.code ? lecture.lecture.code : '未登録'}　`}</span>
                 <span>{`　${lecture.lecture.department.faculty.name}　${lecture.lecture.department.name}対象`}</span>
               </h4>
             </div>
@@ -310,6 +314,9 @@ class ViewLecture extends Component {
             <div className="space-top-2">
               <div className="col-md-4">
                 <div className="list-group room-list">
+                  {lecture.lecture.rooms.length === 0 &&
+                    <h4>まだ授業がありません</h4>
+                  }
                   {lecture.lecture.rooms.map(r =>
                     <a
                       key={r.id}
@@ -330,11 +337,27 @@ class ViewLecture extends Component {
               </div>
 
               <div className="col-md-8">
-              {room.room !== null &&
-                <RoomHistory
-                  line={room.room.charts}
-                  messages={room.room.messages}
-                />
+              {lecture.lecture.rooms.length === 0 ? 
+                <div></div> :
+                room.isFetching ?
+                  <div
+                    className="loading-wrap"
+                    style={{
+                      height: 400,
+                      margin: '0 -15px',
+                      padding: '0 15px'
+                    }}
+                  >
+                    <Loading/>
+                  </div> :
+                  room.room === null ?
+                  <div>
+                    <h4 className="text-center">授業を選択してください</h4>
+                  </div> : 
+                  <RoomHistory
+                    line={room.room.charts}
+                    messages={room.room.messages}
+                  />
               }
               </div>
             </div>
@@ -363,7 +386,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = Object.assign(LectureActions, routeActions);
+  const actions = Object.assign(LectureActions, InitializeActions, routeActions);
   return {
     actions: bindActionCreators(actions, dispatch)
   };

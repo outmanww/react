@@ -12,6 +12,21 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 class RoomHistory extends Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      lineWidth: 0
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      lineWidth: document.getElementById('history-line-wrap').clientWidth - 40
+    });
+
+    // window.onresize = () => {
+    //   this.setState({
+    //     lineWidth: document.getElementById('history-line-wrap').clientWidth
+    //   });
+    // }
   }
 
   render() {
@@ -73,13 +88,22 @@ class RoomHistory extends Component {
     return (
       <div>
         <div className="row">
-          <div className="has-border">
-            {/*<p className="select">編集するタイプを選択してください</p>*/}
-            <Line data={lineData} options={chartOptions} width="600" height="250"/>
+          <div className="space-left-2 space-right-4 has-border">
+            <div id="history-line-wrap" className="bg-white" style={{padding: '20px'}}>
+              {this.state.lineWidth !== 0 &&
+                <Line
+                  data={lineData}
+                  options={chartOptions}
+                  width={this.state.lineWidth}
+                  height="250"
+                  style={{width: this.state.lineWidth}}
+                />
+              }
+            </div>
           </div>
         </div>
         <div className="row">
-          <div className="space-top-4 space-bottom-3 space-left-3">
+          <div className="space-top-4 space-bottom-3 space-left-2 space-right-4">
             <div id="message-wrap">
               <List subheader="メッセージ">
               {
