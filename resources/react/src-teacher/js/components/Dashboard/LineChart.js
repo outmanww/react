@@ -24,9 +24,19 @@ class LineChart extends Component {
   render() {
     const { line } = this.props;
 
+    const lineRange = 30;
+
     let labels = [];
+    let confusedData =[];
+    let boringData =[];
+    let n = 0;
     for (let i = line.boring.length - 1; i >= 0; i--) {
-      labels.unshift(5 * i);
+      n++;
+      if (n < lineRange) {
+        labels.unshift(i);
+        confusedData.unshift(line.confused[i] / line.attendance[i]);
+        boringData.unshift(line.boring[i] / line.attendance[i]);
+      }
     }
 
     const colors = {
@@ -34,6 +44,8 @@ class LineChart extends Component {
       interesting: '67,160,71',
       boring: '229,57,53',
     }
+
+
 
     const lineData = {
       labels: labels,
@@ -46,16 +58,7 @@ class LineChart extends Component {
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(151,187,205,1)",
-          data: line.confused
-        },{
-          label: "interesting",
-          fillColor: `rgba(${colors.interesting},0.02)`,
-          strokeColor: `rgba(${colors.interesting},1)`,
-          pointColor: `rgba(${colors.interesting},1)`,
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          data: line.interesting
+          data: confusedData
         },{
           label: "boring",
           fillColor: `rgba(${colors.boring},0.02)`,
@@ -64,15 +67,15 @@ class LineChart extends Component {
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(151,187,205,1)",
-          data: line.boring
+          data: boringData
         }
       ]
     };
 
     const chartOptions = {
       scaleShowGridLines : true,
-      bezierCurve : false,
-      bezierCurveTension : 0,
+      // bezierCurve : false,
+      bezierCurveTension : 0.5,
       animation : false,
       // scaleShowHorizontalLines: true, //水平メモリ
       // scaleShowVerticalLines: true, //垂直メモリ

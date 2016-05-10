@@ -67,7 +67,7 @@ class DashboardController extends Controller
             ], 200);
         }
 
-        $charts = $room->getChartData(5, 5);
+        $charts = $room->getChartData(1, 1);
 
         return \Response::json([
             'exist' => true,
