@@ -44,7 +44,7 @@ class message extends Component {
     return (
       <div className="space-top-4 space-bottom-3 space-left-3">
         <div id="message-wrap">
-          <List subheader="メッセージ">
+          <List>
           {
             messages.dashboardMessages.length === 0 &&
             <ListItem

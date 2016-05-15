@@ -18,10 +18,11 @@ class LineChart extends Component {
   render() {
     const { line } = this.props;
 
-    const lineRange = 30;
+    const lineRange = 20;
 
     let labels = [];
     let confusedData =[];
+    let interestingData =[];
     let boringData =[];
     let n = 0;
     for (let i = line.boring.length - 1; i >= 0; i--) {
@@ -30,6 +31,9 @@ class LineChart extends Component {
         labels.unshift(i * 2);
         confusedData.unshift(
           Math.round(line.confused[i]/line.attendance[i]*100)
+        );
+        interestingData.unshift(
+          Math.round(line.interesting[i]/line.attendance[i]*100)
         );
         boringData.unshift(
           Math.round(line.boring[i]/line.attendance[i]*100)
@@ -49,15 +53,6 @@ class LineChart extends Component {
       labels: labels,
       datasets: [
         {
-          label: "confused",
-          fillColor: `rgba(${colors.confused},0)`,
-          strokeColor: `rgba(${colors.confused},1)`,
-          pointColor: `rgba(${colors.confused},1)`,
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          data: confusedData
-        },{
           label: "boring",
           fillColor: `rgba(${colors.boring},0)`,
           strokeColor: `rgba(${colors.boring},1)`,
@@ -66,6 +61,24 @@ class LineChart extends Component {
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(151,187,205,1)",
           data: boringData
+        },{
+          label: "boring",
+          fillColor: `rgba(${colors.interesting},0)`,
+          strokeColor: `rgba(${colors.interesting},1)`,
+          pointColor: `rgba(${colors.interesting},1)`,
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: interestingData
+        },{
+          label: "confused",
+          fillColor: `rgba(${colors.confused},0)`,
+          strokeColor: `rgba(${colors.confused},1)`,
+          pointColor: `rgba(${colors.confused},1)`,
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: confusedData
         }
       ]
     };
