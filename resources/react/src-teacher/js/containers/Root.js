@@ -9,6 +9,7 @@ injectTapEventPlugin();
 
 //Components
 import App from './App';
+import Student from '../components/Dashboard/Student';
 import Dashboard from '../components/Dashboard/Dashboard';
 import Lecture from '../components/Lecture/Lecture';
 import Lectures from '../components/Lecture/Lectures/Lectures';
@@ -25,6 +26,7 @@ export default class Root extends Component {
       <Provider store={store}>
         <IntlProvider key="intl" locale={'ja'} messages={i18n.ja}>
           <Router history={history}>
+            <Route path="/nagoya-u/teacher/student" component={Student}/>
             <Route name="Top" path="/nagoya-u/teacher" component={App}>
               <Route path="dashboard" component={Dashboard}/>
               <Route name="Lectures" path="lectures" component={Lecture}>

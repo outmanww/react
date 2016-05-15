@@ -13,12 +13,6 @@ class LineChart extends Component {
     this.setState({
       lineWidth: document.getElementById('dashboard-line-wrap').clientWidth - 40
     });
-
-    // window.onresize = () => {
-    //   this.setState({
-    //     lineWidth: document.getElementById('dashboard-line-wrap').clientWidth
-    //   });
-    // }
   }
 
   render() {
@@ -33,9 +27,13 @@ class LineChart extends Component {
     for (let i = line.boring.length - 1; i >= 0; i--) {
       n++;
       if (n < lineRange) {
-        labels.unshift(i);
-        confusedData.unshift(line.confused[i] / line.attendance[i]);
-        boringData.unshift(line.boring[i] / line.attendance[i]);
+        labels.unshift(i * 2);
+        confusedData.unshift(
+          Math.round(line.confused[i]/line.attendance[i]*100)
+        );
+        boringData.unshift(
+          Math.round(line.boring[i]/line.attendance[i]*100)
+        );
       }
     }
 
@@ -52,7 +50,7 @@ class LineChart extends Component {
       datasets: [
         {
           label: "confused",
-          fillColor: `rgba(${colors.confused},0.02)`,
+          fillColor: `rgba(${colors.confused},0)`,
           strokeColor: `rgba(${colors.confused},1)`,
           pointColor: `rgba(${colors.confused},1)`,
           pointStrokeColor: "#fff",
@@ -61,7 +59,7 @@ class LineChart extends Component {
           data: confusedData
         },{
           label: "boring",
-          fillColor: `rgba(${colors.boring},0.02)`,
+          fillColor: `rgba(${colors.boring},0)`,
           strokeColor: `rgba(${colors.boring},1)`,
           pointColor: `rgba(${colors.boring},1)`,
           pointStrokeColor: "#fff",
@@ -79,6 +77,15 @@ class LineChart extends Component {
       animation : false,
       // scaleShowHorizontalLines: true, //水平メモリ
       // scaleShowVerticalLines: true, //垂直メモリ
+      scaleOverride : true,
+      // Y軸に表示する目盛数
+      scaleLabel: "<%=value%> %",
+      scaleSteps : 5,
+      // Y軸目盛の幅
+      scaleStepWidth : 20,
+      // Y軸の開始数値
+      scaleStartValue : 0,
+      pointDot : false,
     };
 
     return (

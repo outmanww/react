@@ -43,7 +43,7 @@ class Dashboard extends Component {
 
   openWindow() {
     window.open(
-      `http://l.com/${SCHOOL_NAME}/teacher/student`,
+      `http://l.com/${SCHOOL_NAME}/teacher/dashboard/student`,
       '_blank',
       'top=50,left=50,width=1200,height=650,scrollbars=1,location=0,menubar=0,toolbar=0,status=1,directories=0,resizable=1'
     );
@@ -61,18 +61,12 @@ class Dashboard extends Component {
       '0': '日曜日'
     };
     const style = {
-      minHeight: window.innerHeight - 64,
       background: Colors.grey50,
-      padding: '0 60px 60px'
+      padding: 60
     };
 
     return (
       <div style={style}>
-        <section className="content-header">
-          <div className="row">
-            <h3>ダッシュボード</h3>
-          </div>
-        </section>
         <section className="content">
           {charts.exist ?
             <div>
@@ -83,18 +77,6 @@ class Dashboard extends Component {
                       <div className="pull-left room-key-wrap">
                         <p><span>入室キー</span><span>{charts.room.key}</span></p>
                       </div>
-                      <RaisedButton
-                        style={{width: 150, marginRight: 20, float:'right'}}
-                        label="終了"
-                        secondary={true}
-                        onClick={() => actions.closeRoom(charts.room.id)}
-                      />
-                      <RaisedButton
-                        style={{width: 150, marginRight: 20, float:'right'}}
-                        label="生徒用画面"
-                        secondary={true}
-                        onClick={() => this.openWindow()}
-                      />
                     </div>
                   </div>
                   <div className="panel-body">

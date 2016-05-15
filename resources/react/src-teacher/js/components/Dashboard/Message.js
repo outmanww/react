@@ -35,7 +35,11 @@ class message extends Component {
       </IconMenu>
     );
 
-    const AvatarColors = ['red400', 'purple400', 'indigo400', 'cyan400', 'green400', 'lime400', 'orange400', 'blueGrey200'];
+    const avatarStyle = {
+      1: { color: Colors.indigo400, content: '質'},
+      2: { color: Colors.amberA700, content: '感'},
+      3: { color: Colors.green400, content: '他'}
+    };
 
     return (
       <div className="space-top-4 space-bottom-3 space-left-3">
@@ -54,14 +58,14 @@ class message extends Component {
                 <ListItem
                   leftAvatar={
                     <Avatar
-                      color={Colors.deepOrange300}
-                      backgroundColor={Colors[AvatarColors[Math.floor(Math.random() * AvatarColors.length)]]}
+                      color={Colors.White}
+                      backgroundColor={avatarStyle[m.type].color}
                     >
-                      {m.id}
+                      {avatarStyle[m.type].content}
                     </Avatar>
                   }
                   primaryText={m.message}
-                  secondaryText={moment.unix(m.time).format('MM月DD日 hh:mm:ss')}
+                  secondaryText={`${Math.abs(moment.unix(m.time).diff(moment(), 'minutes'))} 分前`}
                   secondaryTextLines={2}
                 />
                 <Divider inset={true} />
