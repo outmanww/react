@@ -43,7 +43,7 @@ class Dashboard extends Component {
 
   openWindow() {
     window.open(
-      `http://l.com/${SCHOOL_NAME}/teacher/student`,
+      `/${SCHOOL_NAME}/teacher/student`,
       '_blank',
       'top=50,left=50,width=1200,height=650,scrollbars=1,location=0,menubar=0,toolbar=0,status=1,directories=0,resizable=1'
     );
