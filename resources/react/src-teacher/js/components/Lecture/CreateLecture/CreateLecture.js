@@ -52,7 +52,7 @@ class CreateLecture extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { lectureBasic } = nextProps.basic;
-    if (lectureBasic !== null) {
+    if (this.props.lectureBasic === null && lectureBasic !== null) {
       this.setState({
         faculty: {
           value: String(lectureBasic.faculties.default.faculty),
