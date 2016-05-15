@@ -123,7 +123,8 @@ class RoomController extends Controller
 
         // handle message event
         $new_msg = null;
-        if($request->action == config('controller.action.message'))
+        if($request->action == config('controller.action.message_anonymous') || 
+            $request->action == config('controller.action.message_realname'))
             $new_msg = $request->message;
         
         $reaction_new = Reaction::insert([

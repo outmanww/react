@@ -122,7 +122,7 @@ class Reaction extends Model
         return $query
             ->where('affiliation_id', $affiliation_id)
             ->where('room_id', $room_id)
-            ->where('action_id', config('controller.action.message'))
+            ->whereIn('action_id', [config('controller.action.message_anonymous'),config('controller.action.message_realname')])
             ->where('created_at', '>', $fromTime);
     }
 }

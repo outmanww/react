@@ -30,7 +30,8 @@ return [
         'basic'                 => 1,
         'reaction_anonymous'    => 2,
         'reaction_realname'     => 3,
-        'message'               => 4,
+        'message_anonymous'     => 4,
+        'message_realname'      => 5,
     ],
 
 	// type

@@ -57,7 +57,7 @@ class CreateStudentRelatedTables extends Migration
             $table->string('street')->nullable();
             $table->string('building')->nullable();
             $table->string('introduction')->nullable();
-
+            $table->string('device_os')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');
             $table->softDeletes();
