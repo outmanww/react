@@ -59,7 +59,7 @@ class PieChart extends Component {
     const chartOptions = {
       segmentShowStroke : false,
       animation : false,
-
+      scaleShowLabels : false,
     };
 
     return (
