@@ -64,39 +64,20 @@ class PieChart extends Component {
 
     return (
       <div className="row space-top-4" id="pie-wrap">
-        <div className="col-md-4" style={{position: 'relative'}}>
+        <div className="col-md-4">
           <p className="h4 text-center space-top-0">わからない</p>
           <DoughnutChart
             data={confused}
             options={chartOptions}
             width="200"
             height="200"
-            style={{
-              position: 'absolute',
-              top: 250,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              margin: 'auto',
-              width: 200,
-              height: 200
-            }}
           />
-
-          <div
-            className="h4"
-            style={{
-              position: 'absolute',
-              top: 250,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              margin: 'auto',
-              width: 80,
-              height: 80,
-            }}
-          >
-            <p className="space-top-0 h4 text-center" style={{lineHeight: '80px'}}>5/3</p>
+          <div className="chart-center">
+            <p>
+              <span style={{color: `rgba(${colors.confused},1)`}}>{pie.confused}</span>
+              <span>/</span>
+              <span>{pie.attendance}</span>
+            </p>
           </div>
         </div>
         <div className="col-md-4">
@@ -108,6 +89,13 @@ class PieChart extends Component {
             height="200"
 
           />
+          <div className="chart-center">
+            <p>
+              <span style={{color: `rgba(${colors.interesting},1)`}}>{pie.interesting}</span>
+              <span>/</span>
+              <span>{pie.attendance}</span>
+            </p>
+          </div>
         </div>
         <div className="col-md-4">
           <p className="h4 text-center space-top-0">うーん</p>
@@ -117,6 +105,13 @@ class PieChart extends Component {
             width="200"
             height="200"
           />
+          <div className="chart-center">
+            <p>
+              <span style={{color: `rgba(${colors.boring},1)`}}>{pie.boring}</span>
+              <span>/</span>
+              <span>{pie.attendance}</span>
+            </p>
+          </div>
         </div>
       </div>
     );
