@@ -204,10 +204,16 @@ class Room extends Model
         		$time_room_in = $time_room_in->diffInMinutes($room_create_time);
 				for($i=$num_slot-1; $i>=0; $i--)
 				{
+					/*
 					if($time_room_in<$i*$interval)
 						$num_student_array[$i]++;
 					elseif($time_room_in>=$i*$interval && $time_room_in<$i*$interval+$interval)
 						$num_student_array[$i] += $i+1-$time_room_in/$interval;
+					else
+						break;
+					*/
+					if($time_room_in<$i*$interval+$interval)
+						$num_student_array[$i]++;
 					else
 						break;
 				}
@@ -220,10 +226,12 @@ class Room extends Model
 				{
 					if($time_room_out<$i*$interval)
 						$num_student_array[$i]--;
+					/*
 					elseif($time_room_out>=$i*$interval && $time_room_out<$i*$interval+$interval)
 						$num_student_array[$i] -= $i+1-$time_room_out/$interval;
 					else
 						break;
+					*/
 				}
 	        }
         }
@@ -231,6 +239,155 @@ class Room extends Model
 		return $num_student_array;
 	}
 
+	private function historyReaction($type_id, $interval = 10)
+	{
+		// get affiliation ID
+		if(is_null($this->affiliation_id))
+			$this->affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+
+		// room create time and close time
+		$room_create_time = $this->created_at;
+		if(!$this->closed_at)
+			$room_close_time = Carbon::now();
+		else
+			$room_close_time = $this->closed_at;
+
+		// room length
+		$room_length = $room_close_time->diffInMinutes($room_create_time)+1;
+		$num_slot = ceil($room_length/$interval);
+
+		// prepare array
+		$num_array = array();
+		for($i=0; $i<$num_slot; $i++)
+			array_push($num_array, 0);
+
+		// get all reaction event by type
+		$reaction_events = Reaction::allReactionEventByType($this->affiliation_id, $this->id, $type_id)
+								->select('created_at','student_id')
+								->orderBy('student_id')
+								->orderBy('created_at')
+								->get();
+
+		// calculate the reaction for each event
+		$lastStudentID = -1;
+		$lastSlot = -1;
+        foreach($reaction_events as $reaction_event)
+        {
+        	if($reaction_event['student_id'] != $lastStudentID)
+        	{
+				$lastStudentID = $reaction_event['student_id'];
+				$lastSlot = -1;
+        	}
+    		$event_time = Carbon::createFromFormat('Y-m-d H:i:s', $reaction_event['created_at']);
+    		$event_time = $event_time->diffInMinutes($room_create_time);
+    		
+    		$slotIndex = ceil($event_time/$interval);
+	   		if($slotIndex >= $num_slot)
+	   			continue;
+
+	   		if($slotIndex == $lastSolt)
+	   			continue;
+
+    		$num_array[$slotIndex]++;
+			$lastSolt = $slotIndex;
+		}
+
+		return $num_array;
+	}
+
+	private function historyAllTypeReaction($interval = 10)
+	{
+		// get affiliation ID
+		if(is_null($this->affiliation_id))
+			$this->affiliation_id = Affiliation::where('db_name', $this->connection)->value('id');
+
+		// room create time and close time
+		$room_create_time = $this->created_at;
+		if(!$this->closed_at)
+			$room_close_time = Carbon::now();
+		else
+			$room_close_time = $this->closed_at;
+
+		// room length
+		$room_length = $room_close_time->diffInMinutes($room_create_time)+1;
+		$num_slot = ceil($room_length/$interval);
+
+		// prepare array
+		$num_confused_array = array();
+		$num_interesting_array = array();
+		$num_boring_array = array();
+		for($i=0; $i<$num_slot; $i++)
+		{
+			array_push($num_confused_array, 0);
+			array_push($num_interesting_array, 0);
+			array_push($num_boring_array, 0);
+		}
+
+		// get all reaction event
+		$reaction_events = Reaction::allReactionEvent($this->affiliation_id, $this->id)
+								->select('created_at','student_id','type_id')
+								->orderBy('student_id')
+								->orderBy('created_at')
+								->get();
+
+		// calculate the reaction for each event
+		$lastStudentID = -1;
+		$lastConSlot = -1;
+		$lastIntSlot = -1;
+   		$lastBorSlot = -1;
+		foreach($reaction_events as $reaction_event)
+        {
+        	if($reaction_event['student_id'] != $lastStudentID)
+        	{
+				$lastStudentID = $reaction_event['student_id'];
+        		$lastConSlot = -1;
+        		$lastIntSlot = -1;
+        		$lastBorSlot = -1;
+        	}
+
+    		$event_time = Carbon::createFromFormat('Y-m-d H:i:s', $reaction_event['created_at']);
+    		$event_time = $event_time->diffInMinutes($room_create_time);
+       		$slotIndex = ceil($event_time/$interval);
+       		
+       		if($slotIndex >= $num_slot)
+       			continue;
+        	
+
+        	if($reaction_event['type_id'] == config('controller.r_type.confused'))
+        	{
+        		if($slotIndex > $lastConSolt)
+		   		{
+					$num_confused_array[$slotIndex]++;
+					$lastConSolt = $slotIndex;
+				}
+			}
+	        elseif($reaction_event['type_id'] == config('controller.r_type.interesting'))
+        	{
+        		if($slotIndex > $lastIntSolt)
+		   		{
+					$num_interesting_array[$slotIndex]++;
+					$lastIntSolt = $slotIndex;
+				}
+			}
+	        elseif($reaction_event['type_id'] == config('controller.r_type.boring'))
+        	{
+        		if($slotIndex > $lastBorSolt)
+		   		{
+					$num_boring_array[$slotIndex]++;
+					$lastBorSolt = $slotIndex;
+				}
+			}
+        }
+
+		return ['attendance'=>$this->historyAttendance($interval),
+				'confused'=>$num_confused_array,
+				'interesting'=>$num_interesting_array,
+				'boring'=>$num_boring_array];
+	}
+
+
+/*
+	// with weighted
 	private function historyReaction($type_id, $interval = 10)
 	{
 		// get affiliation ID
@@ -378,7 +535,7 @@ class Room extends Model
 				'interesting'=>$num_interesting_array,
 				'boring'=>$num_boring_array];
 	}
-
+*/
 	// data for all chart data real time
 	public function getChartData($pieInterval = 5, $lineInterval = 10)
 	{
