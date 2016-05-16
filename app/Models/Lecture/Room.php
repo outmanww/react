@@ -262,11 +262,14 @@ class Room extends Model
 
 		// calculate the weighted reaction for each event
 		$lastStudentID = -1;
+		$larger_interval = config('controller.interval_reaction');
+		if(config('controller.interval_reaction')<$interval)
+			$larger_interval = $interval;
         foreach($reaction_events as $reaction_event)
         {
         	if($reaction_event['student_id'] != $lastStudentID)
         	{
-				$lastTime = 0-$interval;
+				$lastTime = 0-$larger_interval;
         		$lastStudentID = $reaction_event['student_id'];
         	}
     		$event_time = Carbon::createFromFormat('Y-m-d H:i:s', $reaction_event['created_at']);
@@ -323,13 +326,16 @@ class Room extends Model
 
 		// calculate the weighted reaction for each event
 		$lastStudentID = -1;
+		$larger_interval = config('controller.interval_reaction');
+		if(config('controller.interval_reaction')<$interval)
+			$larger_interval = $interval;
         foreach($reaction_events as $reaction_event)
         {
         	if($reaction_event['student_id'] != $lastStudentID)
         	{
-				$lastConTime = 0-$interval;
-				$lastIntTime = 0-$interval;
-				$lastBorTime = 0-$interval;
+				$lastConTime = 0-$larger_interval;
+				$lastIntTime = 0-$larger_interval;
+				$lastBorTime = 0-$larger_interval;
         		$lastStudentID = $reaction_event['student_id'];
         	}
     		$event_time = Carbon::createFromFormat('Y-m-d H:i:s', $reaction_event['created_at']);
