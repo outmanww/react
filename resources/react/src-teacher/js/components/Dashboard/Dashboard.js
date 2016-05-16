@@ -24,7 +24,7 @@ class Dashboard extends Component {
     fetchMessages();
     this.state = {
       intervalId: null,
-      interval: 10000
+      interval: 1000
     };
   }
 

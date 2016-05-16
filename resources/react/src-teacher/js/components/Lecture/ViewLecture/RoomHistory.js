@@ -37,6 +37,12 @@ class RoomHistory extends Component {
       boring: '229,57,53',
     }
 
+    const avatarStyle = {
+      1: { color: Colors.indigo400, content: '質'},
+      2: { color: Colors.amberA700, content: '感'},
+      3: { color: Colors.green400, content: '他'}
+    };
+
     let labels = [];
     for (let i = line.boring.length - 1; i >= 0; i--) {
       labels.unshift(5 * i);
@@ -78,11 +84,20 @@ class RoomHistory extends Component {
 
     const chartOptions = {
       scaleShowGridLines : true,
-      bezierCurve : false,
-      bezierCurveTension : 0,
+      // bezierCurve : false,
+      bezierCurveTension : 0.5,
       animation : false,
       // scaleShowHorizontalLines: true, //水平メモリ
       // scaleShowVerticalLines: true, //垂直メモリ
+      scaleOverride : true,
+      // Y軸に表示する目盛数
+      scaleLabel: "<%=value%> %",
+      scaleSteps : 5,
+      // Y軸目盛の幅
+      scaleStepWidth : 20,
+      // Y軸の開始数値
+      scaleStartValue : 0,
+      pointDot : false,
     };
 
     return (
@@ -112,13 +127,10 @@ class RoomHistory extends Component {
                     <ListItem
                       leftAvatar={
                         <Avatar
-                          color={Colors.deepOrange300}
-                          backgroundColor={
-                            
-                            Colors.purple500
-                          }
+                          color={Colors.White}
+                          backgroundColor={avatarStyle[m.type].color}
                         >
-                          {m.id}
+                          {avatarStyle[m.type].content}
                         </Avatar>
                       }
                       primaryText={m.message}

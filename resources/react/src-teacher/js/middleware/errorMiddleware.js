@@ -7,6 +7,7 @@ export default store => next => action => {
   }
 
   const { status, messageId, value, ...rest } = payload;
+
   next({ type, payload: { ...rest }, meta });
   next({
     type: types.ADD_SIDE_ALERT,
