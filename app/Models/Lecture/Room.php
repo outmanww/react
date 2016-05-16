@@ -285,11 +285,11 @@ class Room extends Model
 	   		if($slotIndex >= $num_slot)
 	   			continue;
 
-	   		if($slotIndex == $lastSolt)
+	   		if($slotIndex == $lastSlot)
 	   			continue;
 
     		$num_array[$slotIndex]++;
-			$lastSolt = $slotIndex;
+			$lastSlot = $slotIndex;
 		}
 
 		return $num_array;
@@ -355,26 +355,26 @@ class Room extends Model
 
         	if($reaction_event['type_id'] == config('controller.r_type.confused'))
         	{
-        		if($slotIndex > $lastConSolt)
+        		if($slotIndex > $lastConSlot)
 		   		{
 					$num_confused_array[$slotIndex]++;
-					$lastConSolt = $slotIndex;
+					$lastConSlot = $slotIndex;
 				}
 			}
 	        elseif($reaction_event['type_id'] == config('controller.r_type.interesting'))
         	{
-        		if($slotIndex > $lastIntSolt)
+        		if($slotIndex > $lastIntSlot)
 		   		{
 					$num_interesting_array[$slotIndex]++;
-					$lastIntSolt = $slotIndex;
+					$lastIntSlot = $slotIndex;
 				}
 			}
 	        elseif($reaction_event['type_id'] == config('controller.r_type.boring'))
         	{
-        		if($slotIndex > $lastBorSolt)
+        		if($slotIndex > $lastBorSlot)
 		   		{
 					$num_boring_array[$slotIndex]++;
-					$lastBorSolt = $slotIndex;
+					$lastBorSlot = $slotIndex;
 				}
 			}
         }
@@ -663,6 +663,7 @@ class Room extends Model
 
         // add history data
         $reactions = $this->historyAllTypeReaction($history_data_interval);
+        $this->history_students = $room_events->count();
         $this->history_attendance = implode(",",$reactions['attendance']);
         $this->history_confused = implode(",",$reactions['confused']);
         $this->history_interesting = implode(",",$reactions['interesting']);
