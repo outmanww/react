@@ -54,7 +54,7 @@ class message extends Component {
           }
           {messages.dashboardMessages.length !== 0 &&
             messages.dashboardMessages.map(m => 
-              !this.props.name && m.action === 5 ? <div></div> :
+              !this.props.name && m.action == 5 ? <div></div> :
               <div>
                 <ListItem
                   leftAvatar={
