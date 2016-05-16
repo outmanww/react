@@ -85,6 +85,7 @@ class CreateLectureRelatedTables extends Migration
                 $table->timestamp('updated_at');
                 $table->timestamp('closed_at')->nullable();
                 $table->softDeletes();
+                $table->smallInteger('history_students')->unsigned();
                 $table->text('history_attendance')->nullable;
                 $table->text('history_confused')->nullable;
                 $table->text('history_interesting')->nullable;

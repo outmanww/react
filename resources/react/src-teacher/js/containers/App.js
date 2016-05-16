@@ -138,7 +138,7 @@ function mapDispatchToProps(dispatch) {
   const actions = Object.assign(
     InitializeActions,
     UserActions,
-    {push: push}
+    { push: push }
   );
 
   return {
