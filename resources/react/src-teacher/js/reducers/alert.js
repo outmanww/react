@@ -9,7 +9,7 @@ function change(state = [], action) {
       return [
         ...state,
         {
-          key: Date.now(),
+          key: action.key,
           data: {
             status: action.status,
             messageId: action.messageId,
