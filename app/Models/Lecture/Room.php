@@ -444,7 +444,7 @@ class Room extends Model
 
 		// get all message data
 		$messages = Reaction::messageFromMin($this->affiliation_id, $this->id, $latestTime)
-			->select('created_at as time','type_id as type','message')
+			->select('created_at as time','type_id as type','action_id as action','message')
 			->orderBy('time','desc')
 			->get();
 
