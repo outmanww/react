@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import moment from 'moment';
 // Utils
 import {
   format, getValues,
@@ -309,7 +310,7 @@ class ViewLecture extends Component {
 
           <div className="row content-wrap-white content-top-space">
             <div className="col-md-12">
-              <h4 className="space-top-2">過去の授業一覧</h4>
+              <h4 className="space-top-3 space-left-3 space-bottom-3">過去の授業一覧</h4>
             </div>
             <div className="space-top-2">
               <div className="col-md-4">
@@ -329,7 +330,7 @@ class ViewLecture extends Component {
                       }}
                     >
                       <span className="badge">{r.historyStudents}人</span>
-                      <span className="">{r.createdAt}</span>
+                      <span className="">{moment(r.createdAt, 'YYYY-MM-DD HH:mm:ss').format('YYYY年MM月DD日 HH:mm')}</span>
                       <span className="space-left-3">{r.teacher.familyName} {r.teacher.givenName}</span>
                     </a>
                   )}
@@ -352,7 +353,7 @@ class ViewLecture extends Component {
                   </div> :
                   room.room === null ?
                   <div>
-                    <h4 className="text-center">授業を選択してください</h4>
+                    <h4 className="text-center space-top-5">授業を選択してください</h4>
                   </div> : 
                   <RoomHistory
                     line={room.room.charts}

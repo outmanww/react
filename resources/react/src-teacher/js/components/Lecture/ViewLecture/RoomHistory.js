@@ -21,12 +21,6 @@ class RoomHistory extends Component {
     this.setState({
       lineWidth: document.getElementById('history-line-wrap').clientWidth - 40
     });
-
-    // window.onresize = () => {
-    //   this.setState({
-    //     lineWidth: document.getElementById('history-line-wrap').clientWidth
-    //   });
-    // }
   }
 
   render() {
@@ -90,13 +84,10 @@ class RoomHistory extends Component {
       // scaleShowHorizontalLines: true, //水平メモリ
       // scaleShowVerticalLines: true, //垂直メモリ
       scaleOverride : true,
-      // Y軸に表示する目盛数
       scaleLabel: "<%=value%> %",
-      scaleSteps : 5,
-      // Y軸目盛の幅
-      scaleStepWidth : 20,
-      // Y軸の開始数値
-      scaleStartValue : 0,
+      scaleSteps : 5, // Y軸に表示する目盛数
+      scaleStepWidth : 20, // Y軸目盛の幅
+      scaleStartValue : 0, // Y軸の開始数値
       pointDot : false,
     };
 
