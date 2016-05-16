@@ -663,6 +663,7 @@ class Room extends Model
 
         // add history data
         $reactions = $this->historyAllTypeReaction($history_data_interval);
+        $this->history_students = $room_events->count();
         $this->history_attendance = implode(",",$reactions['attendance']);
         $this->history_confused = implode(",",$reactions['confused']);
         $this->history_interesting = implode(",",$reactions['interesting']);
