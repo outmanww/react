@@ -108,7 +108,7 @@ class Dashboard extends Component {
                 </div>
                 <div className="col-md-4">
                   <div className="row">
-                    <Message messages={messages}/>
+                    <Message messages={messages} name={false}/>
                   </div>
                 </div>
               </div>

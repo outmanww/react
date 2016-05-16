@@ -53,7 +53,8 @@ class message extends Component {
             />
           }
           {messages.dashboardMessages.length !== 0 &&
-            messages.dashboardMessages.map(m =>
+            messages.dashboardMessages.map(m => 
+              !this.props.name && m.action == 5 ? <div></div> :
               <div>
                 <ListItem
                   leftAvatar={
@@ -81,6 +82,7 @@ class message extends Component {
 
 message.propTypes = {
   messages: PropTypes.object.isRequired,
+  name: PropTypes.bool.isRequired
 };
 
 export default message;
