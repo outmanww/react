@@ -328,7 +328,7 @@ class ViewLecture extends Component {
                         }
                       }}
                     >
-                      <span className="badge">14 人</span>
+                      <span className="badge">{r.historyStudents}人</span>
                       <span className="">{r.createdAt}</span>
                       <span className="space-left-3">{r.teacher.familyName} {r.teacher.givenName}</span>
                     </a>
