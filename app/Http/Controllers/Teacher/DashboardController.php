@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 //Models
 use App\Models\Lecture\Room;
+use App\Models\Student\Reaction;
 //Exceptions
 use App\Exceptions\ApiException;
+use Carbon\Carbon;
 
 /**
  * Class DashboardController
@@ -67,11 +70,26 @@ class DashboardController extends Controller
             ], 200);
         }
 
+        $reactions = Reaction::allReactionEvent(1, $room->id)
+            // ->select(DB::raw('student_id, type_id, MAX(created_at)'))
+            ->select(['student_id', 'type_id', 'created_at'])
+            // ->groupBy('student_id')
+            ->get();
+
+        $next = $reactions->map(function ($item, $key) {
+            return [
+                'student_id' => $item->student_id,
+                'type_id' => $item->type_id,
+                'created_at' => $item->created_at->timestamp
+            ];
+        });
+
         $charts = $room->getChartData(1, 2);
 
         return \Response::json([
             'exist' => true,
             'room' => $room,
+            'reactions' => $next,
             'charts' => $charts
         ], 200);
     }
@@ -91,5 +109,61 @@ class DashboardController extends Controller
         $messages = $room->getMessage();
 
         return \Response::json($messages, 200);
+    }
+
+    public function test2()
+    {
+        $user = \Auth::guard('users')->user();
+        $room = $user
+            ->rooms()
+            ->where('closed_at', null)
+            ->select('id', 'lecture_id', 'length', 'created_at', 'key')
+            ->first();
+
+        $reactions = Reaction::allReactionEvent(1, $room->id)
+            // ->select(DB::raw('student_id, type_id, MAX(created_at)'))
+            ->select(['student_id', 'type_id', 'created_at'])
+            // ->groupBy('student_id')
+            ->get();
+
+        $next = $reactions->map(function ($item, $key) {
+            return [
+                'student_id' => $item->student_id,
+                'type_id' => $item->type_id,
+                'created_at' => $item->created_at->timestamp
+            ];
+        });
+
+        return \Response::json([
+            'room' => $room,
+            'reactions' => $next
+            // 'reactions' => [
+            //     '0' => [
+            //         'student_id' => 1,
+            //         'type_id' => 1,
+            //         'created_at' => Carbon::create(2016, 5, 17, 21, 30, 00)->timestamp
+            //     ],
+            //     '1' => [
+            //         'student_id' => 1,
+            //         'type_id' => 1,
+            //         'created_at' => Carbon::create(2016, 5, 17, 21, 32, 00)->timestamp
+            //     ],
+            //     '2' => [
+            //         'student_id' => 2,
+            //         'type_id' => 1,
+            //         'created_at' => Carbon::create(2016, 5, 17, 21, 34, 00)->timestamp
+            //     ],
+            //     '3' => [
+            //         'student_id' => 2,
+            //         'type_id' => 2,
+            //         'created_at' => Carbon::create(2016, 5, 17, 21, 35, 00)->timestamp
+            //     ],
+            //     '4' => [
+            //         'student_id' => 2,
+            //         'type_id' => 3,
+            //         'created_at' => Carbon::create(2016, 5, 17, 21, 36, 00)->timestamp
+            //     ]
+            // ]
+        ], 200);
     }
 }

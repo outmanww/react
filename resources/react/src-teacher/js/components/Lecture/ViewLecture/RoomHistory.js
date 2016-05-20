@@ -83,7 +83,7 @@ class RoomHistory extends Component {
       animation : false,
       // scaleShowHorizontalLines: true, //水平メモリ
       // scaleShowVerticalLines: true, //垂直メモリ
-      scaleOverride : true,
+      scaleOverride : false,
       scaleLabel: "<%=value%> %",
       scaleSteps : 5, // Y軸に表示する目盛数
       scaleStepWidth : 20, // Y軸目盛の幅

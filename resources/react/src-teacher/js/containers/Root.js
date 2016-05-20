@@ -15,6 +15,8 @@ import Lecture from '../components/Lecture/Lecture';
 import Lectures from '../components/Lecture/Lectures/Lectures';
 import ViewLecture from '../components/Lecture/ViewLecture/ViewLecture';
 import CreateLecture from '../components/Lecture/CreateLecture/CreateLecture';
+import User from '../components/User/User';
+import Profile from '../components/User/Profile';
 
 export default class Root extends Component {
   render() {
@@ -30,6 +32,10 @@ export default class Root extends Component {
                 <IndexRoute name="All" component={Lectures}/>
                 <Route name="Create Lecture" path="create" component={CreateLecture}/>
                 <Route name="View Lecture" path=":id" component={ViewLecture}/>
+              </Route>
+              <Route name="User" path="user" component={User}>
+                <IndexRoute name="All" component={Profile}/>
+                <Route name="profile" path="profile" component={Profile}/>
               </Route>
             </Route>
           </Router>

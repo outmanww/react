@@ -4,6 +4,7 @@ export default {
 
   "nav.dashboard": `ダッシュボード`,
   "nav.lecture": `授業の管理`,
+  "nav.user": `ユーザー情報`,
 
   "user.alreadyHasRoom": `すでに開講中の授業が存在しています`,
 

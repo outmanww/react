@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Line } from 'react-chartjs';
+import moment from 'moment';
 
 class LineChart extends Component {
   constructor(props, context) {
@@ -16,30 +17,63 @@ class LineChart extends Component {
   }
 
   render() {
-    const { line } = this.props;
+    const { reactions, room } = this.props;
 
-    const lineRange = 20;
+    const lineRange = 120;
+    const interval = 10;
+    const effectiveTime = 180;
 
     let labels = [];
     let confusedData =[];
     let interestingData =[];
     let boringData =[];
-    let n = 0;
-    for (let i = line.boring.length - 1; i >= 0; i--) {
-      n++;
-      if (n < lineRange) {
-        labels.unshift(i * 2);
-        confusedData.unshift(
-          Math.round(line.confused[i]/line.attendance[i]*100)
-        );
-        interestingData.unshift(
-          Math.round(line.interesting[i]/line.attendance[i]*100)
-        );
-        boringData.unshift(
-          Math.round(line.boring[i]/line.attendance[i]*100)
-        );
+
+    let startTime = moment(room.createdAt, 'YYYY-MM-DD HH:mm:ss').unix();
+    let endTime = moment().unix();
+
+    for (let i = 0; i <= lineRange; i++) {
+      let Ti = endTime - startTime > interval*lineRange ?
+        (endTime - interval*lineRange + interval*i) :
+        startTime + interval*i;
+
+      labels[i] = Ti;
+
+      let Ac = [];
+      let Ai = [];
+      let Ab = [];
+
+      for (var j = reactions.length - 1; j >= 0; j--) {
+        let r = reactions[j];
+        let l = Math.abs(Number(r.createdAt) - Ti);
+
+        // let a = l >= effectiveTime/2 ? 0 : Math.round(100*(1 - (l*2/effectiveTime)));
+        let a = l >= effectiveTime/2 ? 0 : 100*Math.cos(l*Math.PI/effectiveTime);
+
+        let Ar;
+        switch (r.typeId){
+          case 1:
+            Ar = Ac[r.studentId];
+            Ac[r.studentId] = typeof Ar === 'undefined' ? Number(a) : Number(Ar) + Number(a) > 100 ? 100 : Number(Ar) + Number(a);
+            break;
+          case 2:
+            Ar = Ai[r.studentId];
+            Ai[r.studentId] = typeof Ar === 'undefined' ? Number(a) : Number(Ar) + Number(a) > 100 ? 100 : Number(Ar) + Number(a);
+            break;
+          case 3:
+            Ar = Ab[r.studentId];
+            Ab[r.studentId] = typeof Ar === 'undefined' ? Number(a) : Number(Ar) + Number(a) > 100 ? 100 : Number(Ar) + Number(a);
+            break;
+        }
       }
+
+      confusedData[i] = Math.round(Ac.reduce((a, b) => a + b)/22);
+      interestingData[i] = Math.round(Ai.reduce((a, b) => a + b)/22);
+      boringData[i] = Math.round(Ab.reduce((a, b) => a + b)/22);
     }
+
+    let nextLabel = labels.map((l, i, array) => {
+      return Math.round(l/60) === Math.round(array[i-1]/60) ? '' : moment(l, 'X').format('HH:mm')
+    });
 
     const colors = {
       confused: '57,73,171',
@@ -47,10 +81,8 @@ class LineChart extends Component {
       boring: '229,57,53',
     }
 
-
-
     const lineData = {
-      labels: labels,
+      labels: nextLabel,
       datasets: [
         {
           label: "boring",
@@ -85,18 +117,15 @@ class LineChart extends Component {
 
     const chartOptions = {
       scaleShowGridLines : true,
-      // bezierCurve : false,
-      bezierCurveTension : 0.5,
+      bezierCurve : true,
+      bezierCurveTension : 0.2,
       animation : false,
       // scaleShowHorizontalLines: true, //水平メモリ
       // scaleShowVerticalLines: true, //垂直メモリ
       scaleOverride : true,
-      // Y軸に表示する目盛数
       scaleLabel: "<%=value%> %",
       scaleSteps : 5,
-      // Y軸目盛の幅
       scaleStepWidth : 20,
-      // Y軸の開始数値
       scaleStartValue : 0,
       pointDot : false,
     };

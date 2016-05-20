@@ -13,6 +13,16 @@ class UserController extends Controller
     /**
      * @return \Illuminate\View\View
      */
+    public function index($school)
+    {
+        $domain = env('APP_URL');
+        $env = env('APP_ENV');
+        return view('teacher.index', compact('domain', 'env', 'school'));
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
     public function info($school)
     {
         $user = \Auth::guard('users')->user();

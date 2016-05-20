@@ -120,7 +120,7 @@ class Dashboard extends Component {
                   }
                   <div className="row">
                     {charts.line !== null &&
-                      <LineChart line={charts.line}/>
+                      <LineChart reactions={charts.reactions} room={charts.room}/>
                     }
                   </div>
                 </div>

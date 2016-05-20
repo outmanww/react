@@ -40,3 +40,20 @@ export function fetchMessages() {
     }
   };
 }
+
+
+
+export function fetchChartsTest() {
+  return {
+    [CALL_API]: {
+      types: [
+        types.REQUEST_CHARTS_TEST,
+        types.REQUEST_CHARTS_TEST_SUCCESS,
+        types.REQUEST_CHARTS_TEST_FAIL
+      ],
+      endpoint: 'test2',
+      method: 'GET',
+      body: null
+    }
+  };
+}

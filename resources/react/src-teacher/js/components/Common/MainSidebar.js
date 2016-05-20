@@ -6,6 +6,7 @@ import { SCHOOL_NAME } from '../../../config/env';
 import { Avatar, Divider, List, ListItem } from 'material-ui';
 import Flag from 'material-ui/lib/svg-icons/content/flag';
 import Dashboard from 'material-ui/lib/svg-icons/action/dashboard';
+import EditorInsertChart from 'material-ui/lib/svg-icons/editor/insert-chart';
 import AccountBox from 'material-ui/lib/svg-icons/action/account-box';
 import DateRange from 'material-ui/lib/svg-icons/action/date-range';
 import MapPlace from 'material-ui/lib/svg-icons/maps/place';
@@ -77,6 +78,7 @@ class MainSidebar extends Component {
     const path = {
       dashboard: `/${SCHOOL_NAME}/teacher/dashboard`,
       lecture: `/${SCHOOL_NAME}/teacher/lectures`,
+      user: `/${SCHOOL_NAME}/teacher/user`,
     };
 
     return (
@@ -97,15 +99,24 @@ class MainSidebar extends Component {
             <FormattedMessage id="nav.dashboard">text</FormattedMessage>
           }
           innerDivStyle={styles.innerDiv}
-          leftIcon={<Dashboard style={styles.icon}/>}/>
-
+          leftIcon={<Dashboard style={styles.icon}/>}
+        />
         <ListItem
           value={path.lecture}
           primaryText={
             <FormattedMessage id="nav.lecture">text</FormattedMessage>
           }
           innerDivStyle={styles.innerDiv}
-          leftIcon={<AccountBox style={styles.icon}/>}/>
+          leftIcon={<EditorInsertChart style={styles.icon}/>}
+        />
+        <ListItem
+          value={path.user}
+          primaryText={
+            <FormattedMessage id="nav.user">text</FormattedMessage>
+          }
+          innerDivStyle={styles.innerDiv}
+          leftIcon={<AccountBox style={styles.icon}/>}
+        />
       </SelectableList>
     )
   }
