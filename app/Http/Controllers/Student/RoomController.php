@@ -153,6 +153,16 @@ class RoomController extends Controller
         $key = sprintf("%06d", $key);
         $affiliation_id = substr($key, 0, config('controller.aff_idx_len'));
 
+        $num_total = 0;
+        $room_events =  Reaction::allRoomEvent($affiliation_id, $room->id)
+            ->select('type_id')
+            ->groupBy('student_id')
+            ->orderBy('created_at','desc')
+            ->get();
+        foreach($room_events as $room_event)
+            if($room_event['type_id'] == config('controller.b_type.room_in'))
+                $num_total++;
+
         $num_confused = Reaction::inMinutes(
                 $affiliation_id,
                 $room->id,
@@ -213,6 +223,7 @@ class RoomController extends Controller
         $time_fore_in = $time_fore_in->diffInMinutes($now);
 
         return \Response::json([
+            'num_total' => $num_total,
             'num_confused' => $num_confused,
             'num_interesting' => $num_interesting,
             'num_boring' => $num_boring,
