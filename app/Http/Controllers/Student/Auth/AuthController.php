@@ -242,6 +242,8 @@ class AuthController extends Controller
             $student->confirmed = config('access.users.confirm_email') ? 0 : 1;
             $student->status = 1;
             $student->save();
+        } else {
+            $token = $student->api_token;
         }
 
         return \Response::json(['api_token' => $token], 200);
