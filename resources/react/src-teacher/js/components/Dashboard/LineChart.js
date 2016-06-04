@@ -66,9 +66,41 @@ class LineChart extends Component {
         }
       }
 
-      confusedData[i] = Math.round(Ac.reduce((a, b) => a + b)/22);
-      interestingData[i] = Math.round(Ai.reduce((a, b) => a + b)/22);
-      boringData[i] = Math.round(Ab.reduce((a, b) => a + b)/22);
+      switch (Ab.length){
+        case 0:
+          boringData[i] = 0;
+          break;
+        case 1:
+          boringData[i] = Ab[i];
+          break;
+        default:
+          boringData[i] = Math.round(Ab.reduce((a, b) => a + b)/22);
+          break;
+      }
+
+      switch (Ac.length){
+        case 0:
+          confusedData[i] = 0;
+          break;
+        case 1:
+          confusedData[i] = Ac[i];
+          break;
+        default:
+          confusedData[i] = Math.round(Ac.reduce((a, b) => a + b)/22);
+          break;
+      }
+
+      switch (Ai.length){
+        case 0:
+          interestingData[i] = 0;
+          break;
+        case 1:
+          interestingData[i] = Ai[i];
+          break;
+        default:
+          interestingData[i] = Math.round(Ai.reduce((a, b) => a + b)/22);
+          break;
+      }
     }
 
     let nextLabel = labels.map((l, i, array) => {
