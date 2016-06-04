@@ -14,6 +14,7 @@ use App\Http\Requests\Student\Auth\SigninRequest;
 use App\Http\Requests\Student\Auth\SignoutRequest;
 use App\Http\Requests\Student\Auth\ResendConfirmationEmailRequest;
 use App\Http\Requests\Student\Auth\CheckApitokenRequest;
+use App\Http\Requests\Student\Auth\DeviceidRequest;
 // Models
 use \App\Models\Student\Student;
 // Exceptions
@@ -215,5 +216,34 @@ class AuthController extends Controller
             'type' => $message,
             'message' => '確認メールを再送信しました'
         ], 200);
+    }
+
+    /**
+     * Create a new user by deviceid
+     */
+    public function deviceid(DeviceidRequest $request)
+    {
+        $student = Student::where('device_id', $request->device_id)->first();
+
+        if (!$student instanceof Student) {
+            // Create a new student
+            $student = new Student;
+
+            $token = sha1(uniqid(mt_rand(), true));
+
+            $student->family_name = 'deviceid';
+            $student->given_name = 'deviceid';
+            $student->email = 'device_id=' . $request->device_id;
+            $student->password = null;
+            $student->device_id = $request->device_id;
+            $student->device_os = $request->device_os;
+            $student->api_token = $token;
+            $student->confirmation_code = md5(uniqid(mt_rand(), true));
+            $student->confirmed = config('access.users.confirm_email') ? 0 : 1;
+            $student->status = 1;
+            $student->save();
+        }
+
+        return \Response::json(['api_token' => $token], 200);
     }
 }

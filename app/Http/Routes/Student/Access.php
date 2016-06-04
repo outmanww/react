@@ -46,5 +46,8 @@ Route::group(['namespace' => 'Auth'], function () {
 
         // Password
         Route::post('password/email', 'PasswordController@initialize');
+
+        // Only device id
+        Route::post('deviceid', 'AuthController@deviceid');
     });
 });

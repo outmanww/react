@@ -30,7 +30,7 @@
     "humps": "^1.0.0",
     "immutable": "^3.7.6",
     "isomorphic-fetch": "^2.2.1",
-    "material-ui": "^0.15.0-alpha.2",
+    "material-ui": "^0.14.4",
     "moment": "^2.12.0",
     "node-sass": "^3.4.2",
     "normalizr": "^2.0.0",

@@ -37,6 +37,8 @@ class CreateStudentRelatedTables extends Migration
             $table->string('email')->unique();
             $table->string('password', 60)->nullable();
 
+            $table->string('device_id')->nullable();
+            $table->string('device_os')->nullable();
             $table->tinyInteger('status')->default(1)->unsigned();
             $table->string('api_token', 60)->unique();
             $table->string('confirmation_code');
@@ -57,7 +59,6 @@ class CreateStudentRelatedTables extends Migration
             $table->string('street')->nullable();
             $table->string('building')->nullable();
             $table->string('introduction')->nullable();
-            $table->string('device_os')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');
             $table->softDeletes();
