@@ -50,7 +50,7 @@ class LineChart extends Component {
         let a = l >= effectiveTime/2 ? 0 : 100*Math.cos(l*Math.PI/effectiveTime);
 
         let Ar;
-        switch (r.typeId){
+        switch (Number(r.typeId)){
           case 1:
             Ar = Ac[Number(r.studentId)];
             Ac[Number(r.studentId)] = typeof Ar === 'undefined' ? Number(a) : Number(Ar) + Number(a) > 100 ? 100 : Number(Ar) + Number(a);
