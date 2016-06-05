@@ -119,6 +119,8 @@ class LineChart extends Component {
       }
     }
 
+console.log(boringData);
+
     let nextLabel = labels.map((l, i, array) => {
       return Math.round(l/60) === Math.round(array[i-1]/60) ? '' : moment(l, 'X').format('HH:mm')
     });
