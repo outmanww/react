@@ -24,7 +24,7 @@ class Dashboard extends Component {
     fetchMessages();
     this.state = {
       intervalId: null,
-      interval: 10000
+      interval: 15000
     };
   }
 
@@ -120,7 +120,7 @@ class Dashboard extends Component {
                   }
                   <div className="row">
                     {charts.line !== null &&
-                      <LineChart reactions={charts.reactions} room={charts.room}/>
+                      <LineChart basic={charts.basic} reactions={charts.reactions} room={charts.room}/>
                     }
                   </div>
                 </div>

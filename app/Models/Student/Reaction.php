@@ -83,6 +83,13 @@ class Reaction extends Model
             ->where('action_id', config('controller.action.basic'))
             ->whereIn('type_id', [config('controller.b_type.room_in'),config('controller.b_type.room_out')]);
     }
+    public function scopeAllBasicEvent($query, $affiliation_id, $room_id)
+    {
+        return $query
+            ->where('affiliation_id', $affiliation_id)
+            ->where('room_id', $room_id)
+            ->where('action_id', config('controller.action.basic'));
+    }
     public function scopeAllBasicEventByStudentID($query, $affiliation_id, $room_id, $student_id, $end_time)
     {
         return $query

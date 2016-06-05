@@ -7,6 +7,7 @@ import {
 const initialState = {
   exist: false,
   room: null,
+  basic: null,
   reactions: null,
   line: null,
   pie: null,
@@ -26,6 +27,7 @@ export default function dashboardCharts(state = initialState, action) {
     return Object.assign({}, state, {
       exist: action.payload.exist,
       room: action.payload.room,
+      basic: action.payload.basic,
       reactions: action.payload.reactions,
       line: action.payload.charts.line,
       pie: action.payload.charts.pie,

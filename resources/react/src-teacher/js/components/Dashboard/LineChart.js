@@ -17,7 +17,7 @@ class LineChart extends Component {
   }
 
   render() {
-    const { reactions, room } = this.props;
+    const { basic, reactions, room } = this.props;
 
     const lineRange = 120;
     const interval = 10;
@@ -66,6 +66,22 @@ class LineChart extends Component {
         }
       }
 
+      let numberOfStudents = basic.reduce((a, b) => {
+        if (Ti - b.createdAt > 0) {
+          switch (b.typeId){
+            case 1: return a + 1;
+            case 2: return a - 1;
+            case 3: return a + 1;
+            case 3: return a - 1;
+            default: return a;
+          }
+        }
+        else {
+          return a;
+        }
+        
+      }, 0);
+
       switch (Ab.length){
         case 0:
           boringData[i] = 0;
@@ -74,7 +90,7 @@ class LineChart extends Component {
           boringData[i] = Ab[i];
           break;
         default:
-          boringData[i] = Math.round(Ab.reduce((a, b) => a + b)/22);
+          boringData[i] = Math.round(Ab.reduce((a, b) => a + b)/numberOfStudents);
           break;
       }
 
@@ -86,7 +102,7 @@ class LineChart extends Component {
           confusedData[i] = Ac[i];
           break;
         default:
-          confusedData[i] = Math.round(Ac.reduce((a, b) => a + b)/22);
+          confusedData[i] = Math.round(Ac.reduce((a, b) => a + b)/numberOfStudents);
           break;
       }
 
@@ -98,7 +114,7 @@ class LineChart extends Component {
           interestingData[i] = Ai[i];
           break;
         default:
-          interestingData[i] = Math.round(Ai.reduce((a, b) => a + b)/22);
+          interestingData[i] = Math.round(Ai.reduce((a, b) => a + b)/numberOfStudents);
           break;
       }
     }

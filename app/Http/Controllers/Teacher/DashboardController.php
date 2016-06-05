@@ -70,26 +70,35 @@ class DashboardController extends Controller
             ], 200);
         }
 
-        $reactions = Reaction::allReactionEvent(1, $room->id)
-            // ->select(DB::raw('student_id, type_id, MAX(created_at)'))
+        $basic = Reaction::allBasicEvent(1, $room->id)
             ->select(['student_id', 'type_id', 'created_at'])
-            // ->groupBy('student_id')
-            ->get();
+            ->get()
+            ->map(function ($item, $key) {
+                return [
+                    'student_id' => $item->student_id,
+                    'type_id' => $item->type_id,
+                    'created_at' => $item->created_at->timestamp
+                ];
+            });
 
-        $next = $reactions->map(function ($item, $key) {
-            return [
-                'student_id' => $item->student_id,
-                'type_id' => $item->type_id,
-                'created_at' => $item->created_at->timestamp
-            ];
-        });
+        $reactions = Reaction::allReactionEvent(1, $room->id)
+            ->select(['student_id', 'type_id', 'created_at'])
+            ->get()
+            ->map(function ($item, $key) {
+                return [
+                    'student_id' => $item->student_id,
+                    'type_id' => $item->type_id,
+                    'created_at' => $item->created_at->timestamp
+                ];
+            });
 
         $charts = $room->getChartData(1, 2);
 
         return \Response::json([
             'exist' => true,
             'room' => $room,
-            'reactions' => $next,
+            'basic' => $basic,
+            'reactions' => $reactions,
             'charts' => $charts
         ], 200);
     }
