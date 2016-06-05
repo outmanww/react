@@ -75,8 +75,8 @@ class DashboardController extends Controller
             ->get()
             ->map(function ($item, $key) {
                 return [
-                    'student_id' => $item->student_id,
-                    'type_id' => $item->type_id,
+                    'student_id' => intval($item->student_id),
+                    'type_id' => intval($item->type_id),
                     'created_at' => $item->created_at->timestamp
                 ];
             });
@@ -86,8 +86,8 @@ class DashboardController extends Controller
             ->get()
             ->map(function ($item, $key) {
                 return [
-                    'student_id' => $item->student_id,
-                    'type_id' => $item->type_id,
+                    'student_id' => intval($item->student_id),
+                    'type_id' => intval($item->type_id),
                     'created_at' => $item->created_at->timestamp
                 ];
             });
