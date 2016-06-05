@@ -17,7 +17,7 @@
 4 verbose stack     at tryToString (fs.js:414:3)
 4 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:401:12)
 5 verbose cwd /Users/shiichi/workspace/develop/laravel-prod-image/data/volume/web
-6 error Darwin 15.3.0
+6 error Darwin 15.5.0
 7 error argv "/usr/local/Cellar/node/5.8.0/bin/node" "/usr/local/bin/npm" "run" "build:t"
 8 error node v5.8.0
 9 error npm  v3.7.3

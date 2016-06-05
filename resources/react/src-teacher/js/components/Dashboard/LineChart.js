@@ -82,6 +82,8 @@ class LineChart extends Component {
         
       }, 0);
 
+console.log('numberOfStudents = ', numberOfStudents);
+
       switch (Ab.length){
         case 0:
           boringData[i] = 0;
