@@ -67,8 +67,8 @@ class LineChart extends Component {
       }
 
       let numberOfStudents = basic.reduce((a, b) => {
-        if (Ti - b.createdAt > 0) {
-          switch (b.typeId){
+        if (Ti - Number(b.createdAt) > 0) {
+          switch (Number(b.typeId)){
             case 1: return a + 1;
             case 2: return a - 1;
             case 3: return a + 1;
