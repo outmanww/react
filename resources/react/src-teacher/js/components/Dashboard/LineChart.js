@@ -52,16 +52,16 @@ class LineChart extends Component {
         let Ar;
         switch (r.typeId){
           case 1:
-            Ar = Ac[r.studentId];
-            Ac[r.studentId] = typeof Ar === 'undefined' ? Number(a) : Number(Ar) + Number(a) > 100 ? 100 : Number(Ar) + Number(a);
+            Ar = Ac[Number(r.studentId)];
+            Ac[Number(r.studentId)] = typeof Ar === 'undefined' ? Number(a) : Number(Ar) + Number(a) > 100 ? 100 : Number(Ar) + Number(a);
             break;
           case 2:
-            Ar = Ai[r.studentId];
-            Ai[r.studentId] = typeof Ar === 'undefined' ? Number(a) : Number(Ar) + Number(a) > 100 ? 100 : Number(Ar) + Number(a);
+            Ar = Ai[Number(r.studentId)];
+            Ai[Number(r.studentId)] = typeof Ar === 'undefined' ? Number(a) : Number(Ar) + Number(a) > 100 ? 100 : Number(Ar) + Number(a);
             break;
           case 3:
-            Ar = Ab[r.studentId];
-            Ab[r.studentId] = typeof Ar === 'undefined' ? Number(a) : Number(Ar) + Number(a) > 100 ? 100 : Number(Ar) + Number(a);
+            Ar = Ab[Number(r.studentId)];
+            Ab[Number(r.studentId)] = typeof Ar === 'undefined' ? Number(a) : Number(Ar) + Number(a) > 100 ? 100 : Number(Ar) + Number(a);
             break;
         }
       }
