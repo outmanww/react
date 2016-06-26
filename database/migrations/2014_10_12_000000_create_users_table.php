@@ -45,6 +45,27 @@ class CreateUsersTable extends Migration
                 $table->softDeletes();
             });
         }
+
+        Schema::connection('conference')->create('users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('email')->unique();
+            $table->string('password', 60)->nullable();
+
+            $table->tinyInteger('status')->default(0)->unsigned();
+            $table->string('confirmation_code');
+            $table->boolean('confirmed')->default(true);
+            $table->rememberToken();
+
+            $table->string('family_name');
+            $table->string('given_name');
+            $table->string('family_name_yomi')->nullable();
+            $table->string('given_name_yomi')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('url')->nullable();
+
+            $table->timestamps;
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -57,5 +78,7 @@ class CreateUsersTable extends Migration
         foreach (config('database.schools') as $connection_name) {
             Schema::connection($connection_name)->drop('users');
         }
+
+        Schema::connection('conference')->drop('users');
     }
 }

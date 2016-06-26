@@ -11,6 +11,7 @@ injectTapEventPlugin();
 import App from './App';
 import Student from '../components/Dashboard/Student';
 import Dashboard from '../components/Dashboard/Dashboard';
+import DashboardConference from '../components/DashboardConference/DashboardConference';
 import Lecture from '../components/Lecture/Lecture';
 import Lectures from '../components/Lecture/Lectures/Lectures';
 import ViewLecture from '../components/Lecture/ViewLecture/ViewLecture';
@@ -28,6 +29,7 @@ export default class Root extends Component {
             <Route path="/nagoya-u/teacher/student" component={Student}/>
             <Route name="Top" path="/nagoya-u/teacher" component={App}>
               <Route path="dashboard" component={Dashboard}/>
+              <Route path="dashboard-conference" component={DashboardConference}/>
               <Route name="Lectures" path="lectures" component={Lecture}>
                 <IndexRoute name="All" component={Lectures}/>
                 <Route name="Create Lecture" path="create" component={CreateLecture}/>
