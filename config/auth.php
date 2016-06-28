@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'sponsor' => [
+            'driver' => 'session',
+            'provider' => 'sponsors',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -78,6 +83,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\Access\User\User::class,
+        ],
+
+        'sponsors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Conference\User::class,
         ],
 
         'students_provider' => [

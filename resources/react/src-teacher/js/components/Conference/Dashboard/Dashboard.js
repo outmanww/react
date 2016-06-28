@@ -3,17 +3,17 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 // Config
-import { SCHOOL_NAME } from '../../../config/env';
+import { SCHOOL_NAME } from '../../../../config/env';
 // Actions
-import * as DashboardActions from '../../actions/dashboard';
-import * as LectureActions from '../../actions/lecture';
+import * as DashboardActions from '../../../actions/dashboard';
+import * as LectureActions from '../../../actions/lecture';
 // Components
 import { RaisedButton } from 'material-ui';
 import { Paper } from 'material-ui';
 import Colors from 'material-ui/lib/styles/colors';
 import Message from './Message';
 
-class DashboardConference extends Component {
+class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
     const { fetchCharts, fetchMessages } = props.actions;
@@ -140,7 +140,7 @@ class DashboardConference extends Component {
   }
 }
 
-DashboardConference.propTypes = {
+Dashboard.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
@@ -158,4 +158,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardConference);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

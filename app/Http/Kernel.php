@@ -47,6 +47,11 @@ class Kernel extends HttpKernel
             'auth'
         ],
 
+        'sponsor' => [
+            'web',
+            'auth'
+        ],
+
         'api' => [
             'throttle:60,1',
         ],

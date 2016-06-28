@@ -112,23 +112,6 @@ class CreateAffiliationsTable extends Migration
                     ->onDelete('set null');
             });
         }
-
-        Schema::connection('conference')->create('conferences', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
-            $table->string('user_id');
-            $table->string('title');
-            $table->string('place');
-            $table->timestamp('start_at');
-            $table->timestamps;
-            $table->softDeletes();
-
-            // Add Foreign/Unique/Index
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('set null');
-        });
     }
 
     /**
@@ -172,6 +155,4 @@ class CreateAffiliationsTable extends Migration
             Schema::connection($connection_name)->drop('departments');
         }
     }
-
-    Schema::connection('conference')->drop('conferences');
 }

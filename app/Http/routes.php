@@ -49,6 +49,17 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'ad
 });
 
 /**
+ * Conference Routes
+ */
+Route::group(['namespace' => 'Conference', 'prefix' => '/conference/teacher'], function () {
+
+    require (__DIR__ . '/Routes/Conference/Dashboard.php');
+    require (__DIR__ . '/Routes/Conference/Lecture.php');
+    require (__DIR__ . '/Routes/Conference/Room.php');
+    require (__DIR__ . '/Routes/Conference/User.php');
+});
+
+/**
  * Teacher Routes
  */
 Route::group(['namespace' => 'Teacher', 'prefix' => '/{school}/teacher', 'middleware' => 'teacher'], function () {
