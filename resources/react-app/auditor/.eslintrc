@@ -1,0 +1,35 @@
+{
+  "extends": "airbnb",
+  "ecmaFeatures": {
+    "jsx": true,
+    "experimentalObjectRestSpread": true
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "mocha": true,
+    "node": true
+  },
+  "rules": {
+    max-len: 0,
+    no-else-return: 0,
+    //"valid-jsdoc": 2,
+
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
+    "react/jsx-closing-bracket-location": 0,
+    "react/jsx-no-bind": 0,
+
+    //"no-var": 0,
+    "vars-on-top": 0,
+
+    "comma-dangle": 0,
+    "spaced-comment": 0,
+    "no-param-reassign": [2, { "props": false }],
+  },
+  "plugins": [
+    "react",
+    "babel"
+  ]
+}

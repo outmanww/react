@@ -51,12 +51,18 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'ad
 /**
  * Conference Routes
  */
-Route::group(['namespace' => 'Conference', 'prefix' => '/conference/teacher'], function () {
+Route::group(['namespace' => 'Conference', 'prefix' => '/conference'], function () {
 
-    require (__DIR__ . '/Routes/Conference/Dashboard.php');
-    require (__DIR__ . '/Routes/Conference/Lecture.php');
-    require (__DIR__ . '/Routes/Conference/Room.php');
-    require (__DIR__ . '/Routes/Conference/User.php');
+    Route::group(['prefix' => 'audience'], function () {
+        require (__DIR__ . '/Routes/Conference/Audience.php');
+    });
+
+    Route::group(['prefix' => 'teacher'], function () {
+        require (__DIR__ . '/Routes/Conference/Dashboard.php');
+        require (__DIR__ . '/Routes/Conference/Lecture.php');
+        require (__DIR__ . '/Routes/Conference/Room.php');
+        require (__DIR__ . '/Routes/Conference/User.php');
+    });
 });
 
 /**

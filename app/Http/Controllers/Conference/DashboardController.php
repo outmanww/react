@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Conference;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 //Models
 use App\Models\Conference\User;
 use App\Models\Conference\Conference;
+//Requests
+use Illuminate\Http\Request;
 //Exceptions
 use App\Exceptions\ApiException;
-use Carbon\Carbon;
 
 /**
  * Class DashboardController
@@ -53,19 +55,21 @@ class DashboardController extends Controller
     /**
      * @return \Illuminate\View\View
      */
-    public function message()
+    public function message(Request $request)
     {
         $messages = User::first()
             ->conferences()
             ->first()
-            ->messages
+            ->messages()
+            // ->where('created_at', '>', Carbon::createFromTimestamp($request->latest))
+            ->get(['id', 'text', 'created_at', 'type'])
             ->map(function ($item, $key) {
                 return [
                     'id' => $item['id'],
                     'text' => $item['text'],
                     'time' => $item['created_at']->timestamp,
                     'type' => $item['type']
-                ]
+                ];
             });
 
         return \Response::json($messages, 200);

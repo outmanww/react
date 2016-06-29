@@ -16,8 +16,7 @@ import Message from './Message';
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
-    const { fetchCharts, fetchMessages } = props.actions;
-    fetchCharts();
+    const { fetchMessages } = props.actions;
     fetchMessages();
     this.state = {
       intervalId: null,
@@ -26,9 +25,8 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    const { fetchCharts, fetchMessages } = this.props.actions;
+    const { fetchMessages } = this.props.actions;
     const intervalId = setInterval(()=> {
-      fetchCharts();
       fetchMessages();
     }, this.state.interval);
     this.setState({intervalId});
@@ -47,16 +45,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { charts, messages, actions } = this.props;
-    const weekdays = {
-      '1': '月曜日',
-      '2': '火曜日',
-      '3': '水曜日',
-      '4': '木曜日',
-      '5': '金曜日',
-      '6': '土曜日',
-      '0': '日曜日'
-    };
+    const { messages, actions } = this.props;
     const style = {
       minHeight: window.innerHeight - 64,
       background: Colors.grey50,
@@ -71,20 +60,19 @@ class Dashboard extends Component {
           </div>
         </section>
         <section className="content">
-          {charts.exist ?
             <div>
               <div className="row">
                 <div className="panel panel-default room-info-wrap">
                   <div className="panel-heading">
                     <div className="row">
                       <div className="pull-left room-key-wrap">
-                        <p><span>入室キー</span><span>{charts.room.key}</span></p>
+                        <p><span>入室キー</span><span>タイトルをハードコード</span></p>
                       </div>
                       <RaisedButton
                         style={{width: 150, marginRight: 20, float:'right'}}
                         label="終了"
                         secondary={true}
-                        onClick={() => actions.closeRoom(charts.room.id)}
+                        onClick={() => actions.closeRoom(1)}
                       />
                       <RaisedButton
                         style={{width: 150, marginRight: 20, float:'right'}}
@@ -94,34 +82,15 @@ class Dashboard extends Component {
                       />
                     </div>
                   </div>
-                  <div className="panel-body">
-                    <div className="col-md-3 room-title-wrap">
-                      <p>{charts.room.lecture.title}</p>
-                    </div>
-                    <div className="col-md-5 room-detail-wrap">
-                      <p>{`${charts.room.lecture.department.faculty.name} ${charts.room.lecture.department.name} ${charts.room.lecture.grade}対象`}</p>
-                      <p>{`${charts.room.lecture.year}年${charts.room.lecture.semester.name} ${weekdays[charts.room.lecture.weekday]}${charts.room.lecture.timeSlot}限`}</p>
-                    </div>
-                    <div className="col-md-4 room-time-wrap">
-                      <p><span>開始</span><span>{moment(charts.room.createdAt).format('HH:mm')}</span></p>
-                      <p><span>終了予定</span><span>{moment(charts.room.createdAt).add(charts.room.length, 'm').format('HH:mm')}</span></p>
-                    </div>
-                  </div>
                 </div>
               </div>
 
               <div className="row">
-                <div className="col-md-8">
-                  {charts.pie !== null &&
-                    <PieCharts pie={charts.pie}/>
-                  }
+                <div className="col-md-6">
                   <div className="row">
-                    {charts.line !== null &&
-                      <LineChart basic={charts.basic} reactions={charts.reactions} room={charts.room}/>
-                    }
-                  </div>
-                </div>
-                <div className="col-md-4">
+                    <Message messages={messages} name={true}/>
+                  </div>                </div>
+                <div className="col-md-6">
                   <div className="row">
                     <Message messages={messages} name={true}/>
                   </div>
@@ -133,7 +102,6 @@ class Dashboard extends Component {
                 <h4 className="text-center">開講中の授業がありません</h4>
               </div>
             </div>
-          }
         </section>
       </div>
     );

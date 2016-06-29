@@ -1,0 +1,114 @@
+.room-info-wrap {
+	width: 100%;
+	min-width: 800px;
+	background-color: white;
+
+	.room-key-wrap {
+		height: 100%;
+
+		p {
+			margin: 0;
+			span{
+				margin-left: 20px;
+				&:nth-child(1) {
+					margin-top: 20px;
+				}
+
+				&:nth-child(2) {
+					font-size: 28px;
+					margin-top: 20px;
+				}
+			}
+		}
+	}
+
+	.room-title-wrap {
+		p {
+			margin-left: 20px;
+			margin-top: 20px;
+			font-size: 28px;
+		}
+	}
+
+	.room-detail-wrap {
+		p {
+			margin-left: 20px;
+			margin-top: 10px;
+			font-size: 16px;
+			span:nth-child(1) {
+				display: inline-block;
+				width: 100px;
+			}
+			span:nth-child(2) {
+				font-weight: 600;
+			}
+		}
+	}
+
+	.room-time-wrap {
+		p {
+			margin-left: 20px;
+			margin-top: 10px;
+			font-size: 16px;
+			span:nth-child(1) {
+				display: inline-block;
+				width: 100px;
+			}
+			span:nth-child(2) {
+				font-weight: 600;
+			}
+		}
+	}
+}
+
+#message-wrap {
+	height: 614px;
+	overflow-y: scroll;
+}
+
+#pie-wrap {
+	padding: 0;
+	height: 250px;
+
+	div {
+		position: relative;
+
+		canvas {
+          position: absolute;
+          top: 250px;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto;
+          width: 200px;
+          height: 200px;
+		}
+
+		div.chart-center {
+          position: absolute;
+          top: 250px;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto;
+          width: 80px;
+          height: 80px;
+
+          p {
+          	line-height: 80px;
+          	text-align: center;
+          	margin: 0;
+
+			span:nth-child(1) {
+				font-size: 30px;
+			}
+			span:nth-child(2) {
+				font-size: 16px;
+			}
+			span:nth-child(3) {
+				font-size: 16px;
+			}
+          }
+		}
+	}
+}

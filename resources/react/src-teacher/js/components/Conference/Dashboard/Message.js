@@ -16,35 +16,19 @@ class message extends Component {
 
   render() {
     const { messages } = this.props;
+    const chatStyle = {
+      width: '100%',
+      margin: 10,
+      padding: 10,
+      backgroundColor: 'white',
+      borderRadius: 5,
 
-    const iconButtonElement = (
-      <IconButton
-        touch={true}
-        tooltip="more"
-        tooltipPosition="bottom-left"
-      >
-        <MoreVertIcon color={Colors.grey400} />
-      </IconButton>
-    );
-
-    const rightIconMenu = (
-      <IconMenu iconButtonElement={iconButtonElement}>
-        <MenuItem>Reply</MenuItem>
-        <MenuItem>Forward</MenuItem>
-        <MenuItem>Delete</MenuItem>
-      </IconMenu>
-    );
-
-    const avatarStyle = {
-      1: { color: Colors.indigo400, content: '質'},
-      2: { color: Colors.amberA700, content: '感'},
-      3: { color: Colors.green400, content: '他'}
-    };
+    }
 
     return (
       <div className="space-top-4 space-bottom-3 space-left-3">
         <div id="message-wrap">
-          <List>
+          <div>
           {
             messages.dashboardMessages.length === 0 &&
             <ListItem
@@ -54,26 +38,15 @@ class message extends Component {
           }
           {messages.dashboardMessages.length !== 0 &&
             messages.dashboardMessages.map(m => 
-              !this.props.name && m.action == 5 ? <div></div> :
-              <div>
-                <ListItem
-                  leftAvatar={
-                    <Avatar
-                      color={Colors.White}
-                      backgroundColor={avatarStyle[m.type].color}
-                    >
-                      {avatarStyle[m.type].content}
-                    </Avatar>
-                  }
-                  primaryText={m.message}
-                  secondaryText={`${Math.abs(moment.unix(m.time).diff(moment(), 'minutes'))} 分前`}
-                  secondaryTextLines={2}
-                />
-                <Divider inset={true} />
+              !this.props.name && m.action == 5 ?
+              <div></div> :
+              <div style={chatStyle}>
+                <p>{m.text}</p>
+                <p>{`${Math.abs(moment.unix(m.time).diff(moment(), 'minutes'))} 分前`}</p>
               </div>
             )
           }
-          </List>
+          </div>
         </div>
       </div>
     );
