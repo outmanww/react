@@ -22,7 +22,7 @@ class Message extends Component {
 
     this.state = {
       intervalId: null,
-      interval: 15000,
+      interval: 1000,
       rows: 1,
       text: ''
     };
@@ -128,7 +128,7 @@ class Message extends Component {
           </textarea>
           <div
             className="message-submit"
-            style={{marginTop: `${(this.state.rows - 1)*1.8}rem`}}
+            style={{marginTop: `${(this.state.rows - 1)*2.2}rem`}}
             onTouchTap={() => this.sendMessage()}
           >
             <p>送信</p>
