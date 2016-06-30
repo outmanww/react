@@ -154,7 +154,7 @@ class AudienceController extends Controller
         }
 
         $like = new Like;
-        $like->message_id = $message->id;
+        $like->message_id = $request->message;
         $like->auditor_id = $auditor->id;
         $like->created_at = $now;
         $like->updated_at = $now;

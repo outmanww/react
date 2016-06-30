@@ -72,9 +72,7 @@ class Alert extends Component {
             {alerts.map(({ key, data: {status, messageId, value}, style }) => {
               return (
                 <div className={`alert custom-alert alert-${status}`} style={style} key={key}>
-                  <FormattedMessage id={messageId} values={value}>
-                    {text => <p>{text}</p>}
-                  </FormattedMessage>
+                  <p>{value}</p>
                   <span className="btn-close" title={key} onClick={this.handleClick.bind(this, key)}>×</span>
                 </div>
               );
