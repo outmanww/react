@@ -22,7 +22,7 @@ class Message extends Component {
 
     this.state = {
       intervalId: null,
-      interval: 1000,
+      interval: 15000,
       rows: 1,
       text: ''
     };
