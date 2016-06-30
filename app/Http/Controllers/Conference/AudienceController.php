@@ -160,7 +160,11 @@ class AudienceController extends Controller
         $like->updated_at = $now;
         $like->save();
 
-        $messages = $this->getMessages($message->conference->id, $auditor->id);
+        $$conference_id = Message::find($request->message)
+            ->conference
+            ->id;
+
+        $messages = $this->getMessages($conference_id, $auditor->id);
 
         return \Response::json($messages, 200);
     }
