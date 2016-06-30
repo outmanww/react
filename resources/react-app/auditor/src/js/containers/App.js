@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { SCHOOL_NAME } from '../../config/env';
 // Actions
 import * as InitializeActions from '../actions/initialize';
-import * as UserActions from '../actions/user';
 import { push } from 'react-router-redux';
 // Components
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -19,7 +18,6 @@ import SocialPublic from 'material-ui/svg-icons/social/public';
 class App extends Component {
   constructor(props, context) {
     super(props, context);
-    props.actions.fetchInfo();
   }
 
   render() {
@@ -30,7 +28,7 @@ class App extends Component {
         <div id="dashboard-container">
           <Alert alerts={alerts} deleteSideAlerts={actions.deleteSideAlerts} />
           <AppBar
-            title="Title"
+            title="Re:act"
             iconElementLeft={<IconButton><NavigationClose /></IconButton>}
             iconElementRight={
               <IconMenu
@@ -57,8 +55,6 @@ class App extends Component {
 
 App.propTypes = {
   children: PropTypes.element.isRequired,
-  user: PropTypes.object.isRequired,
-  locale: PropTypes.string.isRequired,
   alerts: PropTypes.array,
   routing: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
@@ -66,8 +62,6 @@ App.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    user: state.user,
-    locale: state.application.locale,
     alerts: state.alert.side,
     routing: ownProps
   };
@@ -76,7 +70,6 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   const actions = Object.assign(
     InitializeActions,
-    UserActions,
     { push: push }
   );
 

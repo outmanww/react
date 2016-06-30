@@ -6,81 +6,92 @@ import moment from 'moment';
 import { SCHOOL_NAME } from '../../../config/env';
 // Actions
 import * as DashboardActions from '../../actions/dashboard';
-import * as LectureActions from '../../actions/lecture';
 // Components
-import { RaisedButton } from 'material-ui';
+import { Dialog, RaisedButton, FlatButton } from 'material-ui';
 import { Paper } from 'material-ui';
 import { grey50 } from 'material-ui/styles/colors';
+import ConfirmConference from './ConfirmConference';
+import Message from './Message';
+import Loading from '../Common/Loading';
 
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
-    const { fetchCharts, fetchMessages } = props.actions;
-    fetchCharts();
-    fetchMessages();
+    const { fetchConference, createAuditor } = props.actions;
+    fetchConference();
+    if (props.application.auditorCode === null) {
+      createAuditor();
+    }
     this.state = {
-      intervalId: null,
-      interval: 15000
+      open: true,
     };
-  }
-
-  componentDidMount() {
-    const { fetchCharts, fetchMessages } = this.props.actions;
-    const intervalId = setInterval(()=> {
-      fetchCharts();
-      fetchMessages();
-    }, this.state.interval);
-    this.setState({intervalId});
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.intervalId);
-  }
-
-  openWindow() {
-    window.open(
-      `/${SCHOOL_NAME}/teacher/student`,
-      '_blank',
-      'top=50,left=50,width=1200,height=650,scrollbars=1,location=0,menubar=0,toolbar=0,status=1,directories=0,resizable=1'
-    );
   }
 
   render() {
-    const { charts, messages, actions } = this.props;
+    const { conference, messages } = this.props;
     const style = {
       minHeight: window.innerHeight - 64,
       background: grey50,
-      padding: '0 60px 60px'
+      paddingTop: 5
     };
+    const actions = [
+      <FlatButton
+        label="入場"
+        primary={true}
+        disabled={conference.isFetching || (conference.conference !== null && conference.conference.status == 0)}
+        onTouchTap={() => this.setState({open: false})}
+      />
+    ];
 
     return (
-      <div style={style}>
-        <section className="content-header">
-          <div className="row">
-            <h3>ダッシュボード</h3>
-          </div>
-        </section>
-        <section className="content">
-
-        </section>
+      <div className="dashboard-wrap" style={style}>
+        <div>
+          <Dialog
+            title="確認"
+            actions={actions}
+            modal={true}
+            open={this.state.open}
+            onRequestClose={this.handleClose}
+          >
+            {conference.isFetching &&
+              <div
+                className="loading-wrap"
+                style={{
+                  height: 280,
+                  margin: '0 -24px',
+                  padding: '0 15px'
+                }}
+              >
+                <Loading/>
+              </div>
+            }
+            <ConfirmConference conference={conference}/>
+          </Dialog>
+        </div>
+        {!this.state.open &&
+          <Message/>
+        }
       </div>
     );
   }
 }
 
 Dashboard.propTypes = {
+  application: PropTypes.object.isRequired,
+  conference: PropTypes.object.isRequired,
+  messages: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-    charts: state.dashboardCharts,
-    messages: state.dashboardMessages,
-    routes: ownProps.routes
+    application: state.application,
+    conference: state.conference,
+    messages: state.messages,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = Object.assign(LectureActions, DashboardActions);
+  const actions = Object.assign({}, DashboardActions);
   return {
     actions: bindActionCreators(actions, dispatch)
   };

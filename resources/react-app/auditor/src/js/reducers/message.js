@@ -1,32 +1,31 @@
-import { LOCALE } from '../../config/env';
 import {
-  CREATE_AUDITOR,
-  CREATE_AUDITOR_SUCCESS,
-  CREATE_AUDITOR_FAIL,
+  REQUEST_MESSAGES,
+  REQUEST_MESSAGES_SUCCESS,
+  REQUEST_MESSAGES_FAIL,
 } from '../constants/DashboardActionTypes';
 
 const initialState = {
-  auditorCode: null,
+  messages: [],
   isFetching: false,
   didInvalidate: false
 };
 
-export default function application(state = initialState, action) {
+export default function message(state = initialState, action) {
   switch (action.type) {
-    case CREATE_AUDITOR:
+    case REQUEST_MESSAGES:
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false
       });
 
-    case CREATE_AUDITOR_SUCCESS:
+    case REQUEST_MESSAGES_SUCCESS:
       return Object.assign({}, state, {
-        auditorCode: action.payload.code,
+        messages: Object.values(action.payload),
         isFetching: false,
         didInvalidate: false
       });
 
-    case CREATE_AUDITOR_FAIL:
+    case REQUEST_MESSAGES_FAIL:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: true

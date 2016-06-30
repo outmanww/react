@@ -1,32 +1,31 @@
-import { LOCALE } from '../../config/env';
 import {
-  CREATE_AUDITOR,
-  CREATE_AUDITOR_SUCCESS,
-  CREATE_AUDITOR_FAIL,
+  REQUEST_CONFERENCE,
+  REQUEST_CONFERENCE_SUCCESS,
+  REQUEST_CONFERENCE_FAIL,
 } from '../constants/DashboardActionTypes';
 
 const initialState = {
-  auditorCode: null,
+  conference: null,
   isFetching: false,
   didInvalidate: false
 };
 
-export default function application(state = initialState, action) {
+export default function conference(state = initialState, action) {
   switch (action.type) {
-    case CREATE_AUDITOR:
+    case REQUEST_CONFERENCE:
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false
       });
 
-    case CREATE_AUDITOR_SUCCESS:
+    case REQUEST_CONFERENCE_SUCCESS:
       return Object.assign({}, state, {
-        auditorCode: action.payload.code,
+        conference: action.payload.conference,
         isFetching: false,
         didInvalidate: false
       });
 
-    case CREATE_AUDITOR_FAIL:
+    case REQUEST_CONFERENCE_FAIL:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: true

@@ -4,17 +4,11 @@ import { routeReducer } from 'react-router-redux';
 import application from './application';
 import alert from './alert';
 import disposable from './disposable';
-import user from './user';
-import lectures from './lectures';
-import lectureBasic from './lectureBasic';
-import room from './room';
-import dashboardCharts from './dashboardCharts';
-import dashboardMessages from './dashboardMessages';
-import charts from './charts';
+import conference from './conference';
+import message from './message';
 
 const rootReducer = combineReducers(Object.assign({
-  application, alert, disposable, user, lectures, lectureBasic, room,
-  dashboardCharts, dashboardMessages, charts
+  application, alert, disposable, conference, message
 }, {
   routing: routeReducer
 }

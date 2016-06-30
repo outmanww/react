@@ -1,114 +1,119 @@
-.room-info-wrap {
-	width: 100%;
-	min-width: 800px;
-	background-color: white;
+div.dashboard-wrap {
+    div.message-wrap {
+        margin-bottom: 3.2rem;
+        padding-bottom: 1rem;
 
-	.room-key-wrap {
-		height: 100%;
+        div.message-node {
+            position: relative;
+            margin : 1rem;
+            padding: 0.6rem;
+            border-radius: 4px;
+            box-shadow: 0px 1px 2px rgba(0,0,0,0.2);
+            background-color: rgba(255,255,255,1.0);
+            min-height: 10rem;
 
-		p {
-			margin: 0;
-			span{
-				margin-left: 20px;
-				&:nth-child(1) {
-					margin-top: 20px;
-				}
+            &:after {
+                content: ".";
+                clear: both;
+                height: 0;
+                display: block;
+                visibility: hidden;
+            }
 
-				&:nth-child(2) {
-					font-size: 28px;
-					margin-top: 20px;
-				}
-			}
-		}
-	}
+            div.likes-wrap {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                padding: 0 5px;
 
-	.room-title-wrap {
-		p {
-			margin-left: 20px;
-			margin-top: 20px;
-			font-size: 28px;
-		}
-	}
+                div.likes {
+                    width: 4rem;
+                    height: 4rem;
+                    border-radius: 2rem;
+                    box-shadow: 0px 1px 2px #989898;
+                    float: left;
+                    display: inline;
+                    position: relative;
 
-	.room-detail-wrap {
-		p {
-			margin-left: 20px;
-			margin-top: 10px;
-			font-size: 16px;
-			span:nth-child(1) {
-				display: inline-block;
-				width: 100px;
-			}
-			span:nth-child(2) {
-				font-weight: 600;
-			}
-		}
-	}
+                    p {
+                        position: absolute;
+                        top: 1.2rem;
+                        left: 0;
+                        padding: 0;
+                        margin: 0;
+                        width: 4rem;
+                        font-size: 1.6rem;
+                        line-height: 1.6rem;
+                        text-align: center;
+                    }
+                }
 
-	.room-time-wrap {
-		p {
-			margin-left: 20px;
-			margin-top: 10px;
-			font-size: 16px;
-			span:nth-child(1) {
-				display: inline-block;
-				width: 100px;
-			}
-			span:nth-child(2) {
-				font-weight: 600;
-			}
-		}
-	}
-}
+                div.likes-button {
+                    p {
+                        position: relative;
+                        top: -0.8rem;
+                        margin: 0;
+                        padding: 0;
+                        font-size: 0.8rem;
+                        color: #424242;
+                        text-align: center;
+                    }
+                }
+            }
 
-#message-wrap {
-	height: 614px;
-	overflow-y: scroll;
-}
+            p.message-text {
+                font-size: 1.2rem;
+                line-height: 1.8rem;
+                margin: 0 0 2rem 6rem;
+            }
 
-#pie-wrap {
-	padding: 0;
-	height: 250px;
+            p.message-time {
+                position: absolute;
+                right: 1.2rem;
+                bottom: 0;
+                font-size: 1rem;
+                text-align: right;
+                color: #999999;
+            }
+        }
+    }
 
-	div {
-		position: relative;
+    div.message-form {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 0.6rem;
+        background-color: #E0E0E0;
 
-		canvas {
-          position: absolute;
-          top: 250px;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          margin: auto;
-          width: 200px;
-          height: 200px;
-		}
+        textarea {
+            float: left;
+            line-height: 1.8rem;
+            width: calc(100% - 45px);
+            font-size: 1.2rem;
+            padding: 0;
+            border: 0;
+            border-radius: 2px;
+            resize: none;
+        }
 
-		div.chart-center {
-          position: absolute;
-          top: 250px;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          margin: auto;
-          width: 80px;
-          height: 80px;
+        div.message-submit {
+            float: right;
+            width: 40px;
+            height: 1.8rem;
+            border-radius: 2px;
+            background-color: #3F51B5;
+            margin-left: 5px;
+            &:active {
+                background-color: #5C6BC0;
+            }
 
-          p {
-          	line-height: 80px;
-          	text-align: center;
-          	margin: 0;
-
-			span:nth-child(1) {
-				font-size: 30px;
-			}
-			span:nth-child(2) {
-				font-size: 16px;
-			}
-			span:nth-child(3) {
-				font-size: 16px;
-			}
-          }
-		}
-	}
+            p {
+                text-align: center;
+                color: white;
+                font-size: 1rem;
+                margin: 0.1rem 0 0.1rem 0;
+            }
+        }
+    }
 }

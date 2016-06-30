@@ -11,8 +11,8 @@ class Loading extends Component {
 	    	className="sk-fading-circle"
 	    	style={{
 	    		position: 'absolute',
-	    		left: 'calc(50% - 20px)',
-	    		top: 'calc(50% + 20px)',
+	    		left: 'calc(50% - 15px)',
+	    		top: 'calc(50% - 15px)',
 	    		zIndex: 1001
 	    	}}>
 	      <div className="sk-circle1 sk-circle"></div>

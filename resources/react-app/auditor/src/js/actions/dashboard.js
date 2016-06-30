@@ -3,22 +3,37 @@ import { ADD_SIDE_ALERT } from '../constants/ActionTypes';
 import { CALL_API } from '../middleware/fetchMiddleware';
 import { push } from 'react-router-redux';
 
-export function fetchCharts() {
+export function fetchConference() {
   return {
     [CALL_API]: {
       types: [
-        types.REQUEST_CHARTS,
-        types.REQUEST_CHARTS_SUCCESS,
-        types.REQUEST_CHARTS_FAIL
+        types.REQUEST_CONFERENCE,
+        types.REQUEST_CONFERENCE_SUCCESS,
+        types.REQUEST_CONFERENCE_FAIL
       ],
-      endpoint: 'test',
+      endpoint: 'conference',
       method: 'GET',
       body: null
     }
   };
 }
 
-export function fetchMessages() {
+export function createAuditor() {
+  return {
+    [CALL_API]: {
+      types: [
+        types.CREATE_AUDITOR,
+        types.CREATE_AUDITOR_SUCCESS,
+        types.CREATE_AUDITOR_FAIL
+      ],
+      endpoint: 'create/auditor',
+      method: 'GET',
+      body: null
+    }
+  };
+}
+
+export function fetchMessages(body) {
   return {
     [CALL_API]: {
       types: [
@@ -26,34 +41,54 @@ export function fetchMessages() {
         types.REQUEST_MESSAGES_SUCCESS,
         types.REQUEST_MESSAGES_FAIL
       ],
-      endpoint: (state) => {
-        const messages = state.dashboardMessages.dashboardMessages;
-        if (messages.length === 0) {
-          return 'messages/?latest=0'
-        }
-        else {
-          return `messages/?latest=${messages[0].time}`
-        }
-      },
-      method: 'GET',
-      body: null
+      endpoint: 'messages',
+      method: 'POST',
+      body
     }
   };
 }
 
-
-
-export function fetchChartsTest() {
+export function sendMessages(body) {
   return {
     [CALL_API]: {
       types: [
-        types.REQUEST_CHARTS_TEST,
-        types.REQUEST_CHARTS_TEST_SUCCESS,
-        types.REQUEST_CHARTS_TEST_FAIL
+        types.SEND_MESSAGES,
+        types.SEND_MESSAGES_SUCCESS,
+        types.SEND_MESSAGES_FAIL
       ],
-      endpoint: 'test2',
-      method: 'GET',
-      body: null
+      endpoint: 'messages/send',
+      method: 'POST',
+      body
+    }
+  };
+}
+
+export function sendLike(body) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.SEND_LIKE,
+        types.SEND_LIKE_SUCCESS,
+        types.SEND_LIKE_FAIL
+      ],
+      endpoint: 'messages/like',
+      method: 'POST',
+      body
+    }
+  };
+}
+
+export function sendDislike(body) {
+  return {
+    [CALL_API]: {
+      types: [
+        types.SEND_DISLIKE,
+        types.SEND_DISLIKE_SUCCESS,
+        types.SEND_DISLIKE_FAIL
+      ],
+      endpoint: 'messages/dislike',
+      method: 'POST',
+      body
     }
   };
 }
