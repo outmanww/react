@@ -160,7 +160,7 @@ class AudienceController extends Controller
         $like->updated_at = $now;
         $like->save();
 
-        $$conference_id = Message::find($request->message)
+        $conference_id = Message::find($request->message)
             ->conference
             ->id;
 
