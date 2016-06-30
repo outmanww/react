@@ -2,6 +2,9 @@ import {
   REQUEST_MESSAGES,
   REQUEST_MESSAGES_SUCCESS,
   REQUEST_MESSAGES_FAIL,
+  SEND_MESSAGES_SUCCESS,
+  SEND_LIKE_SUCCESS,
+  SEND_DISLIKE_SUCCESS,
 } from '../constants/DashboardActionTypes';
 
 const initialState = {
@@ -19,6 +22,9 @@ export default function message(state = initialState, action) {
       });
 
     case REQUEST_MESSAGES_SUCCESS:
+    case SEND_MESSAGES_SUCCESS:
+    case SEND_LIKE_SUCCESS:
+    case SEND_DISLIKE_SUCCESS:
       return Object.assign({}, state, {
         messages: Object.values(action.payload),
         isFetching: false,

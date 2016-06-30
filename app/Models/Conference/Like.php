@@ -9,8 +9,6 @@ use App\Models\Student\Student;
 
 class Like extends Model
 {
-	use SoftDeletes, CustomRelations;
-
     protected $connection;
 
     /**

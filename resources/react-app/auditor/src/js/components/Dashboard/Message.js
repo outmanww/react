@@ -63,7 +63,11 @@ class Message extends Component {
   }
 
   sendDislike(id) {
-    console.log('dislike ', id)
+    const { application, actions: {sendDislike} } = this.props;
+    sendDislike({
+      token: application.auditorCode,
+      message: id
+    });
   }
 
   render() {

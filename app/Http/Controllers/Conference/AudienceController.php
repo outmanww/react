@@ -50,6 +50,7 @@ class AudienceController extends Controller
     {
         $messages = Conference::find($conference_id)
             ->messages()
+            ->where('deleted_at', null)
             ->with('likes')
             ->get()
             ->map(function ($message, $key) use (&$auditor_id) {
@@ -171,6 +172,27 @@ class AudienceController extends Controller
 
     public function dislike(Request $request)
     {
+        $now = Carbon::now();
+        $auditor = $this->getAuditor($request->token);
 
+        $like = Like::where('message_id', $request->message)
+            ->where('auditor_id', $auditor->id)
+            ->first();
+
+        if (!$like instanceof Like) {
+            return \Response::json([
+                'message' => 'Auditor not found'
+            ], 400);
+        }
+
+        $like->delete();
+
+        $conference_id = Message::find($request->message)
+            ->conference
+            ->id;
+
+        $messages = $this->getMessages($conference_id, $auditor->id);
+
+        return \Response::json($messages, 200);
     }    
 }
