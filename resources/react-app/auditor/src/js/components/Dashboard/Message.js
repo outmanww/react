@@ -59,7 +59,7 @@ class Message extends Component {
     this.setState({
       textareaHeight: 26,
       text: ''
-    }, () => window.scrollTo(0, document.body.scrollHeight));
+    });
   }
 
   sendLike(id) {
@@ -84,7 +84,7 @@ class Message extends Component {
 
     return (
       <div className="message-wrap">
-        <div className="messages" style={{height: window.innerHeight}}>
+        <div className="messages" style={{height: window.innerHeight - 94}}>
         {
           message.messages.map(m => 
             <div className="message-node">
@@ -120,7 +120,7 @@ class Message extends Component {
         <div
           className="message-form"
           style={{
-            paddingBottom: this.state.focus && BROWSER_NAME == 'chrome' ? 50 : 10
+            paddingBottom: 10
           }}
         >
           <textarea
@@ -129,11 +129,17 @@ class Message extends Component {
             wrap="soft"
             style={{height: this.state.textareaHeight}}
             value={this.state.text}
-            onFocus={() => {
-              this.setState({ focus: true })
-              window.scrollTo(0, document.body.scrollHeight)
+            onFocus={(e) => {
+              let scrollHeight = e.target.scrollHeight;
+              this.setState({
+                focus: true,
+                textareaHeight: scrollHeight > 26*4 ? 26*4 : scrollHeight,
+              })
             }}
-            onBlur={() => this.setState({focus: false})}
+            onBlur={() => this.setState({
+              focus: false,
+              textareaHeight: 26,
+            })}
             onChange={(e) => {
               let scrollHeight = e.target.scrollHeight;
               let value = e.target.value;
