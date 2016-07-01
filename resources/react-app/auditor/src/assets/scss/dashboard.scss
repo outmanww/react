@@ -2,6 +2,7 @@ div.dashboard-wrap {
     div.messages {
         padding-bottom: 5rem;
         overflow: scroll;
+        -webkit-overflow-scrolling: touch;
 
         div.message-node {
             position: relative;
