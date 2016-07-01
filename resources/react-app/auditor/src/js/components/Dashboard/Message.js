@@ -22,9 +22,10 @@ class Message extends Component {
 
     this.state = {
       intervalId: null,
-      interval: 1000,
+      interval: 2000,
       rows: 1,
-      text: ''
+      text: '',
+      focus: false
     };
   }
 
@@ -118,13 +119,18 @@ class Message extends Component {
             <Loading coverColor={grey50}/>
           </div>
         }
-        <div className="message-form">
+        <div
+          className="message-form"
+          style={{paddingBottom: this.state.focus ? '4rem' : '1rem'}}
+        >
           <textarea
             id="text"
             name="body"
             rows={this.state.rows}
             wrap="soft"
             value={this.state.text}
+            onFocus={() => this.setState({focus: true})}
+            onBlur={() => this.setState({focus: false})}
             onChange={(e) => {
               let value = e.target.value;
               let linefeed = value.match(/\r\n|\n/g);
