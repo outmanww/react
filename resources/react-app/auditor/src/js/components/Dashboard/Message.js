@@ -22,7 +22,7 @@ class Message extends Component {
 
     this.state = {
       intervalId: null,
-      interval: 10000,
+      interval: 2000,
       rows: 1,
       text: '',
       focus: false
@@ -78,7 +78,7 @@ class Message extends Component {
     return (
       <div
         className="message-wrap"
-        style={{paddingBottom: this.state.focus ? '7.4rem' : '3.4rem'}}
+        style={{paddingBottom: this.state.focus ? '9.4rem' : '5.4rem'}}
       >
         {true ?
           <div>
