@@ -26,6 +26,7 @@ class Message extends Component {
       intervalId: null,
       interval: 200000,
       rem: 10,
+      innerHeight: window.innerHeight,
       textareaHeight: 26,
       text: '',
       focus: false
@@ -84,7 +85,7 @@ class Message extends Component {
 
     return (
       <div className="message-wrap">
-        <div className="messages" style={{height: window.innerHeight - 94}}>
+        <div className="messages" style={{height: this.state.innerHeight - 94}}>
         {
           message.messages.map(m => 
             <div className="message-node">
@@ -120,7 +121,7 @@ class Message extends Component {
         <div
           className="message-form"
           style={{
-            paddingBottom: 10
+            paddingBottom: this.state.focus && BROWSER_NAME == 'chrome' ? 50 : 10
           }}
         >
           <textarea
