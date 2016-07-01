@@ -24,7 +24,7 @@ class Message extends Component {
 
     this.state = {
       intervalId: null,
-      interval: 2000,
+      interval: 200000,
       rem: 10,
       innerHeight: window.innerHeight,
       textareaHeight: 26,
@@ -131,18 +131,19 @@ class Message extends Component {
             style={{height: this.state.textareaHeight}}
             value={this.state.text}
             onFocus={(e) => {
+              window.scrollTo(0, document.body.scrollHeight)
               let scrollHeight = e.target.scrollHeight;
               this.setState({
                 focus: true,
                 textareaHeight: scrollHeight > 26*4 ? 26*4 : scrollHeight,
               })
-              window.scrollTo(0, document.body.scrollHeight)
             }}
             onBlur={() => this.setState({
               focus: false,
               textareaHeight: 26,
             })}
             onChange={(e) => {
+              window.scrollTo(0, document.body.scrollHeight)
               let scrollHeight = e.target.scrollHeight;
               let value = e.target.value;
               this.setState({
@@ -187,8 +188,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Message);
-
-/*
-e.target.scrollHeight
-
-*/

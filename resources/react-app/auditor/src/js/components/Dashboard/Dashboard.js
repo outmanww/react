@@ -78,7 +78,7 @@ class Dashboard extends Component {
                 position: 'fixed',
                 top: 0,
                 left: 0,
-                backgroundColor: 'rgba(63, 81, 181, 0.97)',
+                backgroundColor: 'rgba(63, 81, 181, 0.9)',
               }}
             >
               <h1
