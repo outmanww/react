@@ -87,30 +87,37 @@ class Message extends Component {
       <div className="message-wrap">
         <div className="messages" style={{height: this.state.innerHeight - 94}}>
         {
-          message.messages.map(m => 
+          message.messages.map((m, i) => 
             <div className="message-node">
               <div className="likes-wrap">
-                <div className="likes"><p>{m.likes}</p></div>
-                <div className="likes-button">
+                <div
+                  className="likes-icon"
+                  onTouchTap={() => {
+                    m.liked ?
+                    this.sendDislike(m.id) :
+                    this.sendLike(m.id)
+                  }}
+                >
                   <ActionThumbUp
                     color={m.liked ? cyan500 : grey900}
                     style={{
-                      margin: '10px 7px 0 7px'
-                    }}
-                    onTouchTap={() => {
-                      m.liked ?
-                      this.sendDislike(m.id) :
-                      this.sendLike(m.id)
+                      margin: '0 8px 0 8px',
+                      height: 22
                     }}
                   />
                 </div>
+                <p className="like-message">Like it!</p>
+                <p className="likes">{m.likes}</p>
               </div>
               <div className="message-text">
                 {m.text.split(/[\n\r]/).map(t =>
                   <p>{t}</p>
                 )}
               </div>
-              <p className="message-time">{`${Math.abs(moment.unix(m.time).diff(moment(), 'minutes'))} 分前`}</p>
+              <div className="message-info">
+                <div>{`No.${i+1}`}</div>
+                <div>{`${Math.abs(moment.unix(m.time).diff(moment(), 'minutes'))} 分前`}</div>
+              </div>
             </div>
           )
         }
