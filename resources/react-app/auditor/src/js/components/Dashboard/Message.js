@@ -23,7 +23,9 @@ class Message extends Component {
     this.state = {
       intervalId: null,
       interval: 2000,
-      rows: 1,
+      rem: 10,
+      // rem: document.documentElement.style,
+      textareaHeight: 26,
       text: '',
       focus: false
     };
@@ -54,9 +56,9 @@ class Message extends Component {
       text
     });
     this.setState({
-      rows: 1,
+      textareaHeight: 26,
       text: ''
-    }, () => window.scrollTo(0,document.body.scrollHeight));
+    }, () => window.scrollTo(0, document.body.scrollHeight));
   }
 
   sendLike(id) {
@@ -77,10 +79,11 @@ class Message extends Component {
 
   render() {
     const { message } = this.props;
+    console.log(this.state);
 
     return (
       <div className="message-wrap">
-        <div className="messages">
+        <div className="messages" style={{height: window.innerHeight - 94}}>
         {
           message.messages.map(m => 
             <div className="message-node">
@@ -111,29 +114,30 @@ class Message extends Component {
         }
         </div>
 
-        <div style={{height: '8.4rem'}}></div>
+        <div style={{height: 44}}></div>
 
         <div
           className="message-form"
-          style={{paddingBottom: this.state.focus ? '5rem' : '1rem'}}
+          style={{
+            paddingBottom: this.state.focus ? 50 : 10
+          }}
         >
           <textarea
             id="text"
             name="body"
-            rows={this.state.rows}
             wrap="soft"
+            style={{height: this.state.textareaHeight}}
             value={this.state.text}
             onFocus={() => {
               this.setState({ focus: true })
-              window.scrollTo(0,document.body.scrollHeight)
+              window.scrollTo(0, document.body.scrollHeight)
             }}
             onBlur={() => this.setState({focus: false})}
             onChange={(e) => {
+              let scrollHeight = e.target.scrollHeight;
               let value = e.target.value;
-              let linefeed = value.match(/\r\n|\n/g);
-              let lines = linefeed === null ? 1 : linefeed.length + 1;
               this.setState({
-                rows: lines <= 4 ? lines : 4,
+                textareaHeight: scrollHeight > 26*4 ? 26*4 : scrollHeight,
                 text: typeof value === 'undefined' ? '' : value
               })
             }}
@@ -141,7 +145,7 @@ class Message extends Component {
           </textarea>
           <div
             className="message-submit"
-            style={{marginTop: `${(this.state.rows - 1)*2.2}rem`}}
+            style={{marginTop: this.state.textareaHeight - 26}}
             onTouchTap={() => this.sendMessage()}
           >
             <p>送信</p>
@@ -174,3 +178,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Message);
+
+/*
+e.target.scrollHeight
+
+*/

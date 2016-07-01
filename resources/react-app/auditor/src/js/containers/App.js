@@ -8,7 +8,7 @@ import * as InitializeActions from '../actions/initialize';
 import { push } from 'react-router-redux';
 // Components
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { AppBar, Paper, IconButton, IconMenu, MenuItem } from 'material-ui';
+import { Paper, IconButton, IconMenu, MenuItem } from 'material-ui';
 import Alert from '../components/Common/Alert';
 // Icons
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -27,23 +27,6 @@ class App extends Component {
       <MuiThemeProvider>
         <div id="dashboard-container">
           <Alert alerts={alerts} deleteSideAlerts={actions.deleteSideAlerts} />
-          <AppBar
-            title="Re:act"
-            iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-            iconElementRight={
-              <IconMenu
-                iconButtonElement={
-                  <IconButton><MoreVertIcon /></IconButton>
-                }
-                targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-              >
-                <MenuItem primaryText="Refresh" />
-                <MenuItem primaryText="Help" />
-                <MenuItem primaryText="Sign out" />
-              </IconMenu>
-            }
-          />
           <Paper>
             {children}
           </Paper> 

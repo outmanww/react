@@ -7,9 +7,8 @@ import { SCHOOL_NAME } from '../../../config/env';
 // Actions
 import * as DashboardActions from '../../actions/dashboard';
 // Components
-import { Dialog, RaisedButton, FlatButton } from 'material-ui';
-import { Paper } from 'material-ui';
-import { grey50 } from 'material-ui/styles/colors';
+import { Paper, Dialog, RaisedButton, FlatButton } from 'material-ui';
+import { grey50, indigo500 } from 'material-ui/styles/colors';
 import ConfirmConference from './ConfirmConference';
 import Message from './Message';
 import Loading from '../Common/Loading';
@@ -30,9 +29,8 @@ class Dashboard extends Component {
   render() {
     const { conference, messages } = this.props;
     const style = {
-      minHeight: window.innerHeight - 64,
+      minHeight: window.innerHeight,
       background: grey50,
-      paddingTop: 5
     };
     const actions = [
       <FlatButton
@@ -69,7 +67,35 @@ class Dashboard extends Component {
           </Dialog>
         </div>
         {!this.state.open &&
-          <Message/>
+          <div className="main-content">
+            <Paper
+              className="header"
+              zDepth={1}
+              style={{
+                zIndex: 1001,
+                height: '5rem',
+                width: '100%',
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                backgroundColor: 'rgba(63, 81, 181, 0.97)',
+              }}
+            >
+              <h1
+                style={{
+                  margin: 0,
+                  fontSize: '3rem',
+                  textAlign: 'center',
+                  lineHeight: '5rem',
+                  color: 'white'
+                }}
+              >
+                Re:act
+              </h1>
+            </Paper>
+            <div style={{height: '5rem'}}></div>
+            <Message/>
+          </div>
         }
       </div>
     );
