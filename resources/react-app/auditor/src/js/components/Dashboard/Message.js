@@ -172,7 +172,11 @@ class Message extends Component {
           </textarea>
           <div
             className="message-submit"
-            style={{marginTop: textareaHeight - 26}}
+            style={{
+              marginTop: textareaHeight - 26,
+              opacity: this.state.text.length === 0 && this.state.focus ? 0.4 : 1,
+              pointerEvents: this.state.text.length === 0 ? 'none' : 'auto'
+            }}
             onTouchTap={() => this.sendMessage()}
           >
             <p>送信</p>

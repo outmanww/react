@@ -13,6 +13,9 @@ div.dashboard-wrap {
             background-color: rgba(255,255,255,1.0);
             min-height: 8rem;
 
+            animation-duration: 0.5s;
+            animation-name: slide-hidari;
+
             &:after {
                 content: ".";
                 clear: both;
@@ -119,5 +122,14 @@ div.dashboard-wrap {
                 margin: 2px 0 2px 0;
             }
         }
+    }
+}
+
+@keyframes slide-hidari {
+    from {
+        left: 100%;
+    }      
+    to {
+        left: 0;
     }
 }
