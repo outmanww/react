@@ -108,7 +108,7 @@ class Message extends Component {
         }
         </div>
 
-        <div style={{height: this.state.focus ? '8.4rem' : '4.4rem'}}></div>
+        <div style={{height: '8.4rem'}}></div>
 
         <div
           className="message-form"
@@ -120,7 +120,10 @@ class Message extends Component {
             rows={this.state.rows}
             wrap="soft"
             value={this.state.text}
-            onFocus={() => this.setState({focus: true})}
+            onFocus={() => {
+              this.setState({ focus: true })
+              window.scrollTo(0,document.body.scrollHeight)
+            }}
             onBlur={() => this.setState({focus: false})}
             onChange={(e) => {
               let value = e.target.value;
