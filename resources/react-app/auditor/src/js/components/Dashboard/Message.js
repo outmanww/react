@@ -121,7 +121,7 @@ class Message extends Component {
         }
         <div
           className="message-form"
-          style={{paddingBottom: this.state.focus ? '4rem' : '1rem'}}
+          style={{paddingBottom: this.state.focus ? '5rem' : '1rem'}}
         >
           <textarea
             id="text"
