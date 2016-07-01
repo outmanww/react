@@ -22,7 +22,7 @@ class Message extends Component {
 
     this.state = {
       intervalId: null,
-      interval: 2000,
+      interval: 12000,
       rows: 1,
       text: '',
       focus: false
@@ -76,11 +76,8 @@ class Message extends Component {
     const { message } = this.props;
 
     return (
-      <div>
-        <div
-          className="messages"
-          style={{marginBottom: this.state.focus ? '8.4rem' : '4.4rem'}}
-        >
+      <div className="message-wrap">
+        <div className="messages">
         {
           message.messages.map(m => 
             <div className="message-node">
@@ -110,6 +107,9 @@ class Message extends Component {
           )
         }
         </div>
+
+        <div style={{height: this.state.focus ? '8.4rem' : '4.4rem'}}></div>
+
         <div
           className="message-form"
           style={{paddingBottom: this.state.focus ? '5rem' : '1rem'}}
