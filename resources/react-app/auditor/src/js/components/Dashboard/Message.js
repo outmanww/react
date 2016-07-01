@@ -49,6 +49,14 @@ class Message extends Component {
     clearInterval(this.state.intervalId);
   }
 
+  componentDidUpdate(prevProps) {
+    const { sendMessage } = this.props.status;
+    if (prevProps.status.sendMessage.isFetching && !sendMessage.isFetching) {
+      const element = document.getElementById("messages");
+      element.scrollTop = element.scrollHeight;
+    }
+  }
+
   sendMessage(e) {
     const { application, conference, actions: {sendMessages} } = this.props;
     const { text } = this.state;
@@ -87,9 +95,11 @@ class Message extends Component {
     const { status, message } = this.props;
     const { textareaHeight } = this.state;
 
+
+
     return (
       <div className="message-wrap">
-        <div className="messages" style={{height: this.state.innerHeight - 94}}>
+        <div id="messages" className="messages" style={{height: this.state.innerHeight - 94}}>
         {
           message.messages.map((m, i) => 
             <div className="message-node">
