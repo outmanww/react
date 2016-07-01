@@ -56,8 +56,7 @@ class Message extends Component {
     this.setState({
       rows: 1,
       text: ''
-    });
-    window.scrollTo(0,document.body.scrollHeight);
+    }, () => window.scrollTo(0,document.body.scrollHeight));
   }
 
   sendLike(id) {
