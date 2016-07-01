@@ -103,15 +103,15 @@ class Message extends Component {
         {
           message.messages.map((m, i) => 
             <div className="message-node">
-              <div className="likes-wrap">
-                <div
-                  className="likes-icon"
-                  onTouchTap={() => {
-                    m.liked ?
-                    this.sendDislike(m.id) :
-                    this.sendLike(m.id)
-                  }}
-                >
+              <div
+                className="likes-wrap"
+                onTouchTap={() => {
+                  m.liked ?
+                  this.sendDislike(m.id) :
+                  this.sendLike(m.id)
+                }}
+              >
+                <div className="likes-icon">
                   <ActionThumbUp
                     color={m.liked ? cyan500 : grey900}
                     style={{
@@ -121,7 +121,15 @@ class Message extends Component {
                     }}
                   />
                 </div>
-                <p className="like-message">Like it!</p>
+                <p
+                  className="like-message"
+                  style={{
+                    color: m.liked ? cyan500 : grey900,
+                    opacity: m.id === status.like.id || m.id === status.dislike.id ? 0.4 : 1
+                  }}
+                >
+                  Like it!
+                </p>
                 <p className="likes">{m.likes}</p>
               </div>
               <div className="message-text">
