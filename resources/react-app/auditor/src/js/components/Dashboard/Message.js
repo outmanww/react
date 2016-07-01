@@ -22,7 +22,7 @@ class Message extends Component {
 
     this.state = {
       intervalId: null,
-      interval: 12000,
+      interval: 2000,
       rows: 1,
       text: '',
       focus: false
@@ -53,7 +53,11 @@ class Message extends Component {
       conference: conference.conference.id,
       text
     });
-    this.setState({text: ''})
+    this.setState({
+      rows: 1,
+      text: ''
+    });
+    window.scrollTo(0,document.body.scrollHeight);
   }
 
   sendLike(id) {
