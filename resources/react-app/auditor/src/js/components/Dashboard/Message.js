@@ -121,7 +121,7 @@ class Message extends Component {
         <div
           className="message-form"
           style={{
-            paddingBottom: this.state.focus && BROWSER_NAME == 'chrome' ? 50 : 10
+            paddingBottom: 10
           }}
         >
           <textarea
