@@ -6,13 +6,11 @@ export default store => next => action => {
     return next(action);
   }
 
-  const { status, messageId, value, ...rest } = payload;
+  const { status, message, ...rest } = payload;
 
   next({ type, payload: { ...rest }, meta });
   next({
-    type: types.ADD_SIDE_ALERT,
-    status,
-    messageId,
-    value
+    type: types.ADD_ALERT,
+    payload: { status, message }
   });
 };

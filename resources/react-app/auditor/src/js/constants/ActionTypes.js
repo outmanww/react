@@ -6,8 +6,8 @@ export const SIDEVAR_OFF = 'SIDEVAR_OFF';
 export const CHANGE_SIDEVAR = 'CHANGE_SIDEVAR';
 
 //alert
-export const ADD_SIDE_ALERT = 'ADD_SIDE_ALERT';
-export const DELETE_SIDE_ALERT = 'DELETE_SIDE_ALERT';
+export const ADD_ALERT = 'ADD_ALERT';
+export const DELETE_ALERT = 'DELETE_ALERT';
 
 //disposable
 export const CLEAR_DISPOSABLE = 'CLEAR_DISPOSABLE';

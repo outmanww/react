@@ -34,7 +34,7 @@ export default store => next => action => {
   }
 
   const [requestType, successType, failureType] = types;
-  const timestamp = new Date().getTime();
+  const timestamp = Date.now();
 
   next(actionWith({
     type: requestType,
@@ -68,14 +68,16 @@ export default store => next => action => {
       }
     },
     error => {
+      console.log('in fetch middleware error = ', error);
+
       next(actionWith({
         type: failureType,
         payload: {
-          status: 'danger',
-          messageId: typeof error === 'string' ? error : 'unexpected'
+          status: typeof error.status === 'number' ? error.status : 'danger',
+          message: typeof error.message === 'string' ? error.message : 'unexpected'
         },
+        meta: { timestamp },
         error: true,
-        meta: { timestamp }
       }));
 
       if (

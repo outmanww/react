@@ -45,7 +45,7 @@ App.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    alerts: state.alert.side,
+    alerts: state.alert,
     routing: ownProps
   };
 }

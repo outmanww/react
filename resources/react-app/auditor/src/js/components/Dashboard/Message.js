@@ -81,7 +81,7 @@ class Message extends Component {
 
   render() {
     const { message } = this.props;
-    console.log(BROWSER_NAME);
+    const { textareaHeight } = this.state;
 
     return (
       <div className="message-wrap">
@@ -116,20 +116,15 @@ class Message extends Component {
         }
         </div>
 
-        <div style={{height: 44}}></div>
+        <div style={{height: 20 + textareaHeight}}></div>
 
-        <div
-          className="message-form"
-          style={{
-            paddingBottom: 10
-          }}
-        >
+        <div className="message-form">
           <textarea
             id="text"
             name="body"
             wrap="soft"
-            style={{height: this.state.textareaHeight}}
             value={this.state.text}
+            style={{ height: textareaHeight }}
             onFocus={(e) => {
               window.scrollTo(0, document.body.scrollHeight)
               let scrollHeight = e.target.scrollHeight;
@@ -155,7 +150,7 @@ class Message extends Component {
           </textarea>
           <div
             className="message-submit"
-            style={{marginTop: this.state.textareaHeight - 26}}
+            style={{marginTop: textareaHeight - 26}}
             onTouchTap={() => this.sendMessage()}
           >
             <p>送信</p>

@@ -1,44 +1,46 @@
 import {
-  ADD_SIDE_ALERT,
-  DELETE_SIDE_ALERT,
+  ADD_ALERT,
+  DELETE_ALERT,
 } from '../constants/ActionTypes';
 
-function change(state = [], action) {
+const initialState = [];
+
+export default function alert(state = initialState, action) {
   switch (action.type) {
-    case ADD_SIDE_ALERT:
+    case ADD_ALERT:
+      /*
+      action = {
+        type: redux action type,
+        payload: {
+          status: error status (danger, warning, info),
+          message: message from server
+        },
+        meta: {
+          timestamp: Unix timestamp
+        }
+      }
+      */
       return [
         ...state,
         {
-          key: action.key,
+          key: action.meta.timestamp,
           data: {
-            status: action.status,
-            messageId: action.messageId,
-            value: action.value || ''
+            status: action.payload.status,
+            message: action.payload.message,
           }
         }
       ];
 
-    case DELETE_SIDE_ALERT:
-      return state.filter(alert =>
-        action.keys.indexOf(alert.key) === -1
+    case DELETE_ALERT:
+      /*
+      action = {
+        type: redux action type,
+        key: array contain Unix timestamp
+      }
+      */
+      return state.filter(a =>
+        action.key.indexOf(a.key) === -1
       );
-
-    default:
-      return state;
-  }
-}
-
-const initialState = {
-  side: []
-};
-
-export default function alert(state = initialState, action) {
-  switch (action.type) {
-    case ADD_SIDE_ALERT:
-    case DELETE_SIDE_ALERT:
-      return Object.assign({}, state, {
-        side: change(state.side, action)
-      });
 
     default:
       return state;

@@ -69,10 +69,10 @@ class Alert extends Component {
         willEnter={this.willEnter.bind(this)}>
         {alerts =>
           <div className="alert-wrap">
-            {alerts.map(({ key, data: {status, messageId, value}, style }) => {
+            {alerts.map(({ key, data: {status, message}, style }) => {
               return (
                 <div className={`alert custom-alert alert-${status}`} style={style} key={key}>
-                  <p>{value}</p>
+                  <p>{message}</p>
                   <span className="btn-close" title={key} onClick={this.handleClick.bind(this, key)}>×</span>
                 </div>
               );

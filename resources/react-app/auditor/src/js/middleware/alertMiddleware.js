@@ -1,15 +1,16 @@
 import * as types from '../constants/ActionTypes';
 
 export default store => next => action => {
-  if (action.type !== types.ADD_SIDE_ALERT) {
+  if (action.type !== types.ADD_ALERT) {
     return next(action);
   }
 
-  const key = Date.now();
+  const timestamp = Date.now();
 
-  next({ key, ...action });
+  next({ meta: { timestamp }, ...action });
+
   setTimeout(() => next({
-    type: types.DELETE_SIDE_ALERT,
-    keys: [key]
+    type: types.DELETE_ALERT,
+    key: [timestamp]
   }), 5000);
 };
