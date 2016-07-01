@@ -76,54 +76,40 @@ class Message extends Component {
     const { message } = this.props;
 
     return (
-      <div
-        className="message-wrap"
-      >
-        {true ?
-          <div
-            className="messages"
-            style={{marginBottom: this.state.focus ? '8.4rem' : '4.4rem'}}
-          >
-          {
-            message.messages.map(m => 
-              <div className="message-node">
-                <div className="likes-wrap">
-                  <div className="likes"><p>{m.likes}</p></div>
-                  <div className="likes-button">
-                    <ActionThumbUp
-                      color={m.liked ? cyan500 : grey900}
-                      style={{
-                        margin: '10px 7px 0 7px'
-                      }}
-                      onTouchTap={() => {
-                        m.liked ?
-                        this.sendDislike(m.id) :
-                        this.sendLike(m.id)
-                      }}
-                    />
-                  </div>
+      <div>
+        <div
+          className="messages"
+          style={{marginBottom: this.state.focus ? '8.4rem' : '4.4rem'}}
+        >
+        {
+          message.messages.map(m => 
+            <div className="message-node">
+              <div className="likes-wrap">
+                <div className="likes"><p>{m.likes}</p></div>
+                <div className="likes-button">
+                  <ActionThumbUp
+                    color={m.liked ? cyan500 : grey900}
+                    style={{
+                      margin: '10px 7px 0 7px'
+                    }}
+                    onTouchTap={() => {
+                      m.liked ?
+                      this.sendDislike(m.id) :
+                      this.sendLike(m.id)
+                    }}
+                  />
                 </div>
-                <div className="message-text">
-                  {m.text.split(/[\n\r]/).map(t =>
-                    <p>{t}</p>
-                  )}
-                </div>
-                <p className="message-time">{`${Math.abs(moment.unix(m.time).diff(moment(), 'minutes'))} 分前`}</p>
               </div>
-            )
-          }
-          </div>:
-          <div
-            className="loading-wrap"
-            style={{
-              height: 'calc(100% - 64px)',
-              margin: '0 -15px',
-              padding: '0 15px'
-            }}
-          >
-            <Loading coverColor={grey50}/>
-          </div>
+              <div className="message-text">
+                {m.text.split(/[\n\r]/).map(t =>
+                  <p>{t}</p>
+                )}
+              </div>
+              <p className="message-time">{`${Math.abs(moment.unix(m.time).diff(moment(), 'minutes'))} 分前`}</p>
+            </div>
+          )
         }
+        </div>
         <div
           className="message-form"
           style={{paddingBottom: this.state.focus ? '5rem' : '1rem'}}
