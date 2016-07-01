@@ -2,6 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
+// Config
+import { BROWSER_NAME } from '../../../config/env';
 // Actions
 import * as DashboardActions from '../../actions/dashboard';
 // Material-ui
@@ -22,9 +24,8 @@ class Message extends Component {
 
     this.state = {
       intervalId: null,
-      interval: 2000,
+      interval: 200000,
       rem: 10,
-      // rem: document.documentElement.style,
       textareaHeight: 26,
       text: '',
       focus: false
@@ -79,11 +80,11 @@ class Message extends Component {
 
   render() {
     const { message } = this.props;
-    console.log(this.state);
+    console.log(BROWSER_NAME);
 
     return (
       <div className="message-wrap">
-        <div className="messages" style={{height: window.innerHeight - 94}}>
+        <div className="messages" style={{height: window.innerHeight}}>
         {
           message.messages.map(m => 
             <div className="message-node">
@@ -119,7 +120,7 @@ class Message extends Component {
         <div
           className="message-form"
           style={{
-            paddingBottom: this.state.focus ? 50 : 10
+            paddingBottom: this.state.focus && BROWSER_NAME == 'chrome' ? 50 : 10
           }}
         >
           <textarea
