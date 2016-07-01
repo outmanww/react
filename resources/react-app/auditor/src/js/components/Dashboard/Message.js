@@ -78,7 +78,7 @@ class Message extends Component {
     return (
       <div
         className="message-wrap"
-        style={{marginBottom: this.state.focus ? '7rem' : '2rem'}}
+        style={{marginBottom: this.state.focus ? '8.4rem' : '4.4rem'}}
       >
         {true ?
           <div>
