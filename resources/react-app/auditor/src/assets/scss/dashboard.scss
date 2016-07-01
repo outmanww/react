@@ -1,7 +1,7 @@
 div.dashboard-wrap {
     div.message-wrap {
         margin-bottom: 3.2rem;
-        padding-bottom: 1rem;
+        padding-bottom: 2rem;
 
         div.message-node {
             position: relative;
@@ -30,7 +30,8 @@ div.dashboard-wrap {
                     width: 4rem;
                     height: 4rem;
                     border-radius: 2rem;
-                    box-shadow: 0px 1px 2px #989898;
+                    border: solid 1px #989898;
+                    // box-shadow: 0px 1px 2px #989898;
                     float: left;
                     display: inline;
                     position: relative;
@@ -41,7 +42,7 @@ div.dashboard-wrap {
                         left: 0;
                         padding: 0;
                         margin: 0;
-                        width: 4rem;
+                        width: calc(4rem - 2px);
                         font-size: 1.6rem;
                         line-height: 1.6rem;
                         text-align: center;
@@ -61,10 +62,15 @@ div.dashboard-wrap {
                 }
             }
 
-            p.message-text {
-                font-size: 1.4rem;
-                line-height: 2.2rem;
+            div.message-text {
                 margin: 0 0 2.2rem 6rem;
+
+                p {
+                    font-size: 1.4rem;
+                    line-height: 2.2rem;
+                    white-space: normal;
+                    margin: 0;
+                }
             }
 
             p.message-time {
@@ -83,7 +89,7 @@ div.dashboard-wrap {
         left: 0;
         bottom: 0;
         width: 100%;
-        padding: 1rem 0.5rem 1rem 0.5rem;
+        padding: 1rem;
         background-color: #E0E0E0;
 
         textarea {

@@ -22,7 +22,7 @@ class Message extends Component {
 
     this.state = {
       intervalId: null,
-      interval: 15000,
+      interval: 1000,
       rows: 1,
       text: ''
     };
@@ -52,6 +52,7 @@ class Message extends Component {
       conference: conference.conference.id,
       text
     });
+    this.setState({text: ''})
   }
 
   sendLike(id) {
@@ -96,7 +97,11 @@ class Message extends Component {
                     />
                   </div>
                 </div>
-                <p className="message-text">{m.text}</p>
+                <div className="message-text">
+                  {m.text.split(/[\n\r]/).map(t =>
+                    <p>{t}</p>
+                  )}
+                </div>
                 <p className="message-time">{`${Math.abs(moment.unix(m.time).diff(moment(), 'minutes'))} 分前`}</p>
               </div>
             )
@@ -119,6 +124,7 @@ class Message extends Component {
             name="body"
             rows={this.state.rows}
             wrap="soft"
+            value={this.state.text}
             onChange={(e) => {
               let value = e.target.value;
               let linefeed = value.match(/\r\n|\n/g);
