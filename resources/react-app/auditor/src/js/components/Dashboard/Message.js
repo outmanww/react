@@ -64,23 +64,27 @@ class Message extends Component {
   }
 
   sendLike(id) {
-    const { application, actions: {sendLike} } = this.props;
-    sendLike({
-      token: application.auditorCode,
-      message: id
-    });
+    const { status, application, actions: {sendLike} } = this.props;
+    if (!status.like.isFetching) {
+      sendLike({
+        token: application.auditorCode,
+        message: id
+      });
+    }
   }
 
   sendDislike(id) {
-    const { application, actions: {sendDislike} } = this.props;
-    sendDislike({
-      token: application.auditorCode,
-      message: id
-    });
+    const { status, application, actions: {sendDislike} } = this.props;
+    if (!status.dislike.isFetching) {
+      sendDislike({
+        token: application.auditorCode,
+        message: id
+      }); 
+    }
   }
 
   render() {
-    const { message } = this.props;
+    const { status, message } = this.props;
     const { textareaHeight } = this.state;
 
     return (
@@ -102,7 +106,8 @@ class Message extends Component {
                     color={m.liked ? cyan500 : grey900}
                     style={{
                       margin: '0 8px 0 8px',
-                      height: 22
+                      height: 22,
+                      opacity: m.id === status.like.id || m.id === status.dislike.id ? 0.4 : 1
                     }}
                   />
                 </div>
@@ -169,16 +174,18 @@ class Message extends Component {
 }
 
 Message.propTypes = {
+  status: PropTypes.object.isRequired,
   application: PropTypes.object.isRequired,
   conference: PropTypes.object.isRequired,
-  messages: PropTypes.object.isRequired,
+  messages: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   return {
+    status: state.status,
     application: state.application,
     conference: state.conference,
-    message: state.message,
+    message: state.message
   };
 }
 

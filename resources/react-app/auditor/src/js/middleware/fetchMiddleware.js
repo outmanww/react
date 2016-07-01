@@ -38,6 +38,7 @@ export default store => next => action => {
 
   next(actionWith({
     type: requestType,
+    payload: body,
     meta: { timestamp }
   }));
 
