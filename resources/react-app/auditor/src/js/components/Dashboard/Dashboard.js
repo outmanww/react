@@ -79,6 +79,7 @@ class Dashboard extends Component {
                 top: 0,
                 left: 0,
                 backgroundColor: 'rgba(63, 81, 181, 0.9)',
+                borderRadius: 0,
               }}
             >
               <h1
@@ -87,12 +88,23 @@ class Dashboard extends Component {
                   fontSize: '3rem',
                   textAlign: 'center',
                   lineHeight: '5rem',
-                  color: 'white'
+                  color: 'white',
+                  backgroundColor: 'rgba(63, 81, 181, 0)',
                 }}
               >
                 Re:act
               </h1>
             </Paper>
+            <div style={{
+              zIndex: 1001,
+              position: 'fixed',
+              top: '5rem',
+              left: 0,
+              width: '100%',
+              height: '1rem',
+              backgroundColor: grey50,
+              opacity: 0.95,
+            }}/>
             <div style={{height: '5rem'}}></div>
             <Message/>
           </div>
