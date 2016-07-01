@@ -24,7 +24,7 @@ class Message extends Component {
 
     this.state = {
       intervalId: null,
-      interval: 200000,
+      interval: 2000,
       rem: 10,
       innerHeight: window.innerHeight,
       textareaHeight: 26,
@@ -136,6 +136,7 @@ class Message extends Component {
                 focus: true,
                 textareaHeight: scrollHeight > 26*4 ? 26*4 : scrollHeight,
               })
+              window.scrollTo(0, document.body.scrollHeight)
             }}
             onBlur={() => this.setState({
               focus: false,
