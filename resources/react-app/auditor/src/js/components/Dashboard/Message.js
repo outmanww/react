@@ -78,10 +78,12 @@ class Message extends Component {
     return (
       <div
         className="message-wrap"
-        style={{marginBottom: this.state.focus ? '8.4rem' : '4.4rem'}}
       >
         {true ?
-          <div>
+          <div
+            className="messages"
+            style={{marginBottom: this.state.focus ? '8.4rem' : '4.4rem'}}
+          >
           {
             message.messages.map(m => 
               <div className="message-node">
