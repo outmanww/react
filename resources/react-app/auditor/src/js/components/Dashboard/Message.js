@@ -24,7 +24,7 @@ class Message extends Component {
 
     this.state = {
       intervalId: null,
-      interval: 200000,
+      interval: 2000,
       rem: 10,
       innerHeight: window.innerHeight,
       textareaHeight: 26,
