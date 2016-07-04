@@ -67,7 +67,7 @@ class Dashboard extends Component {
                 <div className="panel-heading">
                   <div className="row">
                     <div className="pull-left room-key-wrap">
-                      <p><span></span><span>世界経済フォーラム</span></p>
+                      <p><span></span><span>CNBイブニングピッチ</span></p>
                     </div>
                     <RaisedButton
                       style={{width: 150, marginRight: 20, float:'right'}}
