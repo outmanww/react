@@ -39,7 +39,7 @@ class Message extends Component {
           }
           {messages.dashboardMessages.length !== 0 &&
             messages.dashboardMessages
-            .sort((m1, m2) => m1.key > m2.key ? 1 : -1)
+            .sort((m1, m2) => m1.key > m2.key ? -1 : 1)
             .map(m => 
               <div className="message-node" key={`message-${m.key}`}>
                 <div className="likes-wrap">
