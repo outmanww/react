@@ -61,14 +61,18 @@ class DashboardController extends Controller
             ->conferences()
             ->first()
             ->messages()
-            // ->where('created_at', '>', Carbon::createFromTimestamp($request->latest))
-            ->get(['id', 'text', 'created_at', 'type'])
+            ->with('likes')
+            ->where('deleted_at', null)
+            ->orderBy('created_at', 'desc')
+            ->get()
             ->map(function ($item, $key) {
                 return [
                     'id' => $item['id'],
+                    'key' => $key + 1,
                     'text' => $item['text'],
                     'time' => $item['created_at']->timestamp,
-                    'type' => $item['type']
+                    'type' => $item['type'],
+                    'likes' => $item['likes']->count(),
                 ];
             });
 

@@ -9,7 +9,7 @@ import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 
-class Message extends Component {
+class SortedMessage extends Component {
   constructor(props, context) {
     super(props, context);
   }
@@ -38,14 +38,17 @@ class Message extends Component {
             />
           }
           {messages.dashboardMessages.length !== 0 &&
-            messages.dashboardMessages.map(m => 
-              <div className="message-node" key={`message-${m.key}`}>
+            messages.dashboardMessages
+            .filter(m => m.likes > 0)
+            .sort((m1, m2) => m1.likes > m2.likes ? -1 : 1)
+            .map(m =>
+              <div className="message-node" key={`sorted-message-${m.key}`}>
                 <div className="likes-wrap">
                   <p className="likes">{m.likes}</p>
                 </div>
                 <div className="message-text">
                   {m.text.split(/[\n\r]/).map((t, i) =>
-                    <p key={`message-text-${m.key}-${i}`}>{t}</p>
+                    <p key={`sorted-message-text-${m.key}-${i}`}>{t}</p>
                   )}
                 </div>
                 <div className="message-info">
@@ -62,9 +65,9 @@ class Message extends Component {
   }
 }
 
-Message.propTypes = {
+SortedMessage.propTypes = {
   messages: PropTypes.object.isRequired,
   name: PropTypes.bool.isRequired
 };
 
-export default Message;
+export default SortedMessage;
