@@ -84,6 +84,8 @@ class Dashboard extends Component {
             >
               <h1
                 style={{
+                  width: '80%',
+                  float: 'left',
                   margin: 0,
                   fontSize: '3rem',
                   textAlign: 'center',
@@ -94,6 +96,21 @@ class Dashboard extends Component {
               >
                 Re:act
               </h1>
+              <a
+                style={{
+                  width: '20%',
+                  float: 'right',
+                  margin: 0,
+                  fontSize: '1rem',
+                  textAlign: 'center',
+                  lineHeight: '5rem',
+                  color: 'white',
+                  backgroundColor: 'rgba(63, 81, 181, 0)',
+                }}
+                href="https://docs.google.com/forms/d/1TUxJoP51WUDppK4KIgDf4Yv04OMqmB3F5usdtuV2Lew/viewform"
+              >
+                アンケート
+              </a>
             </Paper>
             <div style={{
               zIndex: 1001,
